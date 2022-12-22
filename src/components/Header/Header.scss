@@ -1,0 +1,30 @@
+header {
+    display: flex;
+    background-color: darkgray;
+}
+
+.app-name {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.auth {
+    margin-left: auto;
+    margin-right: 48px;
+}
+
+section {
+    margin-left: 48px;
+}
+
+nav {
+    margin-left: 128px;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+}
+
+li {
+    margin-right: 64px;
+}
