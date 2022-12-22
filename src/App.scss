@@ -1,0 +1,26 @@
+main {
+  min-height: 85vh;
+}
+
+.form-row {
+  display: flex;
+  margin: 16px;
+}
+
+.form-row label {
+  margin-right: 16px;
+}
+
+.form-row input {
+  width: 150px;
+}
+
+.center {
+  display: block;
+  text-align: center;
+  padding: 64px;
+}
+
+form {
+  display: inline-block;
+}
