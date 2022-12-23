@@ -1,9 +1,3 @@
 export default function FormSubmitButton() {
-    return (
-        <button
-            type="submit"
-        >
-            Submit
-        </button>
-    )
+  return <button type='submit'>Submit</button>;
 }
