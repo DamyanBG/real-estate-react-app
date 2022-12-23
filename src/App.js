@@ -8,14 +8,14 @@ import SignUpPage from './components/User/SignUpPage';
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <BrowserRouter>
         <Header />
         <main>
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/create-home" element={<CreateHome />} />
-            <Route path="/signup" element={<SignUpPage />} />
+            <Route path='/' element={<HomePage />} />
+            <Route path='/create-home' element={<CreateHome />} />
+            <Route path='/signup' element={<SignUpPage />} />
           </Routes>
         </main>
         <Footer />

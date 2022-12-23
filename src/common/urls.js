@@ -1,4 +1,4 @@
-const localHost = "http://localhost:3030"
-const azureHost = "https://realestateappforeverybody.azurewebsites.net"
+const localHost = 'http://localhost:3030';
+const azureHost = 'https://realestateappforeverybody.azurewebsites.net';
 
-export const hostUrl = azureHost
+export const hostUrl = azureHost;
