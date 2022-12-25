@@ -1,4 +1,4 @@
-Me and my coding buggy Tihomir are making Real Estate Application. The idea behind this application is to make application where users and brokers can meet. Under brokers I mean every person who wants to sell some home or land. We want to train our coding skills. Here we are writing the front end of the application. We are using React.
+Me and my coding buddy Tihomir are making Real Estate Application. The idea behind this application is to make application where users and brokers can meet. Under brokers I mean every person who wants to sell some home or land. We want to train our coding skills. Here we are writing the front end of the application. We are using React.
 
 You can start the project on local with few easy steps:
 

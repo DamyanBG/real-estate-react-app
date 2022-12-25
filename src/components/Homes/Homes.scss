@@ -1,0 +1,29 @@
+.home-container {
+    margin: 48px 64px;
+    padding: 24px 36px;
+    border: 1px solid black;
+}
+
+.image-container {
+    display: inline-block;
+}
+
+img {
+    width: 200px;
+}
+
+.main-text {
+    display: inline-block;
+    width: 25%;
+    height: auto;
+    margin-left: 10%;
+}
+
+.description-text {
+    display: inline-block;
+    
+}
+
+.no-underline {
+    text-decoration: none;
+}
