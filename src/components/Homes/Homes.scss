@@ -8,7 +8,7 @@
     display: inline-block;
 }
 
-img {
+.all-homes-image {
     width: 200px;
 }
 
@@ -26,4 +26,25 @@ img {
 
 .no-underline {
     text-decoration: none;
+}
+
+.home-details-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 36px 48px;
+    padding: 24px 36px;
+    border: 2px solid lightslategray;
+    min-height: 50vh;
+}
+
+.home-details-image-container {
+    width: 45%;
+}
+
+.home-details-image-container img {
+    width: 100%;
+}
+
+.home-details-text {
+    width: 45%;
 }
