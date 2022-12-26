@@ -10,7 +10,9 @@ export default function Header() {
         <ul>
           <li>Buy</li>
           <li>Sell</li>
+          <Link style={{textDecoration: 'none'}}  to="/Rent">
           <li>Rent</li>
+          </Link>
         </ul>
       </nav>
       <section className='auth'>
