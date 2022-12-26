@@ -7,6 +7,7 @@ import CreateHome from './components/Homes/CreateHome';
 import SignUpPage from './components/User/SignUpPage';
 import AllHomes from './components/Homes/AllHomes';
 import HomeDetails from './components/Homes/HomeDetails';
+import SignInPage from './components/User/SignInPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path='/' element={<HomePage />} />
             <Route path='/create-home' element={<CreateHome />} />
             <Route path='/signup' element={<SignUpPage />} />
+            <Route path='/signin' element={<SignInPage />} />
             <Route path='/all-homes' element={<AllHomes />} />
             <Route path='/home-details' element={<HomeDetails />} />
           </Routes>
