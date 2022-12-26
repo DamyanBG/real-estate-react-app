@@ -54,4 +54,4 @@ jobs:
           app-name: 'real-estate-for-everybody'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_ED61384019FB43E3AF369024988E13D2 }}
-          package: .
+          package: build
