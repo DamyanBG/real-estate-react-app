@@ -7,7 +7,7 @@ import CreateHome from './components/Homes/CreateHome';
 import SignUpPage from './components/User/SignUpPage';
 import AllHomes from './components/Homes/AllHomes';
 import HomeDetails from './components/Homes/HomeDetails';
-
+import Rent from './components/Rent/Rent';
 function App() {
   return (
     <div className='App'>
@@ -20,7 +20,8 @@ function App() {
             <Route path='/signup' element={<SignUpPage />} />
             <Route path='/all-homes' element={<AllHomes />} />
             <Route path='/home-details' element={<HomeDetails />} />
-          </Routes>
+            <Route path='/Rent' element={<Rent/>} />
+	  </Routes>
         </main>
         <Footer />
       </BrowserRouter>
