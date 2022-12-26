@@ -24,3 +24,14 @@ main {
 form {
   display: inline-block;
 }
+
+.signin-form-container {
+  display: flex;
+  width: 100vw;
+  align-items: center;
+  flex-direction: column;
+}
+
+.signin-form label {
+  margin-right: 10px;
+}
