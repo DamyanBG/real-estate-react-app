@@ -20,7 +20,7 @@ export default function SignUpPage() {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    const raw = JSON.stringify({
+    const requestBody = JSON.stringify({
       email: email,
       password: password,
     });
@@ -28,8 +28,7 @@ export default function SignUpPage() {
     const requestOptions = {
       method: "POST",
       headers: myHeaders,
-      body: raw,
-      redirect: "follow",
+      body: requestBody
     };
 
     //send post request
