@@ -1,10 +1,12 @@
 import './Header.scss';
-
+import { Link } from 'react-router-dom';
 export default function Header() {
   return (
     <header>
       <section>
+        <Link style={{textDecoration: 'none'}}  to="/">
         <p className='app-name'>Real Estate App</p>
+        </Link> 
       </section>
       <nav>
         <ul>
@@ -19,3 +21,4 @@ export default function Header() {
     </header>
   );
 }
+
