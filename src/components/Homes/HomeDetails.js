@@ -4,22 +4,20 @@ import { useEffect, useState } from "react";
 import { hostUrl } from "../../common/urls";
 
 export default function HomeDetails() {
-    const params = new URLSearchParams(window.location.search)
-    const homeId = params.get("homeId")
-    const [homeDetails, setHomeDetails] = useState({})
+  const params = new URLSearchParams(window.location.search);
+  const homeId = params.get("homeId");
+  const [homeDetails, setHomeDetails] = useState({});
 
-    useEffect(() => {
-        fetchHomeDetails()
-    }, [])
+  const fetchHomeDetails = () => {
+    fetch(`${hostUrl}/home?home_id=${homeId}`)
+      .then((resp) => resp.json())
+      .then((json) => {
+        console.log(json);
+        setHomeDetails(json);
+      });
+  };
 
-    const fetchHomeDetails = () => {
-        fetch(`${hostUrl}/home?home_id=${homeId}`)
-            .then(resp => resp.json())
-            .then(json => {
-                console.log(json)
-                setHomeDetails(json)
-            })
-    }
+  useEffect((fetchHomeDetails), [fetchHomeDetails]);
 
   return (
     <section className="home-details-container">
@@ -30,9 +28,7 @@ export default function HomeDetails() {
         <h2>{homeDetails.name}</h2>
         <p>Location: {homeDetails.place}</p>
         <p>Price: {homeDetails.price}</p>
-        <p>
-          Information: {homeDetails.description}
-        </p>
+        <p>Information: {homeDetails.description}</p>
       </div>
     </section>
   );
