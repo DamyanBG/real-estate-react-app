@@ -1,3 +1,7 @@
+a {
+  color: inherit;
+}
+
 header {
   display: flex;
   background-color: darkgray;
@@ -5,7 +9,7 @@ header {
 
 .app-name {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  color: black; 
+  color: black;
 }
 
 .auth {
