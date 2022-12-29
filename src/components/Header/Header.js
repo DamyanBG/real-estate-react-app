@@ -18,7 +18,7 @@ export default function Header() {
         </ul>
       </nav>
       <section className='auth'>
-        <p>Sign up</p>
+        <p><Link style={{textDecoration: 'none'}} to="/signup">Sign up</Link></p>
       </section>
     </header>
   );
