@@ -13,8 +13,13 @@ header {
 }
 
 .auth {
+  display: flex;
   margin-left: auto;
   margin-right: 48px;
+}
+
+.auth p {
+  padding-left: 24px;
 }
 
 section {

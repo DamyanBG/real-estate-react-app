@@ -19,6 +19,7 @@ export default function Header() {
       </nav>
       <section className='auth'>
         <p><Link style={{textDecoration: 'none'}} to="/signup">Sign up</Link></p>
+        <p><Link style={{textDecoration: 'none'}} to="/signin">Sign in</Link></p>
       </section>
     </header>
   );
