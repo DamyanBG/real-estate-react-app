@@ -10,6 +10,7 @@ import HomeDetails from "./components/Homes/HomeDetails";
 import SignInPage from "./components/User/SignInPage";
 import Rent from "./components/Rent/Rent";
 import Profile from "./components/User/Profile";
+import ChangePassword from "./components/User/ChangePassword";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/home-details" element={<HomeDetails />} />
             <Route path="/Rent" element={<Rent />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/change-password" element={<ChangePassword />} />
           </Routes>
         </main>
         <Footer />
