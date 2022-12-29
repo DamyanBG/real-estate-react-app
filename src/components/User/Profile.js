@@ -41,9 +41,7 @@ export default function Profile() {
       });
   };
 
-  useEffect(() => {
-    getUserInfo();
-  }, []);
+  useEffect((getUserInfo), [userId]);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
