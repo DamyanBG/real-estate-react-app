@@ -31,17 +31,22 @@ nav {
 }
 
 ul {
+  width: 100%;
   list-style: none;
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 li {
-  margin-right: 64px;
+   margin: 5px 35px;
 }
 
 .buy-list{
   position: relative;
   cursor: pointer;
+ 
 }
 
 .buy-element{
