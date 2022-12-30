@@ -18,7 +18,7 @@ export default function HomePage() {
   return (
     <div className='home-articles-container'>
       {homes.map((h) => (
-        <article className='home-article'>
+        <article key={h._id} className='home-article'>
           <h4>{h.name}</h4>
           <p>Address: {h.place}</p>
           <p>Price: {h.price}</p>
