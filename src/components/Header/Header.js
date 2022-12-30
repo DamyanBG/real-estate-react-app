@@ -12,7 +12,6 @@ export default function Header() {
       </section>
       <nav>
         <ul>
-          <li>Buy</li>
           <li className='buy-list' 
               onMouseEnter={e => {setClick(true)}}>
                 { click 
