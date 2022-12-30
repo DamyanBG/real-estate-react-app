@@ -17,8 +17,8 @@ export default function Header() {
               onMouseEnter={e => {setClick(true)}}>
                 { click 
                 && <><div className='buy-element'>
-                    <Link className='buy-patch' to="/" onMouseLeave={e => {setClick(false)}}>Home</Link>
-                    <Link className='buy-patch' to="/Land" onMouseLeave={e => {setClick(false)}}>Land</Link>                
+                    <Link className='buy-patch' to="/all-homes" onMouseLeave={e => {setClick(false)}}>Home</Link>
+                    <Link className='buy-patch' to="/all-lands" onMouseLeave={e => {setClick(false)}}>Land</Link>                
                   </div></>}Buy
               </li>
           <li>Sell</li>
