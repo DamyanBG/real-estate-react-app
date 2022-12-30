@@ -38,3 +38,44 @@ ul {
 li {
   margin-right: 64px;
 }
+
+.buy-list{
+  position: relative;
+  cursor: pointer;
+}
+
+.buy-element{
+  position: absolute;
+  top: 33px;
+  left: -44px;
+  border: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+
+  .buy-patch{
+    text-decoration: none;
+    background: rgba(186, 160, 160, 0.3);
+    margin: 4px;
+    border-radius: 8px;
+    padding: 4px;
+    color: rgb(82, 116, 150);
+    transition: 3s;
+  }
+
+  .buy-patch:hover{
+    background: rgba(127, 123, 92, 0.3);
+    color: darkslateblue;
+    animation: top-to-bottom 3s;
+    animation-fill-mode: forwards;
+    box-shadow: 3px 3px red, -1em 0 .4em olive;
+  }
+}
+
+@keyframes top-to-bottom{
+  100% {
+    transform: translateY(100%);
+  }
+}
