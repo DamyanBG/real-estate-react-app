@@ -6,13 +6,16 @@ export default function InputFormRow({
 }) {
   return (
     <article className='form-row'>
-      <label>{labelName}</label>
-      <input
-        type='text'
-        name={name}
-        value={value || ''}
-        onChange={handleOnChange}
-      />
+      <div className="input-wrapper">
+        <label>{labelName}</label>
+        <input
+          type='text'
+          name={name}
+          value={value || ''}
+          onChange={handleOnChange}
+        
+        />
+      </div>
     </article>
   );
 }
