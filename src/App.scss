@@ -10,16 +10,24 @@ main {
 }
 
 .center {
-  display: flex;
-  justify-content: center;
-  padding: 64px;
+  padding: 64px 20px;
+  margin: auto;
+  max-width: 800px;
 }
 
 form {
   padding: 10px;
+  padding-bottom: 20px;
   border: 2px solid #f4f4f4;
   border-radius: 5px;
-  min-width: 400px;
+  max-width: 400px;
+  margin: auto;
+}
+
+.signin-form h3 {
+  text-align: center;
+  font-size: 1.2em;
+  margin: 5px 0;
 }
 
 .input-wrapper {
@@ -29,6 +37,7 @@ form {
 label {
   display: block;
   margin-bottom: 5px;
+  font-size: 1.1em;
 }
 
 input {
@@ -45,5 +54,5 @@ input {
   border-radius: 5px;
   width: 60%;
   cursor: pointer;
-  font-size: 1.1em;
+  font-size: 1em;
 }
