@@ -55,21 +55,21 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="signin-form-container">
+    <div className="signin-form-container center">
       <form className="signin-form" onSubmit={loginHandler} onClick={() => seterrorMessage(null)}>
         <h3>Sign In</h3>
-        <fieldset>
+        <div className="input-wrapper">
           <label htmlFor="email">Email:</label>
           <input placeholder="enter email" type="email" id="email" required autoComplete="email" />
-          <br />
-          <br />
+        </div>
+
+        <div className="input-wrapper">
           <label htmlFor="password">Password:</label>
           <input type="password" placeholder="enter password" id="password" autoComplete="current-password" required />
-          <br />
+        </div>
           {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-          <br />
-          {!isLoading ? <input type="submit" value="Sign in" /> : <input type="submit" value="Signin in..." />}
-        </fieldset>
+
+          {!isLoading ? <input className="submit_btn" type="submit" value="Sign in" /> : <input className="submit_btn" type="submit" value="Signin in..." />}
       </form>
     </div>
   );
