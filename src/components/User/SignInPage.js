@@ -40,7 +40,7 @@ export default function SignUpPage() {
     //handle various scenerios
     if (status === 200) {
       document.cookie = `token=${detail.token};max-age=${60 * 60 * 24}`;
-      localStorage.setItem("userId", detail.first_name);
+      localStorage.setItem("userId", detail._id);
       navigate("/");
     } else if (status === 400) {
       seterrorMessage("Wrong email or password");
