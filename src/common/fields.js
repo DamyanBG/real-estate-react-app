@@ -54,3 +54,34 @@ export const USER_PROFILE = [
     name: "phone_number",
   },
 ];
+
+export const LAND_FIELDS = [
+  {
+    labelName: "Name",
+    name: "name",
+  },
+  {
+    labelName: "Place",
+    name: "place",
+  },
+  {
+    labelName: "Price",
+    name: "price",
+  },
+  {
+    labelName: "Size",
+    name: "size",
+  },
+  {
+    labelName: "Description",
+    name: "description",
+  },
+  {
+    labelName: "Longitude",
+    name: "lontitude",
+  },
+  {
+    labelName: "Latitude",
+    name: "latitude",
+  },
+]
