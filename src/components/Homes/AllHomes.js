@@ -29,9 +29,9 @@ export default function AllHomes() {
                     </div>
                     <div className="main-text">
                         <Link to={`/home-details?homeId=${h._id}`} className="no-underline">
-                            <h3>{h.name}</h3>
+                            <h3>{h.title}</h3>
                         </Link>
-                        <p>Location: {h.place}</p>
+                        <p>Location: {h.city}</p>
                         <p>Price: {h.price}</p>
                     </div>
                     <div className="description-text">
