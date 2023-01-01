@@ -1,11 +1,19 @@
 export const HOME_FIELDS = [
   {
-    labelName: "Name",
-    name: "name",
+    labelName: "Title",
+    name: "title",
   },
   {
-    labelName: "Place",
-    name: "place",
+    labelName: "City",
+    name: "city",
+  },
+  {
+    labelName: "Neighborhood",
+    name: "neighborhood",
+  },
+  {
+    labelName: "Address",
+    name: "address",
   },
   {
     labelName: "Price",
