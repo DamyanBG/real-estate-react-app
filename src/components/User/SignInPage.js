@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { hostUrl } from "../../common/urls";
+import { UserContext } from "../../context/UserContext";
 
 export default function SignUpPage() {
   const [errorMessage, seterrorMessage] = useState(null);
   const [isLoading, setisLoading] = useState(false);
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext)
 
   const loginHandler = async (e) => {
     e.preventDefault();
@@ -41,6 +43,7 @@ export default function SignUpPage() {
     if (status === 200) {
       document.cookie = `token=${detail.token};max-age=${60 * 60 * 24}`;
       localStorage.setItem("userId", detail._id);
+      setUser(detail._id)
       navigate("/");
     } else if (status === 400) {
       seterrorMessage("Wrong email or password");
