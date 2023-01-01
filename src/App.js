@@ -10,10 +10,11 @@ import HomeDetails from "./components/Homes/HomeDetails";
 import SignInPage from "./components/User/SignInPage";
 import Rent from "./components/Rent/Rent";
 import Profile from "./components/User/Profile";
-import ChangeEmail from "./components/Homes/ChangeEmail";
+import ChangeEmail from "./components/User/ChangeEmail";
 import ChangePassword from "./components/User/ChangePassword";
 import { UserProvider } from "./context/UserContext";
 import CreateLand from "./components/Land/CreateLand";
+import AllLands from "./components/Land/AllLands";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <Route path="/signup" element={<SignUpPage />} />
               <Route path="/signin" element={<SignInPage />} />
               <Route path="/all-homes" element={<AllHomes />} />
+              <Route path="/all-lands" element={<AllLands />} />
               <Route path="/home-details" element={<HomeDetails />} />
               <Route path="/Rent" element={<Rent />} />
               <Route path="/profile" element={<Profile />} />
