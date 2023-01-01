@@ -15,6 +15,7 @@ import ChangePassword from "./components/User/ChangePassword";
 import { UserProvider } from "./context/UserContext";
 import CreateLand from "./components/Land/CreateLand";
 import AllLands from "./components/Land/AllLands";
+import LandDetails from "./components/Land/LandDetails";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
               <Route path="/all-homes" element={<AllHomes />} />
               <Route path="/all-lands" element={<AllLands />} />
               <Route path="/home-details" element={<HomeDetails />} />
+              <Route path="/land-details" element={<LandDetails />} />
               <Route path="/Rent" element={<Rent />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/change-email" element={<ChangeEmail />} />

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { hostUrl } from "../../common/urls";
 import { Link } from "react-router-dom"
-import exampleHomePhoto from "../../images/home-main-photo-example.jpg"
+import exampleLandPhoto from "../../images/3333214_105132040_big.jpg"
 
 export default function AllLands() {
   const [lands, setLands] = useState([]);
@@ -24,7 +24,7 @@ export default function AllLands() {
           <div className="image-container">
             <img
               className="all-homes-image"
-              src={exampleHomePhoto}
+              src={exampleLandPhoto}
               alt="Home"
             />
           </div>
