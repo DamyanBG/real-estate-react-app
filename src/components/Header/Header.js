@@ -1,9 +1,27 @@
 import './Header.scss';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { hostUrl } from '../../common/urls';
+import { UserContext } from '../../context/UserContext';
+
 export default function Header() {
   const [click, setClick] = useState(false);
   const [sellClick, setSellClick] = useState(false);
+  const { user, setUser } = useContext(UserContext)
+
+  const onLogOutHandler = () => {
+    if (!user) return
+    fetch(`${hostUrl}/auth/logout`, {
+      method: "POST"
+    })
+      .then(resp => {
+        if (resp.ok) {
+          setUser(null)
+          localStorage.removeItem("userId")
+        }
+      })
+  }
+  
   return (
     <header>
       <section>
@@ -35,8 +53,8 @@ export default function Header() {
         </ul>
       </nav>
       <section className='auth'>
-        <p><Link style={{ textDecoration: 'none' }} to="/signup">Sign up</Link></p>
-        <p><Link style={{ textDecoration: 'none' }} to="/signin">Sign in</Link></p>
+        <p><Link style={{ textDecoration: 'none' }} to={user ? "/profile" : "/signup"}>{user ? "Profile" : "Sign up"}</Link></p>
+        <p><Link onClick={onLogOutHandler} style={{ textDecoration: 'none' }} to={user ? "/" : "/signin"}>{user ? "Sign out" : "Sign in"}</Link></p>
       </section>
     </header>
   );
