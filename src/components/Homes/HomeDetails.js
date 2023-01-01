@@ -17,7 +17,7 @@ export default function HomeDetails() {
       });
   };
 
-  useEffect((fetchHomeDetails), [fetchHomeDetails]);
+  useEffect((fetchHomeDetails), [homeId]);
 
   return (
     <section className="home-details-container">
