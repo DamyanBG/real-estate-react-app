@@ -13,6 +13,7 @@ import Profile from "./components/User/Profile";
 import ChangeEmail from "./components/Homes/ChangeEmail";
 import ChangePassword from "./components/User/ChangePassword";
 import { UserProvider } from "./context/UserContext";
+import CreateLand from "./components/Land/CreateLand";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/create-home" element={<CreateHome />} />
+              <Route path="/create-land" element={<CreateLand />} />
               <Route path="/signup" element={<SignUpPage />} />
               <Route path="/signin" element={<SignInPage />} />
               <Route path="/all-homes" element={<AllHomes />} />
