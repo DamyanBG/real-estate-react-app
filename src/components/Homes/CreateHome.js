@@ -21,6 +21,7 @@ export default function CreateHome() {
       })
       .then((json) => {
         console.log(json);
+        setHomeInfo({})
       });
   };
 
