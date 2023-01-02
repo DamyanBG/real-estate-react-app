@@ -1,11 +1,19 @@
 import React from 'react'
+import "../Rent/Rent.scss"
+import image from "../../images/image.jpg";
+
 
 function Rent() {
   return (
-    <div>
-    <h1 >Page is under construction</h1>
+    <div className='page'>
+       <img src={image} alt="image" 
+       width={400}
+       height={400}
+       />
+       <h1>Page is under construction!</h1>
     </div>
   )
 }
 
 export default Rent
+
