@@ -1,24 +1,24 @@
-import { useEffect, useState } from "react"
-import { hostUrl } from "../../common/urls"
-import exampleHomePhoto from "../../images/home-main-photo-example.jpg"
-import "./Homes.scss"
-import { Link } from "react-router-dom"
+import { useEffect, useState } from 'react';
+import { hostUrl } from '../../common/urls';
+import exampleHomePhoto from '../../images/home-main-photo-example.jpg';
+import './Homes.scss';
+import { Link } from 'react-router-dom';
 
 export default function AllHomes() {
-    const [homes, setHomes] = useState([])
+    const [homes, setHomes] = useState([]);
 
     useEffect(() => {
-        fetchAllHomes()
-    }, [])
+        fetchAllHomes();
+    }, []);
 
     const fetchAllHomes = () => {
         fetch(`${hostUrl}/homes`)
-            .then(resp => resp.json())
-            .then(json => {
-                console.log(json)
-                setHomes(json)
-            })
-    }
+            .then((resp) => resp.json())
+            .then((json) => {
+                console.log(json);
+                setHomes(json);
+            });
+    };
 
     return (
         <div>
@@ -40,5 +40,5 @@ export default function AllHomes() {
                 </article>
             ))}
         </div>
-    )
+    );
 }
