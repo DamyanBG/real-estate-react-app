@@ -4,27 +4,32 @@ import { useState } from 'react';
 import InputFormRow from '../../common/InputFormRow';
 import { hostUrl } from '../../common/urls';
 import FormSubmitButton from '../../common/FormSubmitButton';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function SignUpPage() {
     const [userInfo, setUserInfo] = useState({
         role: ROLES_ENUM.user,
     });
+    const navigate = useNavigate();
 
-    const postHome = () => {
-        fetch(`${hostUrl}/user`, {
-            method: 'POST',
-            body: JSON.stringify(userInfo),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then((resp) => {
-                console.log(resp);
-                return resp.json();
-            })
-            .then((json) => {
-                console.log(json);
+    const postHome = async () => {
+        try {
+            const data = await fetch(`${hostUrl}/user`, {
+                method: 'POST',
+                body: JSON.stringify(userInfo),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             });
+
+            if (data) {
+                navigate('/');
+                toast.success('Successful Sign up!', { autoClose: 300, pauseOnHover: false });
+            }
+        } catch (err) {
+            toast.error(`Something went wrong! ${err}`, { autoClose: 300, pauseOnHover: false });
+        }
     };
 
     const handleOnSubmit = (e) => {
