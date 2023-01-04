@@ -16,6 +16,7 @@ import { UserProvider } from './context/UserContext';
 import CreateLand from './components/Land/CreateLand';
 import AllLands from './components/Land/AllLands';
 import LandDetails from './components/Land/LandDetails';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
     return (
@@ -43,6 +44,8 @@ function App() {
                     <Footer />
                 </BrowserRouter>
             </UserProvider>
+
+            <ToastContainer />
         </div>
     );
 }
