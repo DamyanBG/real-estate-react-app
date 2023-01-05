@@ -25,10 +25,10 @@ export default function SignUpPage() {
 
             if (data) {
                 navigate('/');
-                toast.success('Successful Sign up!', { autoClose: 300, pauseOnHover: false });
+                toast.success('Successful Sign up!', { autoClose: 3000, pauseOnHover: false });
             }
         } catch (err) {
-            toast.error(`Something went wrong! ${err}`, { autoClose: 300, pauseOnHover: false });
+            toast.error(`Something went wrong! ${err}`, { autoClose: 3000, pauseOnHover: false });
         }
     };
 
