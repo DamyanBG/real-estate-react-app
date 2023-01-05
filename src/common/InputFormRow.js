@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export default function InputFormRow({ labelName, name, value, handleOnChange }) {
     return (
         <article className="form-row">
@@ -8,3 +10,10 @@ export default function InputFormRow({ labelName, name, value, handleOnChange })
         </article>
     );
 }
+
+InputFormRow.propTypes = {
+    labelName: PropTypes.string,
+    name: PropTypes.string,
+    value: PropTypes.string,
+    handleOnChange: PropTypes.func,
+};
