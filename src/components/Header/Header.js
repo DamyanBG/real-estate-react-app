@@ -94,7 +94,7 @@ export default function Header() {
                         )}
                         Sell
                     </li>
-                    <Link style={{ textDecoration: 'none' }} to="/Rent">
+                    <Link style={{ textDecoration: 'none' }} to="/rent">
                         <li>Rent</li>
                     </Link>
                 </ul>
