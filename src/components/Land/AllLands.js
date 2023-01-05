@@ -15,7 +15,7 @@ export default function AllLands() {
             });
     };
 
-    useEffect(fetchAllLands);
+    useEffect(fetchAllLands, []);
 
     return (
         <div>
