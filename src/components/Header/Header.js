@@ -32,7 +32,7 @@ export default function Header() {
                 <ul>
                     <li
                         className="buy-list"
-                        onMouseEnter={(e) => {
+                        onMouseEnter={() => {
                             setClick(true);
                         }}
                     >
@@ -42,7 +42,7 @@ export default function Header() {
                                     <Link
                                         className="buy-patch"
                                         to="/all-homes"
-                                        onMouseLeave={(e) => {
+                                        onMouseLeave={() => {
                                             setClick(false);
                                         }}
                                     >
@@ -51,7 +51,7 @@ export default function Header() {
                                     <Link
                                         className="buy-patch"
                                         to="/all-lands"
-                                        onMouseLeave={(e) => {
+                                        onMouseLeave={() => {
                                             setClick(false);
                                         }}
                                     >
@@ -64,7 +64,7 @@ export default function Header() {
                     </li>
                     <li
                         className="buy-list"
-                        onMouseEnter={(e) => {
+                        onMouseEnter={() => {
                             setSellClick(true);
                         }}
                     >
@@ -74,7 +74,7 @@ export default function Header() {
                                     <Link
                                         className="buy-patch"
                                         to="/create-home"
-                                        onMouseLeave={(e) => {
+                                        onMouseLeave={() => {
                                             setSellClick(false);
                                         }}
                                     >
@@ -83,7 +83,7 @@ export default function Header() {
                                     <Link
                                         className="buy-patch"
                                         to="/create-land"
-                                        onMouseLeave={(e) => {
+                                        onMouseLeave={() => {
                                             setSellClick(false);
                                         }}
                                     >
