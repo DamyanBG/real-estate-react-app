@@ -4,7 +4,9 @@ The idea behind this application is to create a place where users and brokers ca
 application the user can register an account, search for a real estate listing base of his/her
 preference(s) and make an inquiry of the listing; and the admin can manage resources including
 property listings, realtors and contact inquiries in the admin area. Here we are creating the front
-end of the application that you can see live [here](https://mango-plant-0117d3e03.2.azurestaticapps.net/). you can find the backend repository [here.](https://github.com/DamyanBG/real-estate-nodejs-be)
+end of the application that you can see live
+[here](https://mango-plant-0117d3e03.2.azurestaticapps.net/). you can find the backend repository
+[here.](https://github.com/DamyanBG/real-estate-nodejs-be)
 
 ## Getting Started
 
@@ -48,7 +50,8 @@ project!
 
 This is perfect project for people with not so much experience in React. As such pull requests are
 welcome. For major changes, please open an issue first to discuss what you would like to change. for
-details about contributing you can acess [contributing.](https://github.com/DamyanBG/real-estate-react-app/blob/main/CONTRIBUTING.md)
+details about contributing you can acess
+[contributing.](https://github.com/DamyanBG/real-estate-react-app/blob/main/CONTRIBUTING.md)
 
 And do not forget to enjoy and have fun !
 
@@ -60,3 +63,13 @@ And do not forget to enjoy and have fun !
 <a href="https://github.com/tihomirtx88">
  <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/88166066?v=4" width="100px;" alt=""/>
 </a>
+
+## Used Technologies
+
+Those following tools were used in the project development:
+
+### **Application** ([ReactJS](https://reactjs.org/) + [Sass](https://sass-lang.com/))
+
+-   **[ReactDom](https://reactjs.org/docs/react-dom.html)**
+-   **[ReactRouter](https://reactrouter.com/en/main)**
+-   **[ReactContext](https://reactjs.org/docs/context.html)**
