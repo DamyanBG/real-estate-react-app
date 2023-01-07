@@ -16,6 +16,14 @@ export const HOME_FIELDS = [
         name: 'address',
     },
     {
+        labelName: 'Longitude',
+        name: 'lontitude',
+    },
+    {
+        labelName: 'Latitude',
+        name: 'latitude',
+    },
+    {
         labelName: 'Price',
         name: 'price',
     },

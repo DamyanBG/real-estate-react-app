@@ -1,16 +1,19 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { hostUrl } from '../../common/urls';
 import InputFormRow from '../../common/InputFormRow';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import { HOME_FIELDS } from '../../common/fields';
+import { UserContext } from '../../context/UserContext';
 
 export default function CreateHome() {
     const [homeInfo, setHomeInfo] = useState({});
+    const { user } = useContext(UserContext);
 
     const postHome = () => {
+        const postBody = { owner_id: user, ...homeInfo };
         fetch(`${hostUrl}/home`, {
             method: 'POST',
-            body: JSON.stringify(homeInfo),
+            body: JSON.stringify(postBody),
             headers: {
                 'Content-Type': 'application/json',
             },
