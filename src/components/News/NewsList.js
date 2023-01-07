@@ -11,14 +11,11 @@ function NewsList() {
             setLoading(true);
 
             const res = await fetch(`${hostUrl}/news`);
-            console.log('data', res);
 
             const data = await res.json();
-            console.log('data2', data);
             setNews(data);
 
             setLoading(false);
-            console.log('loading:setNews', loading, news);
         };
 
         loadNews();
