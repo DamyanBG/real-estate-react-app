@@ -1,4 +1,1 @@
-// const localHost = 'http://localhost:3030';
-const azureHost = 'https://realestateappforeverybody.azurewebsites.net';
-
-export const hostUrl = azureHost;
+export const hostUrl = process.env.REACT_APP_URL;
