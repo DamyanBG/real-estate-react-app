@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .block {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        max-width: 624px;
+        padding: 16px;
+
+        > p {
+            margin-top: 8px;
+        }
+    }
+}
