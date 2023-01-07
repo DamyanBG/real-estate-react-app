@@ -97,6 +97,10 @@ export default function Header() {
                     <Link style={{ textDecoration: 'none' }} to="/rent">
                         <li>Rent</li>
                     </Link>
+
+                    <Link style={{ textDecoration: 'none' }} to="/news">
+                        <li>News</li>
+                    </Link>
                 </ul>
             </nav>
             <section className="auth">

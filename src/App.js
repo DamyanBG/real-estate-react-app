@@ -9,6 +9,7 @@ import AllHomes from './components/Homes/AllHomes';
 import HomeDetails from './components/Homes/HomeDetails';
 import SignInPage from './components/User/SignInPage';
 import Rent from './components/Rent/Rent';
+import NewsList from './components/News/NewsList';
 import Profile from './components/User/Profile';
 import ChangeEmail from './components/User/ChangeEmail';
 import ChangePassword from './components/User/ChangePassword';
@@ -39,6 +40,7 @@ function App() {
                             <Route path="/profile" element={<Profile />} />
                             <Route path="/change-email" element={<ChangeEmail />} />
                             <Route path="/change-password" element={<ChangePassword />} />
+                            <Route path="/news" element={<NewsList />} />
                         </Routes>
                     </main>
                     <Footer />
