@@ -1,22 +1,7 @@
 import './App.scss';
-import Footer from './components/Footer/Footer';
-import Header from './components/Header/Header';
+import { CreateLand, HomePage, Footer, Header, CreateHome, SignUpPage, AllHomes, HomeDetails, SignInPage, Rent, NewsList, Profile, ChangeEmail, ChangePassword, AllLands, LandDetails} from './components'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import HomePage from './components/HomePage/HomePage';
-import CreateHome from './components/Homes/CreateHome';
-import SignUpPage from './components/User/SignUpPage';
-import AllHomes from './components/Homes/AllHomes';
-import HomeDetails from './components/Homes/HomeDetails';
-import SignInPage from './components/User/SignInPage';
-import Rent from './components/Rent/Rent';
-import NewsList from './components/News/NewsList';
-import Profile from './components/User/Profile';
-import ChangeEmail from './components/User/ChangeEmail';
-import ChangePassword from './components/User/ChangePassword';
 import { UserProvider } from './context/UserContext';
-import CreateLand from './components/Land/CreateLand';
-import AllLands from './components/Land/AllLands';
-import LandDetails from './components/Land/LandDetails';
 import { ToastContainer } from 'react-toastify';
 
 function App() {
