@@ -8,6 +8,7 @@ export default function Header() {
     const [click, setClick] = useState(false);
     const [sellClick, setSellClick] = useState(false);
     const { user, setUser } = useContext(UserContext);
+    const { userInfo } = useContext(UserContext);
 
     const onLogOutHandler = () => {
         if (!user) return;
@@ -104,6 +105,15 @@ export default function Header() {
                 </ul>
             </nav>
             <section className="auth">
+                {userInfo.role === 'admin' ? (
+                    <p>
+                        <Link style={{ textDecoration: 'none' }} to={'/admin'}>
+                            Admin
+                        </Link>
+                    </p>
+                ) : (
+                    ''
+                )}
                 <p>
                     <Link style={{ textDecoration: 'none' }} to={user ? '/profile' : '/signup'}>
                         {user ? 'Profile' : 'Sign up'}
