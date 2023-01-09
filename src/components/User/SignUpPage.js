@@ -7,16 +7,10 @@ import FormSubmitButton from '../../common/FormSubmitButton';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-
-
-
 export default function SignUpPage() {
-    const [roles, setRoles] = useState([]);
-    const [CheckedValue, setCheckedValue] = useState();
-    const [userInfo, setUserInfo] = useState(
-        ''
-    );
-    
+    const [userInfo, setUserInfo] = useState({
+        role: ROLES_ENUM.user,
+    });
 
     const navigate = useNavigate();
 
@@ -32,17 +26,16 @@ export default function SignUpPage() {
 
             if (data) {
                 navigate('/');
-                toast.success('Successful Sign up!', { autoClose: 300, pauseOnHover: false });
+                toast.success('Successful Sign up!', { autoClose: 3000, pauseOnHover: false });
             }
         } catch (err) {
-            toast.error(`Something went wrong! ${err}`, { autoClose: 300, pauseOnHover: false });
+            toast.error(`Something went wrong! ${err}`, { autoClose: 3000, pauseOnHover: false });
         }
     };
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
         postHome();
-        
     };
 
     const handleOnChange = (e) => {
@@ -51,18 +44,21 @@ export default function SignUpPage() {
             [e.target.name]: e.target.value,
         });
     };
-    console.log(userInfo)
 
     const handleCheckboxChange = (e) => {
         if (e.target.checked) {
-          setCheckedValue(e.target.value);
-          if (!roles.includes(e.target.value)) {
-            setRoles({...roles, [e.target.name]: e.target.value});
-            
-          }
-        } 
-      };
-      console.log(roles)
+            setUserInfo({
+                ...userInfo,
+                role: ROLES_ENUM.seller
+            })
+            return
+        }
+        setUserInfo({
+            ...userInfo,
+            role: ROLES_ENUM.user
+        })
+    };
+
     return (
         <div className="center">
             <form onSubmit={handleOnSubmit}>
@@ -84,29 +80,12 @@ export default function SignUpPage() {
                         onChange={handleOnChange}
                     />
                 </article>
-                <article className="form-row">
-                    <label>Sign Up As</label>
-                <ul className="flex items-center gap-1">
-                    {ROLES_ENUM.map((role, index) => (
-                    <li key={index}>
-                        <input
-                        type="checkbox"
-                        id={role.value}
-                        name="roles"
-                        value={role.value}
-                        checked={role.value === CheckedValue}
-                        onChange={handleCheckboxChange}
-                        />
-                        <label htmlFor={role.value} className="text-sm ml-1">
-                        {role.label}
-                        </label>
-                    </li>
-                    ))}
-                </ul>     
+                <article className="checkbox-row">
+                    <input type="checkbox" onChange={handleCheckboxChange} />
+                    <p>Sign Up as seller</p>
                 </article>
                 <FormSubmitButton />
             </form>
-            
         </div>
     );
 }
