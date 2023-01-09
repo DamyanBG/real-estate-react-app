@@ -1,9 +1,25 @@
 import './App.scss';
-import { CreateLand, HomePage, Footer, Header, CreateHome, SignUpPage, AllHomes, HomeDetails, SignInPage, Rent, NewsList, Profile, ChangeEmail, ChangePassword, AllLands, LandDetails} from './components'
+import {
+    CreateLand,
+    HomePage,
+    Footer,
+    Header,
+    CreateHome,
+    SignUpPage,
+    AllHomes,
+    HomeDetails,
+    SignInPage,
+    Rent,
+    NewsList,
+    Profile,
+    ChangeEmail,
+    ChangePassword,
+    AllLands,
+    LandDetails,
+} from './components';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { UserProvider } from './context/UserContext';
 import { ToastContainer } from 'react-toastify';
-
 function App() {
     return (
         <div className="App">
