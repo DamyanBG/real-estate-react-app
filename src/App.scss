@@ -56,3 +56,13 @@ input {
   cursor: pointer;
   font-size: 1em;
 }
+
+.checkbox-row {
+  display: flex;
+  padding-top: 12px;
+}
+
+.checkbox-row input {
+  width: auto;
+  margin: 6px;
+}
