@@ -1,0 +1,41 @@
+.chat-container {
+    margin: 64px 128px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.chat-messages {
+    display: flex;
+    margin: 24px;
+    flex-direction: column;
+    min-height: 65vh;
+    p {
+        min-width: 200px;
+        border: 1px solid black;
+        border-radius: 6px;
+        padding: 6px;
+        margin-top: 6px;
+    }
+}
+
+.message-left {
+    align-self: flex-start;
+    text-align: start;
+}
+
+.message-right {
+    align-self: flex-end;
+    text-align: end;
+}
+
+.chat-input {
+    width: 95%
+    
+}
+
+.chat-button {
+    width: 5%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid black;
+}
