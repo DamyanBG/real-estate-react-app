@@ -9,7 +9,7 @@ export default function HomeDetails() {
     const params = new URLSearchParams(window.location.search);
     const homeId = params.get('homeId');
     const [homeDetails, setHomeDetails] = useState({});
-    const { user } = useContext(UserContext)
+    const { user } = useContext(UserContext);
 
     const fetchHomeDetails = () => {
         fetch(`${hostUrl}/home/${homeId}`)
@@ -42,6 +42,14 @@ export default function HomeDetails() {
                 <p>Price: {homeDetails.price}</p>
                 <p>Year: {homeDetails.year}</p>
                 <p>Information: {homeDetails.description}</p>
+                <p>
+                    Owner: {homeDetails.owner_names}{' '}
+                    {user._id !== homeDetails.owner_id && (
+                        <Link to={`/chat?interlocutorId=${homeDetails.owner_id}`}>
+                            <button>Start chat</button>
+                        </Link>
+                    )}
+                </p>
                 {user._id === homeDetails.owner_id && (
                     <Link to={`/edit-home?homeId=${homeId}`}>
                         <button>Edit</button>
