@@ -10,6 +10,7 @@ import HomeDetails from './components/Homes/HomeDetails';
 import SignInPage from './components/User/SignInPage';
 import Rent from './components/Rent/Rent';
 import NewsList from './components/News/NewsList';
+import Chat from './components/Chat/Chat';
 import Profile from './components/User/Profile';
 import ChangeEmail from './components/User/ChangeEmail';
 import ChangePassword from './components/User/ChangePassword';
@@ -34,6 +35,7 @@ function App() {
                             <Route path="/edit-home" element={<EditHome />} />
                             <Route path="/create-land" element={<CreateLand />} />
                             <Route path="/signup" element={<SignUpPage />} />
+                            <Route path="/chat" element={<Chat />} />
                             <Route path="/signin" element={<SignInPage />} />
                             <Route path="/all-homes" element={<AllHomes />} />
                             <Route path="/all-lands" element={<AllLands />} />

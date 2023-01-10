@@ -45,7 +45,7 @@ export default function HomeDetails() {
                 <p>
                     Owner: {homeDetails.owner_names}{' '}
                     {user._id !== homeDetails.owner_id && (
-                        <Link to={`/chat?interlocutorId=${homeDetails.owner_id}`}>
+                        <Link to={`/chat?interlocutorId=${homeDetails.owner_id}&names=${homeDetails.owner_names}`}>
                             <button>Start chat</button>
                         </Link>
                     )}
