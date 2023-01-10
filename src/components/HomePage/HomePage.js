@@ -20,6 +20,7 @@ export default function HomePage() {
             {homes.map((h) => (
                 <article key={h._id} className="home-article">
                     <h4>{h.title}</h4>
+                    <img src={h.photo_url} alt="" style={{ width: "50%", margin: "12px" }} />
                     <p>Address: {h.city}</p>
                     <p>Price: {h.price}</p>
                 </article>

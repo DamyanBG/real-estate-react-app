@@ -5,7 +5,7 @@ export default function Users() {
     const [userList, setUserList] = useState([]);
 
     const getUserInfo = () => {
-        fetch(`${hostUrl}/users/roleUsers`)
+        fetch(`${hostUrl}/users`)
             .then((resp) => resp.json())
             .then(setUserList);
     };
