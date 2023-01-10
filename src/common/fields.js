@@ -17,7 +17,7 @@ export const HOME_FIELDS = [
     },
     {
         labelName: 'Longitude',
-        name: 'lontitude',
+        name: 'longitude',
     },
     {
         labelName: 'Latitude',

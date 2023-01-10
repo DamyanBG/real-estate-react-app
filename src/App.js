@@ -20,6 +20,7 @@ import LandDetails from './components/Land/LandDetails';
 import Admin from './components/User/Admin';
 import { ToastContainer } from 'react-toastify';
 import EditLand from './components/EditLand/EditLand';
+import EditHome from './components/Homes/EditHome';
 
 function App() {
     return (
@@ -31,6 +32,7 @@ function App() {
                         <Routes>
                             <Route path="/" element={<HomePage />} />
                             <Route path="/create-home" element={<CreateHome />} />
+                            <Route path="/edit-home" element={<EditHome />} />
                             <Route path="/create-land" element={<CreateLand />} />
                             <Route path="/signup" element={<SignUpPage />} />
                             <Route path="/signin" element={<SignInPage />} />

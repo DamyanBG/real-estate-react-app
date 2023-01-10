@@ -4,10 +4,13 @@ import InputFormRow from '../../common/InputFormRow';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import { HOME_FIELDS } from '../../common/fields';
 import { UserContext } from '../../context/UserContext';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function CreateHome() {
     const [homeInfo, setHomeInfo] = useState({});
     const { user } = useContext(UserContext);
+    const navigate = useNavigate();
 
     const postHome = () => {
         const postBody = { owner_id: user, ...homeInfo };
@@ -23,8 +26,7 @@ export default function CreateHome() {
                 return resp.json();
             })
             .then((json) => {
-                console.log(json);
-                setHomeInfo({});
+                navigate(`/edit-home?homeId=${json._id}`)
             });
     };
 
