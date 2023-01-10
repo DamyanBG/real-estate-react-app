@@ -48,7 +48,7 @@ export default function HomeDetails() {
     return (
         <section className="home-details-container">
             <div className="home-details-image-container">
-                <img src={exampleHomePhoto} alt="Home" />
+                <img src={homeDetails.photo_url} alt="Home" onError={(e) => {e.target.onError = null; e.target.src = exampleHomePhoto}} />
             </div>
             <div className="home-details-text">
                 <h2>{homeDetails.title}</h2>
