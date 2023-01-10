@@ -8,6 +8,13 @@ export default function SignUpPage() {
     const [isLoading, setisLoading] = useState(false);
     const navigate = useNavigate();
     const { setUser } = useContext(UserContext);
+    const { setUserInfo } = useContext(UserContext);
+
+    const getUserInfo = async (userId) => {
+        await fetch(`${hostUrl}/user/${userId}`)
+            .then((resp) => resp.json())
+            .then(setUserInfo);
+    };
 
     const loginHandler = async (e) => {
         e.preventDefault();
@@ -44,6 +51,8 @@ export default function SignUpPage() {
             document.cookie = `token=${detail.token};max-age=${60 * 60 * 24}`;
             localStorage.setItem('userId', detail._id);
             setUser(detail._id);
+            getUserInfo(detail._id);
+
             navigate('/');
         } else if (status === 400) {
             seterrorMessage('Wrong email or password');

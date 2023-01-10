@@ -17,6 +17,7 @@ import { UserProvider } from './context/UserContext';
 import CreateLand from './components/Land/CreateLand';
 import AllLands from './components/Land/AllLands';
 import LandDetails from './components/Land/LandDetails';
+import Admin from './components/User/Admin';
 import { ToastContainer } from 'react-toastify';
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
                             <Route path="/change-email" element={<ChangeEmail />} />
                             <Route path="/change-password" element={<ChangePassword />} />
                             <Route path="/news" element={<NewsList />} />
+                            <Route path="/admin" element={<Admin />} />
                         </Routes>
                     </main>
                     <Footer />
