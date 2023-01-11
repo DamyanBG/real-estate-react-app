@@ -21,7 +21,7 @@ const Tab = styled.button`
   `}
 `;
 
-const types = ['Users', 'Homes', 'Lands'];
+const types = ['Manage users', 'Manage homes', 'Manage lands'];
 
 const ButtonGroup = styled.div`
     display: flex;
@@ -40,7 +40,7 @@ export default function Admin() {
                 ))}
             </ButtonGroup>
             <p />
-            {active === 'Users' ? <Users /> : active === 'Homes' ? <Homes /> : <Lands />}
+            {active === 'Manage users' ? <Users /> : active === 'Manage homes' ? <Homes /> : <Lands />}
         </>
     );
 }
