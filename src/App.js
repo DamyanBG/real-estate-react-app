@@ -42,7 +42,7 @@ function App() {
                             <Route path="/all-lands" element={<AllLands />} />
                             <Route path="/home-details" element={<HomeDetails />} />
                             <Route path="/land-details" element={<LandDetails />} />
-                            <Route path="/edit-land" element={<EditLand/>}/>
+                            <Route path="/edit-land" element={<EditLand />} />
                             <Route path="/rent" element={<Rent />} />
                             <Route path="/profile" element={<Profile />} />
                             <Route path="/change-email" element={<ChangeEmail />} />
