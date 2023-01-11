@@ -101,3 +101,14 @@ export const LAND_FIELDS = [
         name: 'latitude',
     },
 ];
+
+export const MEETING_FIELDS = [
+    {
+        labelName: 'Start date',
+        name: 'start_date',
+    },
+    {
+        labelName: 'End date',
+        name: 'end_date',
+    },
+];
