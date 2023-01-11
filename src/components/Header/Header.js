@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { hostUrl } from '../../common/urls';
 import { UserContext } from '../../context/UserContext';
+import { BiMessageDetail } from 'react-icons/bi';
 
 export default function Header() {
     const [click, setClick] = useState(false);
@@ -127,6 +128,13 @@ export default function Header() {
                         {user._id ? 'Sign out' : 'Sign in'}
                     </Link>
                 </p>
+                {user._id && (
+                    <p>
+                        <Link style={{ textDecoration: 'none' }} to={'/chat-history'}>
+                            <BiMessageDetail size={25} />
+                        </Link>
+                    </p>
+                )}
             </section>
         </header>
     );

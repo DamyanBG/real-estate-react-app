@@ -25,7 +25,15 @@ export default function AllHomes() {
             {homes.map((h) => (
                 <article className="home-container" key={`home-${h._id}`}>
                     <div className="image-container">
-                        <img className="all-homes-image" src={h.photo_url} onError={(e) => {e.target.onError = null; e.target.src = exampleHomePhoto}} alt="Home" />
+                        <img
+                            className="all-homes-image"
+                            src={h.photo_url}
+                            onError={(e) => {
+                                e.target.onError = null;
+                                e.target.src = exampleHomePhoto;
+                            }}
+                            alt="Home"
+                        />
                     </div>
                     <div className="main-text">
                         <Link to={`/home-details?homeId=${h._id}`} className="no-underline">
