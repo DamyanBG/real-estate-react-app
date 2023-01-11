@@ -1,6 +1,6 @@
 export default function FormSubmitButton() {
     return (
-        <button className="submit_btn" type="submit">
+        <button type="submit">
             Submit
         </button>
     );

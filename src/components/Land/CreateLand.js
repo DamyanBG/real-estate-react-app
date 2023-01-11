@@ -11,7 +11,7 @@ export default function CreateLand() {
 
     const postLand = () => {
         const postBody = {
-            owner: user,
+            owner: user._id,
             ...landInfo,
         };
         fetch(`${hostUrl}/land`, {
