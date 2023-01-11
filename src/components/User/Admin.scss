@@ -1,8 +1,15 @@
-.userItem {
+.listItem {
     display: flex;
+    border-bottom: 1px solid rgb(194, 194, 194);
+    margin-top: 8px;
+    width: 512px;
+    justify-content: space-between;
 }
-
-.userList {
+.listItem__buttons {
+    display: flex;
+    gap: 16px;
+}
+.list {
     display: flex;
     flex-direction: column;
     align-items: center;
