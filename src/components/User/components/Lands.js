@@ -19,6 +19,23 @@ export default function Lands() {
         getHomeList();
     }, []);
 
+    const deleteLand = (landId) => {
+        fetch(`${hostUrl}/land`, {
+            method: 'DELETE',
+            body: JSON.stringify({
+                land_id: landId,
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then((resp) => {
+            if (resp.ok) {
+                const newLandList = landList.filter((hl) => hl._id !== landId);
+                setLandList(newLandList);
+            }
+        });
+    };
+
     return (
         <div className="list">
             {loading
@@ -28,7 +45,9 @@ export default function Lands() {
                           <div>{land.name}</div>
                           <div className="listItem__buttons">
                               <button>Edit</button>
-                              <button>Delete</button>
+                              <button type="button" onClick={() => deleteLand(land._id)}>
+                                  Delete
+                              </button>
                           </div>
                       </div>
                   ))}

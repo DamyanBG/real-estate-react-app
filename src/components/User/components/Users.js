@@ -19,6 +19,23 @@ export default function Users() {
         getUserList();
     }, []);
 
+    const deleteUser = (userId) => {
+        fetch(`${hostUrl}/user`, {
+            method: 'DELETE',
+            body: JSON.stringify({
+                user_id: userId,
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then((resp) => {
+            if (resp.ok) {
+                const newUserList = userList.filter((ul) => ul._id !== userId);
+                setUserList(newUserList);
+            }
+        });
+    }
+
     return (
         <div className="list">
             {loading
@@ -28,7 +45,7 @@ export default function Users() {
                           <div>{user.first_name}</div>
                           <div className="listItem__buttons">
                               <button>Edit</button>
-                              <button>Delete</button>
+                              <button type='button' onClick={() => deleteUser(user._id)}>Delete</button>
                           </div>
                       </div>
                   ))}
