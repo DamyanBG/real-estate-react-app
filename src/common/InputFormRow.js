@@ -8,4 +8,3 @@ export default function InputFormRow({ labelName, name, value, handleOnChange })
         </article>
     );
 }
-
