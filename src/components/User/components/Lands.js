@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { hostUrl } from '../../../common/urls';
 
-export default function Users() {
-    const [userList, setUserList] = useState([]);
+export default function Lands() {
+    const [landList, setLandList] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const getUserList = () => {
+    const getHomeList = () => {
         setLoading(true);
-        fetch(`${hostUrl}/users`)
+        fetch(`${hostUrl}/lands`)
             .then((resp) => resp.json())
             .then((list) => {
-                setUserList(list);
+                setLandList(list);
                 setLoading(false);
             });
     };
 
     useEffect(() => {
-        getUserList();
+        getHomeList();
     }, []);
 
     return (
         <div className="list">
             {loading
-                ? 'downloading...'
-                : userList.map((user) => (
-                      <div className="listItem" key={user._id}>
-                          <div>{user.first_name}</div>
+                ? 'downloading'
+                : landList.map((land) => (
+                      <div className="listItem" key={land._id}>
+                          <div>{land.name}</div>
                           <div className="listItem__buttons">
                               <button>Edit</button>
                               <button>Delete</button>
