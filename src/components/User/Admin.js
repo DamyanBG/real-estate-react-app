@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import './Admin.scss';
 import Users from './components/Users';
+import Homes from './components/Homes';
+import Lands from './components/Lands';
 
 const Tab = styled.button`
     font-size: 20px;
@@ -38,7 +40,7 @@ export default function Admin() {
                 ))}
             </ButtonGroup>
             <p />
-            {active === 'Users' ? <Users /> : ''}
+            {active === 'Users' ? <Users /> : active === 'Homes' ? <Homes /> : <Lands />}
         </>
     );
 }
