@@ -22,6 +22,7 @@ import Admin from './components/User/Admin';
 import { ToastContainer } from 'react-toastify';
 import EditHome from './components/Homes/EditHome';
 import EditLand from './components/Land/EditLand';
+import ChatHistory from './components/Chat/ChatHistory';
 
 function App() {
     return (
@@ -49,6 +50,7 @@ function App() {
                             <Route path="/change-password" element={<ChangePassword />} />
                             <Route path="/news" element={<NewsList />} />
                             <Route path="/admin" element={<Admin />} />
+                            <Route path="/chat-history" element={<ChatHistory />} />
                         </Routes>
                     </main>
                     <Footer />
