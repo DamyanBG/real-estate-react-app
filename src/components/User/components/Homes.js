@@ -19,6 +19,23 @@ export default function Homes() {
         getHomeList();
     }, []);
 
+    const deleteHome = (homeId) => {
+        fetch(`${hostUrl}/home`, {
+            method: 'DELETE',
+            body: JSON.stringify({
+                home_id: homeId,
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then((resp) => {
+            if (resp.ok) {
+                const newHomeList = homeList.filter((hl) => hl._id !== homeId);
+                setHomeList(newHomeList);
+            }
+        });
+    };
+
     return (
         <div className="list">
             {loading
@@ -28,7 +45,9 @@ export default function Homes() {
                           <div>{home.title}</div>
                           <div className="listItem__buttons">
                               <button>Edit</button>
-                              <button>Delete</button>
+                              <button type="button" onClick={() => deleteHome(home._id)}>
+                                  Delete
+                              </button>
                           </div>
                       </div>
                   ))}
