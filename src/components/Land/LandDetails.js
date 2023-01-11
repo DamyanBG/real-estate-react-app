@@ -10,26 +10,16 @@ export default function LandDetails() {
     const landId = params.get('landId');
     const { user } = useContext(UserContext);
     const [landDetails, setLandDetails] = useState({});
-    const [isOwner, setIsOwner] = useState(false);
 
     const fetchLandDetails = () => {
         fetch(`${hostUrl}/land/${landId}`)
             .then((resp) => resp.json())
             .then((json) => {
-                console.log(json,"ot json a");
                 setLandDetails(json);
             });
     };
 
     useEffect(fetchLandDetails, [landId]);
-
-    useEffect(() => {
-        if (!landDetails.owner) {
-            return;
-        }        
-        setIsOwner(landDetails.owner == user._id);
-        console.log(isOwner,"pokaji mi ownera");
-    },[landDetails]);
 
     return (
         <section className="home-details-container">
@@ -42,10 +32,11 @@ export default function LandDetails() {
                 <p>Price: {landDetails.price}</p>
                 <p>Owner: {landDetails.owner_names}</p>
                 <p>Information: {landDetails.description}</p>
-                {isOwner 
+                {user._id === landDetails.owner 
                    ? (
                       <>
-                         <Link to={`/edit-land/${landId}`} className="land-details_edit">
+                         <Link to={`/edit-land?landId=${landId}`} className="land-details_edit">
+                            
                              Edit land informacion
                          </Link>
                       </>

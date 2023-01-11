@@ -1,5 +1,24 @@
-
+.home-details-text{
+  position: relative;
+}
 
 .land-details_edit{
-  border: 3px solid red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  border: none;
+  border-radius: 20px;
+  background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);
+  text-decoration: none;
+  padding: 10px;
+  color: darkolivegreen;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.land-details_edit:hover{
+    background-color: lightcoral;
+    box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .9);
 }

@@ -19,8 +19,8 @@ import AllLands from './components/Land/AllLands';
 import LandDetails from './components/Land/LandDetails';
 import Admin from './components/User/Admin';
 import { ToastContainer } from 'react-toastify';
-import EditLand from './components/EditLand/EditLand';
 import EditHome from './components/Homes/EditHome';
+import EditLand from './components/Land/EditLand';
 
 function App() {
     return (
@@ -40,7 +40,7 @@ function App() {
                             <Route path="/all-lands" element={<AllLands />} />
                             <Route path="/home-details" element={<HomeDetails />} />
                             <Route path="/land-details" element={<LandDetails />} />
-                            <Route path="/edit-land/:id" element={<EditLand/>}/>
+                            <Route path="/edit-land" element={<EditLand/>}/>
                             <Route path="/rent" element={<Rent />} />
                             <Route path="/profile" element={<Profile />} />
                             <Route path="/change-email" element={<ChangeEmail />} />
