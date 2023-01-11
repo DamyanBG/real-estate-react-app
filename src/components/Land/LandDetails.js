@@ -30,19 +30,26 @@ export default function LandDetails() {
                 <h2>{landDetails.name}</h2>
                 <p>Location: {landDetails.place}</p>
                 <p>Price: {landDetails.price}</p>
-                <p>Owner: {landDetails.owner_names}</p>
+                <p>
+                    Owner: {landDetails.owner_names}{' '}
+                    {user._id !== landDetails.owner && (
+                        <Link
+                            to={`/chat?interlocutorId=${landDetails.owner}&names=${landDetails.owner_names}`}
+                        >
+                            <button>Start chat</button>
+                        </Link>
+                    )}{' '}
+                </p>
                 <p>Information: {landDetails.description}</p>
-                {user._id === landDetails.owner 
-                   ? (
-                      <>
-                         <Link to={`/edit-land?landId=${landId}`} className="land-details_edit">
-                            
-                             Edit land informacion
-                         </Link>
-                      </>
-                   ) 
-                   : ""
-                }
+                {user._id === landDetails.owner ? (
+                    <>
+                        <Link to={`/edit-land?landId=${landId}`} className="land-details_edit">
+                            Edit land informacion
+                        </Link>
+                    </>
+                ) : (
+                    ''
+                )}
             </div>
         </section>
     );
