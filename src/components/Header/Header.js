@@ -4,6 +4,7 @@ import { useContext, useState } from 'react';
 import { hostUrl } from '../../common/urls';
 import { UserContext } from '../../context/UserContext';
 import { BiMessageDetail } from 'react-icons/bi';
+import { MdMeetingRoom } from 'react-icons/md';
 
 export default function Header() {
     const [click, setClick] = useState(false);
@@ -128,6 +129,13 @@ export default function Header() {
                         {user._id ? 'Sign out' : 'Sign in'}
                     </Link>
                 </p>
+                {user._id && (
+                    <p>
+                        <Link style={{ textDecoration: 'none' }} to={'/link-meetings'}>
+                            <MdMeetingRoom size={25} />
+                        </Link>
+                    </p>
+                )}
                 {user._id && (
                     <p>
                         <Link style={{ textDecoration: 'none' }} to={'/chat-history'}>
