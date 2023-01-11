@@ -22,6 +22,8 @@ import Admin from './components/User/Admin';
 import { ToastContainer } from 'react-toastify';
 import EditHome from './components/Homes/EditHome';
 import EditLand from './components/Land/EditLand';
+import CreateMeeting from './components/Meeting/CreateMeeting';
+import ListMeetings from './components/Meeting/ListMeetings';
 
 function App() {
     return (
@@ -49,6 +51,8 @@ function App() {
                             <Route path="/change-password" element={<ChangePassword />} />
                             <Route path="/news" element={<NewsList />} />
                             <Route path="/admin" element={<Admin />} />
+                            <Route path="/create-meeting" element={<CreateMeeting />} />
+                            <Route path="/list-meetings" element={<ListMeetings />} />
                         </Routes>
                     </main>
                     <Footer />
