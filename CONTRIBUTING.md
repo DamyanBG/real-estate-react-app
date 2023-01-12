@@ -1,3 +1,5 @@
+# IMPORTANT ! ! ! I NEED HELP AND FOR THE BACK END OF THIS REACT APP, CONSIDER CONTRIBUTING ON https://github.com/DamyanBG/real-estate-nodejs-be/
+
 First I want say welcome to our project and thank you for your time !
 
 This is a small project. For that we have very simple workflow for now - if you like some
