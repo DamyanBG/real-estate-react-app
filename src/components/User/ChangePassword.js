@@ -1,16 +1,17 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import { hostUrl } from '../../common/urls';
+import { UserContext } from '../../context/UserContext';
 
 export default function ChangePassword() {
-    const userId = localStorage.getItem('userId');
     const [password, setPassword] = useState('');
+    const { user } = useContext(UserContext)
 
     const updatePassword = () => {
         fetch(`${hostUrl}/user/password`, {
             method: 'PATCH',
             body: JSON.stringify({
-                user_id: userId,
+                user_id: user._id,
                 password: password,
             }),
             headers: {
