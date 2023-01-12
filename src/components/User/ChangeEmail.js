@@ -1,20 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { hostUrl } from '../../common/urls';
 import FormSubmitButton from '../../common/FormSubmitButton';
+import { UserContext } from '../../context/UserContext';
 
 export default function ChangeEmail() {
-    const userId = localStorage.getItem('userId');
     const [email, setEmail] = useState('');
+    const { user } = useContext(UserContext)
 
     const getUser = () => {
-        fetch(`${hostUrl}/user/${userId}`)
+        fetch(`${hostUrl}/user/${user._id}`)
             .then((resp) => resp.json())
             .then((json) => setEmail(json.email));
     };
 
     const updateUserEmail = () => {
         const putBody = {
-            user_id: userId,
+            user_id: user._id,
             email: email,
         };
         fetch(`${hostUrl}/user/email`, {
@@ -26,7 +27,7 @@ export default function ChangeEmail() {
         });
     };
 
-    useEffect(getUser, [userId]);
+    useEffect(getUser, [user._id]);
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
