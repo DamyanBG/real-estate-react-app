@@ -22,12 +22,11 @@ export default function CreateLand() {
             },
         })
             .then((resp) => {
-                console.log(resp);
                 return resp.json();
             })
             .then((json) => {
                 console.log(json);
-                setLandInfo({});
+                setLandInfo({json});
             });
     };
 

@@ -13,7 +13,8 @@ const EditLand = () => {
 
     const getLandInfo = () => {
         fetch(`${hostUrl}/land/${landId}`)
-            .then((res) => res.json())
+            .then((res) => 
+              res.json())
             .then(setLandInfo);
     };
 
@@ -32,6 +33,7 @@ const EditLand = () => {
             },
         })
             .then((res) => {
+                
                 return res.json();
             })
             .then((json) => {

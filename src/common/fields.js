@@ -94,7 +94,7 @@ export const LAND_FIELDS = [
     },
     {
         labelName: 'Longitude',
-        name: 'lontitude',
+        name: 'longitude',
     },
     {
         labelName: 'Latitude',
