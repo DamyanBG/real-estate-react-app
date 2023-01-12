@@ -131,7 +131,7 @@ export default function Header() {
                 </p>
                 {user._id && (
                     <p>
-                        <Link style={{ textDecoration: 'none' }} to={'/link-meetings'}>
+                        <Link style={{ textDecoration: 'none' }} to={'/list-meetings'}>
                             <MdMeetingRoom size={25} />
                         </Link>
                     </p>
