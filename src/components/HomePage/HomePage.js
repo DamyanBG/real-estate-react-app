@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './HomePage.scss';
 import { hostUrl } from '../../common/urls';
 import homePagePhoto from '../../images/cropped_first_section.png';
-import { GoLocation } from "react-icons/go";
+import { GoLocation } from 'react-icons/go';
 
 export default function HomePage() {
     const [homes, setHomes] = useState([]);
@@ -30,16 +30,14 @@ export default function HomePage() {
                 {homes.map((h) => (
                     <article key={h._id} className="home-article">
                         <article>
-                            <img
-                                src={h.photo_url}
-                                alt=""
-                                style={{ width: '100%', borderRadius: "6px"}}
-                            />
+                            <img className="home-article-image" src={h.photo_url} alt="Home" />
                         </article>
                         <article>
                             <h4>{h.title}</h4>
 
-                            <p><GoLocation size={16} /> {h.city}</p>
+                            <p>
+                                <GoLocation size={16} /> {h.city}
+                            </p>
                             <p>$ {h.price}</p>
                         </article>
                     </article>
