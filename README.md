@@ -1,11 +1,11 @@
 # Real Estate
 
-The idea behind this application is to create a place where users and brokers can meet. In this
+The idea behind this application is to create a place where buyers and sellers can meet. In this
 application the user can register an account, search for a real estate listing base of his/her
 preference(s) and make an inquiry of the listing; and the admin can manage resources including
 property listings, realtors and contact inquiries in the admin area. Here we are creating the front
 end of the application that you can see live
-[here](https://mango-plant-0117d3e03.2.azurestaticapps.net/). you can find the backend repository
+[here](https://zealous-beach-0787b0d03.2.azurestaticapps.net//). You can find the backend repository
 [here.](https://github.com/DamyanBG/real-estate-nodejs-be)
 
 ## Getting Started
@@ -27,7 +27,7 @@ end of the application that you can see live
 ```bash
 
 # Clone the repository
-$ git clone https://github.com/Cleyfson/real-estate-react-app.git
+$ git clone https://github.com/DamyanBG/real-estate-react-app.git
 
 # Enter the project folder in the terminal
 $ cd real-estate-react-app
@@ -49,11 +49,11 @@ First off, we would like to thank you for taking the time to contribute and make
 project!
 
 This is perfect project for people with not so much experience in React. As such pull requests are
-welcome. For major changes, please open an issue first to discuss what you would like to change. for
-details about contributing you can acess
+welcome. For major changes, please open an issue first to discuss what you would like to change. For
+details about contributing you can access
 [contributing.](https://github.com/DamyanBG/real-estate-react-app/blob/main/CONTRIBUTING.md)
 
-And do not forget to enjoy and have fun !
+And do not forget to enjoy and have fun!
 
 ## Authors
 
