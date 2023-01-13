@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { hostUrl } from '../../../common/urls';
+import { hostUrl } from 'common/urls';
 
 export default function Users() {
     const [userList, setUserList] = useState([]);
@@ -34,10 +34,10 @@ export default function Users() {
                 setUserList(newUserList);
             }
         });
-    }
+    };
 
     return (
-        <div className="list">
+        <>
             {loading
                 ? 'downloading...'
                 : userList.map((user) => (
@@ -45,10 +45,12 @@ export default function Users() {
                           <div>{user.first_name}</div>
                           <div className="listItem__buttons">
                               <button>Edit</button>
-                              <button type='button' onClick={() => deleteUser(user._id)}>Delete</button>
+                              <button type="button" onClick={() => deleteUser(user._id)}>
+                                  Delete
+                              </button>
                           </div>
                       </div>
                   ))}
-        </div>
+        </>
     );
 }

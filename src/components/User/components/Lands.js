@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { hostUrl } from '../../../common/urls';
+import { hostUrl } from 'common/urls';
 
 export default function Lands() {
     const [landList, setLandList] = useState([]);
@@ -37,7 +37,7 @@ export default function Lands() {
     };
 
     return (
-        <div className="list">
+        <>
             {loading
                 ? 'downloading'
                 : landList.map((land) => (
@@ -51,6 +51,6 @@ export default function Lands() {
                           </div>
                       </div>
                   ))}
-        </div>
+        </>
     );
 }
