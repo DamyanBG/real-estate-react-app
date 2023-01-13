@@ -8,6 +8,10 @@ end of the application that you can see live
 [here](https://zealous-beach-0787b0d03.2.azurestaticapps.net//). You can find the backend repository
 [here.](https://github.com/DamyanBG/real-estate-nodejs-be)
 
+### Representation of the project in YouTube
+
+https://www.youtube.com/watch?v=dR8qX2cMPcE&t=25s
+
 ## Getting Started
 
 ### Dependencies
