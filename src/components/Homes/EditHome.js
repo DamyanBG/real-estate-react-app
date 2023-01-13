@@ -25,7 +25,7 @@ export default function EditHome() {
     }, [homeId]);
 
     const putHome = () => {
-        const postBody = { owner_id: user, home_id: homeId, ...homeInfo };
+        const postBody = { owner_id: user._id, home_id: homeId, ...homeInfo };
         fetch(`${hostUrl}/home`, {
             method: 'PUT',
             body: JSON.stringify(postBody),
