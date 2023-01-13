@@ -6,14 +6,13 @@ import { HOME_FIELDS } from '../../common/fields';
 import { UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 
-
 export default function CreateHome() {
     const [homeInfo, setHomeInfo] = useState({});
     const { user } = useContext(UserContext);
     const navigate = useNavigate();
 
     const postHome = () => {
-        const postBody = { owner_id: user, ...homeInfo };
+        const postBody = { owner_id: user._id, ...homeInfo };
         fetch(`${hostUrl}/home`, {
             method: 'POST',
             body: JSON.stringify(postBody),
@@ -22,11 +21,14 @@ export default function CreateHome() {
             },
         })
             .then((resp) => {
-                console.log(resp);
                 return resp.json();
             })
             .then((json) => {
-                navigate(`/edit-home?homeId=${json._id}`)
+                if (json._id) {
+                    navigate(`/edit-home?homeId=${json._id}`)
+                    return
+                }
+                throw new Error();
             });
     };
 
