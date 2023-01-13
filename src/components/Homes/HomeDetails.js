@@ -44,9 +44,16 @@ export default function HomeDetails() {
                 <p>Information: {homeDetails.description}</p>
                 <p>
                     Owner: {homeDetails.owner_names}{' '}
-                    {user._id !== homeDetails.owner_id && (
-                        <Link to={`/chat?interlocutorId=${homeDetails.owner_id}&names=${homeDetails.owner_names}`}>
+                    {user._id && user._id !== homeDetails.owner_id && (
+                        <Link
+                            to={`/chat?interlocutorId=${homeDetails.owner_id}&names=${homeDetails.owner_names}`}
+                        >
                             <button>Start chat</button>
+                        </Link>
+                    )}
+                    {user._id && user._id !== homeDetails.owner_id && (
+                        <Link to={`/create-meeting?createWithId=${homeDetails.owner_id}`}>
+                            <button>Request meeting</button>
                         </Link>
                     )}
                 </p>
