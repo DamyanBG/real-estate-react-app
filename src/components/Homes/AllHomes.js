@@ -20,6 +20,11 @@ export default function AllHomes() {
             });
     };
 
+    const btnClick = () => {
+        
+    }
+
+
     return (
         <div>
             {homes.map((h) => (
@@ -45,6 +50,14 @@ export default function AllHomes() {
                     <div className="description-text">
                         <p>{h.description}</p>
                     </div>
+
+
+                    <div className="button-text">
+                        <Link to={'/HomePage'}>
+                            <button className='btn' onClick={btnClick}>Request meeting</button>
+                        </Link>
+                    </div>
+
                 </article>
             ))}
         </div>
