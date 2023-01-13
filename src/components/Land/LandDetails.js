@@ -32,13 +32,18 @@ export default function LandDetails() {
                 <p>Price: {landDetails.price}</p>
                 <p>
                     Owner: {landDetails.owner_names}{' '}
-                    {user._id !== landDetails.owner && (
+                    {user._id && user._id !== landDetails.owner && (
                         <Link
                             to={`/chat?interlocutorId=${landDetails.owner}&names=${landDetails.owner_names}`}
                         >
                             <button>Start chat</button>
                         </Link>
                     )}{' '}
+                    {user._id && user._id !== landDetails.owner && (
+                        <Link to={`/create-meeting?createWithId=${landDetails.owner}`}>
+                            <button>Request meeting</button>
+                        </Link>
+                    )}
                 </p>
                 <p>Information: {landDetails.description}</p>
                 {user._id === landDetails.owner ? (
