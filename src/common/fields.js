@@ -58,6 +58,11 @@ export const USER_FIELDS = [
         name: 'phone_number',
         type: "tel"
     },
+    {
+        labelName: 'Password',
+        name: 'password',
+        type: "password"
+    },
 ];
 
 export const USER_PROFILE = [
