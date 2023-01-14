@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './Admin.scss';
-import Users from './components/Users';
-import Homes from './components/Homes';
-import Lands from './components/Lands';
+
+import { TABS_ENUM } from 'components/User/enums';
+
+import styled from 'styled-components';
 
 const Tab = styled.button`
     font-size: 20px;
@@ -21,26 +22,37 @@ const Tab = styled.button`
   `}
 `;
 
-const types = ['Manage users', 'Manage homes', 'Manage lands'];
-
 const ButtonGroup = styled.div`
     display: flex;
     justify-content: center;
 `;
 
-export default function Admin() {
-    const [active, setActive] = useState(types[0]);
+export default function Admin({ children }) {
+    const [active, setActive] = useState(TABS_ENUM[0].id);
+    const navigate = useNavigate();
+    const { pathname } = useLocation();
+
+    const changeTab = (tab) => {
+        setActive(tab.id);
+        navigate(`/admin/${tab.name}`);
+    };
+
+    useEffect(() => {
+        const tabName = pathname.split('/')[2];
+        const tabByName = TABS_ENUM.find((tab) => tab.name === tabName);
+        setActive(tabByName.id);
+    });
     return (
         <>
             <ButtonGroup>
-                {types.map((type) => (
-                    <Tab key={type} active={active === type} onClick={() => setActive(type)}>
-                        {type}
+                {TABS_ENUM.map((tab) => (
+                    <Tab key={tab.id} active={active === tab.id} onClick={() => changeTab(tab)}>
+                        {tab.title}
                     </Tab>
                 ))}
             </ButtonGroup>
             <p />
-            {active === 'Manage users' ? <Users /> : active === 'Manage homes' ? <Homes /> : <Lands />}
+            <div className="container">{children}</div>
         </>
     );
 }
