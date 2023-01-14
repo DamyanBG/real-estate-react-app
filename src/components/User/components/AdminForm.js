@@ -33,14 +33,25 @@ export default function AdminForm() {
     };
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        createUser();
+        let validity = true;
+        USER_FIELDS.forEach((uf) => {
+            // eslint-disable-next-line no-undef
+            if (document.getElementById(`${uf.name}Error`) !== null) {
+                validity = false;
+            }
+        });
+        validity
+            ? createUser()
+            : toast.error('Please Enter Valid Values', { autoClose: 3000, pauseOnHover: false });
     };
+
     const handleOnChange = (e) => {
         setUserInfo({
             ...userInfo,
             [e.target.name]: e.target.value,
         });
     };
+    
     return (
         <>
             <form onSubmit={handleOnSubmit}>
@@ -50,19 +61,11 @@ export default function AdminForm() {
                         labelName={uf.labelName}
                         name={uf.name}
                         value={userInfo[uf.name]}
+                        type={uf.type}
+                        userInfo={userInfo}
                         handleOnChange={handleOnChange}
                     />
                 ))}
-                <article className="form-row">
-                    <label>Password</label>
-                    <input
-                        autoComplete="true"
-                        type="password"
-                        name="password"
-                        value={userInfo.password || ''}
-                        onChange={handleOnChange}
-                    />
-                </article>
 
                 <button onClick={FormSubmitButton} type="submit" className="submit_btn">
                     Submit
