@@ -11,6 +11,7 @@ export default function SignUpPage() {
     const [userInfo, setUserInfo] = useState({
         role: ROLES_ENUM.user,
     });
+    const [isValid, setValid] = useState(false);
 
     const navigate = useNavigate();
 
@@ -35,10 +36,27 @@ export default function SignUpPage() {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        postHome();
+        isValid ? postHome() : toast.error('Please enter valid values');
     };
 
     const handleOnChange = (e) => {
+        const val = e.target.name;
+
+        if (val === 'email') {
+            let regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+            regex.test(e.target.value) ? setValid(true) : setValid(false);
+        } else if (val === 'phone_number') {
+            let regex = /^([0-9]{3,})*$/g;
+            setValid(regex.test(e.target.value));
+        } else {
+            const len = e.target.value.length;
+            if (val === 'first_name' || val === 'last_name') {
+                len < 3 || len > 150 ? setValid(false) : setValid(true);
+            } else {
+                len < 6 || len > 150 ? setValid(0) : setValid(1);
+            }
+        }
+
         setUserInfo({
             ...userInfo,
             [e.target.name]: e.target.value,
@@ -68,7 +86,9 @@ export default function SignUpPage() {
                         labelName={uf.labelName}
                         name={uf.name}
                         value={userInfo[uf.name]}
+                        type={uf.type}
                         handleOnChange={handleOnChange}
+                        isValid={isValid}
                     />
                 ))}
                 <article className="form-row">
@@ -80,6 +100,9 @@ export default function SignUpPage() {
                         value={userInfo.password || ''}
                         onChange={handleOnChange}
                     />
+                  {  (isValid === 0)?
+                    <p style={{color:"red", fontSize: "13px"}}>Password must have minimum 6 and maximum 150 characters</p>: null
+                  }
                 </article>
                 <article className="checkbox-row">
                     <input type="checkbox" onChange={handleCheckboxChange} />

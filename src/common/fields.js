@@ -41,18 +41,22 @@ export const USER_FIELDS = [
     {
         labelName: 'First Name',
         name: 'first_name',
+        type: "text"
     },
     {
         labelName: 'Last Name',
         name: 'last_name',
+        type: "text"
     },
     {
         labelName: 'Email',
         name: 'email',
+        type: "email"
     },
     {
         labelName: 'Phone number',
         name: 'phone_number',
+        type: "tel"
     },
 ];
 
