@@ -21,7 +21,7 @@ export default function InputFormRow({ labelName, name, value, handleOnChange, i
         <article className="form-row" >
             <div className="input-wrapper">
                 <label>{labelName}</label>
-                <input type={type} name={name} value={value || ''} onChange={handleOnChange} onInput={handleOnInput} onKeyUp={handleKeyUp} required/>
+                <input type={type} name={name} value={value || ''} onChange={handleOnChange} onInput={handleOnInput} onKeyUp={handleKeyUp}/>
                 {!isValid && selected && <p style={{color: "red", fontSize: "13px"}}>
                 {errorMessage} 
                 </p>
