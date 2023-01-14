@@ -11,7 +11,7 @@ export default function SignUpPage() {
     const [userInfo, setUserInfo] = useState({
         role: ROLES_ENUM.user,
     });
-    const [isValid, setValid] = useState(true);
+    const [isValid, setValid] = useState(false);
 
     const navigate = useNavigate();
 
@@ -53,7 +53,7 @@ export default function SignUpPage() {
             if (val === 'first_name' || val === 'last_name') {
                 len < 3 || len > 150 ? setValid(false) : setValid(true);
             } else {
-                len < 6 || len > 150 ? setValid(false) : setValid(true);
+                len < 6 || len > 150 ? setValid(0) : setValid(1);
             }
         }
 
@@ -100,11 +100,9 @@ export default function SignUpPage() {
                         value={userInfo.password || ''}
                         onChange={handleOnChange}
                     />
-                    {!isValid ? (
-                        <p style={{ color: 'red', fontSize: '13px' }}>
-                            Password must have minimum 6 and maximum 150 characters
-                        </p>
-                    ) : null}
+                  {  (isValid === 0)?
+                    <p style={{color:"red", fontSize: "13px"}}>Password must have minimum 6 and maximum 150 characters</p>: null
+                  }
                 </article>
                 <article className="checkbox-row">
                     <input type="checkbox" onChange={handleCheckboxChange} />
