@@ -1,7 +1,8 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.scss';
+
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import HomePage from './components/HomePage/HomePage';
 import CreateHome from './components/Homes/CreateHome';
 import SignUpPage from './components/User/SignUpPage';
@@ -18,13 +19,13 @@ import { UserProvider } from './context/UserContext';
 import CreateLand from './components/Land/CreateLand';
 import AllLands from './components/Land/AllLands';
 import LandDetails from './components/Land/LandDetails';
-import Admin from './components/User/Admin';
 import { ToastContainer } from 'react-toastify';
 import EditHome from './components/Homes/EditHome';
 import EditLand from './components/Land/EditLand';
 import ChatHistory from './components/Chat/ChatHistory';
 import CreateMeeting from './components/Meeting/CreateMeeting';
 import ListMeetings from './components/Meeting/ListMeetings';
+import AdminRoutes from 'components/User/routes';
 
 function App() {
     return (
@@ -51,7 +52,7 @@ function App() {
                             <Route path="/change-email" element={<ChangeEmail />} />
                             <Route path="/change-password" element={<ChangePassword />} />
                             <Route path="/news" element={<NewsList />} />
-                            <Route path="/admin" element={<Admin />} />
+                            {AdminRoutes}
                             <Route path="/chat-history" element={<ChatHistory />} />
                             <Route path="/create-meeting" element={<CreateMeeting />} />
                             <Route path="/list-meetings" element={<ListMeetings />} />

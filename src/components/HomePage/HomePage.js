@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './HomePage.scss';
 import { hostUrl } from '../../common/urls';
-import homePagePhoto from '../../images/cropped_first_section.png';
+import homePagePhoto from '../../images/cropped_better_house.png';
 import { GoLocation } from 'react-icons/go';
 
 export default function HomePage() {
@@ -23,8 +23,19 @@ export default function HomePage() {
 
     return (
         <div>
-            <article>
+            <article className="landing-page-image-container">
+                <article>
+                    Real<br />
+                    Estate<br />App
+                </article>
+                <article>
+                    For
+                    <br />
+                    everybody
+                </article>
                 <img src={homePagePhoto} alt="Home page house photo" style={{ width: '100%' }} />
+                
+                
             </article>
             <div className="home-articles-container">
                 {homes.map((h) => (

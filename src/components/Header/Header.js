@@ -129,7 +129,7 @@ export default function Header() {
             <section className="auth">
                 {user.role === 'admin' ? (
                     <p>
-                        <Link style={{ textDecoration: 'none' }} to={'/admin'}>
+                        <Link style={{ textDecoration: 'none' }} to={'/admin/users'}>
                             Admin
                         </Link>
                     </p>
