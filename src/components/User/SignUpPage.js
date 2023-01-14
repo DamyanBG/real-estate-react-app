@@ -94,6 +94,7 @@ export default function SignUpPage() {
                 <article className="form-row">
                     <label>Password</label>
                     <input
+                        autoComplete="true"
                         type="password"
                         name="password"
                         value={userInfo.password || ''}

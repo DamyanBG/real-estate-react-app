@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { hostUrl } from '../../../common/urls';
+import { hostUrl } from 'common/urls';
 
 export default function Homes() {
     const [homeList, setHomeList] = useState([]);
@@ -37,7 +37,7 @@ export default function Homes() {
     };
 
     return (
-        <div className="list">
+        <>
             {loading
                 ? 'downloading...'
                 : homeList.map((home) => (
@@ -51,6 +51,6 @@ export default function Homes() {
                           </div>
                       </div>
                   ))}
-        </div>
+        </>
     );
 }
