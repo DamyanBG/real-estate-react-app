@@ -5,8 +5,6 @@ import FormSubmitButton from '../../common/FormSubmitButton';
 import { HOME_FIELDS } from '../../common/fields';
 import { UserContext } from '../../context/UserContext';
 import { toast } from 'react-toastify';
-import { Formik } from 'formik';
-import { homeFormValidateConditions, homeFormnItialValues } from 'common/formikFile';
 
 export default function EditHome() {
     const params = new URLSearchParams(window.location.search);
@@ -26,8 +24,8 @@ export default function EditHome() {
         getHomeInfo();
     }, [homeId]);
 
-    const putHome = (values) => {
-        const postBody = { owner_id: user._id, home_id: homeId, ...values };
+    const putHome = () => {
+        const postBody = { owner_id: user._id, home_id: homeId, ...homeInfo };
         fetch(`${hostUrl}/home`, {
             method: 'PUT',
             body: JSON.stringify(postBody),
@@ -43,6 +41,18 @@ export default function EditHome() {
                 console.log(json);
                 setHomeInfo({});
             });
+    };
+
+    const handleOnChange = (e) => {
+        setHomeInfo({
+            ...homeInfo,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const handleOnSubmit = (e) => {
+        e.preventDefault();
+        putHome();
     };
 
     const handleOnPhotoUpload = (event) => {
@@ -71,66 +81,33 @@ export default function EditHome() {
     };
 
     return (
-        <Formik
-            initialValues={homeFormnItialValues}
-            validate={homeFormValidateConditions}
-            onSubmit={(values, { setSubmitting }) => {
-                setTimeout(() => {
-                    alert(JSON.stringify(values, null, 2));
-                    setSubmitting(false);
-                }, 400);
-                setHomeInfo({
-                    ...homeInfo,
-                    ...values,
-                });
-                putHome(values);
-            }}
-        >
-            {({
-                values,
-                errors,
-                touched,
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                isSubmitting,
-            }) => (
-                <div className="center">
-                    <article style={{ margin: 'auto', width: '300px' }}>
-                        <img src={homeInfo.photo_url} alt="" style={{ width: '100%' }} />
-                        <input type="file" name="photo" onChange={handleOnPhotoUpload} />
-                        <button onClick={uploadPhoto}>Upload photo</button>
-                    </article>
-                    <form onSubmit={handleSubmit}>
-                        {HOME_FIELDS.map((hk) => (
-                            <div key={hk.labelName}>
-                                <InputFormRow
-                                    labelName={hk.labelName}
-                                    name={hk.name}
-                                    value={values[hk.name]}
-                                    handleOnChange={handleChange}
-                                    handleOnBlur={handleBlur}
-                                />
-                                <p className="home-error">
-                                    {errors[hk.name] && touched[hk.name] && errors[hk.name]}
-                                </p>
-                            </div>
-                        ))}
-                        <article className="form-row">
-                            <label>Description</label>
-                            <textarea
-                                type="text"
-                                name="description"
-                                value={values.description}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
-                            {errors.description && touched.description && errors.description}
-                        </article>
-                        <FormSubmitButton disabled={isSubmitting} />
-                    </form>
-                </div>
-            )}
-        </Formik>
+        <div className="center">
+            <article style={{ margin: 'auto', width: '300px' }}>
+                <img src={homeInfo.photo_url} alt="" style={{ width: '100%' }} />
+                <input type="file" name="photo" onChange={handleOnPhotoUpload} />
+                <button onClick={uploadPhoto}>Upload photo</button>
+            </article>
+            <form onSubmit={handleOnSubmit}>
+                {HOME_FIELDS.map((hk) => (
+                    <InputFormRow
+                        key={hk.labelName}
+                        labelName={hk.labelName}
+                        name={hk.name}
+                        value={homeInfo[hk.name]}
+                        handleOnChange={handleOnChange}
+                    />
+                ))}
+                <article className="form-row">
+                    <label>Description</label>
+                    <textarea
+                        type="text"
+                        name="description"
+                        value={homeInfo.description || ''}
+                        onChange={handleOnChange}
+                    />
+                </article>
+                <FormSubmitButton />
+            </form>
+        </div>
     );
 }
