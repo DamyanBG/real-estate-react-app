@@ -7,8 +7,6 @@ import { UserContext } from '../../context/UserContext';
 import { toast } from 'react-toastify';
 
 export default function EditHome() {
-    const [descriptionValidity, setDescriptionValidity] = useState(true);
-    const [descriptionErrorMsg, setDescriptionErrorMsg] = useState('');
     const params = new URLSearchParams(window.location.search);
     const homeId = params.get('homeId');
     const [homeInfo, setHomeInfo] = useState({});
@@ -52,46 +50,9 @@ export default function EditHome() {
         });
     };
 
-    const validateDescription = (e) => {
-        const { value } = e.target;
-        value.length < 3 || value.length > 150
-            ? setDescriptionValidity(false)
-            : setDescriptionValidity(true);
-        descriptionValidity
-            ? setDescriptionErrorMsg(null)
-            : setDescriptionErrorMsg(
-                  'Required, Description must have minimum 3 and maximum 150 characters'
-              );
-    };
-
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        e.preventDefault();
-        let validity = false;
-        if (
-            Object.keys(homeInfo).includes(
-                'description',
-                'title',
-                'address',
-                'city',
-                'neighborhood',
-                'price',
-                'year'
-            )
-        ) {
-            for (let i = 0; i < HOME_FIELDS.length; i++) {
-                // eslint-disable-next-line no-undef
-                if (document.getElementById(`${HOME_FIELDS[i].name}Error`) === null) {
-                    validity = true;
-                } else {
-                    validity = false;
-                    break;
-                }
-            }
-        }
-        validity
-            ? putHome()
-            : toast.error('Please Enter Valid Values', { autoClose: 3000, pauseOnHover: false });
+        putHome();
     };
 
     const handleOnPhotoUpload = (event) => {
@@ -143,11 +104,7 @@ export default function EditHome() {
                         name="description"
                         value={homeInfo.description || ''}
                         onChange={handleOnChange}
-                        onInput={validateDescription}
                     />
-                    {!descriptionValidity && (
-                        <p style={{ color: 'red', fontSize: '13px' }}>{descriptionErrorMsg}</p>
-                    )}
                 </article>
                 <FormSubmitButton />
             </form>
