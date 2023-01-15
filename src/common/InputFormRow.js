@@ -16,7 +16,7 @@ export default function InputFormRow({ labelName, name, value, handleOnChange, t
                 setValidity(regex.test(val));
                 break;
             case 'password':
-                val.length < 6 || val.length > 150? setValidity(false) : setValidity(true);
+                val.length < 6 || val.length > 150 ? setValidity(false) : setValidity(true);
                 break;
         }
 
@@ -28,7 +28,9 @@ export default function InputFormRow({ labelName, name, value, handleOnChange, t
     let errorMessage = `${labelName} must have minimum 3 and maximum 150 characters`;
     name === 'email' ? (errorMessage = 'Please Enter a Valid Email') : null;
     name === 'phone_number' ? (errorMessage = 'Phone number must have at least 3 digits') : null;
-    name === 'passowrd' ? (errorMessage = 'Password must have minimum 6 and maximum 150 characters') : null;
+    name === 'password'
+        ? (errorMessage = 'Password must have minimum 6 and maximum 150 characters')
+        : null;
 
     return (
         <article className="form-row">

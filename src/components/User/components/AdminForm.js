@@ -33,13 +33,18 @@ export default function AdminForm() {
     };
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        let validity = true;
-        USER_FIELDS.forEach((uf) => {
-            // eslint-disable-next-line no-undef
-            if (document.getElementById(`${uf.name}Error`) !== null) {
-                validity = false;
+        let validity = false;
+        if (Object.keys(userInfo).length === 6) {
+            for (let i = 0; i < USER_FIELDS.length; i++) {
+                // eslint-disable-next-line no-undef
+                if (document.getElementById(`${USER_FIELDS[i].name}Error`) === null) {
+                    validity = true;
+                } else {
+                    validity = false;
+                    break;
+                }
             }
-        });
+        }
         validity
             ? createUser()
             : toast.error('Please Enter Valid Values', { autoClose: 3000, pauseOnHover: false });
@@ -51,7 +56,7 @@ export default function AdminForm() {
             [e.target.name]: e.target.value,
         });
     };
-    
+
     return (
         <>
             <form onSubmit={handleOnSubmit}>
