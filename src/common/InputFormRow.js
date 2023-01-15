@@ -18,6 +18,39 @@ export default function InputFormRow({ labelName, name, value, handleOnChange, t
             case 'password':
                 val.length < 6 || val.length > 150 ? setValidity(false) : setValidity(true);
                 break;
+            case 'title':
+                !val && setValidity(false);
+                val.length < 3 || val.length > 150 ? setValidity(false) : setValidity(true);
+                break;
+            case 'city':
+                !val && setValidity(false);
+                val.length < 3 || val.length > 150 ? setValidity(false) : setValidity(true);
+                break;
+            case 'neighborhood':
+                val.length < 3 || val.length > 150 ? setValidity(false) : setValidity(true);
+                break;
+            case 'address':
+                !val && setValidity(false);
+                val.length < 3 || val.length > 150 ? setValidity(false) : setValidity(true);
+                break;
+            case 'longitude':
+                val.length > 50 ? setValidity(false) : setValidity(true);
+                break;
+            case 'latitude':
+                val.length > 50 ? setValidity(false) : setValidity(true);
+                break;
+            case 'price':
+                !val && setValidity(false);
+                regex = /^([0-9]{1,})*$/g;
+                setValidity(regex.test(val));
+                val.length > 50 ? setValidity(false) : setValidity(true);
+                break;
+            case 'year':
+                !val && setValidity(false);
+                regex = /^([0-9]{1,})*$/g;
+                setValidity(regex.test(val));
+                val.length > 5 ? setValidity(false) : setValidity(true);
+                break;
         }
 
         if (name === 'first_name' || name === 'last_name') {
@@ -30,6 +63,26 @@ export default function InputFormRow({ labelName, name, value, handleOnChange, t
     name === 'phone_number' ? (errorMessage = 'Phone number must have at least 3 digits') : null;
     name === 'password'
         ? (errorMessage = 'Password must have minimum 6 and maximum 150 characters')
+        : null;
+    name === 'price'
+        ? (errorMessage = 'Required, Price must be a valid integer and maximum of 50 characters')
+        : null;
+    name === 'year'
+        ? (errorMessage = 'Required, Year must be a valid integer and maximum of 5 characters')
+        : null;
+    name === 'longitude' ? (errorMessage = 'Longitude must have maximum 50 characters') : null;
+    name === 'latitude' ? (errorMessage = 'Latitude must have maximum 50 characters') : null;
+    name === 'title'
+        ? (errorMessage = 'Required, Title must have minimum 3 and maximum 150 characters')
+        : null;
+    name === 'city'
+        ? (errorMessage = 'Required, City must have minimum 3 and maximum 150 characters')
+        : null;
+    name === 'address'
+        ? (errorMessage = 'Required, Address must have minimum 3 and maximum 150 characters')
+        : null;
+    name === 'neighborhood'
+        ? (errorMessage = 'Neighborhood must have minimum 3 and maximum 150 characters')
         : null;
 
     return (

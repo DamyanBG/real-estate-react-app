@@ -5,8 +5,11 @@ import FormSubmitButton from '../../common/FormSubmitButton';
 import { HOME_FIELDS } from '../../common/fields';
 import { UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function CreateHome() {
+    const [descriptionValidity, setDescriptionValidity] = useState(true);
+    const [descriptionErrorMsg, setDescriptionErrorMsg] = useState('');
     const [homeInfo, setHomeInfo] = useState({});
     const { user } = useContext(UserContext);
     const navigate = useNavigate();
@@ -25,8 +28,8 @@ export default function CreateHome() {
             })
             .then((json) => {
                 if (json._id) {
-                    navigate(`/edit-home?homeId=${json._id}`)
-                    return
+                    navigate(`/edit-home?homeId=${json._id}`);
+                    return;
                 }
                 throw new Error();
             });
@@ -39,9 +42,43 @@ export default function CreateHome() {
         });
     };
 
+    const validateDescription = (e) => {
+        const { value } = e.target;
+        value.length < 3 || value.length > 150
+            ? setDescriptionValidity(false)
+            : setDescriptionValidity(true);
+        descriptionValidity
+            ? setDescriptionErrorMsg(null)
+            : setDescriptionErrorMsg('Description must have minimum 3 and maximum 150 characters');
+    };
+
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        postHome();
+        let validity = false;
+        if (
+            Object.keys(homeInfo).includes(
+                'description',
+                'title',
+                'address',
+                'city',
+                'neighborhood',
+                'price',
+                'year'
+            )
+        ) {
+            for (let i = 0; i < HOME_FIELDS.length; i++) {
+                // eslint-disable-next-line no-undef
+                if (document.getElementById(`${HOME_FIELDS[i].name}Error`) === null) {
+                    validity = true;
+                } else {
+                    validity = false;
+                    break;
+                }
+            }
+        }
+        validity
+            ? postHome()
+            : toast.error('Please Enter Valid Values', { autoClose: 3000, pauseOnHover: false });
     };
 
     return (
@@ -63,7 +100,11 @@ export default function CreateHome() {
                         name="description"
                         value={homeInfo.description || ''}
                         onChange={handleOnChange}
+                        onInput={validateDescription}
                     />
+                    {!descriptionValidity && (
+                        <p style={{ color: 'red', fontSize: '13px' }}>{descriptionErrorMsg}</p>
+                    )}
                 </article>
                 <FormSubmitButton />
             </form>
