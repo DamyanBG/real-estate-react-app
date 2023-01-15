@@ -1,10 +1,4 @@
-
-export default function InputFormRow({ labelName, name, value, handleOnChange, handleOnBlur }) {
-
-import { useState } from "react";
-
 import { useState } from 'react';
-
 
 export default function InputFormRow({ labelName, name, value, handleOnChange, type, userInfo }) {
     const [validity, setValidity] = useState(true);
@@ -36,25 +30,10 @@ export default function InputFormRow({ labelName, name, value, handleOnChange, t
     name === 'phone_number' ? (errorMessage = 'Phone number must have at least 3 digits') : null;
     name === 'passowrd' ? (errorMessage = 'Password must have minimum 6 and maximum 150 characters') : null;
 
-
     return (
         <article className="form-row">
             <div className="input-wrapper">
                 <label>{labelName}</label>
-
-                <input
-                    type="text"
-                    name={name}
-                    value={value || ''}
-                    onChange={handleOnChange}
-                    onBlur={handleOnBlur}
-                />
-                <input type={type} name={name} value={value || ''} onChange={handleOnChange} onInput={handleOnInput} onKeyUp={handleKeyUp}/>
-                {!isValid && selected && <p style={{color: "red", fontSize: "13px"}}>
-                {errorMessage} 
-                </p>
-                }
-
                 {labelName === 'Password' ? (
                     <input
                         type={type || 'text'}
@@ -78,7 +57,6 @@ export default function InputFormRow({ labelName, name, value, handleOnChange, t
                         {errorMessage}
                     </p>
                 )}
-
             </div>
         </article>
     );
