@@ -41,27 +41,27 @@ export const USER_FIELDS = [
     {
         labelName: 'First Name',
         name: 'first_name',
-        type: "text"
+        type: 'text',
     },
     {
         labelName: 'Last Name',
         name: 'last_name',
-        type: "text"
+        type: 'text',
     },
     {
         labelName: 'Email',
         name: 'email',
-        type: "email"
+        type: 'email',
     },
     {
         labelName: 'Phone number',
         name: 'phone_number',
-        type: "tel"
+        type: 'text',
     },
     {
         labelName: 'Password',
         name: 'password',
-        type: "password"
+        type: 'password',
     },
 ];
 

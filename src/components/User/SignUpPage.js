@@ -6,11 +6,15 @@ import { hostUrl } from '../../common/urls';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { validateField } from 'common/validation';
 
 export default function SignUpPage() {
     const [userInfo, setUserInfo] = useState({
         role: ROLES_ENUM.user,
     });
+    const [validationErrors, setValidationErrors] = useState(
+        USER_FIELDS.map((uf) => uf.name).reduce((acc, curr) => ((acc[curr] = ''), acc), {})
+    );
 
     const navigate = useNavigate();
 
@@ -35,22 +39,27 @@ export default function SignUpPage() {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        let validity = false;
-        if (Object.keys(userInfo).length === 6) {
-            for (let i = 0; i < USER_FIELDS.length; i++) {
-                // eslint-disable-next-line no-undef
-                if (document.getElementById(`${USER_FIELDS[i].name}Error`) === null) {
-                    validity = true;
-                } else {
-                    validity = false;
-                    break;
-                }
-            }
+        if (Object.keys(validationErrors).length > 0) {
+            toast.error('Please Enter Valid Values', { autoClose: 3000, pauseOnHover: false });
+            return;
         }
+        postHome();
+    };
 
-        validity
-            ? postHome()
-            : toast.error('Please Enter Valid Values', { autoClose: 3000, pauseOnHover: false });
+    const handleValidate = (e) => {
+        const valError = validateField(e.target.type, e.target.value);
+        if (valError) {
+            setValidationErrors({
+                ...validationErrors,
+                [e.target.name]: valError,
+            });
+        } else {
+            setValidationErrors((current) => {
+                const copy = { ...current };
+                delete copy[e.target.name];
+                return copy;
+            });
+        }
     };
 
     const handleOnChange = (e) => {
@@ -58,6 +67,7 @@ export default function SignUpPage() {
             ...userInfo,
             [e.target.name]: e.target.value,
         });
+        handleValidate(e);
     };
 
     const handleCheckboxChange = (e) => {
@@ -86,6 +96,7 @@ export default function SignUpPage() {
                         type={uf.type}
                         userInfo={userInfo}
                         handleOnChange={handleOnChange}
+                        validationError={validationErrors[uf.name]}
                     />
                 ))}
 
