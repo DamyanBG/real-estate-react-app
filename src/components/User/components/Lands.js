@@ -1,39 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { hostUrl } from 'common/urls';
+import { api } from 'common/api';
+
+const LANDS_URL = '/lands';
+const LAND_URL = '/land';
 
 export default function Lands() {
     const [landList, setLandList] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const getHomeList = () => {
+    const getHomeList = async () => {
         setLoading(true);
-        fetch(`${hostUrl}/lands`)
-            .then((resp) => resp.json())
-            .then((list) => {
-                setLandList(list);
-                setLoading(false);
-            });
+        const list = await api.getAll(`${hostUrl}${LANDS_URL}`);
+        setLandList(list);
+        setLoading(false);
     };
 
     useEffect(() => {
         getHomeList();
     }, []);
 
-    const deleteLand = (landId) => {
-        fetch(`${hostUrl}/land`, {
-            method: 'DELETE',
+    const deleteLand = async (landId) => {
+        const body = {
             body: JSON.stringify({
                 land_id: landId,
             }),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        }).then((resp) => {
-            if (resp.ok) {
-                const newLandList = landList.filter((hl) => hl._id !== landId);
-                setLandList(newLandList);
-            }
-        });
+        };
+
+        const result = await api.delete(`${hostUrl}${LAND_URL}`, body);
+        if (result.ok) {
+            const newLandList = landList.filter((land) => land._id !== landId);
+            setLandList(newLandList);
+        }
     };
 
     return (
