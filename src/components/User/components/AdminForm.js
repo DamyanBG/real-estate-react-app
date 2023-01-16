@@ -6,6 +6,7 @@ import FormSubmitButton from 'common/FormSubmitButton';
 import { useNavigate } from 'react-router-dom';
 import { hostUrl } from 'common/urls';
 import { toast } from 'react-toastify';
+import { api } from 'common/api';
 
 export default function AdminForm() {
     const [userInfo, setUserInfo] = useState({
@@ -14,21 +15,14 @@ export default function AdminForm() {
     const navigate = useNavigate();
 
     const createUser = async () => {
-        try {
-            const data = await fetch(`${hostUrl}/user`, {
-                method: 'POST',
-                body: JSON.stringify(userInfo),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
+        const body = {
+            body: JSON.stringify(userInfo),
+        };
 
-            if (data) {
-                navigate('/admin/users');
-                toast.success('User create!', { autoClose: 3000, pauseOnHover: false });
-            }
-        } catch (err) {
-            toast.error(`Something went wrong! ${err}`, { autoClose: 3000, pauseOnHover: false });
+        const data = await api.create(`${hostUrl}/user`, body);
+        if (data) {
+            navigate('/admin/users');
+            toast.success('User create!', { autoClose: 3000, pauseOnHover: false });
         }
     };
     const handleOnSubmit = (e) => {
