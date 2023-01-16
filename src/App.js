@@ -25,7 +25,7 @@ import EditLand from './components/Land/EditLand';
 import ChatHistory from './components/Chat/ChatHistory';
 import CreateMeeting from './components/Meeting/CreateMeeting';
 import ListMeetings from './components/Meeting/ListMeetings';
-import AdminRoutes from 'components/User/routes';
+import AdminRoutes from './components/User/routes';
 
 function App() {
     return (
