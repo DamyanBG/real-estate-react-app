@@ -67,7 +67,7 @@ export default function CreateHome() {
             )
         ) {
             for (let i = 0; i < HOME_FIELDS.length; i++) {
-                // eslint-disable-next-line no-undef
+                // eslint-disable-next-line no-undefined
                 if (document.getElementById(`${HOME_FIELDS[i].name}Error`) === null) {
                     validity = true;
                 } else {
