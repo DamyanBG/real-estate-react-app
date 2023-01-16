@@ -1,43 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { hostUrl } from '../../../common/urls';
+import { hostUrl } from 'common/urls';
+import { api } from 'common/api';
+
+const USERS_URL = '/users';
+const USER_URL = '/user';
 
 export default function Users() {
     const [userList, setUserList] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const getUserList = () => {
+    const getUserList = async () => {
         setLoading(true);
-        fetch(`${hostUrl}/users`)
-            .then((resp) => resp.json())
-            .then((list) => {
-                setUserList(list);
-                setLoading(false);
-            });
+        const list = await api.getAll(`${hostUrl}${USERS_URL}`);
+        setUserList(list);
+        setLoading(false);
     };
 
     useEffect(() => {
         getUserList();
     }, []);
 
-    const deleteUser = (userId) => {
-        fetch(`${hostUrl}/user`, {
-            method: 'DELETE',
+    const deleteUser = async (userId) => {
+        const body = {
             body: JSON.stringify({
                 user_id: userId,
             }),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        }).then((resp) => {
-            if (resp.ok) {
-                const newUserList = userList.filter((ul) => ul._id !== userId);
-                setUserList(newUserList);
-            }
-        });
-    }
+        };
+
+        const result = await api.delete(`${hostUrl}${USER_URL}`, body);
+        if (result.ok) {
+            const newUserList = userList.filter((user) => user._id !== userId);
+            setUserList(newUserList);
+        }
+    };
 
     return (
-        <div className="list">
+        <>
             {loading
                 ? 'downloading...'
                 : userList.map((user) => (
@@ -45,10 +43,12 @@ export default function Users() {
                           <div>{user.first_name}</div>
                           <div className="listItem__buttons">
                               <button>Edit</button>
-                              <button type='button' onClick={() => deleteUser(user._id)}>Delete</button>
+                              <button type="button" onClick={() => deleteUser(user._id)}>
+                                  Delete
+                              </button>
                           </div>
                       </div>
                   ))}
-        </div>
+        </>
     );
 }

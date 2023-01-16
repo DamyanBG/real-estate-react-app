@@ -6,11 +6,15 @@ import { hostUrl } from '../../common/urls';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { validateField } from 'common/validation';
 
 export default function SignUpPage() {
     const [userInfo, setUserInfo] = useState({
         role: ROLES_ENUM.user,
     });
+    const [validationErrors, setValidationErrors] = useState(
+        USER_FIELDS.map((uf) => uf.name).reduce((acc, curr) => ((acc[curr] = ''), acc), {})
+    );
 
     const navigate = useNavigate();
 
@@ -39,7 +43,27 @@ export default function SignUpPage() {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
+        if (Object.keys(validationErrors).length > 0) {
+            toast.error('Please Enter Valid Values', { autoClose: 3000, pauseOnHover: false });
+            return;
+        }
         postHome();
+    };
+
+    const handleValidate = (e) => {
+        const valError = validateField(e.target.type, e.target.value);
+        if (valError) {
+            setValidationErrors({
+                ...validationErrors,
+                [e.target.name]: valError,
+            });
+        } else {
+            setValidationErrors((current) => {
+                const copy = { ...current };
+                delete copy[e.target.name];
+                return copy;
+            });
+        }
     };
 
     const handleOnChange = (e) => {
@@ -47,20 +71,21 @@ export default function SignUpPage() {
             ...userInfo,
             [e.target.name]: e.target.value,
         });
+        handleValidate(e);
     };
 
     const handleCheckboxChange = (e) => {
         if (e.target.checked) {
             setUserInfo({
                 ...userInfo,
-                role: ROLES_ENUM.seller
-            })
-            return
+                role: ROLES_ENUM.seller,
+            });
+            return;
         }
         setUserInfo({
             ...userInfo,
-            role: ROLES_ENUM.user
-        })
+            role: ROLES_ENUM.user,
+        });
     };
 
     return (
@@ -72,18 +97,13 @@ export default function SignUpPage() {
                         labelName={uf.labelName}
                         name={uf.name}
                         value={userInfo[uf.name]}
+                        type={uf.type}
+                        userInfo={userInfo}
                         handleOnChange={handleOnChange}
+                        validationError={validationErrors[uf.name]}
                     />
                 ))}
-                <article className="form-row">
-                    <label>Password</label>
-                    <input
-                        type="password"
-                        name="password"
-                        value={userInfo.password || ''}
-                        onChange={handleOnChange}
-                    />
-                </article>
+
                 <article className="checkbox-row">
                     <input type="checkbox" onChange={handleCheckboxChange} />
                     <p>Sign Up as seller</p>
