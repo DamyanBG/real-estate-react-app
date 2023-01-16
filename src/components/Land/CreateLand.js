@@ -9,11 +9,12 @@ export default function CreateLand() {
     const [landInfo, setLandInfo] = useState({});
     const { user } = useContext(UserContext);
 
-    const postLand = () => {
+    const postLand = async () => {
         const postBody = {
             owner: user._id,
             ...landInfo,
         };
+
         fetch(`${hostUrl}/land`, {
             method: 'POST',
             body: JSON.stringify(postBody),

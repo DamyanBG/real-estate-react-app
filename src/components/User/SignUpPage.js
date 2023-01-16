@@ -16,13 +16,17 @@ export default function SignUpPage() {
 
     const postHome = async () => {
         try {
-            const data = await fetch(`${hostUrl}/user`, {
+            const response = await fetch(`${hostUrl}/user`, {
                 method: 'POST',
                 body: JSON.stringify(userInfo),
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
+
+            const data = await response.json()
+
+            console.log(data);
 
             if (data) {
                 navigate('/');
