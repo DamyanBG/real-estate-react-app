@@ -1,39 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { hostUrl } from 'common/urls';
+import { api } from 'common/api';
+
+const HOMES_URL = '/homes';
+const HOME_URL = '/home';
 
 export default function Homes() {
     const [homeList, setHomeList] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const getHomeList = () => {
+    const getHomeList = async () => {
         setLoading(true);
-        fetch(`${hostUrl}/homes`)
-            .then((resp) => resp.json())
-            .then((list) => {
-                setHomeList(list);
-                setLoading(false);
-            });
+        const list = await api.getAll(`${hostUrl}${HOMES_URL}`);
+        setHomeList(list);
+        setLoading(false);
     };
 
     useEffect(() => {
         getHomeList();
     }, []);
 
-    const deleteHome = (homeId) => {
-        fetch(`${hostUrl}/home`, {
-            method: 'DELETE',
+    const deleteHome = async (homeId) => {
+        const body = {
             body: JSON.stringify({
                 home_id: homeId,
             }),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        }).then((resp) => {
-            if (resp.ok) {
-                const newHomeList = homeList.filter((hl) => hl._id !== homeId);
-                setHomeList(newHomeList);
-            }
-        });
+        };
+
+        const result = await api.delete(`${hostUrl}${HOME_URL}`, body);
+        if (result.ok) {
+            const newHomeList = homeList.filter((home) => home._id !== homeId);
+            setHomeList(newHomeList);
+        }
     };
 
     return (
