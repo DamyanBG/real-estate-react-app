@@ -85,33 +85,22 @@ export default function InputFormRow({ labelName, name, value, handleOnChange, t
         ? (errorMessage = 'Neighborhood must have minimum 3 and maximum 150 characters')
         : null;
 
+
+export default function InputFormRow({
+    labelName,
+    name,
+    value,
+    handleOnChange,
+    type = 'text',
+    validationError,
+}) {
+
     return (
         <article className="form-row">
             <div className="input-wrapper">
                 <label>{labelName}</label>
-                {labelName === 'Password' ? (
-                    <input
-                        type={type || 'text'}
-                        name={name}
-                        autoComplete="true"
-                        value={userInfo.password || ''}
-                        onChange={handleOnChange}
-                        onInput={validate}
-                    />
-                ) : (
-                    <input
-                        type={type}
-                        name={name}
-                        value={value || ''}
-                        onChange={handleOnChange}
-                        onInput={validate}
-                    />
-                )}
-                {!validity && (
-                    <p id={name + 'Error'} style={{ color: 'red', fontSize: '13px' }}>
-                        {errorMessage}
-                    </p>
-                )}
+                <input type={type} name={name} value={value || ''} onChange={handleOnChange} />
+                {validationError && <p className="validation-error">{validationError}</p>}
             </div>
         </article>
     );
