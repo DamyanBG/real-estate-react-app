@@ -24,14 +24,14 @@ function NewsList() {
     return (
         <>
             <div className="container">
-                <h1>News</h1>
+
 
                 {loading ? (
-                    <h4>Preparing news...</h4>
+                    <h4>Getting the latest news...</h4>
                 ) : (
                     news.map((item) => (
                         <div className="block" key={item.source_id}>
-                            <h4>{item.title}</h4>
+                            <h4 className="news-title">{item.title}</h4>
                             <p>
                                 <i>{item.content}</i>
                             </p>
