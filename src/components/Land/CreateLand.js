@@ -4,16 +4,44 @@ import InputFormRow from '../../common/InputFormRow';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import { hostUrl } from '../../common/urls';
 import { UserContext } from '../../context/UserContext';
+import { toast } from 'react-toastify';
+import {checkEmptyFields} from '../functions/checkEmptyField'
+import { checkCharLength } from '../functions/checkCharLength'
 
 export default function CreateLand() {
-    const [landInfo, setLandInfo] = useState({});
+    const [landInfo, setLandInfo] = useState({name: '', place: '', price: '', size: '', description: '', longitude: '',latitude: ''});
+
     const { user } = useContext(UserContext);
 
-    const postLand = () => {
+    const postLand = async () => {
+        
+        const {name, place, price, size, description, longitude, latitude} = landInfo
+
         const postBody = {
             owner: user._id,
             ...landInfo,
         };
+
+        if(!name || !place || !price || !size || !description || !longitude || !latitude) {
+
+            checkEmptyFields(name, place, price, size, description, longitude, latitude)
+
+            return
+        }
+
+        if(name && name.length < 3 || name.length > 150 || price && price.length > 50 || place && place.length < 3 || place.length > 150 || size && size.length < 3 || size.length > 150 || description && description.length < 5 || description.length > 150 || longitude && longitude.length < 3 || longitude.length > 100 || latitude && latitude.length < 3 || latitude.length > 100) {
+
+            checkCharLength(name, place, price, size, description, longitude, latitude)
+
+            return
+        }
+
+        if(!Number.isInteger(parseInt(price))) {
+            toast.error('Price must be an integer')
+            return
+        }
+
+
         fetch(`${hostUrl}/land`, {
             method: 'POST',
             body: JSON.stringify(postBody),
