@@ -33,7 +33,7 @@ function App() {
             <UserProvider>
                 <BrowserRouter>
                     <Header />
-                    <main>
+                    <main className='main'>
                         <Routes>
                             <Route path="/" element={<HomePage />} />
                             <Route path="/create-home" element={<CreateHome />} />
