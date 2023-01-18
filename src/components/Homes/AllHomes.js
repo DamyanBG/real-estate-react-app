@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { hostUrl } from '../../common/urls';
 import exampleHomePhoto from '../../images/home-main-photo-example.jpg';
 import './Homes.scss';
+import './AllHomes.scss';
 import { Link } from 'react-router-dom';
 
 export default function AllHomes() {
@@ -21,7 +22,7 @@ export default function AllHomes() {
     };
 
     return (
-        <div>
+        <div className='main-container'>
             {homes.map((h) => (
                 <article className="home-container" key={`home-${h._id}`}>
                     <div className="image-container">
@@ -39,11 +40,11 @@ export default function AllHomes() {
                         <Link to={`/home-details?homeId=${h._id}`} className="no-underline">
                             <h3>{h.title}</h3>
                         </Link>
-                        <p>Location: {h.city}</p>
+                        <p className='main-text-par'>Location: {h.city}</p>
                         <p>Price: {h.price}</p>
                     </div>
                     <div className="description-text">
-                        <p>{h.description}</p>
+                        <p className='description-text-par'>{h.description}</p>
                     </div>
                 </article>
             ))}
