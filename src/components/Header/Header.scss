@@ -1,85 +1,106 @@
 a {
-  color: inherit;
+    color: inherit;
 }
 
 header {
-  padding: 10px 0;
-  display: flex;
-  background-color: #def2f8;
-  min-height: 48px;
-  height: 5vh;
+    padding: 10px 0;
+    display: flex;
+    background-color: #def2f8;
+    min-height: 48px;
+    height: 5vh;
 }
 
 .app-name {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  color: black;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: black;
 }
 
 .auth {
-  display: flex;
-  margin-left: auto;
-  margin-right: 48px;
+    display: flex;
+    margin-left: auto;
+    margin-right: 48px;
 }
 
 .auth p {
-  padding-left: 24px;
+    padding-left: 24px;
 }
 
 section {
-  margin-left: 48px;
+    margin-left: 48px;
 }
 
 nav {
-  margin-left: 128px;
+    margin-left: 128px;
 }
 
 ul {
-  list-style: none;
-  display: flex;
+    list-style: none;
+    display: flex;
 }
 
 li {
-  margin-right: 64px;
+    margin-right: 64px;
 }
 
-.buy-list{
-  position: relative;
-  cursor: pointer;
+.buy-list {
+    position: relative;
+    cursor: pointer;
 }
 
-.buy-element{
-  position: absolute;
-  top: 33px;
-  left: -44px;
-  border: none;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 5px;
+.buy-element {
+    position: absolute;
+    top: 33px;
+    left: -44px;
+    border: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
 
-  .buy-patch{
-    text-decoration: none;
-    background: rgba(186, 160, 160, 0.3);
-    margin: 4px;
-    border-radius: 8px;
-    padding: 4px;
-    color: rgb(82, 116, 150);
-    transition: 3s;
-    z-index: 1;
-  }
+    .buy-element-arrow {
+        transform: rotate(40deg);
+        height: 2rem;
+        width: 2rem;
+        background-color: white;
+        position: absolute;
+        left: 2.75rem;
+        top: 0;
+        margin-top: 1rem;
+        z-index: 1;
+    }
 
-  .buy-patch:hover{
-    background: rgba(127, 123, 92, 0.3);
-    color: darkslateblue;
-    animation: top-to-bottom 3s;
-    animation-fill-mode: forwards;
-    box-shadow: 3px 3px red, -1em 0 .4em olive;
-  }
+    .buy-element-cont {
+        background-color: white;
+        width: 25rem;
+        height: 10rem;
+        margin-top: 1.5rem;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .buy-patch {
+        text-decoration: none;
+        margin: 4px;
+        border-radius: 8px;
+        padding: 4px;
+        color: rgb(82, 116, 150);
+        transition: 3s;
+        z-index: 1;
+        font-weight: 500;
+    }
+
+    .buy-patch:hover {
+        color: darkslateblue;
+        background: rgba(186, 160, 160, 0.3);
+        font-weight: 700;
+    }
 }
 
-@keyframes top-to-bottom{
-  100% {
-    transform: translateY(100%);
-  }
+@keyframes top-to-bottom {
+    100% {
+        transform: translateY(100%);
+    }
 }
