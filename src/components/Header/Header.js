@@ -24,6 +24,7 @@ export default function Header() {
                 pauseOnHover: false,
             });
         }
+        setClick(false);
     };
 
     const onLogOutHandler = () => {
@@ -56,24 +57,32 @@ export default function Header() {
                         {click && (
                             <>
                                 <div className="buy-element">
-                                    <Link
-                                        className="buy-patch"
-                                        to="/all-homes"
+                                    <div className="buy-element-arrow"></div>
+                                    <div
+                                        className="buy-element-cont"
                                         onMouseLeave={() => {
                                             setClick(false);
                                         }}
                                     >
-                                        Home
-                                    </Link>
-                                    <Link
-                                        className="buy-patch"
-                                        to="/all-lands"
-                                        onMouseLeave={() => {
-                                            setClick(false);
-                                        }}
-                                    >
-                                        Land
-                                    </Link>
+                                        <Link
+                                            className="buy-patch"
+                                            to="/all-homes"
+                                            onClick={() => {
+                                                setClick(false);
+                                            }}
+                                        >
+                                            Homes for sale
+                                        </Link>
+                                        <Link
+                                            className="buy-patch"
+                                            to="/all-lands"
+                                            onClick={() => {
+                                                setClick(false);
+                                            }}
+                                        >
+                                            Land for sale
+                                        </Link>
+                                    </div>
                                 </div>
                             </>
                         )}
@@ -88,30 +97,42 @@ export default function Header() {
                         {sellClick && (
                             <>
                                 <div className="buy-element">
-                                    <Link
-                                        className="buy-patch"
-                                        to={
-                                            user._id && user.role == 'seller' ? '/create-home' : '/'
-                                        }
-                                        onMouseLeave={() => {
-                                            setSellClick(false);
+                                    <div className="buy-element-arrow"></div>
+                                    <div
+                                        className="buy-element-cont"
+                                        onClick={() => {
+                                            setClick(false);
                                         }}
-                                        onClick={SellHandler}
                                     >
-                                        Home
-                                    </Link>
-                                    <Link
-                                        className="buy-patch"
-                                        to={
-                                            user._id && user.role == 'seller' ? '/create-land' : '/'
-                                        }
-                                        onMouseLeave={() => {
-                                            setSellClick(false);
-                                        }}
-                                        onClick={SellHandler}
-                                    >
-                                        Land
-                                    </Link>
+                                        <Link
+                                            className="buy-patch"
+                                            to={
+                                                user._id && user.role == 'seller'
+                                                    ? '/create-home'
+                                                    : '/'
+                                            }
+                                            onClick={() => {
+                                                SellHandler();
+                                                setSellClick(false);
+                                            }}
+                                        >
+                                            Sell Home
+                                        </Link>
+                                        <Link
+                                            className="buy-patch"
+                                            to={
+                                                user._id && user.role == 'seller'
+                                                    ? '/create-land'
+                                                    : '/'
+                                            }
+                                            onMouseLeave={() => {
+                                                setSellClick(false);
+                                            }}
+                                            onClick={SellHandler}
+                                        >
+                                            Sell Land
+                                        </Link>
+                                    </div>
                                 </div>
                             </>
                         )}
