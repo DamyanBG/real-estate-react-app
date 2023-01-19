@@ -71,7 +71,7 @@ export default function Header() {
                                                 setClick(false);
                                             }}
                                         >
-                                            Homes for sales
+                                            Homes for sale
                                         </Link>
                                         <Link
                                             className="buy-patch"
@@ -80,7 +80,7 @@ export default function Header() {
                                                 setClick(false);
                                             }}
                                         >
-                                            Land for sales
+                                            Land for sale
                                         </Link>
                                     </div>
                                 </div>
