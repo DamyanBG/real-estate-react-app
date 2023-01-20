@@ -1,85 +1,185 @@
-a {
-  color: inherit;
-}
+@import './veriables';
 
 header {
-  padding: 10px 0;
-  display: flex;
-  background-color: #def2f8;
-  min-height: 48px;
-  height: 5vh;
-}
+    padding: 10px 0;
+    display: flex;
+    background-color: #def2f8;
+    min-height: 48px;
+    height: 5vh;
 
-.app-name {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  color: black;
-}
+    section {
+    }
 
-.auth {
-  display: flex;
-  margin-left: auto;
-  margin-right: 48px;
-}
+    .top-section {
+        .app-name-container {
+            box-shadow: 0 1.5rem 4rem rgba(255, 0, 0, 17%);
+            .app-name {
+                font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+                color: black;
+                z-index: 10;
+                transition: all 0.5s;
+            }
 
-.auth p {
-  padding-left: 24px;
-}
+            .app-name:hover {
+                transform: scale(1.05) translateY(-0.5rem);
+                box-shadow: 0 2.5rem 4rem rgba(0, 0, 0, 0.5);
+                z-index: 20;
+            }
+        }
+    }
 
-section {
-  margin-left: 48px;
-}
+    .nav-section {
+        margin-left: 128px;
+        .nav-ul {
+            list-style: none;
+            display: flex;
+            flex-direction: row;
+            gap: 5rem;
+            .buy-list,
+            .sell-list {
+                position: relative;
+                z-index: 10;
+                transition: all 0.9s;
+                cursor: pointer;
 
-nav {
-  margin-left: 128px;
-}
+                .buy-element {
+                    position: absolute;
+                    top: 33px;
+                    left: -44px;
+                    border: none;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 5px;
 
-ul {
-  list-style: none;
-  display: flex;
-}
+                    .buy-patch {
+                        text-decoration: none;
+                        background: rgba(150, 146, 146, 0.3);
+                        margin: 4px;
+                        border-radius: 8px;
+                        padding: 4px;
+                        color: rgb(82, 116, 150);
+                        transition: 10s;
+                        z-index: 1;
+                        box-shadow: 0 2.5rem 4rem rgba(0, 0, 0, 0.5);
+                    }
 
-li {
-  margin-right: 64px;
-}
+                    .buy-patch:hover {
+                        background: rgba(127, 123, 92, 0.3);
+                        color: darkslateblue;
+                        animation: top-to-bottom 3s;
+                        animation-fill-mode: forwards;
 
-.buy-list{
-  position: relative;
-  cursor: pointer;
-}
+                        box-shadow: 0 2.5rem 4rem rgba(0, 0, 0, 0.5);
+                    }
+                }
 
-.buy-element{
-  position: absolute;
-  top: 33px;
-  left: -44px;
-  border: none;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 5px;
+                @keyframes top-to-bottom {
+                    100% {
+                        transform: translateY(100%);
+                    }
+                }
+            }
 
-  .buy-patch{
-    text-decoration: none;
-    background: rgba(186, 160, 160, 0.3);
-    margin: 4px;
-    border-radius: 8px;
-    padding: 4px;
-    color: rgb(82, 116, 150);
-    transition: 3s;
-    z-index: 1;
-  }
+            .sell-list:hover{
+                transform: scale(1.05) translateY(-0.5rem);
+                box-shadow: 0 2.5rem 4rem rgba(0, 0, 0, 0.5);
+                z-index: 20;
+            }
+            .buy-list:hover{
+                transform: scale(1.05) translateY(-0.5rem);
+                box-shadow: 0 2.5rem 4rem rgba(0, 0, 0, 0.5);
+                z-index: 20;
+            }
+        }
+    }
 
-  .buy-patch:hover{
-    background: rgba(127, 123, 92, 0.3);
-    color: darkslateblue;
-    animation: top-to-bottom 3s;
-    animation-fill-mode: forwards;
-    box-shadow: 3px 3px red, -1em 0 .4em olive;
-  }
-}
+    .auth {
+        margin-left: 48px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        margin-left: 35rem;
+        margin-right: 48px;
 
-@keyframes top-to-bottom{
-  100% {
-    transform: translateY(100%);
-  }
+        p {
+            margin-left: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .btn {
+                font-weight: 600;
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans',
+                    Arial, sans-serif;
+                padding: 6px;
+                font-style: italic;
+                &,
+                &:link,
+                &:visited {
+                    text-transform: uppercase;
+                    text-decoration: none;
+                    display: inline-block;
+                    border-radius: 10rem;
+                    transition: all 0.8s;
+                    position: relative;
+                    border: none;
+                    cursor: pointer;
+                }
+
+                &:hover {
+                    transform: translateY(-10px);
+                    box-shadow: 0 1rem 2rem rgba($color-black, 0.2);
+
+                    &::after {
+                        transform: scaleX(8.4) scaleY(1.6);
+                        opacity: 0;
+                    }
+                }
+
+                &:active,
+                &:focus {
+                    outline: none;
+                    transform: translateY(-1px);
+                    box-shadow: 0 0.5rem 1rem rgba($color-black, 0.2);
+                }
+
+                &--white {
+                    background-color: white;
+                    color: $color-grey-dark;
+
+                    &::after {
+                        background-color: white;
+                    }
+                }
+
+                &--green {
+                    background-color: $color-primary;
+                    color: white;
+
+                    &::after {
+                        background-color: $color-primary;
+                    }
+                }
+
+                &::after {
+                    content: '';
+                    display: inline-block;
+                    height: 100%;
+                    width: 100%;
+                    border-radius: 10rem;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    z-index: -1;
+                    transition: all 0.7s;
+                }
+
+                &--animated {
+                    animation: moveInBottom 4s ease-out 0.75s;
+                    animation-fill-mode: backwards;
+                }
+            }
+        }
+    }
 }

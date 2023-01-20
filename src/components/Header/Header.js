@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 
 export default function Header() {
     const [click, setClick] = useState(false);
+
     const [sellClick, setSellClick] = useState(false);
     const { user, setUser } = useContext(UserContext);
 
@@ -40,14 +41,14 @@ export default function Header() {
 
     return (
         <header>
-            <section>
-                <Link style={{ textDecoration: 'none' }} to="/">
+            <section className="top-section">
+                <Link className="app-name-container" style={{ textDecoration: 'none' }} to="/">
                     <p className="app-name">Real Estate App</p>
                 </Link>
             </section>
-            <nav>
-                <ul>
-                    <li
+            <nav className="nav-section">
+                <div className="nav-ul">
+                    <div
                         className="buy-list"
                         onMouseEnter={() => {
                             setClick(true);
@@ -78,9 +79,9 @@ export default function Header() {
                             </>
                         )}
                         Buy
-                    </li>
-                    <li
-                        className="buy-list"
+                    </div>
+                    <div
+                        className="sell-list"
                         onMouseEnter={() => {
                             setSellClick(true);
                         }}
@@ -116,7 +117,7 @@ export default function Header() {
                             </>
                         )}
                         Sell
-                    </li>
+                    </div>
                     <Link style={{ textDecoration: 'none' }} to="/rent">
                         <li>Rent</li>
                     </Link>
@@ -124,7 +125,7 @@ export default function Header() {
                     <Link style={{ textDecoration: 'none' }} to="/news">
                         <li>News</li>
                     </Link>
-                </ul>
+                </div>
             </nav>
             <section className="auth">
                 {user.role === 'admin' ? (
@@ -137,12 +138,17 @@ export default function Header() {
                     ''
                 )}
                 <p>
-                    <Link style={{ textDecoration: 'none' }} to={user._id ? '/profile' : '/signup'}>
+                    <Link
+                        className="btn btn--green btn--animated"
+                        style={{ textDecoration: 'none' }}
+                        to={user._id ? '/profile' : '/signup'}
+                    >
                         {user._id ? 'Profile' : 'Sign up'}
                     </Link>
                 </p>
                 <p>
                     <Link
+                        className="btn btn--green btn--animated"
                         onClick={onLogOutHandler}
                         style={{ textDecoration: 'none' }}
                         to={user._id ? '/' : '/signin'}
