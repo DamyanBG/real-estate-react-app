@@ -16,13 +16,13 @@ https://www.youtube.com/watch?v=dR8qX2cMPcE&t=25s
 
 ### Dependencies
 
-##### Before start, you should need have installed in your computer those following tools:
+##### Before start, you need install the following tools in your computer:
 
 <img align="center" alt="GIT" height="25" width="35" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg" style="max-width:100%;">[Git](https://git-scm.com)</img>
 
 <img align="center" alt="NodeJS" height="25" width="35" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg" style="max-width:100%;">[Node.js](https://nodejs.org/en/)</img>
 
-##### It is also recommended a good code editor, for example:
+##### It is also recommended to have a good code editor, like the following:
 
 <img align="center" alt="VisualStudioCode" height="25" width="35" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/visualstudio/visualstudio-plain.svg" style="max-width:100%;">[VSCode](https://code.visualstudio.com/)</img>
 
