@@ -26,6 +26,7 @@ import ChatHistory from './components/Chat/ChatHistory';
 import CreateMeeting from './components/Meeting/CreateMeeting';
 import ListMeetings from './components/Meeting/ListMeetings';
 import AdminRoutes from 'components/User/routes';
+import About from 'components/About/About';
 
 function App() {
     return (
@@ -52,6 +53,7 @@ function App() {
                             <Route path="/change-email" element={<ChangeEmail />} />
                             <Route path="/change-password" element={<ChangePassword />} />
                             <Route path="/news" element={<NewsList />} />
+                            <Route path="/about" element={<About />} />
                             {AdminRoutes}
                             <Route path="/chat-history" element={<ChatHistory />} />
                             <Route path="/create-meeting" element={<CreateMeeting />} />
