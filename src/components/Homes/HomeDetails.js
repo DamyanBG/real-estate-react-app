@@ -58,9 +58,14 @@ export default function HomeDetails() {
                     )}
                 </p>
                 {user._id === homeDetails.owner_id && (
-                    <Link to={`/edit-home?homeId=${homeId}`}>
-                        <button>Edit</button>
-                    </Link>
+                    <>
+                        <Link to={`/edit-home?homeId=${homeId}`}>
+                            <button>Edit</button>
+                        </Link>
+                        <Link to={`/create-visitation?homeId=${homeId}`}>
+                            <button>Create Visitation</button>
+                        </Link>
+                    </>
                 )}
             </div>
         </section>
