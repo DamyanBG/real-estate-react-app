@@ -2,12 +2,15 @@
     text-decoration: none;
 }
 
+.home-details {
+    border: 2px solid lightslategray;
+}
+
 .home-details-container {
     display: flex;
     justify-content: space-around;
     margin: 36px 48px;
     padding: 24px 36px;
-    border: 2px solid lightslategray;
     min-height: 50vh;
 }
 
@@ -21,4 +24,10 @@
 
 .home-details-text {
     width: 45%;
+}
+
+.map-container {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 10%
 }
