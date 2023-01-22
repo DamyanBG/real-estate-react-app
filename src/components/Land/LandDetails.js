@@ -49,7 +49,16 @@ export default function LandDetails() {
                 {user._id === landDetails.owner ? (
                     <>
                         <Link to={`/edit-land?landId=${landId}`} className="land-details_edit">
-                            Edit land informacion
+                            Edit
+                        </Link>
+                    </>
+                ) : (
+                    ''
+                )}
+                {user._id === landDetails.owner ? (
+                    <>
+                        <Link to={`/create-visitation?landId=${landId}`}>
+                            <button>Create visitation</button>
                         </Link>
                     </>
                 ) : (
