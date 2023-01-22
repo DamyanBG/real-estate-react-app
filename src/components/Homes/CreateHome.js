@@ -1,6 +1,3 @@
-/* eslint-disable */
-
-import { encode } from 'base-64';
 import { useContext, useState } from 'react';
 import { hostUrl } from '../../common/urls';
 import InputFormRow from '../../common/InputFormRow';
@@ -8,9 +5,15 @@ import FormSubmitButton from '../../common/FormSubmitButton';
 import { HOME_FIELDS } from '../../common/fields';
 import { UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
+import { validateField } from 'common/validation';
+import { toast } from 'react-toastify';
 
 export default function CreateHome() {
     const [homeInfo, setHomeInfo] = useState({});
+    const [validationErrors, setValidationErrors] = useState(
+        HOME_FIELDS.map((uf) => uf.name).reduce((acc, curr) => ((acc[curr] = ''), acc), {})
+    );
+
     const { user } = useContext(UserContext);
     const navigate = useNavigate();
     const [photo, setPhoto] = useState(null);
@@ -50,41 +53,39 @@ export default function CreateHome() {
             });
     };
 
+    const handleValidate = (e) => {
+        const valError = validateField(e.target.type, e.target.value);
+        if (valError) {
+            setValidationErrors({
+                ...validationErrors,
+                [e.target.name]: valError,
+            });
+        } else {
+            setValidationErrors((current) => {
+                const copy = { ...current };
+                delete copy[e.target.name];
+                return copy;
+            });
+        }
+    };
+
     const handleOnChange = (e) => {
         setHomeInfo({
             ...homeInfo,
             [e.target.name]: e.target.value,
         });
+        handleValidate(e);
     };
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
+        if (Object.keys(validationErrors).length > 0) {
+            toast.error('Please enter valid values!', { autoClose: 3000, pauseOnHover: false });
+            return;
+        }
         postHome();
     };
 
-    // function readFile(file) {
-    //     return new Promise((resolve, reject) => {
-    //       // Create file reader
-    //       let reader = new FileReader()
-      
-    //       // Register event listeners
-    //       reader.addEventListener("loadend", e => resolve(e.target.result))
-    //       reader.addEventListener("error", reject)
-      
-    //       // Read file
-    //       reader.readAsArrayBuffer(file)
-    //     })
-    //   }
-
-    // async function getAsByteArray(file) {
-    //     return new Uint8Array (await readFile(file))
-    // }
-
-    // const handleOnPhotoUpload = async (event) => {
-    //     const byted = await getAsByteArray(event.target.files[0])
-    //     const photoBase64FromByites = encode(byted)
-    //     setPhoto(photoBase64FromByites);
-    // };
 
     const handleOnPhotoUpload = (event) => {
         setPhoto(event.target.files[0])
@@ -102,7 +103,9 @@ export default function CreateHome() {
                         labelName={hk.labelName}
                         name={hk.name}
                         value={homeInfo[hk.name]}
+                        type={hk.type}
                         handleOnChange={handleOnChange}
+                        validationError={validationErrors[hk.name]}
                     />
                 ))}
                 <article className="form-row">

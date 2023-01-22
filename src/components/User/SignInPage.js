@@ -1,100 +1,93 @@
-import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { SIGNIN_FIELDS } from '../../common/fields';
+import { validateField } from 'common/validation';
+import { toast } from 'react-toastify';
+import FormSubmitButton from '../../common/FormSubmitButton';
+import InputFormRow from '../../common/InputFormRow';
 import { hostUrl } from '../../common/urls';
-import { UserContext } from '../../context/UserContext';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from 'context/UserContext';
 
-export default function SignUpPage() {
-    const [errorMessage, seterrorMessage] = useState(null);
-    const [isLoading, setisLoading] = useState(false);
+export default function SignIn() {
+    const [loginInfo, setLoginInfo] = useState({});
+    const [validationErrors, setValidationErrors] = useState(SIGNIN_FIELDS.map((uf) => uf.name).reduce((acc, curr) => ((acc[curr] = ''), acc), {}));
+
+    const { setUser } = useContext(UserContext)
+
     const navigate = useNavigate();
-    const { setUser } = useContext(UserContext);
 
-
-    const loginHandler = async (e) => {
-        e.preventDefault();
-        setisLoading(true);
-
-        //get credentials
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-
-        //configure post request
-        const url = hostUrl + '/auth/login';
-        const myHeaders = new Headers();
-        myHeaders.append('Content-Type', 'application/json');
-
-        const requestBody = JSON.stringify({
-            email: email,
-            password: password,
-        });
-
-        const requestOptions = {
+    const signIn = () => {
+        fetch(`${hostUrl}/auth/login`, {
             method: 'POST',
-            headers: myHeaders,
-            body: requestBody,
-        };
+            body: JSON.stringify(loginInfo),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then((resp) => {
+            if (resp.ok) {
+                return resp.json()
+                
+            }
+            throw new Error()
+        })
+            .then(json => {
+                localStorage.setItem('user', JSON.stringify(json));
+                setUser(json);
+                navigate('/');
+                return;
+            })
+            .catch(() => toast.error('Incorrect email or password!', { autoClose: 3000, pauseOnHover: false }))
+    };
 
-        //send post request
-        const response = await fetch(url, requestOptions);
-        setisLoading(false);
-        const detail = await response.json();
-        const status = response.status;
-
-        //handle various scenerios
-        if (status === 200) {
-            document.cookie = `token=${detail.token};max-age=${60 * 60 * 24}`;
-            localStorage.setItem('user', JSON.stringify(detail));
-            setUser(detail);
-
-            navigate('/');
-        } else if (status === 400) {
-            seterrorMessage('Wrong email or password');
-            document.getElementById('email').focus();
-        } else if (status === 401) {
-            seterrorMessage('Wrong email or password');
-            document.getElementById('email').focus();
+    const handleValidate = (e) => {
+        const valError = validateField(e.target.type, e.target.value);
+        if (valError) {
+            setValidationErrors({
+                ...validationErrors,
+                [e.target.name]: valError,
+            });
         } else {
-            seterrorMessage('Error occured while trying to sign in.');
-            document.getElementById('email').focus();
+            setValidationErrors((current) => {
+                const copy = { ...current };
+                delete copy[e.target.name];
+                return copy;
+            });
         }
     };
 
+    const handleOnChange = (e) => {
+        setLoginInfo({
+            ...loginInfo,
+            [e.target.name]: e.target.value,
+        });
+        handleValidate(e);
+    };
+
+    const handleOnSubmit = (e) => {
+        e.preventDefault();
+        if (Object.keys(validationErrors).length > 0) {
+            toast.error('Please enter valid values!', { autoClose: 3000, pauseOnHover: false });
+            return;
+        }
+        signIn();
+    };
+
     return (
-        <div className="signin-form-container center">
-            <form
-                className="signin-form"
-                onSubmit={loginHandler}
-                onClick={() => seterrorMessage(null)}
-            >
+        <div className="center">
+            <form onSubmit={handleOnSubmit}>
                 <h3>Sign In</h3>
-                <div className="input-wrapper">
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        placeholder="enter email"
-                        type="email"
-                        id="email"
-                        required
-                        autoComplete="email"
+                {SIGNIN_FIELDS.map((sf) => (
+                    <InputFormRow
+                        key={sf.labelName}
+                        labelName={sf.labelName}
+                        name={sf.name}
+                        value={loginInfo[sf.name]}
+                        type={sf.type}
+                        handleOnChange={handleOnChange}
+                        validationError={validationErrors[sf.name]}
                     />
-                </div>
-
-                <div className="input-wrapper">
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        placeholder="enter password"
-                        id="password"
-                        autoComplete="current-password"
-                        required
-                    />
-                </div>
-                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-
-                {!isLoading ? (
-                    <input className="submit_btn" type="submit" value="Sign in" />
-                ) : (
-                    <input className="submit_btn" type="submit" value="Signin in..." />
-                )}
+                ))}
+                <FormSubmitButton />
             </form>
         </div>
     );
