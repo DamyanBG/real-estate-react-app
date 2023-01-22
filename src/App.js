@@ -8,7 +8,6 @@ import CreateHome from './components/Homes/CreateHome';
 import SignUpPage from './components/User/SignUpPage';
 import AllHomes from './components/Homes/AllHomes';
 import HomeDetails from './components/Homes/HomeDetails';
-import SignInPage from './components/User/SignInPage';
 import Rent from './components/Rent/Rent';
 import NewsList from './components/News/NewsList';
 import Chat from './components/Chat/Chat';
@@ -27,6 +26,7 @@ import CreateMeeting from './components/Meeting/CreateMeeting';
 import ListMeetings from './components/Meeting/ListMeetings';
 import AdminRoutes from 'components/User/routes';
 import About from 'components/About/About';
+import SignIn from './components/User/SignInPage';
 
 function App() {
     return (
@@ -42,7 +42,7 @@ function App() {
                             <Route path="/create-land" element={<CreateLand />} />
                             <Route path="/signup" element={<SignUpPage />} />
                             <Route path="/chat" element={<Chat />} />
-                            <Route path="/signin" element={<SignInPage />} />
+                            <Route path="/signin" element={<SignIn />} />
                             <Route path="/all-homes" element={<AllHomes />} />
                             <Route path="/all-lands" element={<AllLands />} />
                             <Route path="/home-details" element={<HomeDetails />} />

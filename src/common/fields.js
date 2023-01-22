@@ -121,3 +121,16 @@ export const MEETING_FIELDS = [
         name: 'end_date',
     },
 ];
+
+export const SIGNIN_FIELDS = [
+    {
+        labelName: 'Email',
+        name: 'email',
+        type: 'email',
+    },
+    {
+        labelName: 'Password',
+        name: 'password',
+        type: 'password',
+    },
+]
