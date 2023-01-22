@@ -18,18 +18,22 @@ export const HOME_FIELDS = [
     {
         labelName: 'Longitude',
         name: 'longitude',
+        type: 'number',
     },
     {
         labelName: 'Latitude',
         name: 'latitude',
+        type: 'number',
     },
     {
         labelName: 'Price',
         name: 'price',
+        type: 'number',
     },
     {
         labelName: 'Size',
         name: 'size',
+        type: 'number',
     },
     {
         labelName: 'Year',
@@ -92,6 +96,7 @@ export const LAND_FIELDS = [
     {
         labelName: 'Price',
         name: 'price',
+        type: 'number',
     },
     {
         labelName: 'Size',
@@ -104,10 +109,12 @@ export const LAND_FIELDS = [
     {
         labelName: 'Longitude',
         name: 'longitude',
+        type: 'number',
     },
     {
         labelName: 'Latitude',
         name: 'latitude',
+        type: 'number',
     },
 ];
 
@@ -133,4 +140,4 @@ export const SIGNIN_FIELDS = [
         name: 'password',
         type: 'password',
     },
-]
+];
