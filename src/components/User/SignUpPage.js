@@ -40,7 +40,7 @@ export default function SignUpPage() {
     const handleOnSubmit = (e) => {
         e.preventDefault();
         if (Object.keys(validationErrors).length > 0) {
-            toast.error('Please Enter Valid Values', { autoClose: 3000, pauseOnHover: false });
+            toast.error('Please enter valid values!', { autoClose: 3000, pauseOnHover: false });
             return;
         }
         postHome();
@@ -94,7 +94,6 @@ export default function SignUpPage() {
                         name={uf.name}
                         value={userInfo[uf.name]}
                         type={uf.type}
-                        userInfo={userInfo}
                         handleOnChange={handleOnChange}
                         validationError={validationErrors[uf.name]}
                     />
