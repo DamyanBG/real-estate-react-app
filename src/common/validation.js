@@ -1,4 +1,4 @@
-import { EMAIL_REGEX } from "./utils";
+import { EMAIL_REGEX } from './utils';
 
 const validations = {
     text: (value) => {
@@ -6,7 +6,7 @@ const validations = {
             return 'This field can not be empty!';
         }
         if (value.length < 3 || value.length > 150) {
-            return 'Text field have to contain between 3 and 150 characters';
+            return 'Text field have to contains between 3 and 150 characters!';
         }
     },
     email: (value) => {
@@ -17,8 +17,13 @@ const validations = {
             return 'Password field can not be empty!';
         }
         if (value.length < 6 || value.length > 150) {
-            return 'Password field have to contain between 6 and 150 characters';
-        } 
+            return 'Password field have to contains between 6 and 150 characters!';
+        }
+    },
+    number: (value) => {
+        if (!value) {
+            return 'Number field can not be empty!';
+        }
     }
 };
 
