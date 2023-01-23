@@ -96,6 +96,7 @@ export default function SignUpPage() {
                         type={uf.type}
                         handleOnChange={handleOnChange}
                         validationError={validationErrors[uf.name]}
+                        dataTestId={uf.name}
                     />
                 ))}
 
