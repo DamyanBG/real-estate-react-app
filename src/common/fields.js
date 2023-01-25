@@ -143,20 +143,8 @@ export const SIGNIN_FIELDS = [
 ];
 
 export const VISITATION_FIELDS = [
-    {
-        labelName: 'date',
-        name: 'date',
-    },
-    {
-        labelName: 'Start hour',
-        name: 'start_hour',
-    },
-    {
-        labelName: 'End hour',
-        name: 'end_hour',
-    },
-    {
-        labelName: 'Address',
-        name: 'address',
-    },
+    { labelName: 'date', name: 'date', type: 'date' },
+    { labelName: 'Start hour', name: 'start_hour', type: 'datetime-local' },
+    { labelName: 'End hour', name: 'end_hour', type: 'datetime-local' },
+    { labelName: 'Address', name: 'address' },
 ];

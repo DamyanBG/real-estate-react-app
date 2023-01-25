@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { VISITATION_FIELDS } from 'common/fields';
+import { useNavigate } from 'react-router-dom';
 import FormSubmitButton from 'common/FormSubmitButton';
 import InputFormRow from 'common/InputFormRow';
 import { hostUrl } from '../../common/urls';
@@ -11,6 +12,8 @@ const CreateVisitation = () => {
     const homeId = queryParams.get('homeId');
 
     const { user } = useContext(UserContext);
+
+    const navigate = useNavigate();
 
     const [validationInfo, setValidationInfo] = useState({
         home_id: homeId,
@@ -28,15 +31,15 @@ const CreateVisitation = () => {
             });
 
             if (data) {
-                console.log(data);
-                toast.success('Successful Sign up!', { autoClose: 3000, pauseOnHover: false });
+                navigate(`/home-details?homeId=${homeId}`);
+                toast.success('Successful! Visitation Created!', {
+                    autoClose: 3000,
+                    pauseOnHover: false,
+                });
             }
         } catch (err) {
-            console.log(err);
             toast.error(`Something went wrong! ${err}`, { autoClose: 3000, pauseOnHover: false });
         }
-
-        console.log(validationInfo);
     };
 
     const handleOnChange = (e) => {
@@ -58,6 +61,7 @@ const CreateVisitation = () => {
                 {VISITATION_FIELDS.map((vf) => (
                     <InputFormRow
                         key={vf.labelName}
+                        type={vf.type}
                         labelName={vf.labelName}
                         name={vf.name}
                         value={validationInfo[vf.name]}
