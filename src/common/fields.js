@@ -141,3 +141,22 @@ export const SIGNIN_FIELDS = [
         type: 'password',
     },
 ];
+
+export const VISITATION_FIELDS = [
+    {
+        labelName: 'date',
+        name: 'date',
+    },
+    {
+        labelName: 'Start hour',
+        name: 'start_hour',
+    },
+    {
+        labelName: 'End hour',
+        name: 'end_hour',
+    },
+    {
+        labelName: 'Address',
+        name: 'address',
+    },
+];
