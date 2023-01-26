@@ -80,7 +80,7 @@ export default function SignIn() {
     };
 
     return (
-        <div className="center">
+        <div data-testid="sign-in-page-form" className="center">
             <form onSubmit={handleOnSubmit}>
                 <h3>Sign In</h3>
                 {SIGNIN_FIELDS.map((sf) => (
