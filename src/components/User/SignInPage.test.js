@@ -17,7 +17,7 @@ test('exists', async () => {
             <SignIn />
         </UserProvider>
     );
-    console.log(screen);
+    // console.log(screen);
     debug();
     const component = screen.getByTestId('sign-in-page-form');
     expect(component).toBeInTheDocument;
