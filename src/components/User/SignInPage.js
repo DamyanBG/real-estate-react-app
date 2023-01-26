@@ -10,9 +10,11 @@ import { UserContext } from 'context/UserContext';
 
 export default function SignIn() {
     const [loginInfo, setLoginInfo] = useState({});
-    const [validationErrors, setValidationErrors] = useState(SIGNIN_FIELDS.map((uf) => uf.name).reduce((acc, curr) => ((acc[curr] = ''), acc), {}));
+    const [validationErrors, setValidationErrors] = useState(
+        SIGNIN_FIELDS.map((uf) => uf.name).reduce((acc, curr) => ((acc[curr] = ''), acc), {})
+    );
 
-    const { setUser } = useContext(UserContext)
+    const { setUser } = useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -23,20 +25,25 @@ export default function SignIn() {
             headers: {
                 'Content-Type': 'application/json',
             },
-        }).then((resp) => {
-            if (resp.ok) {
-                return resp.json()
-                
-            }
-            throw new Error()
         })
-            .then(json => {
+            .then((resp) => {
+                if (resp.ok) {
+                    return resp.json();
+                }
+                throw new Error();
+            })
+            .then((json) => {
                 localStorage.setItem('user', JSON.stringify(json));
                 setUser(json);
                 navigate('/');
                 return;
             })
-            .catch(() => toast.error('Incorrect email or password!', { autoClose: 3000, pauseOnHover: false }))
+            .catch(() =>
+                toast.error('Incorrect email or password!', {
+                    autoClose: 3000,
+                    pauseOnHover: false,
+                })
+            );
     };
 
     const handleValidate = (e) => {

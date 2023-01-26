@@ -27,6 +27,7 @@ import ListMeetings from './components/Meeting/ListMeetings';
 import AdminRoutes from 'components/User/routes';
 import About from 'components/About/About';
 import SignIn from './components/User/SignInPage';
+import CreateVisitation from 'components/visitations/CreateVisitation';
 
 function App() {
     return (
@@ -34,7 +35,7 @@ function App() {
             <UserProvider>
                 <BrowserRouter>
                     <Header />
-                    <main className='main'>
+                    <main className="main">
                         <Routes>
                             <Route path="/" element={<HomePage />} />
                             <Route path="/create-home" element={<CreateHome />} />
@@ -58,6 +59,7 @@ function App() {
                             <Route path="/chat-history" element={<ChatHistory />} />
                             <Route path="/create-meeting" element={<CreateMeeting />} />
                             <Route path="/list-meetings" element={<ListMeetings />} />
+                            <Route path="/create-visitation" element={<CreateVisitation />} />
                         </Routes>
                     </main>
                     <Footer />

@@ -30,6 +30,7 @@ export default function SignUpPage() {
 
             if (data) {
                 navigate('/');
+                console.log(data);
                 toast.success('Successful Sign up!', { autoClose: 3000, pauseOnHover: false });
             }
         } catch (err) {
