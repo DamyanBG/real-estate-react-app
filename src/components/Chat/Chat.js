@@ -12,6 +12,7 @@ export default function Chat() {
     const [chatHistory, setChatHistory] = useState([]);
     const { user } = useContext(UserContext);
     const ref = useRef()
+    const regex = /[a-zA-Z0-9]/;
 
     const getMessages = () => {
         fetch(`${hostUrl}/message/${user._id}&${interlocutorId}`)
@@ -74,12 +75,12 @@ export default function Chat() {
     }
 
     const handleOnMessageSend = () => {
-        postMessage()
+        regex.test(message)? postMessage():  null;
     };
 
     const handleOnKeyDown = (e) => {
         if (e.key === "Enter") {
-            postMessage()
+            regex.test(message)?  postMessage() :null;
         }
     }
 
