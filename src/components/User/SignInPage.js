@@ -18,32 +18,29 @@ export default function SignIn() {
 
     const navigate = useNavigate();
 
-    const signIn = () => {
-        fetch(`${hostUrl}/auth/login`, {
-            method: 'POST',
-            body: JSON.stringify(loginInfo),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then((resp) => {
-                if (resp.ok) {
-                    return resp.json();
-                }
-                throw new Error();
-            })
-            .then((json) => {
-                localStorage.setItem('user', JSON.stringify(json));
-                setUser(json);
+    const signIn = async () => {
+        try {
+            const response = await fetch(`${hostUrl}/auth/login`, {
+                method: 'POST',
+                body: JSON.stringify(loginInfo),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response && response.ok) {
+                const data = await response.json();
+
+                localStorage.setItem('user', JSON.stringify(data));
+                setUser(data);
                 navigate('/');
-                return;
-            })
-            .catch(() =>
-                toast.error('Incorrect email or password!', {
-                    autoClose: 3000,
-                    pauseOnHover: false,
-                })
-            );
+            }
+        } catch (error) {
+            toast.error('Incorrect email or password!', {
+                autoClose: 3000,
+                pauseOnHover: false,
+            });
+        }
     };
 
     const handleValidate = (e) => {
@@ -92,9 +89,10 @@ export default function SignIn() {
                         type={sf.type}
                         handleOnChange={handleOnChange}
                         validationError={validationErrors[sf.name]}
+                        dataTestId={sf.name}
                     />
                 ))}
-                <FormSubmitButton />
+                <FormSubmitButton disabled={Object.keys(validationErrors).length} />
             </form>
         </div>
     );
