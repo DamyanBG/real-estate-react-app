@@ -105,5 +105,4 @@ test('submits form, setItem to localstorage and navigates to home', async () => 
 
     expect(mockedUsedNavigate).toHaveBeenCalledTimes(1);
     expect(mockedUsedNavigate).toHaveBeenCalledWith('/');
-    // debug();
 });
