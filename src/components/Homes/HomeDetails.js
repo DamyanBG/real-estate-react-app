@@ -5,19 +5,21 @@ import { hostUrl } from '../../common/urls';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 import { MapContainer, Marker, TileLayer, Tooltip } from 'react-leaflet';
+import VisitationsTable from 'common/VisitationsTable';
 
 export default function HomeDetails() {
     const params = new URLSearchParams(window.location.search);
     const homeId = params.get('homeId');
     const [homeDetails, setHomeDetails] = useState({});
+    const [visitations, setVisitations] = useState([])
     const { user } = useContext(UserContext);
 
     const fetchHomeDetails = () => {
         fetch(`${hostUrl}/home/${homeId}`)
             .then((resp) => resp.json())
             .then((json) => {
-                console.log(json);
-                setHomeDetails(json);
+                setHomeDetails(json.homeInfo);
+                setVisitations(json.visitations);
             });
     };
 
@@ -59,6 +61,7 @@ export default function HomeDetails() {
                             </Link>
                         )}
                     </p>
+                    {visitations.length > 0 && <VisitationsTable visitations={visitations} />}
                     {user._id === homeDetails.owner_id && (
                         <>
                             <Link to={`/edit-home?homeId=${homeId}`}>

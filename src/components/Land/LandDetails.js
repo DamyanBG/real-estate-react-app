@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import exampleLandPhoto from '../../images/3333214_105132040_big.jpg';
 import { useContext, useEffect, useState } from 'react';
 import { hostUrl } from '../../common/urls';
@@ -5,12 +7,14 @@ import { UserContext } from '../../context/UserContext';
 import { Link } from 'react-router-dom';
 import './LandDetails.scss';
 import { MapContainer, Marker, TileLayer, Tooltip } from 'react-leaflet';
+import VisitationsTable from 'common/VisitationsTable';
 
 export default function LandDetails() {
     const params = new URLSearchParams(window.location.search);
     const landId = params.get('landId');
     const { user } = useContext(UserContext);
     const [landDetails, setLandDetails] = useState({});
+    const [visitations, setVisitations] = useState([])
 
     const fetchLandDetails = () => {
         if (!landId) return
@@ -20,7 +24,8 @@ export default function LandDetails() {
                 return resp.json()
             })
             .then((json) => {
-                setLandDetails(json);
+                setLandDetails(json.landInfo)
+                setVisitations(json.visitations)
             });
     };
 
@@ -61,6 +66,7 @@ export default function LandDetails() {
                     ) : (
                         ''
                     )}
+                    {visitations.length > 0 && <VisitationsTable visitations={visitations} />}
                     {user._id === landDetails.owner ? (
                         <>
                             <Link to={`/create-visitation?landId=${landId}`}>
