@@ -13,8 +13,12 @@ export default function LandDetails() {
     const [landDetails, setLandDetails] = useState({});
 
     const fetchLandDetails = () => {
+        if (!landId) return
         fetch(`${hostUrl}/land/${landId}`)
-            .then((resp) => resp.json())
+            .then((resp) => {
+                console.log(resp)
+                return resp.json()
+            })
             .then((json) => {
                 setLandDetails(json);
             });
@@ -68,7 +72,7 @@ export default function LandDetails() {
                     )}
                 </div>
             </section>
-            {landDetails.latitude && landDetails.longitude && (
+            {(landDetails.latitude && landDetails.longitude) && (
                 <article className='map-container'>
                     <MapContainer
                         center={[landDetails.latitude, landDetails.longitude]}

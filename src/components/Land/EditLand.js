@@ -29,6 +29,7 @@ const EditLand = () => {
             body: JSON.stringify(landBody),
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
             },
         })
             .then((res) => {

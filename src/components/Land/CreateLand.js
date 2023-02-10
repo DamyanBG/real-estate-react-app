@@ -25,6 +25,7 @@ export default function CreateLand() {
             body: JSON.stringify(postBody),
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
             },
         })
             .then((resp) => {
