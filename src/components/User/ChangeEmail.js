@@ -1,22 +1,11 @@
-import { useEffect, useState, useContext } from 'react';
 import { hostUrl } from '../../common/urls';
 import FormSubmitButton from '../../common/FormSubmitButton';
-import { UserContext } from '../../context/UserContext';
 
-export default function ChangeEmail() {
-    const [email, setEmail] = useState('');
-    const { user } = useContext(UserContext)
-
-    const getUser = () => {
-        fetch(`${hostUrl}/user/${user._id}`)
-            .then((resp) => resp.json())
-            .then((json) => setEmail(json.email));
-    };
-
-    const updateUserEmail = () => {
+export default function ChangeEmail({ handleOnChange, userInfo, user }) {
+     const updateUserEmail = () => {
         const putBody = {
             user_id: user._id,
-            email: email,
+            email: userInfo.email,
         };
         fetch(`${hostUrl}/user/email`, {
             method: 'PATCH',
@@ -27,8 +16,6 @@ export default function ChangeEmail() {
         });
     };
 
-    useEffect(getUser, [user._id]);
-
     const handleOnSubmit = (e) => {
         e.preventDefault();
         updateUserEmail();
@@ -36,9 +23,8 @@ export default function ChangeEmail() {
 
     return (
         <div className="center">
-            <h2>Change Email</h2>
             <form onSubmit={handleOnSubmit}>
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <input type="email" value={userInfo.email} name="email" onChange={handleOnChange} />
                 <FormSubmitButton />
             </form>
         </div>

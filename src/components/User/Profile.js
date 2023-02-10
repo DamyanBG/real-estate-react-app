@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
-import { USER_PROFILE } from '../../common/fields';
-import InputFormRow from '../../common/InputFormRow';
 import { hostUrl } from '../../common/urls';
-import FormSubmitButton from '../../common/FormSubmitButton';
 import { UserContext } from '../../context/UserContext';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+import ChangeProfile from './ChangeProfile';
+import ChangeEmail from './ChangeEmail';
+import ChangePassword from './ChangePassword';
 
 export default function Profile() {
     const [userInfo, setUserInfo] = useState({});
@@ -17,52 +19,32 @@ export default function Profile() {
     };
 
     const getUserInfo = () => {
+        if (!user._id) return
         fetch(`${hostUrl}/user/${user._id}`)
             .then((resp) => resp.json())
             .then(setUserInfo);
     };
 
-    const updateUserInfo = () => {
-        const putBody = { user_id: user._id, ...userInfo };
-        fetch(`${hostUrl}/user/profile`, {
-            method: 'PATCH',
-            body: JSON.stringify(putBody),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then((resp) => {
-                if (!resp.ok) {
-                    alert('Problem occured!');
-                }
-                return resp.json();
-            })
-            .then((json) => {
-                console.log(json);
-            });
-    };
-
     useEffect(getUserInfo, [user._id]);
 
-    const handleOnSubmit = (e) => {
-        e.preventDefault();
-        updateUserInfo();
-    };
-
     return (
-        <div className="center">
-            <form onSubmit={handleOnSubmit}>
-                {USER_PROFILE.map((up) => (
-                    <InputFormRow
-                        key={up.labelName}
-                        labelName={up.labelName}
-                        name={up.name}
-                        value={userInfo[up.name]}
-                        handleOnChange={handleOnChange}
-                    />
-                ))}
-                <FormSubmitButton />
-            </form>
-        </div>
+        <Tabs>
+            <TabList>
+                <Tab>Profile</Tab>
+                <Tab>Change email</Tab>
+                <Tab>Change password</Tab>
+            </TabList>
+
+            <TabPanel>
+                <ChangeProfile handleOnChange={handleOnChange} userInfo={userInfo} user={user} />
+            </TabPanel>
+            <TabPanel>
+                <ChangeEmail handleOnChange={handleOnChange} userInfo={userInfo} user={user} />
+            </TabPanel>
+            <TabPanel>
+                <ChangePassword handleOnChange={handleOnChange} userInfo={userInfo} user={user} />
+            </TabPanel>
+        </Tabs>
+        
     );
 }
