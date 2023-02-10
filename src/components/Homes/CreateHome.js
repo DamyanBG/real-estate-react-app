@@ -37,9 +37,9 @@ export default function CreateHome() {
         fetch(`${hostUrl}/home`, {
             method: 'POST',
             body: formData,
-            // headers: {
-            //     'Content-Type': 'application/json',
-            // },
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            },
         })
             .then((resp) => {
                 return resp.json();

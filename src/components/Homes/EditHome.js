@@ -70,6 +70,9 @@ export default function EditHome() {
         fetch(`${hostUrl}/home-photos`, {
             method: 'POST',
             body: formData,
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            },
         }).then((resp) => {
             if (resp.ok) {
                 toast.success('Photo uploaded!', { autoClose: 3000, pauseOnHover: false });
