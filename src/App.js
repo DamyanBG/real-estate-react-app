@@ -12,8 +12,6 @@ import Rent from './components/Rent/Rent';
 import NewsList from './components/News/NewsList';
 import Chat from './components/Chat/Chat';
 import Profile from './components/User/Profile';
-import ChangeEmail from './components/User/ChangeEmail';
-import ChangePassword from './components/User/ChangePassword';
 import { UserProvider } from './context/UserContext';
 import CreateLand from './components/Land/CreateLand';
 import AllLands from './components/Land/AllLands';
@@ -51,8 +49,6 @@ function App() {
                             <Route path="/edit-land" element={<EditLand />} />
                             <Route path="/rent" element={<Rent />} />
                             <Route path="/profile" element={<Profile />} />
-                            <Route path="/change-email" element={<ChangeEmail />} />
-                            <Route path="/change-password" element={<ChangePassword />} />
                             <Route path="/news" element={<NewsList />} />
                             <Route path="/about" element={<About />} />
                             {AdminRoutes}

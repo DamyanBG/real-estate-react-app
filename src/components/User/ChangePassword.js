@@ -1,18 +1,13 @@
-import { useContext, useState } from 'react';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import { hostUrl } from '../../common/urls';
-import { UserContext } from '../../context/UserContext';
 
-export default function ChangePassword() {
-    const [password, setPassword] = useState('');
-    const { user } = useContext(UserContext)
-
+export default function ChangePassword({  handleOnChange, userInfo, user }) {
     const updatePassword = () => {
         fetch(`${hostUrl}/user/password`, {
             method: 'PATCH',
             body: JSON.stringify({
                 user_id: user._id,
-                password: password,
+                password: userInfo.password,
             }),
             headers: {
                 'Content-Type': 'application/json',
@@ -26,7 +21,6 @@ export default function ChangePassword() {
             })
             .then((json) => {
                 console.log(json);
-                setPassword('');
             });
     };
 
@@ -37,12 +31,11 @@ export default function ChangePassword() {
 
     return (
         <div className="center">
-            <h2>Change your password</h2>
             <form onSubmit={handleOnSubmit}>
                 <input
                     type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={userInfo.password}
+                    onChange={handleOnChange}
                 />
                 <FormSubmitButton />
             </form>
