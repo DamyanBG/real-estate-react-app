@@ -1,90 +1,76 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { VISITATION_FIELDS } from 'common/fields';
-import { useNavigate } from 'react-router-dom';
-import FormSubmitButton from 'common/FormSubmitButton';
-import InputFormRow from 'common/InputFormRow';
-import { hostUrl } from '../../common/urls';
-import { toast } from 'react-toastify';
-import { UserContext } from 'context/UserContext';
+/* eslint-disable */
 
-const CreateVisitation = () => {
-    const [validationInfo, setValidationInfo] = useState({});
-    const [navigationUrl, setNavigationUrl] = useState('');
+import FormSubmitButton from "common/FormSubmitButton";
+import InputFormRow from "common/InputFormRow";
+import { VISITATION_FIELDS } from "common/fields";
+import { hostUrl } from "common/urls";
+import { UserContext } from "context/UserContext";
+import { useContext } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router";
 
-    const queryParams = new URLSearchParams(`${location.search}`);
-    const homeId = queryParams.get('homeId');
-    const landId = queryParams.get('land_id');
+export default function CreateVisitation() {
+    const params = new URLSearchParams(window.location.search)
+    const landId = params.get('landId');
+    const homeId = params.get('homeId');
+    const [visitationInfo, setVisitationInfo] = useState({})
 
-    useEffect(() => {
-        if (landId) {
-            setValidationInfo({ ...validationInfo, land_id: landId });
-            setNavigationUrl(`landId=${landId}`);
-        }
-        if (homeId) {
-            setValidationInfo({ ...validationInfo, home_id: homeId });
-            setNavigationUrl(`homeId=${homeId}`);
-        }
-    }, [landId, homeId]);
-
-    const { user } = useContext(UserContext);
-
-    const navigate = useNavigate();
-
-    const postValiations = async () => {
-        try {
-            const data = await fetch(`${hostUrl}/visitation`, {
-                method: 'POST',
-                body: JSON.stringify({ ...validationInfo, organizator_id: user._id }),
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${user.token}`,
-                },
-            });
-
-            if (data) {
-                console.log(data);
-                console.log(validationInfo);
-                navigate(`/home-details?${navigationUrl}`);
-                toast.success('Successful! Visitation Created!', {
-                    autoClose: 3000,
-                    pauseOnHover: false,
-                });
-            }
-        } catch (err) {
-            toast.error(`Something went wrong! ${err}`, { autoClose: 3000, pauseOnHover: false });
-        }
-    };
-
+    const { user } = useContext(UserContext)
+    const navigate = useNavigate()
+ 
     const handleOnChange = (e) => {
-        setValidationInfo({
-            ...validationInfo,
+        setVisitationInfo({
+            ...visitationInfo,
             [e.target.name]: e.target.value,
         });
     };
 
-    const handleOnSubmit = (e) => {
-        e.preventDefault();
+    const postVisitation = () => {
+        const postBody = {
+            ...visitationInfo,
+            organizator_id: user._id,
+            home_id: homeId,
+            land_id: landId,
+        }
+        fetch(`${hostUrl}/visitation`, {
+            method: "POST",
+            body: JSON.stringify(postBody),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
+            },
+        })
+            .then(resp => {
+                if (resp.status === 201) {
+                    navigate(`/${homeId ? "home" : "land"}-details?${homeId ? "home" : "land"}Id=${landId || homeId}`)
+                    return
+                }
+                throw new Error()
+            })
+            .catch(() => alert("Something went wrong!"))
+    }
 
-        postValiations();
-    };
+    const handleOnSubmit = (e) => {
+        e.preventDefault()
+        postVisitation()
+    }   
 
     return (
         <div className="center">
             <form onSubmit={handleOnSubmit}>
                 {VISITATION_FIELDS.map((vf) => (
                     <InputFormRow
-                        key={vf.labelName}
-                        type={vf.type}
+                        key={vf.name}
                         labelName={vf.labelName}
                         name={vf.name}
-                        value={validationInfo[vf.name]}
+                        value={visitationInfo[vf.name]}
                         handleOnChange={handleOnChange}
+                        type={vf.type}
+                        dataTestId={vf.name}
                     />
                 ))}
                 <FormSubmitButton />
             </form>
         </div>
-    );
-};
-
-export default CreateVisitation;
+    )
+}
