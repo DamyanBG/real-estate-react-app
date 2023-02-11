@@ -53,6 +53,9 @@ export default function Header() {
                         onMouseEnter={() => {
                             setClick(true);
                         }}
+                        onClick={() => {
+                            setClick(false);
+                        }}
                     >
                         {click && (
                             <>
@@ -64,22 +67,10 @@ export default function Header() {
                                             setClick(false);
                                         }}
                                     >
-                                        <Link
-                                            className="buy-patch"
-                                            to="/all-homes"
-                                            onClick={() => {
-                                                setClick(false);
-                                            }}
-                                        >
+                                        <Link className="buy-patch" to="/all-homes">
                                             Homes for sale
                                         </Link>
-                                        <Link
-                                            className="buy-patch"
-                                            to="/all-lands"
-                                            onClick={() => {
-                                                setClick(false);
-                                            }}
-                                        >
+                                        <Link className="buy-patch" to="/all-lands">
                                             Land for sale
                                         </Link>
                                     </div>
@@ -93,17 +84,15 @@ export default function Header() {
                         onMouseEnter={() => {
                             setSellClick(true);
                         }}
+                        onClick={() => {
+                            setSellClick(false);
+                        }}
                     >
                         {sellClick && (
                             <>
                                 <div className="buy-element">
                                     <div className="buy-element-arrow"></div>
-                                    <div
-                                        className="buy-element-cont"
-                                        onClick={() => {
-                                            setClick(false);
-                                        }}
-                                    >
+                                    <div className="buy-element-cont">
                                         <Link
                                             className="buy-patch"
                                             to={
@@ -113,7 +102,6 @@ export default function Header() {
                                             }
                                             onClick={() => {
                                                 SellHandler();
-                                                setSellClick(false);
                                             }}
                                         >
                                             Sell Home
@@ -125,9 +113,6 @@ export default function Header() {
                                                     ? '/create-land'
                                                     : '/'
                                             }
-                                            onMouseLeave={() => {
-                                                setSellClick(false);
-                                            }}
                                             onClick={SellHandler}
                                         >
                                             Sell Land

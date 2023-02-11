@@ -72,13 +72,11 @@ li {
 
     .buy-element-cont {
         background-color: white;
-        width: 25rem;
-        height: 10rem;
         margin-top: 1.5rem;
+        width: max-content;
         z-index: 1;
         display: flex;
         flex-direction: column;
-        padding: 1rem;
     }
 
     .buy-patch {
@@ -87,7 +85,7 @@ li {
         border-radius: 8px;
         padding: 4px;
         color: rgb(82, 116, 150);
-        transition: 3s;
+        transition: 0.5s;
         z-index: 1;
         font-weight: 500;
     }
@@ -95,7 +93,6 @@ li {
     .buy-patch:hover {
         color: darkslateblue;
         background: rgba(186, 160, 160, 0.3);
-        font-weight: 700;
     }
 }
 
