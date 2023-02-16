@@ -43,7 +43,7 @@ export default function Header() {
         <header>
             <section>
                 <Link style={{ textDecoration: 'none' }} to="/">
-                    <p className="app-name">Real Estate App</p>
+                    <p className="app-name">Real Estate App Check</p>
                 </Link>
             </section>
             <nav>
