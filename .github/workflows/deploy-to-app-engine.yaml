@@ -19,7 +19,7 @@ jobs:
       run: npm run build
 
     - name: Deploy to App Engine
-      uses: google-github-actions/deploy-appengine@v0.3.0
+      uses: GoogleCloudPlatform/github-actions/app-engine-deploy@master
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         service_account_email: ${{ secrets.GCP_SA_EMAIL }}
