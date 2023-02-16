@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy to App Engine
 
 on:
   push:
@@ -9,26 +9,23 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      
-    - name: Set up Node.js
-      uses: actions/setup-node@v2.5.0
-      with:
-        node-version: '18.x'
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: npm install
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.x'
+          
+      - name: Install dependencies
+        run: npm install
 
-    - name: Build
-      run: npm run build
+      - name: Build the app
+        run: npm run build
 
-    - name: Deploy to App Engine
-      uses: GoogleCloudPlatform/github-actions/app-engine-deploy@v1
-      with:
-        project_id: ${{ secrets.GCP_PROJECT_ID }}
-        credentials: ${{ secrets.GCP_SA_KEY }}
-        promote: true
-        stop_previous_version: true
-        version: "production-${{ github.sha }}"
-        config: app.yaml
+      - name: Deploy to App Engine
+        uses: google-github-actions/deploy-appengine@main
+        with:
+          project_id: ${{ env.GCP_PROJECT_ID }}
+          credentials: ${{ secrets.GCP_SA_KEY }}
+          promote: true
