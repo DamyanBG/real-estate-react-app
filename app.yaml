@@ -1,0 +1,13 @@
+runtime: nodejs18
+
+env_varialbes:
+  NODE_ENV: production
+
+handlers:
+- url: /
+  static_files: build/index.html
+  upload: build/index.html
+
+- url: /(.*)
+  static_files: build/\1
+  upload: build/(.*)
