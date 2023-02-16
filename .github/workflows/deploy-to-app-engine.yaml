@@ -9,8 +9,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
+    - name: Set up Node.js
+      uses: actions/setup-node@v2.5.0
+      with:
+        node-version: '18.x'
 
     - name: Install dependencies
       run: npm install
@@ -19,12 +22,11 @@ jobs:
       run: npm run build
 
     - name: Deploy to App Engine
-      uses: GoogleCloudPlatform/github-actions/app-engine-deploy@master
+      uses: GoogleCloudPlatform/github-actions/app-engine-deploy@v1
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
-        service_account_email: ${{ secrets.GCP_SA_EMAIL }}
         credentials: ${{ secrets.GCP_SA_KEY }}
         promote: true
         stop_previous_version: true
         version: "production-${{ github.sha }}"
-        args: "-q app.yaml"
+        config: app.yaml
