@@ -26,6 +26,6 @@ jobs:
       - name: Deploy to App Engine
         uses: google-github-actions/deploy-appengine@main
         with:
-          project_id: ${{ env.GCP_PROJECT_ID }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
           credentials: ${{ secrets.GCP_SA_KEY }}
           promote: true
