@@ -2,9 +2,21 @@ import { useEffect, useState } from 'react';
 import { hostUrl } from '../../common/urls';
 import { Link } from 'react-router-dom';
 import exampleLandPhoto from '../../images/3333214_105132040_big.jpg';
+import ReactPaginate from 'react-paginate';
+import './AllLands.scss';
 
 export default function AllLands() {
     const [lands, setLands] = useState([]);
+
+    // Pagination Configuration
+    const [pageNumber, setPageNumber] = useState(0);
+    const landsPerPage = 10;
+    const pagesVisited = pageNumber * landsPerPage;
+    const pageCount = Math.ceil(lands.length / landsPerPage);
+
+    const pageChangeHandler = ({ selected }) => {
+        setPageNumber(selected);
+    };
 
     const fetchAllLands = () => {
         fetch(`${hostUrl}/lands`)
@@ -18,8 +30,8 @@ export default function AllLands() {
     useEffect(fetchAllLands, []);
 
     return (
-        <div>
-            {lands.map((h) => (
+        <div className="main-container">
+            {lands.slice(pagesVisited, pagesVisited + landsPerPage).map((h) => (
                 <article className="home-container" key={`home-${h._id}`}>
                     <div className="image-container">
                         <img className="all-homes-image" src={exampleLandPhoto} alt="Home" />
@@ -36,6 +48,18 @@ export default function AllLands() {
                     </div>
                 </article>
             ))}
+
+            <ReactPaginate
+                previousLabel="Previous"
+                nextLabel="Next"
+                pageCount={pageCount}
+                onPageChange={pageChangeHandler}
+                containerClassName="paginationBtns"
+                previousLinkClassName="previousBtn"
+                nextLinkClassName="nextBtn"
+                disabledClassName="paginationDisabled"
+                activeClassName="paginationActive"
+            />
         </div>
     );
 }
