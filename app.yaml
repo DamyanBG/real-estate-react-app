@@ -1,8 +1,5 @@
 runtime: nodejs18
 
-env_varialbes:
-  NODE_ENV: production
-
 handlers:
 - url: /
   static_files: build/index.html
