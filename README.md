@@ -5,7 +5,7 @@ application the user can register an account, search for a real estate listing b
 preference(s) and make an inquiry of the listing; and the admin can manage resources including
 property listings, realtors and contact inquiries in the admin area. Here we are creating the front
 end of the application that you can see live
-[here](https://zealous-beach-0787b0d03.2.azurestaticapps.net//). You can find the backend repository
+[here](https://deploy-real-estate-app.lm.r.appspot.com). You can find the backend repository
 [here.](https://github.com/DamyanBG/real-estate-nodejs-be)
 
 ### Representation of the project in YouTube
