@@ -60,17 +60,19 @@ export default function AllHomes() {
                 </article>
             ))}
 
-            <ReactPaginate
-                previousLabel="Previous"
-                nextLabel="Next"
-                pageCount={pageCount}
-                onPageChange={pageChangeHandler}
-                containerClassName="paginationBtns"
-                previousLinkClassName="previousBtn"
-                nextLinkClassName="nextBtn"
-                disabledClassName="paginationDisabled"
-                activeClassName="paginationActive"
-            />
+            {homes.length > 10 && (
+                <ReactPaginate
+                    previousLabel="Previous"
+                    nextLabel="Next"
+                    pageCount={pageCount}
+                    onPageChange={pageChangeHandler}
+                    containerClassName="paginationBtns"
+                    previousLinkClassName="previousBtn"
+                    nextLinkClassName="nextBtn"
+                    disabledClassName="paginationDisabled"
+                    activeClassName="paginationActive"
+                />
+            )}
         </div>
     );
 }
