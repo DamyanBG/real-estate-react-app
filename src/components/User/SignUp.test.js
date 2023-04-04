@@ -133,9 +133,9 @@ it(`Check validations for e-mail with other inputs`, async () => {
         fireEvent.click(submitButton);
     });
 
-    const passwordValError = container.querySelector("[data-testid='valerror-email']");
-    expect(passwordValError).toBeTruthy();
-    expect(passwordValError).toHaveTextContent('Email required!');
+    const emailValError = container.querySelector("[data-testid='valerror-email']");
+    expect(emailValError).toBeTruthy();
+    expect(emailValError).toHaveTextContent('Email required!');
 });
 
 it(`Check validations for e-mail`, () => {
@@ -146,23 +146,23 @@ it(`Check validations for e-mail`, () => {
     fireEvent.change(emailInput, { target: { value: 'stefan_p@abv.b' } });
     expect(emailInput.value).toBe('stefan_p@abv.b');
 
-    let passwordValError = container.querySelector("[data-testid='valerror-email']");
-    expect(passwordValError).toBeTruthy();
-    expect(passwordValError).toHaveTextContent('Email required!');
+    let emailValError = container.querySelector("[data-testid='valerror-email']");
+    expect(emailValError).toBeTruthy();
+    expect(emailValError).toHaveTextContent('Email required!');
 
     fireEvent.change(emailInput, { target: { value: 'stefan_pabv.bg' } });
     expect(emailInput.value).toBe('stefan_pabv.bg');
 
-    passwordValError = container.querySelector("[data-testid='valerror-email']");
-    expect(passwordValError).toBeTruthy();
-    expect(passwordValError).toHaveTextContent('Email required!');
+    emailValError = container.querySelector("[data-testid='valerror-email']");
+    expect(emailValError).toBeTruthy();
+    expect(emailValError).toHaveTextContent('Email required!');
 
     fireEvent.change(emailInput, { target: { value: '' } });
     expect(emailInput.value).toBe('');
 
-    passwordValError = container.querySelector("[data-testid='valerror-email']");
-    expect(passwordValError).toBeTruthy();
-    expect(passwordValError).toHaveTextContent('Email required!');
+    emailValError = container.querySelector("[data-testid='valerror-email']");
+    expect(emailValError).toBeTruthy();
+    expect(emailValError).toHaveTextContent('Email required!');
 });
 
 it(`Check validations for first_name`, () => {
