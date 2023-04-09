@@ -49,11 +49,11 @@ export default function Header() {
             <nav>
                 <ul>
                     <li
-                        className="buy-list"
+                        className="buy-list dropdown"
                         onMouseEnter={() => {
                             setClick(true);
                         }}
-                        onClick={() => {
+                        onMouseLeave={() => {
                             setClick(false);
                         }}
                     >
@@ -67,10 +67,10 @@ export default function Header() {
                                             setClick(false);
                                         }}
                                     >
-                                        <Link className="buy-patch" to="/all-homes">
+                                        <Link className="buy-patch" to="/all-homes" onClick={()=>setClick(false)}>
                                             Homes for sale
                                         </Link>
-                                        <Link className="buy-patch" to="/all-lands">
+                                        <Link className="buy-patch" to="/all-lands" onClick={()=>setClick(false)}>
                                             Land for sale
                                         </Link>
                                     </div>
@@ -80,11 +80,11 @@ export default function Header() {
                         Buy
                     </li>
                     <li
-                        className="buy-list"
+                        className="buy-list dropdown"
                         onMouseEnter={() => {
                             setSellClick(true);
                         }}
-                        onClick={() => {
+                        onMouseLeave={() => {
                             setSellClick(false);
                         }}
                     >
@@ -101,6 +101,7 @@ export default function Header() {
                                                     : '/'
                                             }
                                             onClick={() => {
+                                                setSellClick(false)
                                                 SellHandler();
                                             }}
                                         >
@@ -113,7 +114,10 @@ export default function Header() {
                                                     ? '/create-land'
                                                     : '/'
                                             }
-                                            onClick={SellHandler}
+                                            onClick={()=>{
+                                                setSellClick(false)
+                                                SellHandler()
+                                                }}
                                         >
                                             Sell Land
                                         </Link>
