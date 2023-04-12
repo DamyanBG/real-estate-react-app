@@ -47,9 +47,13 @@ li {
     cursor: pointer;
 }
 
+.dropdown{
+height: 10vh;
+}
+
 .buy-element {
     position: absolute;
-    top: 33px;
+    top: 20px;
     left: -44px;
     border: none;
     display: flex;
