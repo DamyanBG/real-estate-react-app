@@ -15,10 +15,11 @@ export default function HomeDetails() {
     const { user } = useContext(UserContext);
 
     const fetchHomeDetails = () => {
-        fetch(`${hostUrl}/home/${homeId}`)
+        fetch(`${hostUrl}/home-details/${homeId}`)
             .then((resp) => resp.json())
             .then((json) => {
-                setHomeDetails(json.homeInfo);
+                console.log(json)
+                setHomeDetails(json.home_details);
                 setVisitations(json.visitations);
             });
     };
@@ -48,21 +49,21 @@ export default function HomeDetails() {
                     <p>Information: {homeDetails.description}</p>
                     <p>
                         Owner: {homeDetails.owner_names}{' '}
-                        {user._id && user._id !== homeDetails.owner_id && (
+                        {user.id && user.id !== homeDetails.owner_id && (
                             <Link
                                 to={`/chat?interlocutorId=${homeDetails.owner_id}&names=${homeDetails.owner_names}`}
                             >
                                 <button>Start chat</button>
                             </Link>
                         )}
-                        {user._id && user._id !== homeDetails.owner_id && (
+                        {user.id && user.id !== homeDetails.owner_id && (
                             <Link to={`/create-meeting?createWithId=${homeDetails.owner_id}`}>
                                 <button>Request meeting</button>
                             </Link>
                         )}
                     </p>
                     {visitations.length > 0 && <VisitationsTable visitations={visitations} />}
-                    {user._id === homeDetails.owner_id && (
+                    {user.id === homeDetails.owner_id && (
                         <>
                             <Link to={`/edit-home?homeId=${homeId}`}>
                                 <button>Edit</button>

@@ -11,42 +11,29 @@ import { toast } from 'react-toastify';
 export default function CreateHome() {
     const [homeInfo, setHomeInfo] = useState({});
     const [validationErrors, setValidationErrors] = useState(
-        HOME_FIELDS.map((uf) => uf.name).reduce((acc, curr) => ((acc[curr] = ''), acc), {})
+        HOME_FIELDS.map((uf) => uf.name).reduce((acc, curr) => ((acc[curr] = ''), acc), { description: "" })
     );
 
     const { user } = useContext(UserContext);
     const navigate = useNavigate();
-    const [photo, setPhoto] = useState(null);
+    // const [photo, setPhoto] = useState(null);
 
     const postHome = () => {
-        const formData = new FormData()
-        formData.append("title", homeInfo.title)
-        formData.append("city", homeInfo.city)
-        formData.append("neighborhood", homeInfo.neighborhood)
-        formData.append("address", homeInfo.address)
-        formData.append("longitude", homeInfo.longitude)
-        formData.append("latitude", homeInfo.latitude)
-        formData.append("price", homeInfo.price)
-        formData.append("size", homeInfo.size)
-        formData.append("year", homeInfo.year)
-        formData.append("description", homeInfo.description)
-        if (photo) formData.append('photo', photo, photo.name);
-        formData.append("owner_id", user._id)
-        console.log(formData)
-        console.log(homeInfo.title)
+        const postBody = { ...homeInfo, owner_id: user.id }
         fetch(`${hostUrl}/home`, {
             method: 'POST',
-            body: formData,
+            body: JSON.stringify(postBody),
             headers: {
-                'Authorization': `Bearer ${user.token}`
+                'Authorization': `Bearer ${user.token}`,
+                'Content-Type': 'application/json',
             },
         })
             .then((resp) => {
                 return resp.json();
             })
             .then((json) => {
-                if (json._id) {
-                    navigate(`/edit-home?homeId=${json._id}`);
+                if (json.id) {
+                    navigate(`/edit-home?homeId=${json.id}`);
                     return;
                 }
                 throw new Error();
@@ -80,6 +67,7 @@ export default function CreateHome() {
     const handleOnSubmit = (e) => {
         e.preventDefault();
         if (Object.keys(validationErrors).length > 0) {
+            console.log(validationErrors)
             toast.error('Please enter valid values!', { autoClose: 3000, pauseOnHover: false });
             return;
         }
@@ -87,8 +75,17 @@ export default function CreateHome() {
     };
 
 
-    const handleOnPhotoUpload = (event) => {
-        setPhoto(event.target.files[0])
+    const handleOnPhotoUpload = (e) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setHomeInfo({
+            ...homeInfo,
+            [e.target.name]: reader.result,
+          });
+        };
+        if (e.target.files) {
+          reader.readAsDataURL(e.target.files[0]);
+        }
     }
 
     return (
@@ -97,6 +94,7 @@ export default function CreateHome() {
                 <article style={{ margin: 'auto', width: '300px' }}>
                     <input type="file" name="photo" onChange={handleOnPhotoUpload} />
                 </article>
+
                 {HOME_FIELDS.map((hk) => (
                     <InputFormRow
                         key={hk.labelName}
@@ -108,6 +106,7 @@ export default function CreateHome() {
                         validationError={validationErrors[hk.name]}
                     />
                 ))}
+
                 <article className="form-row">
                     <label>Description</label>
                     <textarea
@@ -117,6 +116,7 @@ export default function CreateHome() {
                         onChange={handleOnChange}
                     />
                 </article>
+
                 <FormSubmitButton />
             </form>
         </div>

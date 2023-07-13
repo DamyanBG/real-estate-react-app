@@ -18,13 +18,13 @@ export default function LandDetails() {
 
     const fetchLandDetails = () => {
         if (!landId) return
-        fetch(`${hostUrl}/land/${landId}`)
+        fetch(`${hostUrl}/land-details/${landId}`)
             .then((resp) => {
                 console.log(resp)
                 return resp.json()
             })
             .then((json) => {
-                setLandDetails(json.landInfo)
+                setLandDetails(json.land)
                 setVisitations(json.visitations)
             });
     };
@@ -35,7 +35,7 @@ export default function LandDetails() {
         <section className='home-details'>
             <section className="home-details-container">
                 <div className="home-details-image-container">
-                    <img src={exampleLandPhoto} alt="Land" />
+                    <img src={landDetails.photo_url} alt="Land" />
                 </div>
                 <div className="home-details-text">
                     <h2>{landDetails.name}</h2>
@@ -43,21 +43,21 @@ export default function LandDetails() {
                     <p>Price: {landDetails.price}</p>
                     <p>
                         Owner: {landDetails.owner_names}{' '}
-                        {user._id && user._id !== landDetails.owner && (
+                        {user.id && user._d !== landDetails.owner_id && (
                             <Link
-                                to={`/chat?interlocutorId=${landDetails.owner}&names=${landDetails.owner_names}`}
+                                to={`/chat?interlocutorId=${landDetails.owner_id}&names=${landDetails.owner_names}`}
                             >
                                 <button>Start chat</button>
                             </Link>
                         )}{' '}
-                        {user._id && user._id !== landDetails.owner && (
-                            <Link to={`/create-meeting?createWithId=${landDetails.owner}`}>
+                        {user.id && user.id !== landDetails.owner_id && (
+                            <Link to={`/create-meeting?createWithId=${landDetails.owner_id}`}>
                                 <button>Request meeting</button>
                             </Link>
                         )}
                     </p>
                     <p>Information: {landDetails.description}</p>
-                    {user._id === landDetails.owner ? (
+                    {user.id === landDetails.owner_id ? (
                         <>
                             <Link to={`/edit-land?landId=${landId}`} className="land-details_edit">
                                 Edit
@@ -67,7 +67,7 @@ export default function LandDetails() {
                         ''
                     )}
                     {visitations.length > 0 && <VisitationsTable visitations={visitations} />}
-                    {user._id === landDetails.owner ? (
+                    {user.id === landDetails.owner_id ? (
                         <>
                             <Link to={`/create-visitation?landId=${landId}`}>
                                 <button>Create visitation</button>
