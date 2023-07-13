@@ -20,10 +20,10 @@ export default function LandDetails() {
         if (!landId) return
         fetch(`${hostUrl}/land-details/${landId}`)
             .then((resp) => {
-                console.log(resp)
                 return resp.json()
             })
             .then((json) => {
+                console.log(json)
                 setLandDetails(json.land)
                 setVisitations(json.visitations)
             });

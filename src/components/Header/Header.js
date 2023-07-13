@@ -29,8 +29,10 @@ export default function Header() {
 
     const onLogOutHandler = () => {
         if (!user) return;
-        fetch(`${hostUrl}/auth/logout`, {
-            method: 'POST',
+        fetch(`${hostUrl}/logout`, {
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
         }).then((resp) => {
             if (resp.ok) {
                 setUser({});

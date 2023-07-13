@@ -120,12 +120,19 @@ export const LAND_FIELDS = [
 
 export const MEETING_FIELDS = [
     {
-        labelName: 'Start date',
-        name: 'start_date',
+        labelName: 'Date',
+        name: 'date',
+        type: 'date'
     },
     {
-        labelName: 'End date',
-        name: 'end_date',
+        labelName: 'Start time',
+        name: 'start_time',
+        type: 'time',
+    },
+    {
+        labelName: 'End time',
+        name: 'end_time',
+        type: 'time',
     },
 ];
 
