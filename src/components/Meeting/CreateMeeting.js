@@ -5,6 +5,7 @@ import InputFormRow from '../../common/InputFormRow';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import { UserContext } from '../../context/UserContext';
 import { MEETING_STATUSES } from '../../common/enums';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateMeeting() {
     const params = new URLSearchParams(window.location.search);
@@ -12,27 +13,28 @@ export default function CreateMeeting() {
     const [meetingInfo, setMeetingInfo] = useState({});
     const { user } = useContext(UserContext);
 
+    const navigate = useNavigate()
+
     const postMeeting = () => {
         const postBody = {
-            invitor_id: user._id,
+            invitor_id: user.id,
             invited_id: invitedId,
             status: MEETING_STATUSES.pending,
             ...meetingInfo,
         };
-        fetch(`${hostUrl}/meetings`, {
+        fetch(`${hostUrl}/meeting`, {
             method: 'POST',
             body: JSON.stringify(postBody),
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`,
             },
         })
             .then((resp) => {
-                console.log(resp);
-                return resp.json();
+                if (resp.status === 201) {
+                    navigate("/list-meetings")
+                }
             })
-            .then((json) => {
-                console.log(json);
-            });
     };
 
     const handleOnSubmit = (e) => {
@@ -52,6 +54,7 @@ export default function CreateMeeting() {
             <form onSubmit={handleOnSubmit}>
                 {MEETING_FIELDS.map((mf) => (
                     <InputFormRow
+                        type={mf.type}
                         key={mf.name}
                         labelName={mf.labelName}
                         name={mf.name}

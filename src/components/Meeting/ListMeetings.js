@@ -23,7 +23,11 @@ export default function ListMeetings() {
     const navigate = useNavigate()
 
     const getMeetings = () => {
-        fetch(`${hostUrl}/meetings/${user._id}`)
+        fetch(`${hostUrl}/meeting`, {
+            headers: {
+                'Authorization': `Bearer ${user.token}`,
+            }
+        })
             .then((resp) => resp.json())
             .then((json) => {
                 console.log(json);
@@ -32,9 +36,9 @@ export default function ListMeetings() {
     };
 
     useEffect(() => {
-        if (!user._id) return;
+        if (!user.id) return;
         getMeetings();
-    }, [user._id]);
+    }, [user.id]);
 
     const patchMeetingStatus = (meetingId, newStatus) => {
         const patchBody = {
@@ -46,6 +50,7 @@ export default function ListMeetings() {
             body: JSON.stringify(patchBody),
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`,
             },
         })
             .then(resp => {
@@ -63,11 +68,12 @@ export default function ListMeetings() {
             }),
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`,
             },
         })
             .then(resp => {
                 if (resp.ok) {
-                    const newMeetingList = meetingsList.filter((ml) => ml._id !== meetingId)
+                    const newMeetingList = meetingsList.filter((ml) => ml.id !== meetingId)
                     setMeetingsList(newMeetingList)
                 }
             })
@@ -97,22 +103,22 @@ export default function ListMeetings() {
                     {meetingsList
                         .filter((ml) => ml.status === status)
                         .map((ml) => (
-                            <article key={ml._id} style={{ padding: '24px' }}>
+                            <article key={ml.id} style={{ padding: '24px' }}>
                                 <p>
                                     <MeetingRow meeting={ml} status={status} />
                                 </p>
                                 {status === MEETING_STATUSES.pending && (
                                     <>
                                         {
-                                            ml.invited_id === user._id ? (
+                                            ml.invited_id === user.id ? (
                                                 <>
-                                                    <ButtonComponent  buttonText="Accept" handleOnClick={() => handleOnAccept(ml._id)}  />
-                                                    <ButtonComponent  buttonText="Reject" handleOnClick={() => handleOnReject(ml._id)}  />
+                                                    <ButtonComponent  buttonText="Accept" handleOnClick={() => handleOnAccept(ml.id)}  />
+                                                    <ButtonComponent  buttonText="Reject" handleOnClick={() => handleOnReject(ml.id)}  />
                                                 </>
                                             ) : (
                                                 <>
-                                                    <ButtonComponent  buttonText="Edit" handleOnClick={() => handleOnEdit(ml._id)}  />
-                                                    <ButtonComponent  buttonText="Delete" handleOnClick={() => handleOnDelete(ml._id)}  />
+                                                    <ButtonComponent  buttonText="Edit" handleOnClick={() => handleOnEdit(ml.id)}  />
+                                                    <ButtonComponent  buttonText="Delete" handleOnClick={() => handleOnDelete(ml.id)}  />
                                                 </>
                                             )
                                         }
