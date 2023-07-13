@@ -13,7 +13,7 @@ export default function Header() {
     const { user, setUser } = useContext(UserContext);
 
     const SellHandler = () => {
-        if (!user._id) {
+        if (!user.id) {
             toast.error('You have to be signed in as a seller!', {
                 autoClose: 3000,
                 pauseOnHover: false,
@@ -43,7 +43,7 @@ export default function Header() {
         <header>
             <section>
                 <Link style={{ textDecoration: 'none' }} to="/">
-                    <p className="app-name">Real Estate App Check</p>
+                    <p className="app-name">Real Estate App</p>
                 </Link>
             </section>
             <nav>
@@ -96,7 +96,7 @@ export default function Header() {
                                         <Link
                                             className="buy-patch"
                                             to={
-                                                user._id && user.role == 'seller'
+                                                user.id && user.role == 'seller'
                                                     ? '/create-home'
                                                     : '/'
                                             }
@@ -110,7 +110,7 @@ export default function Header() {
                                         <Link
                                             className="buy-patch"
                                             to={
-                                                user._id && user.role == 'seller'
+                                                user.id && user.role == 'seller'
                                                     ? '/create-land'
                                                     : '/'
                                             }
@@ -151,27 +151,27 @@ export default function Header() {
                     ''
                 )}
                 <p>
-                    <Link style={{ textDecoration: 'none' }} to={user._id ? '/profile' : '/signup'}>
-                        {user._id ? 'Profile' : 'Sign up'}
+                    <Link style={{ textDecoration: 'none' }} to={user.id ? '/profile' : '/signup'}>
+                        {user.id ? 'Profile' : 'Sign up'}
                     </Link>
                 </p>
                 <p>
                     <Link
                         onClick={onLogOutHandler}
                         style={{ textDecoration: 'none' }}
-                        to={user._id ? '/' : '/signin'}
+                        to={user.id ? '/' : '/signin'}
                     >
-                        {user._id ? 'Sign out' : 'Sign in'}
+                        {user.id ? 'Sign out' : 'Sign in'}
                     </Link>
                 </p>
-                {user._id && (
+                {user.id && (
                     <p>
                         <Link style={{ textDecoration: 'none' }} to={'/list-meetings'}>
                             <MdMeetingRoom size={25} />
                         </Link>
                     </p>
                 )}
-                {user._id && (
+                {user.id && (
                     <p>
                         <Link style={{ textDecoration: 'none' }} to={'/chat-history'}>
                             <BiMessageDetail size={25} />

@@ -18,9 +18,12 @@ export default function SignUpPage() {
 
     const navigate = useNavigate();
 
-    const postHome = async () => {
+    const postUser = async () => {
+        const urlPath = userInfo.role === ROLES_ENUM.user
+            ? "user/register-user"
+            : "user/register-seller"
         try {
-            const data = await fetch(`${hostUrl}/user`, {
+            const response = await fetch(`${hostUrl}/${urlPath}`, {
                 method: 'POST',
                 body: JSON.stringify(userInfo),
                 headers: {
@@ -28,11 +31,18 @@ export default function SignUpPage() {
                 },
             });
 
-            if (data) {
-                navigate('/');
-                console.log(data);
-                toast.success('Successful Sign up!', { autoClose: 3000, pauseOnHover: false });
+            const json = await response.json()
+
+            console.log(json)
+
+            if (!response.ok) {
+                throw new Error("Request failed!")
             }
+
+            navigate('/');
+            console.log(response);
+            toast.success('Successful Sign up!', { autoClose: 3000, pauseOnHover: false });
+
         } catch (err) {
             toast.error(`Something went wrong! ${err}`, { autoClose: 3000, pauseOnHover: false });
         }
@@ -44,7 +54,7 @@ export default function SignUpPage() {
             toast.error('Please enter valid values!', { autoClose: 3000, pauseOnHover: false });
             return;
         }
-        postHome();
+        postUser();
     };
 
     const handleValidate = (e) => {
@@ -105,6 +115,7 @@ export default function SignUpPage() {
                     <input type="checkbox" onChange={handleCheckboxChange} />
                     <p>Sign Up as seller</p>
                 </article>
+
                 <FormSubmitButton />
             </form>
         </div>

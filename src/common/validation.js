@@ -9,6 +9,14 @@ const validations = {
             return 'Text field have to contains between 3 and 150 characters!';
         }
     },
+    textarea: (value) => {
+        if (!value) {
+            return 'This field can not be empty!';
+        }
+        if (value.length < 3 || value.length > 150) {
+            return 'Text field have to contains between 3 and 150 characters!';
+        }
+    },
     email: (value) => {
         if (!EMAIL_REGEX.test(value)) return 'Email required!';
     },

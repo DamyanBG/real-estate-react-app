@@ -20,7 +20,7 @@ export default function SignIn() {
 
     const signIn = async () => {
         try {
-            const response = await fetch(`${hostUrl}/auth/login`, {
+            const response = await fetch(`${hostUrl}/user/login`, {
                 method: 'POST',
                 body: JSON.stringify(loginInfo),
                 headers: {
