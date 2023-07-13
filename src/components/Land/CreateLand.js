@@ -17,7 +17,7 @@ export default function CreateLand() {
 
     const postLand = () => {
         const postBody = {
-            owner: user._id,
+            owner_id: user.id,
             ...landInfo,
         };
         fetch(`${hostUrl}/land`, {
@@ -62,6 +62,19 @@ export default function CreateLand() {
         handleValidate(e);
     };
 
+    const handleOnPhotoUpload = (e) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setLandInfo({
+            ...landInfo,
+            [e.target.name]: reader.result,
+          });
+        };
+        if (e.target.files) {
+          reader.readAsDataURL(e.target.files[0]);
+        }
+    }
+
     const handleOnSubmit = (e) => {
         e.preventDefault();
         if (Object.keys(validationErrors).length > 0) {
@@ -74,6 +87,10 @@ export default function CreateLand() {
     return (
         <div className="center">
             <form onSubmit={handleOnSubmit}>
+                <article style={{ margin: 'auto', width: '300px' }}>
+                    <input type="file" name="photo" onChange={handleOnPhotoUpload} />
+                </article>
+
                 {LAND_FIELDS.map((lf) => (
                     <InputFormRow
                         key={lf.labelName}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { hostUrl } from '../../common/urls';
 import { Link } from 'react-router-dom';
-import exampleLandPhoto from '../../images/3333214_105132040_big.jpg';
+// import exampleLandPhoto from '../../images/3333214_105132040_big.jpg';
 import ReactPaginate from 'react-paginate';
 import './AllLands.scss';
 
@@ -32,12 +32,12 @@ export default function AllLands() {
     return (
         <div className="main-container">
             {lands.slice(pagesVisited, pagesVisited + landsPerPage).map((h) => (
-                <article className="home-container" key={`home-${h._id}`}>
+                <article className="home-container" key={`home-${h.id}`}>
                     <div className="image-container">
-                        <img className="all-homes-image" src={exampleLandPhoto} alt="Home" />
+                        <img className="all-homes-image" src={h.photo_url} alt="Home" />
                     </div>
                     <div className="main-text">
-                        <Link to={`/land-details?landId=${h._id}`} className="no-underline">
+                        <Link to={`/land-details?landId=${h.id}`} className="no-underline">
                             <h3>{h.name}</h3>
                         </Link>
                         <p>Location: {h.place}</p>

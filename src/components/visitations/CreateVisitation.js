@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import FormSubmitButton from "common/FormSubmitButton";
 import InputFormRow from "common/InputFormRow";
 import { VISITATION_FIELDS } from "common/fields";
@@ -28,7 +26,7 @@ export default function CreateVisitation() {
     const postVisitation = () => {
         const postBody = {
             ...visitationInfo,
-            organizator_id: user._id,
+            organizator_id: user.id,
             home_id: homeId,
             land_id: landId,
         }
