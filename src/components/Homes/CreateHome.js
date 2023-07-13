@@ -19,9 +19,10 @@ export default function CreateHome() {
     // const [photo, setPhoto] = useState(null);
 
     const postHome = () => {
+        const postBody = { ...homeInfo, owner_id: user.id }
         fetch(`${hostUrl}/home`, {
             method: 'POST',
-            body: JSON.stringify(homeInfo),
+            body: JSON.stringify(postBody),
             headers: {
                 'Authorization': `Bearer ${user.token}`,
                 'Content-Type': 'application/json',
