@@ -35,7 +35,7 @@ export default function AllHomes() {
     return (
         <div className="main-container">
             {homes.slice(pagesVisited, pagesVisited + homesPerPage).map((h) => (
-                <article className="home-container" key={`home-${h._id}`}>
+                <article className="home-container" key={`home-${h.id}`}>
                     <div className="image-container">
                         <img
                             className="all-homes-image"
@@ -48,7 +48,7 @@ export default function AllHomes() {
                         />
                     </div>
                     <div className="main-text">
-                        <Link to={`/home-details?homeId=${h._id}`} className="no-underline">
+                        <Link to={`/home-details?homeId=${h.id}`} className="no-underline">
                             <h3>{h.title}</h3>
                         </Link>
                         <p className="main-text-par">Location: {h.city}</p>
