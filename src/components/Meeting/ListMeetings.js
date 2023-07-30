@@ -1,7 +1,7 @@
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { UserContext } from '../../context/UserContext';
-import { hostUrl } from '../../common/urls';
-import { MEETING_STATUSES } from '../../common/enums';
+import { hostUrl } from '../../utils/urls';
+import { MEETING_STATUSES } from '../../utils/enums';
 import { useNavigate } from 'react-router-dom';
 import './planner.scss';
 

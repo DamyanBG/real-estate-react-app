@@ -1,5 +1,5 @@
 import React from 'react';
-import { hostUrl } from '../../common/urls';
+import { hostUrl } from '../../utils/urls';
 
 import { UserContext } from '../../context/UserContext';
 import { Link } from 'react-router-dom';

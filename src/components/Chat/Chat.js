@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import './Chat.scss';
-import { hostUrl } from '../../common/urls';
+import { hostUrl } from '../../utils/urls';
 import { UserContext } from '../../context/UserContext';
 
 export default function Chat() {

@@ -1,7 +1,7 @@
 import './Homes.scss';
 import exampleHomePhoto from '../../images/home-main-photo-example.jpg';
 import { useContext, useEffect, useState } from 'react';
-import { hostUrl } from '../../common/urls';
+import { hostUrl } from '../../utils/urls';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 import { MapContainer, Marker, TileLayer, Tooltip } from 'react-leaflet';

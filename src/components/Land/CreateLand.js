@@ -2,10 +2,11 @@ import { useContext, useState } from 'react';
 import { LAND_FIELDS } from '../../common/fields';
 import InputFormRow from '../../common/InputFormRow';
 import FormSubmitButton from '../../common/FormSubmitButton';
-import { hostUrl } from '../../common/urls';
+import { hostUrl } from '../../utils/urls';
 import { UserContext } from '../../context/UserContext';
 import { validateField } from 'common/validation';
 import { toast } from 'react-toastify';
+import { checkObjForProfanity } from 'common/profanity';
 
 export default function CreateLand() {
     const [landInfo, setLandInfo] = useState({});
@@ -81,6 +82,7 @@ export default function CreateLand() {
             toast.error('Please enter valid values!', { autoClose: 3000, pauseOnHover: false });
             return;
         }
+        if (checkObjForProfanity(landInfo)) return
         postLand();
     };
 

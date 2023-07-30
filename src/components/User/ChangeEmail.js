@@ -1,4 +1,4 @@
-import { hostUrl } from '../../common/urls';
+import { hostUrl } from '../../utils/urls';
 import FormSubmitButton from '../../common/FormSubmitButton';
 
 export default function ChangeEmail({ handleOnChange, userInfo, user }) {

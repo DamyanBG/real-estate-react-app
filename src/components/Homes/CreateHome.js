@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { hostUrl } from '../../common/urls';
+import { hostUrl } from '../../utils/urls';
 import InputFormRow from '../../common/InputFormRow';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import { HOME_FIELDS } from '../../common/fields';
@@ -7,6 +7,7 @@ import { UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { validateField } from 'common/validation';
 import { toast } from 'react-toastify';
+import { checkObjForProfanity } from 'common/profanity';
 
 export default function CreateHome() {
     const [homeInfo, setHomeInfo] = useState({});
@@ -71,6 +72,7 @@ export default function CreateHome() {
             toast.error('Please enter valid values!', { autoClose: 3000, pauseOnHover: false });
             return;
         }
+        if (checkObjForProfanity(homeInfo)) return
         postHome();
     };
 

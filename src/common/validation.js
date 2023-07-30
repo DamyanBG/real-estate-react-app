@@ -1,4 +1,4 @@
-import { EMAIL_REGEX } from './utils';
+import { EMAIL_REGEX } from '../utils/utils';
 
 const validations = {
     text: (value) => {
