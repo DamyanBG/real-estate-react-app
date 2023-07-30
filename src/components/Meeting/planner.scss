@@ -1,0 +1,48 @@
+.planner-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid black;
+
+    td, th {
+        border: 1px solid black;
+        min-width: 50px;
+    }
+}
+
+.resource-row td:nth-child(2) {
+    position: relative;
+}
+
+.planner-head-row-container {
+    display: flex;
+}
+
+.head-cell {
+    min-width: 70px;
+    min-height: 32px;
+    text-align: center;
+}
+
+.planner-row {
+    display: flex;
+    position: relative;
+}
+
+.row-cell {
+    min-width: 70px;
+    min-height: 32px;
+    text-align: center;
+}
+
+.planner-section {
+    overflow-x: auto;
+    article article {
+        border-collapse: collapse;
+        border: 1px solid black;
+    }
+}
+
+.event-container {
+    position: absolute;
+    left: 100px;
+}
