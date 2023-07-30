@@ -1,12 +1,13 @@
 import { USER_FIELDS } from '../../common/fields';
-import { ROLES_ENUM } from '../../common/enums';
+import { ROLES_ENUM } from '../../utils/enums';
 import { useState } from 'react';
 import InputFormRow from '../../common/InputFormRow';
-import { hostUrl } from '../../common/urls';
+import { hostUrl } from '../../utils/urls';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { validateField } from 'common/validation';
+import { checkObjForProfanity } from 'common/profanity';
 
 export default function SignUpPage() {
     const [userInfo, setUserInfo] = useState({
@@ -54,6 +55,7 @@ export default function SignUpPage() {
             toast.error('Please enter valid values!', { autoClose: 3000, pauseOnHover: false });
             return;
         }
+        if (checkObjForProfanity(userInfo)) return
         postUser();
     };
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { hostUrl } from '../../common/urls';
+import { hostUrl } from '../../utils/urls';
 import { Link } from 'react-router-dom';
 // import exampleLandPhoto from '../../images/3333214_105132040_big.jpg';
 import ReactPaginate from 'react-paginate';

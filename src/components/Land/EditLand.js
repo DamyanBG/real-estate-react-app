@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
 import { LAND_FIELDS } from '../../common/fields';
-import { hostUrl } from '../../common/urls';
+import { hostUrl } from '../../utils/urls';
 import { UserContext } from '../../context/UserContext';
 import InputFormRow from '../../common/InputFormRow';
 import './EditLand.scss';
+import { checkForProfanity } from 'common/profanity';
 
 const EditLand = () => {
     const params = new URLSearchParams(window.location.search);
@@ -49,6 +50,7 @@ const EditLand = () => {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
+        if (checkForProfanity(landInfo)) return
         updateLand();
     };
 

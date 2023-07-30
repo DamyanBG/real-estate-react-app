@@ -2,7 +2,7 @@
 
 import exampleLandPhoto from '../../images/3333214_105132040_big.jpg';
 import { useContext, useEffect, useState } from 'react';
-import { hostUrl } from '../../common/urls';
+import { hostUrl } from '../../utils/urls';
 import { UserContext } from '../../context/UserContext';
 import { Link } from 'react-router-dom';
 import './LandDetails.scss';

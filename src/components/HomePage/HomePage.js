@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './HomePage.scss';
-import { hostUrl } from '../../common/urls';
+import { hostUrl } from '../../utils/urls';
 import homePagePhoto from '../../images/cropped_better_house.png';
 import { GoLocation } from 'react-icons/go';
 

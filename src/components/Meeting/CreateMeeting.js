@@ -1,11 +1,12 @@
 import { useContext, useState } from 'react';
-import { hostUrl } from '../../common/urls';
+import { hostUrl } from '../../utils/urls';
 import { MEETING_FIELDS } from '../../common/fields';
 import InputFormRow from '../../common/InputFormRow';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import { UserContext } from '../../context/UserContext';
-import { MEETING_STATUSES } from '../../common/enums';
+import { MEETING_STATUSES } from '../../utils/enums';
 import { useNavigate } from 'react-router-dom';
+import { checkForProfanity } from 'common/profanity';
 
 export default function CreateMeeting() {
     const params = new URLSearchParams(window.location.search);
@@ -39,6 +40,7 @@ export default function CreateMeeting() {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
+        if (checkForProfanity(meetingInfo)) return
         postMeeting();
     };
 

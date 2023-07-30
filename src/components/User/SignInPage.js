@@ -4,7 +4,7 @@ import { validateField } from 'common/validation';
 import { toast } from 'react-toastify';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import InputFormRow from '../../common/InputFormRow';
-import { hostUrl } from '../../common/urls';
+import { hostUrl } from '../../utils/urls';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from 'context/UserContext';
 

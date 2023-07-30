@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { hostUrl } from '../../common/urls';
+import { hostUrl } from '../../utils/urls';
 import exampleHomePhoto from '../../images/home-main-photo-example.jpg';
 import './Homes.scss';
 import './AllHomes.scss';

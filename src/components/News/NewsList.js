@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './NewsList.scss';
-import { hostUrl } from '../../common/urls';
+import { hostUrl } from '../../utils/urls';
 
 function NewsList() {
     const [loading, setLoading] = useState(false);

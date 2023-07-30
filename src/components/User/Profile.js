@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { hostUrl } from '../../common/urls';
+import { hostUrl } from '../../utils/urls';
 import { UserContext } from '../../context/UserContext';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';

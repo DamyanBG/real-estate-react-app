@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { hostUrl } from '../../common/urls';
+import { hostUrl } from '../../utils/urls';
 import InputFormRow from '../../common/InputFormRow';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import { HOME_FIELDS } from '../../common/fields';
+import { checkObjForProfanity } from 'common/profanity';
 // import { UserContext } from '../../context/UserContext';
 // import { toast } from 'react-toastify';
 
@@ -53,6 +54,7 @@ export default function EditHome() {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
+        if (checkObjForProfanity(homeInfo)) return
         putHome();
     };
 

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { ROLES_ENUM } from 'common/enums';
+import { ROLES_ENUM } from 'utils/enums';
 import { USER_FIELDS } from 'common/fields';
 import InputFormRow from 'common/InputFormRow';
 import FormSubmitButton from 'common/FormSubmitButton';
 import { useNavigate } from 'react-router-dom';
-import { hostUrl } from 'common/urls';
+import { hostUrl } from 'utils/urls';
 import { toast } from 'react-toastify';
 import { api } from 'common/api';
 

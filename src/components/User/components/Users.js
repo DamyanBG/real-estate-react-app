@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { hostUrl } from 'common/urls';
+import { hostUrl } from 'utils/urls';
 import { api } from 'common/api';
 
 const USERS_URL = '/users';

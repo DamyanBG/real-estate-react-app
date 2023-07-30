@@ -1,5 +1,5 @@
 import FormSubmitButton from '../../common/FormSubmitButton';
-import { hostUrl } from '../../common/urls';
+import { hostUrl } from '../../utils/urls';
 
 export default function ChangePassword({  handleOnChange, userInfo, user }) {
     const updatePassword = () => {

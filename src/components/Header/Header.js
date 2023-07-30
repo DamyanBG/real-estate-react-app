@@ -1,7 +1,7 @@
 import './Header.scss';
 import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
-import { hostUrl } from '../../common/urls';
+import { hostUrl } from '../../utils/urls';
 import { UserContext } from '../../context/UserContext';
 import { BiMessageDetail } from 'react-icons/bi';
 import { MdMeetingRoom } from 'react-icons/md';
