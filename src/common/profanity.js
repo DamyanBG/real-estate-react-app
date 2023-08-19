@@ -1,7 +1,6 @@
-import React from "react"
 import { profanity } from '@2toad/profanity';
 
-export const checkForProfanity = (text) => {
+export const checkTextForProfanity = (text) => {
     const haveProfanity = profanity.exists(text)
     return haveProfanity
 }
@@ -13,6 +12,6 @@ export const checkObjForProfanity = (obj) => {
 
 export const checkIsOnChangeWithProfanity = (event) => {
     const { value } = event.target
-    const haveProfanity = checkForProfanity(value)
+    const haveProfanity = checkTextForProfanity(value)
     return haveProfanity
 }

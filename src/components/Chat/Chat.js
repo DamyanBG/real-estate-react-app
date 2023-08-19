@@ -1,7 +1,13 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState, useMemo } from 'react';
 import './Chat.scss';
 import { hostUrl } from '../../utils/urls';
 import { UserContext } from '../../context/UserContext';
+import { io } from 'socket.io-client';
+
+const doSomething = () => {
+    console.log("it is doing it")
+    return "hey"
+}
 
 export default function Chat() {
     const params = new URLSearchParams(window.location.search);
@@ -14,20 +20,66 @@ export default function Chat() {
     const ref = useRef()
     const regex = /[a-zA-Z0-9]/;
 
+    // const socket = useMemo(() => (
+    //     io("http://localhost:5000")
+    // ), [])
+
+    const [socket, setSocket] = useState(null)
+
+    useEffect(() => {
+        setSocket(io("http://localhost:5001"))
+    }, [])
+
+    useEffect(() => {
+        if (!socket) return
+        return () => {
+            console.log("disconnect")
+            socket.disconnect()
+        }
+    }, [])
+
+    useEffect(() => {
+        if (!socket) return
+        console.log(socket.connected)
+    }, [socket])
+
+    useEffect(() => {
+        if (!socket) return
+        if (!user.id) return
+        socket.emit("user_id", user.id)
+    }, [user.id, socket])
+
+    useEffect(() => {
+        if (!socket) return
+        socket.on("sync_message", (data) => {
+            if (data.sender_id == interlocutorId) {
+                setChatHistory([...chatHistory, {
+                    id: data.id,
+                    text: data.text,
+                    position: "left"
+                }])
+            }
+        });
+    }, [socket, chatHistory]);
+
     const getMessages = () => {
-        fetch(`${hostUrl}/message/${user._id}&${interlocutorId}`)
+        fetch(`${hostUrl}/message/${interlocutorId}`, {
+            headers: {
+                'Authorization': `Bearer ${user.token}`,
+            },
+        })
             .then((resp) => resp.json())
             .then(setMessages);
     };
 
     const sortMessages = () => {
-        let sorted = Object.entries(messages)
+        let sorted = Object.values(messages)
             .map((arr) =>
-                arr[1].map((v) => ({
-                    position: v.sender_id === user._id ? 'right' : 'left',
+                arr.map((v) => ({
+                    position: v.sender_id == user.id ? 'right' : 'left',
                     text: v.text,
-                    id: v._id,
-                    date: v.createdAt,
+                    id: v.id,
+                    date: v.created_on,
                 }))
             )
             .flat()
@@ -36,9 +88,9 @@ export default function Chat() {
     };
 
     useEffect(() => {
-        if (!interlocutorId || !user._id) return;
+        if (!interlocutorId || !user.id) return;
         getMessages();
-    }, [interlocutorId, user._id]);
+    }, [interlocutorId, user.id]);
 
     useEffect(() => {
         if (!messages) return;
@@ -51,7 +103,7 @@ export default function Chat() {
 
     const postMessage = () => {
         const postBody = {
-            sender_id: user._id,
+            sender_id: user.id,
             receiver_id: interlocutorId,
             text: message,
         };
@@ -60,18 +112,24 @@ export default function Chat() {
             body: JSON.stringify(postBody),
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`,
             },
         })
             .then((resp) => resp.json())
             .then((json) => {
                 setChatHistory([...chatHistory, {
-                    id: json._id,
+                    id: json.id,
                     text: json.text,
                     position: "right"
                 }])
+                socket.emit("chat_message", {
+                    ...postBody,
+                    id: json.id
+                })
                 setMessage('');
                 ref.current.focus()
             });
+        
     }
 
     const handleOnMessageSend = () => {

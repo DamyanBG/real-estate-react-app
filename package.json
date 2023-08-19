@@ -19,6 +19,7 @@
         "react-tabs": "^6.0.0",
         "react-toastify": "^9.1.1",
         "sass": "^1.57.1",
+        "socket.io-client": "^4.7.2",
         "styled-components": "^5.3.6",
         "web-vitals": "^2.1.4"
     },

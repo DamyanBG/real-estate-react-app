@@ -4,7 +4,7 @@ import { hostUrl } from '../../utils/urls';
 import { UserContext } from '../../context/UserContext';
 import InputFormRow from '../../common/InputFormRow';
 import './EditLand.scss';
-import { checkForProfanity } from 'common/profanity';
+import { checkTextForProfanity } from 'common/profanity';
 
 const EditLand = () => {
     const params = new URLSearchParams(window.location.search);
@@ -50,7 +50,7 @@ const EditLand = () => {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        if (checkForProfanity(landInfo)) return
+        if (checkTextForProfanity(landInfo)) return
         updateLand();
     };
 
