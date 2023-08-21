@@ -1,11 +1,12 @@
 import './Homes.scss';
 import exampleHomePhoto from '../../images/home-main-photo-example.jpg';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, lazy } from 'react';
 import { hostUrl } from '../../utils/urls';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
-import { MapContainer, Marker, TileLayer, Tooltip } from 'react-leaflet';
 import VisitationsTable from 'common/VisitationsTable';
+
+const MapView = lazy(() => import('common/MapView'))
 
 export default function HomeDetails() {
     const params = new URLSearchParams(window.location.search);
@@ -76,21 +77,10 @@ export default function HomeDetails() {
                 </div>
             </section>
             {homeDetails.latitude && homeDetails.longitude && (
-                <article className='map-container'>
-                    <MapContainer
-                        center={[homeDetails.latitude, homeDetails.longitude]}
-                        zoom={13}
-                        scrollWheelZoom={false}
-                        style={{ width: '100%', height: '50vh' }}
-                    >
-                        <TileLayer
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        />
-                        <Marker position={[homeDetails.latitude, homeDetails.longitude]}>
-                            <Tooltip direction="bottom">Some text</Tooltip>
-                        </Marker>
-                    </MapContainer>
-                </article>
+                <MapView
+                    latitude={homeDetails.latitude}
+                    longitude={homeDetails.longitude}
+                />
             )}
         </section>
     );
