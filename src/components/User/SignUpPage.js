@@ -99,7 +99,7 @@ export default function SignUpPage() {
 
     return (
         <div className="center">
-            <form onSubmit={handleOnSubmit}>
+            <form onSubmit={handleOnSubmit} data-testid="register-form">
                 {USER_FIELDS.map((uf) => (
                     <InputFormRow
                         key={uf.labelName}
@@ -114,7 +114,7 @@ export default function SignUpPage() {
                 ))}
 
                 <article className="checkbox-row">
-                    <input type="checkbox" onChange={handleCheckboxChange} />
+                    <input data-testid="as-seller" type="checkbox" onChange={handleCheckboxChange} />
                     <p>Sign Up as seller</p>
                 </article>
 

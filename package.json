@@ -4,6 +4,7 @@
     "private": true,
     "dependencies": {
         "@2toad/profanity": "^2.2.0",
+        "@faker-js/faker": "^8.0.2",
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/user-event": "^13.5.0",
         "base-64": "^1.0.0",
@@ -24,6 +25,7 @@
         "web-vitals": "^2.1.4"
     },
     "scripts": {
+        "cypress:open": "cypress open",
         "start": "env-cmd -f .env react-scripts start",
         "start:local": "env-cmd -f .env.local react-scripts start",
         "build": "env-cmd -f .env react-scripts build",
