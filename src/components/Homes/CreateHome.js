@@ -95,9 +95,9 @@ export default function CreateHome() {
 
     return (
         <div className="center">
-            <form onSubmit={handleOnSubmit}>
+            <form onSubmit={handleOnSubmit} data-testid="home-create-form">
                 <article style={{ margin: 'auto', width: '300px' }}>
-                    <input type="file" name="photo" onChange={handleOnPhotoUpload} />
+                    <input data-testid="home-photo" type="file" name="photo" onChange={handleOnPhotoUpload} />
                 </article>
 
                 {HOME_FIELDS.map((hk) => (
@@ -109,6 +109,7 @@ export default function CreateHome() {
                         type={hk.type}
                         handleOnChange={handleOnChange}
                         validationError={validationErrors[hk.name]}
+                        dataTestId={hk.name}
                     />
                 ))}
 
@@ -117,6 +118,7 @@ export default function CreateHome() {
                     <textarea
                         type="text"
                         name="description"
+                        data-testid="description"
                         value={homeInfo.description || ''}
                         onChange={handleOnChange}
                     />

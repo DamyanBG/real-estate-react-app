@@ -58,6 +58,7 @@ export default function Header() {
                         onMouseLeave={() => {
                             setClick(false);
                         }}
+                        data-testid="buy-li"
                     >
                         {click && (
                             <>
@@ -69,7 +70,7 @@ export default function Header() {
                                             setClick(false);
                                         }}
                                     >
-                                        <Link className="buy-patch" to="/all-homes" onClick={()=>setClick(false)}>
+                                        <Link data-testid='buy-home-link' className="buy-patch" to="/all-homes" onClick={()=>setClick(false)}>
                                             Homes for sale
                                         </Link>
                                         <Link className="buy-patch" to="/all-lands" onClick={()=>setClick(false)}>
@@ -89,6 +90,7 @@ export default function Header() {
                         onMouseLeave={() => {
                             setSellClick(false);
                         }}
+                        data-testid="sell-li"
                     >
                         {sellClick && (
                             <>
@@ -106,6 +108,7 @@ export default function Header() {
                                                 setSellClick(false)
                                                 SellHandler();
                                             }}
+                                            data-testid='sell-home-link'
                                         >
                                             Sell Home
                                         </Link>
