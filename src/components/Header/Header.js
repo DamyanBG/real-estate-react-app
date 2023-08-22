@@ -161,13 +161,22 @@ export default function Header() {
                     </Link>
                 </p>
                 <p>
-                    <Link
-                        onClick={onLogOutHandler}
-                        style={{ textDecoration: 'none' }}
-                        to={user.id ? '/' : '/signin'}
-                    >
-                        {user.id ? 'Sign out' : 'Sign in'}
-                    </Link>
+                {user.id ? (
+                        <Link
+                            onClick={onLogOutHandler}
+                            style={{ textDecoration: 'none' }}
+                            to='/'
+                        >
+                            Sign out
+                        </Link>
+                    ) : (
+                        <Link
+                            style={{ textDecoration: 'none' }}
+                            to='/signin'
+                        >
+                            Sign in
+                        </Link>
+                    )}
                 </p>
                 {user.id && (
                     <p>
