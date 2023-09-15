@@ -36,7 +36,8 @@ export default function CreateLand() {
             .then((json) => {
                 console.log(json);
                 setLandInfo({});
-            });
+            })
+            .catch(() => toast.error('Creation failed!', { autoClose: 3000, pauseOnHover: false }))
     };
 
     const handleValidate = (e) => {
@@ -102,6 +103,7 @@ export default function CreateLand() {
                         type={lf.type}
                         handleOnChange={handleOnChange}
                         validationError={validationErrors[lf.name]}
+                        dataTestId={lf.name}
                     />
                 ))}
                 <FormSubmitButton />
