@@ -1,25 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './HomePage.scss';
 import { hostUrl } from '../../utils/urls';
 import homePagePhoto from '../../images/cropped_better_house.png';
 import { GoLocation } from 'react-icons/go';
+import { HomesContext } from 'context/HomesContext';
+
+const limitHomes = (fetchedHomes) => {
+    return fetchedHomes.slice(0, 4);
+};
 
 export default function HomePage() {
-    const [homes, setHomes] = useState([]);
-
-    useEffect(() => {
-        fetchAllHomes();
-    }, []);
-
-    const limitHomes = (fetchedHomes) => {
-        setHomes(fetchedHomes.slice(0, 4));
-    };
-
-    const fetchAllHomes = () => {
-        fetch(`${hostUrl}/homes`)
-            .then((resp) => resp.json())
-            .then((json) => limitHomes(json));
-    };
+    const homesContext = useContext(HomesContext);
+    const limitedHomes = limitHomes(homesContext.homes)
 
     return (
         <div>
@@ -38,8 +30,8 @@ export default function HomePage() {
                 
             </article>
             <div className="home-articles-container">
-                {homes.map((h) => (
-                    <article key={h._id} className="home-article">
+                {limitedHomes.map((h) => (
+                    <article key={h.id} className="home-article">
                         <article>
                             <img className="home-article-image" src={h.photo_url} alt="Home" />
                         </article>

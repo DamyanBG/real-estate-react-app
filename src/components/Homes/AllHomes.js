@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react';
-import { hostUrl } from '../../utils/urls';
+import { useContext, useEffect, useState } from 'react';
 import exampleHomePhoto from '../../images/home-main-photo-example.jpg';
 import './Homes.scss';
 import './AllHomes.scss';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
+import { HomesContext } from 'context/HomesContext';
+import useUpdateHomes from 'hooks/useUpdateHomes';
 
 export default function AllHomes() {
-    const [homes, setHomes] = useState([]);
+    const { homes, loading, updated } = useContext(HomesContext);
+    const updatedHomes = useUpdateHomes()
 
     // Pagination Configuration
     const [pageNumber, setPageNumber] = useState(0);
@@ -20,17 +22,16 @@ export default function AllHomes() {
     };
 
     useEffect(() => {
-        fetchAllHomes();
-    }, []);
+        if (!loading) {
+            const now = new Date()
+            const toReloadTime = new Date(updated.getTime() + 1 * 60000)
+            if (now > toReloadTime) {
+                console.log("old info")
+                updatedHomes()
+            }
+        }
+    }, [loading]);
 
-    const fetchAllHomes = () => {
-        fetch(`${hostUrl}/homes`)
-            .then((resp) => resp.json())
-            .then((json) => {
-                console.log(json);
-                setHomes(json);
-            });
-    };
 
     return (
         <div className="main-container">
