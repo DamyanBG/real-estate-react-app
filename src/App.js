@@ -26,10 +26,12 @@ import AdminRoutes from 'components/User/routes';
 import About from 'components/About/About';
 import SignIn from './components/User/SignInPage';
 import CreateVisitation from 'components/visitations/CreateVisitation';
+import { HomesContextProvider } from 'context/HomesContext';
 
 function App() {
     return (
         <div className="App">
+            <HomesContextProvider>
             <UserProvider>
                 <BrowserRouter>
                     <Header />
@@ -61,6 +63,7 @@ function App() {
                     <Footer />
                 </BrowserRouter>
             </UserProvider>
+            </HomesContextProvider>
 
             <ToastContainer />
         </div>
