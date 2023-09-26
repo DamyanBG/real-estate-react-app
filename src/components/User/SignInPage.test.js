@@ -7,6 +7,7 @@ import { UserProvider } from '../../context/UserContext';
 
 import SignIn from './SignInPage';
 
+
 const testUser = {
     email: 'test@test.co',
     password: 'test111',
@@ -18,6 +19,35 @@ const unvalidate = {
 };
 
 const mockedUsedNavigate = jest.fn();
+
+expect.extend({
+    toHaveValidationError(received, expectedFieldName) {
+        let validationError
+        try {
+            validationError = received.getByTestId(expectedFieldName);
+        } catch {
+            return {
+                message: () =>
+                    `Expected field "${expectedFieldName}" to have a validation error, but it didn't.`,
+                pass: false,
+            };
+        }
+        const pass = validationError !== undefined;
+        if (pass) {
+            return {
+                message: () =>
+                    `Expected field "${expectedFieldName}" to have a validation error, but it didn't.`,
+                pass: true,
+            };
+        } else {
+            return {
+                message: () =>
+                    `Expected field "${expectedFieldName}" to have a validation error, but it didn't.`,
+                pass: false,
+            };
+        }
+    }
+})
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
@@ -44,7 +74,7 @@ test('exists', async () => {
     setup();
 
     const component = screen.getByTestId('sign-in-page-form');
-    expect(component).toBeInTheDocument;
+    expect(component).toBeInTheDocument();
 });
 
 test('checks submit button disabled', async () => {
@@ -58,6 +88,29 @@ test('checks email validates', async () => {
 
     fireEvent.change(emailField, { target: { value: unvalidate.email } });
     expect(screen.getByTestId('valerror-email')).toBeVisible();
+});
+
+test('checks email validates with custom matcher', async () => {
+    const { emailField } = setup();
+  
+    // Trigger validation error by providing an invalid email
+    fireEvent.change(emailField, { target: { value: 'invalid-email' } });
+  
+    // Use the custom matcher to check for validation error
+    expect(screen).toHaveValidationError('valerror-email');
+});
+
+test('unvalidate and validate email field', async () => {
+    const { emailField } = setup();
+  
+    // Trigger validation error by providing an invalid email
+    fireEvent.change(emailField, { target: { value: 'invalid-email' } });
+  
+    // Use the custom matcher to check for validation error
+    expect(screen).toHaveValidationError('valerror-email');
+
+    fireEvent.change(emailField, { target: { value: testUser.email } });
+    expect(screen).not.toHaveValidationError('valerror-email');
 });
 
 test('submits form, setItem to localstorage and navigates to home', async () => {
