@@ -1,5 +1,4 @@
-export default function FormSubmitButton(props) {
-    const { disabled = false } = props;
+export default function FormSubmitButton({ disabled }) {
     return (
         <button
             disabled={disabled}
