@@ -1,12 +1,10 @@
-import { useContext, useState } from 'react';
-import { hostUrl } from '../../utils/urls';
+import { useState } from 'react';
 import InputFormRow from '../../common/InputFormRow';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import { HOME_FIELDS } from '../../common/fields';
-import { UserContext } from '../../context/UserContext';
-import { useNavigate } from 'react-router-dom';
 import { validateField } from 'common/validation';
 import { checkObjForProfanity } from 'common/profanity';
+import usePostHome from './usePostHome';
 
 export default function CreateHome() {
     const [homeInfo, setHomeInfo] = useState({});
@@ -16,30 +14,7 @@ export default function CreateHome() {
         })
     );
 
-    const { user } = useContext(UserContext);
-    const navigate = useNavigate();
-
-    const postHome = () => {
-        const postBody = { ...homeInfo, owner_id: user.id };
-        fetch(`${hostUrl}/home`, {
-            method: 'POST',
-            body: JSON.stringify(postBody),
-            headers: {
-                Authorization: `Bearer ${user.token}`,
-                'Content-Type': 'application/json',
-            },
-        })
-            .then((resp) => {
-                return resp.json();
-            })
-            .then((json) => {
-                if (json.id) {
-                    navigate(`/edit-home?homeId=${json.id}`);
-                    return;
-                }
-                throw new Error();
-            });
-    };
+    const postHomeAction = usePostHome()
 
     const handleValidate = (e) => {
         const valError = validateField(e.target.type, e.target.value);
@@ -65,7 +40,7 @@ export default function CreateHome() {
         handleValidate(e);
     };
 
-    const handleOnSubmit = (e) => {
+    const handleOnSubmit = async (e) => {
         e.preventDefault();
         if (Object.keys(validationErrors).length > 0) {
             import('react-toastify').then((module) =>
@@ -77,7 +52,7 @@ export default function CreateHome() {
             return;
         }
         if (checkObjForProfanity(homeInfo)) return;
-        postHome();
+        postHomeAction(homeInfo)
     };
 
     const handleOnPhotoUpload = (e) => {
