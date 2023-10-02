@@ -4,7 +4,7 @@ import { hostUrl } from '../../utils/urls';
 import { UserContext } from '../../context/UserContext';
 import InputFormRow from '../../common/InputFormRow';
 import './EditLand.scss';
-import { checkTextForProfanity } from 'common/profanity';
+import { checkTextForProfanity } from '@/common/profanity';
 
 const EditLand = () => {
     const params = new URLSearchParams(window.location.search);

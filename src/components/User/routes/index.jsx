@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import Admin from 'components/User/Admin';
-import Users from 'components/User/components/Users';
-import Homes from 'components/User/components/Homes';
-import Lands from 'components/User/components/Lands';
-import AdminForm from 'components/User/components/AdminForm';
+import Admin from '@/components/User/Admin';
+import Users from '@/components/User/components/Users';
+import Homes from '@/components/User/components/Homes';
+import Lands from '@/components/User/components/Lands';
+import AdminForm from '@/components/User/components/AdminForm';
 
 export default [
     <Route

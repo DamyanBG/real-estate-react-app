@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import './HomePage.scss';
-import { hostUrl } from '../../utils/urls';
+import { hostUrl } from '@/utils/urls';
 import homePagePhoto from '../../images/cropped_better_house.png';
 import { GoLocation } from 'react-icons/go';
-import { HomesContext } from 'context/HomesContext';
+import { HomesContext } from '@/context/HomesContext';
 
 const limitHomes = (fetchedHomes) => {
     return fetchedHomes.slice(0, 4);

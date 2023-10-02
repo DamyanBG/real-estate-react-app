@@ -6,7 +6,7 @@ import FormSubmitButton from '../../common/FormSubmitButton';
 import { UserContext } from '../../context/UserContext';
 import { MEETING_STATUSES } from '../../utils/enums';
 import { useNavigate } from 'react-router-dom';
-import { checkTextForProfanity } from 'common/profanity';
+import { checkTextForProfanity } from '@/common/profanity';
 
 export default function CreateMeeting() {
     const params = new URLSearchParams(window.location.search);

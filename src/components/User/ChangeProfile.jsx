@@ -1,6 +1,6 @@
-import FormSubmitButton from "common/FormSubmitButton";
-import InputFormRow from "common/InputFormRow";
-import { USER_PROFILE } from "common/fields";
+import FormSubmitButton from "@/common/FormSubmitButton";
+import InputFormRow from "@/common/InputFormRow";
+import { USER_PROFILE } from "@/common/fields";
 import { hostUrl } from '../../utils/urls';
 
 export default function ChangeProfile({ handleOnChange, userInfo, user }) {

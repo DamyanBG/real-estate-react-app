@@ -7,7 +7,7 @@ import { UserContext } from '../../context/UserContext';
 import { Link } from 'react-router-dom';
 import './LandDetails.scss';
 import { MapContainer, Marker, TileLayer, Tooltip } from 'react-leaflet';
-import VisitationsTable from 'common/VisitationsTable';
+import VisitationsTable from '@/common/VisitationsTable';
 
 export default function LandDetails() {
     const params = new URLSearchParams(window.location.search);

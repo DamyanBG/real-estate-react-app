@@ -1,12 +1,12 @@
-import FormSubmitButton from "common/FormSubmitButton";
-import InputFormRow from "common/InputFormRow";
-import { VISITATION_FIELDS } from "common/fields";
-import { hostUrl } from "utils/urls";
-import { UserContext } from "context/UserContext";
+import FormSubmitButton from "@/common/FormSubmitButton";
+import InputFormRow from "@/common/InputFormRow";
+import { VISITATION_FIELDS } from "@/common/fields";
+import { hostUrl } from "@/utils/urls";
+import { UserContext } from "@/context/UserContext";
 import { useContext } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { checkObjForProfanity } from "common/profanity";
+import { checkObjForProfanity } from "@/common/profanity";
 
 export default function CreateVisitation() {
     const params = new URLSearchParams(window.location.search)

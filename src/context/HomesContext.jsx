@@ -1,6 +1,6 @@
-import { fetchAllHomes } from "common/homesApi";
+import { fetchAllHomes } from "@/common/homesApi";
 import { createContext, useEffect, useReducer } from "react";
-import { hostUrl } from "utils/urls";
+import { hostUrl } from "@/utils/urls";
 
 const initialHomesContext = {
     homes: [],

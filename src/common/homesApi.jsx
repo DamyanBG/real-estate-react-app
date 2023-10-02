@@ -1,4 +1,4 @@
-import { hostUrl } from "utils/urls";
+import { hostUrl } from "@/utils/urls";
 
 export const fetchAllHomes = () => {
     return fetch(`${hostUrl}/homes`)

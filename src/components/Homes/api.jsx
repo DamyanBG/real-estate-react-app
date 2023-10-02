@@ -1,5 +1,5 @@
 import axios from "axios";
-import { hostUrl } from "utils/urls";
+import { hostUrl } from "@/utils/urls";
 
 
 // const 2postHome = () => {

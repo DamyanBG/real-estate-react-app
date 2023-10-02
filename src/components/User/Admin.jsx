@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './Admin.scss';
 
-import { TABS_ENUM } from 'components/User/enums';
+import { TABS_ENUM } from '@/components/User/enums';
 
 import styled from 'styled-components';
 

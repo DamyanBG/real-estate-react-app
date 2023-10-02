@@ -2,8 +2,8 @@ import { useState } from 'react';
 import InputFormRow from '../../common/InputFormRow';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import { HOME_FIELDS } from '../../common/fields';
-import { validateField } from 'common/validation';
-import { checkObjForProfanity } from 'common/profanity';
+import { validateField } from '@/common/validation';
+import { checkObjForProfanity } from '@/common/profanity';
 import usePostHome from './usePostHome';
 
 export default function CreateHome() {

@@ -1,5 +1,5 @@
-const { fetchAllHomes } = require("common/homesApi")
-const { HomesDispatchContext } = require("context/HomesContext")
+const { fetchAllHomes } = require("@/common/homesApi")
+const { HomesDispatchContext } = require("@/context/HomesContext")
 const { useContext } = require("react")
 
 const useUpdateHomes = () => {
