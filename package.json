@@ -28,11 +28,11 @@
     },
     "scripts": {
         "cypress:open": "cypress open",
-        "start": "vite",
-        "start:local": "env-cmd -f .env.local react-scripts start",
+        "start": "env-cmd -f .env vite",
+        "start:local": "env-cmd -f .env.local vite",
         "build": "vite build",
         "serve": "vite preview",
-        "test": "react-scripts test --passWithNoTests",
+        "test": "vite test --passWithNoTests",
         "lint": "eslint .",
         "lint:fix": "eslint --fix",
         "format": "prettier --write \"**/*.+(js|jsx|ts|tsx|css|md|json)\""
