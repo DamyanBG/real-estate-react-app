@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { postHome } from './api';
-import { UserContext } from 'context/UserContext';
+import { UserContext } from '@/context/UserContext';
 import { useNavigate } from 'react-router-dom';
 
 const usePostHome = () => {

@@ -6,8 +6,8 @@ import { hostUrl } from '../../utils/urls';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { validateField } from 'common/validation';
-import { checkObjForProfanity } from 'common/profanity';
+import { validateField } from '@/common/validation';
+import { checkObjForProfanity } from '@/common/profanity';
 
 export default function SignUpPage() {
     const [userInfo, setUserInfo] = useState({

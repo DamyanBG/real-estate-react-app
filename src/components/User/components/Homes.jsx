@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { hostUrl } from 'utils/urls';
-import { api } from 'common/api';
+import { hostUrl } from '@/utils/urls';
+import { api } from '@/common/api';
 
 const HOMES_URL = '/homes';
 const HOME_URL = '/home';

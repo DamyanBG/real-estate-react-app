@@ -22,11 +22,11 @@ import EditLand from './components/Land/EditLand';
 import ChatHistory from './components/Chat/ChatHistory';
 import CreateMeeting from './components/Meeting/CreateMeeting';
 import ListMeetings from './components/Meeting/ListMeetings';
-import AdminRoutes from 'components/User/routes';
-import About from 'components/About/About';
+import AdminRoutes from './components/User/routes';
+import About from './components/About/About';
 import SignIn from './components/User/SignInPage';
-import CreateVisitation from 'components/visitations/CreateVisitation';
-import { HomesContextProvider } from 'context/HomesContext';
+import CreateVisitation from './components/visitations/CreateVisitation';
+import { HomesContextProvider } from './context/HomesContext';
 
 function App() {
     return (

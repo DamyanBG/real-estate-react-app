@@ -141,7 +141,7 @@ test('submits form, setItem to localstorage and navigates to home', async () => 
     fireEvent.click(submitButton);
 
     expect(fetch).toHaveBeenCalledTimes(1);
-    expect(fetch).toHaveBeenCalledWith(`${process.env.REACT_APP_URL}/user/login`, {
+    expect(fetch).toHaveBeenCalledWith(`${import.meta.env.REACT_APP_URL}/user/login`, {
         method: 'POST',
         body: JSON.stringify(testUser),
         headers: {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { hostUrl } from 'utils/urls';
-import { api } from 'common/api';
+import { hostUrl } from '@/utils/urls';
+import { api } from '@/common/api';
 
 const LANDS_URL = '/lands';
 const LAND_URL = '/land';

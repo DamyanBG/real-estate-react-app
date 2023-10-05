@@ -4,8 +4,8 @@ import './Homes.scss';
 import './AllHomes.scss';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
-import { HomesContext } from 'context/HomesContext';
-import useUpdateHomes from 'hooks/useUpdateHomes';
+import { HomesContext } from '@/context/HomesContext';
+import useUpdateHomes from '@/hooks/useUpdateHomes';
 
 export default function AllHomes() {
     const { homes, loading, updated } = useContext(HomesContext);

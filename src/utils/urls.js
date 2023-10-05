@@ -1,1 +1,1 @@
-export const hostUrl = process.env.REACT_APP_URL;
+export const hostUrl = import.meta.env.REACT_APP_URL;
