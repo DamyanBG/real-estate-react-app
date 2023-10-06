@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import { HomesContext } from '@/context/HomesContext';
 import useUpdateHomes from '@/hooks/useUpdateHomes';
+import ImageCache from '../../common/ImageCache';
 
 export default function AllHomes() {
     const { homes, loading, updated } = useContext(HomesContext);
@@ -37,7 +38,7 @@ export default function AllHomes() {
         <div className="main-container">
             {homes.slice(pagesVisited, pagesVisited + homesPerPage).map((h) => (
                 <article className="home-container" key={`home-${h.id}`}>
-                    <div className="image-container">
+                    {/* <div className="image-container">
                         <img
                             className="all-homes-image"
                             src={h.photo_url}
@@ -47,7 +48,8 @@ export default function AllHomes() {
                             }}
                             alt="Home"
                         />
-                    </div>
+                    </div> */}
+                    <ImageCache imageUrl={h.photo_url} />
                     <div className="main-text">
                         <Link to={`/home-details?homeId=${h.id}`} className="no-underline">
                             <h3>{h.title}</h3>
