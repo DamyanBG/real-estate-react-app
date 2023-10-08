@@ -10,7 +10,7 @@ const cypress = require('cypress');
 
 cypress
     .run({
-        browser: 'chrome',
+        browser: 'chromium',
         config: {
             baseUrl: 'http://localhost:3000',
             video: false
