@@ -20,4 +20,16 @@ describe('My first Test', () => {
 
     cy.url().should('include', '/signin')
   })
+
+  it('Contains Sign in', () => {
+    cy.visit('/')
+
+    cy.contains('Sign in')
+  })
+
+  it('Url check', () => {
+    cy.visit('/')
+
+    cy.url().should('include', '/')
+  })
 })
