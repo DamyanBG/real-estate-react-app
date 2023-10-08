@@ -26,7 +26,7 @@ https://www.youtube.com/watch?v=dR8qX2cMPcE&t=25s
 
 <img align="center" alt="VisualStudioCode" height="25" width="35" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/visualstudio/visualstudio-plain.svg" style="max-width:100%;">[VSCode](https://code.visualstudio.com/)</img>
 
-### Installing
+### Installing on local machie
 
 ```bash
 
@@ -44,6 +44,23 @@ $ npm start
 
 # The server will start in the port:3000
 go to http://localhost:3000/
+
+```
+
+### Run the project with Docker
+
+```bash
+
+#Clone the integration repo
+$ git clone https://github.com/DamyanBG/real-estate-integration
+
+# Add .env files
+
+# Build the image
+$ docker-compose build
+
+# Run the application
+$ docker-compose up
 
 ```
 
