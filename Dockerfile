@@ -1,6 +1,9 @@
 # Use an official Node.js runtime as the base image
 FROM node:18-bullseye
 
+# Set the TERM environment variable to xterm
+ENV TERM xterm
+
 # Install required packages
 RUN apt-get update && apt-get install -y \
     libgtk2.0-0 \

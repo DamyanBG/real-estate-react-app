@@ -58,7 +58,7 @@
     "devDependencies": {
         "@testing-library/react": "^13.4.0",
         "@vitejs/plugin-react": "^4.1.0",
-        "cypress": "^12.17.4",
+        "cypress": "^13.3.0",
         "eslint": "^8.31.0",
         "eslint-config-prettier": "^8.6.0",
         "eslint-plugin-prettier": "^4.2.1",
