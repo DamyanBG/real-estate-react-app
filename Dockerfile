@@ -1,17 +1,14 @@
 # Use an official Node.js runtime as the base image
-FROM node:16
+FROM node:18-bullseye
 
 # Set the working directory in the container
 WORKDIR /app
 
 # Copy package.json and package-lock.json to the container
-COPY package*.json ./
+COPY . .
 
 # Install project dependencies
 RUN npm install
-
-# Copy all source files to the container
-COPY . .
 
 # Build the React app
 RUN npm run build
