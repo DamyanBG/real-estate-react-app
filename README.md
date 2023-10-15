@@ -26,7 +26,7 @@ https://www.youtube.com/watch?v=dR8qX2cMPcE&t=25s
 
 <img align="center" alt="VisualStudioCode" height="25" width="35" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/visualstudio/visualstudio-plain.svg" style="max-width:100%;">[VSCode](https://code.visualstudio.com/)</img>
 
-### Installing on local machie
+### Installing on local machine
 
 ```bash
 
@@ -63,6 +63,16 @@ $ docker-compose build
 $ docker-compose up
 
 ```
+
+### Integrate the backend
+
+Since this is the Front end of the application, you will need the back end to run (since I do not host anymore the project on Azure).
+To achieve this you have 3 options:
+
+1. To install Python and PostgreSQL, to clone the backend and run the back end.
+2. To install PostgreSQL and Docker and to use the container for the back end.
+3. To instal Docker and to use containers for the back end for the database. I recommend this way, since there will be added
+container for the NEXTCLOUD, which I am using to store the images.
 
 ## Contributing
 
