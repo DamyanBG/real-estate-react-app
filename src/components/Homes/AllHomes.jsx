@@ -6,36 +6,53 @@ import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import { HomesContext } from '@/context/HomesContext';
 import useUpdateHomes from '@/hooks/useUpdateHomes';
+import { useQuery, keepPreviousData, useQueryClient } from '@tanstack/react-query';
+import { fetchAllHomes, fetchPaginatedHomes } from '../../common/homesApi';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 export default function AllHomes() {
-    const { homes, loading, updated } = useContext(HomesContext);
+    const [pageNumber, setPageNumber] = useState(0);
+    const queryClient = useQueryClient()
+    const { data, isPlaceholderData } = useQuery({
+        queryKey: ["homes", pageNumber],
+        queryFn: () => fetchPaginatedHomes(pageNumber, homesPerPage),
+        placeholderData: keepPreviousData,
+        staleTime: 5000
+    })
+    const homes = data?.map((home) => home)
     const updatedHomes = useUpdateHomes()
 
     // Pagination Configuration
-    const [pageNumber, setPageNumber] = useState(0);
     const homesPerPage = 10;
     const pagesVisited = pageNumber * homesPerPage;
-    const pageCount = Math.ceil(homes.length / homesPerPage);
+    const pageCount = Math.ceil(homes?.length / homesPerPage);
 
-    const pageChangeHandler = ({ selected }) => {
-        setPageNumber(selected);
-    };
+    // useEffect(() => {
+    //     if (!loading) {
+    //         const now = new Date()
+    //         const toReloadTime = new Date(updated.getTime() + 1 * 60000)
+    //         if (now > toReloadTime) {
+    //             console.log("old info")
+    //             updatedHomes()
+    //         }
+    //     }
+    // }, [loading]);
 
     useEffect(() => {
-        if (!loading) {
-            const now = new Date()
-            const toReloadTime = new Date(updated.getTime() + 1 * 60000)
-            if (now > toReloadTime) {
-                console.log("old info")
-                updatedHomes()
-            }
+        console.log(data?.hasMore)
+        console.log(data)
+        if (!isPlaceholderData) {
+            queryClient.prefetchQuery({
+                queryKey: ['homes', pageNumber + 1],
+                queryFn: () => fetchPaginatedHomes(pageNumber + 1, homesPerPage),
+            })
         }
-    }, [loading]);
+    }, [data, isPlaceholderData, pageNumber, queryClient])
 
 
     return (
         <div className="main-container">
-            {homes.slice(pagesVisited, pagesVisited + homesPerPage).map((h) => (
+            {homes?.map((h) => (
                 <article className="home-container" key={`home-${h.id}`}>
                     <div className="image-container">
                         <img
@@ -61,19 +78,41 @@ export default function AllHomes() {
                 </article>
             ))}
 
-            {homes.length > 10 && (
-                <ReactPaginate
-                    previousLabel="Previous"
-                    nextLabel="Next"
-                    pageCount={pageCount}
-                    onPageChange={pageChangeHandler}
-                    containerClassName="paginationBtns"
-                    previousLinkClassName="previousBtn"
-                    nextLinkClassName="nextBtn"
-                    disabledClassName="paginationDisabled"
-                    activeClassName="paginationActive"
-                />
-            )}
+
+            {/* <ReactPaginate
+                previousLabel="Previous"
+                nextLabel="Next"
+                pageCount={pageCount}
+                onPageChange={pageChangeHandler}
+                containerClassName="paginationBtns"
+                previousLinkClassName="previousBtn"
+                nextLinkClassName="nextBtn"
+                disabledClassName="paginationDisabled"
+                activeClassName="paginationActive"
+            /> */}
+
+            <section style={{ display: "flex", alignItems: "center" }}>
+                <button
+                    type='button'
+                    onClick={() => {
+                        setPageNumber((old) => Math.max(old - 1, 0))
+                        scrollTo(0, 0)
+                    }}
+                    disabled={pageNumber === 0}
+                >
+                    Previous
+                </button>
+                <article>Current page: {pageNumber + 1}</article>
+                <button
+                    onClick={() => {
+                        setPageNumber((old) => old + 1)
+                        scrollTo(0, 0)
+                    }}
+                >
+                    Next
+                </button>
+            </section>
+            <ReactQueryDevtools initialIsOpen />
         </div>
     );
 }

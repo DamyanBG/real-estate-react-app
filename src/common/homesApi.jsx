@@ -7,3 +7,11 @@ export const fetchAllHomes = () => {
             return json
         });
 };
+
+export const fetchPaginatedHomes = (page, rowsPerPage) => {
+    return fetch(`${hostUrl}/homes/${page}/${rowsPerPage}`)
+        .then((resp) => resp.json())
+        .then((json) => {
+            return json
+        });
+};
