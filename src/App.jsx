@@ -19,6 +19,7 @@ import LandDetails from './components/Land/LandDetails';
 import { ToastContainer } from 'react-toastify';
 import EditHome from './components/Homes/EditHome';
 import EditLand from './components/Land/EditLand';
+import EditMeeting from './components/Meeting/EditMeeting';
 import ChatHistory from './components/Chat/ChatHistory';
 import CreateMeeting from './components/Meeting/CreateMeeting';
 import ListMeetings from './components/Meeting/ListMeetings';
@@ -60,6 +61,7 @@ function App() {
                                     {AdminRoutes}
                                     <Route path="/chat-history" element={<ChatHistory />} />
                                     <Route path="/create-meeting" element={<CreateMeeting />} />
+                                    <Route path="/edit-meeting" element={<EditMeeting />} />
                                     <Route path="/list-meetings" element={<ListMeetings />} />
                                     <Route path="/create-visitation" element={<CreateVisitation />} />
                                 </Routes>
