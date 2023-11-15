@@ -15,9 +15,9 @@ export default function EditMeeting() {
 
     const navigate = useNavigate()
 
-    const postMeeting = () => {
+    const putMeeting = () => {
         fetch(`${hostUrl}/meeting/${meetingId}`, {
-            method: 'PATCH',
+            method: 'PUT',
             body: JSON.stringify(meetingInfo),
             headers: {
                 'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export default function EditMeeting() {
     const handleOnSubmit = (e) => {
         e.preventDefault();
         if (checkTextForProfanity(meetingInfo)) return
-        postMeeting();
+        putMeeting();
     };
 
     const handleOnChange = (e) => {
