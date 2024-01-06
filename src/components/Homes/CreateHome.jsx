@@ -8,13 +8,14 @@ import usePostHome from './usePostHome';
 
 export default function CreateHome() {
     const [homeInfo, setHomeInfo] = useState({});
+    const [loading, setLoading] = useState(false);
     const [validationErrors, setValidationErrors] = useState(
         HOME_FIELDS.map((uf) => uf.name).reduce((acc, curr) => ((acc[curr] = ''), acc), {
             description: '',
         })
     );
 
-    const postHomeAction = usePostHome()
+    const postHomeAction = usePostHome();
 
     const handleValidate = (e) => {
         const valError = validateField(e.target.type, e.target.value);
@@ -42,6 +43,7 @@ export default function CreateHome() {
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         if (Object.keys(validationErrors).length > 0) {
             import('react-toastify').then((module) =>
                 module.toast.error('Please enter valid values!', {
@@ -52,7 +54,15 @@ export default function CreateHome() {
             return;
         }
         if (checkObjForProfanity(homeInfo)) return;
-        postHomeAction(homeInfo)
+        const addHomeData = await postHomeAction(homeInfo);
+
+        if (addHomeData && addHomeData.id) {
+            setLoading(false);
+            navigate(`/edit-home?homeId=${data.id}`);
+        } else {
+            setLoading(false);
+            //error
+        }
     };
 
     const handleOnPhotoUpload = (e) => {
@@ -72,7 +82,12 @@ export default function CreateHome() {
         <div className="center">
             <form onSubmit={handleOnSubmit} data-testid="home-create-form">
                 <article style={{ margin: 'auto', width: '300px' }}>
-                    <input data-testid="home-photo" type="file" name="photo" onChange={handleOnPhotoUpload} />
+                    <input
+                        data-testid="home-photo"
+                        type="file"
+                        name="photo"
+                        onChange={handleOnPhotoUpload}
+                    />
                 </article>
 
                 {HOME_FIELDS.map((hk) => (
@@ -99,7 +114,7 @@ export default function CreateHome() {
                     />
                 </article>
 
-                <FormSubmitButton />
+                <FormSubmitButton disabled={loading} />
             </form>
         </div>
     );

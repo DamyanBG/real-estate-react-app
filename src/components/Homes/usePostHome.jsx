@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 const usePostHome = () => {
     const { user } = useContext(UserContext)
     const navigate = useNavigate()
- 
     const postHomeAction = async (homeInfo) => {
         try {
             const { error, data } = await postHome(homeInfo, user.id);
@@ -15,7 +14,7 @@ const usePostHome = () => {
             }
             console.log(data)
             if (data.id) {
-                navigate(`/edit-home?homeId=${data.id}`);
+                // navigate(`/edit-home?homeId=${data.id}`);
             } else {
                 throw Error()
             }
@@ -28,6 +27,8 @@ const usePostHome = () => {
                 })
             );
         }
+
+        return data
     }
 
     return postHomeAction
