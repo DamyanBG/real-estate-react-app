@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 import InputFormRow from '../../common/InputFormRow';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import { HOME_FIELDS } from '../../common/fields';
-import { validateField } from '@/common/validation';
-import { checkObjForProfanity } from '@/common/profanity';
+import { validateField } from '../../common/validation';
+import { checkObjForProfanity } from '../../common/profanity';
 import usePostHome from './usePostHome';
 
 export default function CreateHome() {
@@ -16,6 +17,7 @@ export default function CreateHome() {
     );
 
     const postHomeAction = usePostHome();
+    const navigate = useNavigate()
 
     const handleValidate = (e) => {
         const valError = validateField(e.target.type, e.target.value);
@@ -53,15 +55,29 @@ export default function CreateHome() {
             );
             return;
         }
-        if (checkObjForProfanity(homeInfo)) return;
-        const addHomeData = await postHomeAction(homeInfo);
-
-        if (addHomeData && addHomeData.id) {
-            setLoading(false);
-            navigate(`/edit-home?homeId=${data.id}`);
-        } else {
-            setLoading(false);
-            //error
+        if (checkObjForProfanity(homeInfo)) {
+            import('react-toastify').then((module) =>
+                module.toast.error('Please do not use bad words!', {
+                    autoClose: 3000,
+                    pauseOnHover: false,
+                })
+            )
+            return
+        }
+        let addHomeData
+        try {
+            addHomeData = await postHomeAction(homeInfo);
+            navigate(`/edit-home?homeId=${addHomeData.id}`)
+        } catch (error) {
+            import('react-toastify').then((module) =>
+                module.toast.error('Server error', {
+                    autoClose: 3000,
+                    pauseOnHover: false,
+                })
+            )
+            console.error(error)
+        } finally {
+            setLoading(false)
         }
     };
 
