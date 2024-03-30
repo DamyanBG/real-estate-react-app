@@ -1,13 +1,13 @@
 import { useContext } from 'react';
 import { postHome } from './api';
 import { UserContext } from '@/context/UserContext';
-import { useNavigate } from 'react-router-dom';
 
 const usePostHome = () => {
     const { user } = useContext(UserContext)
     const postHomeAction = async (homeInfo) => {
         let returnData
         try {
+            console.log(homeInfo)
             const { error, data } = await postHome(homeInfo, user.id);
             if (error) {
                 throw Error()

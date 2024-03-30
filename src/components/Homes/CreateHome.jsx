@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import InputFormRow from '../../common/InputFormRow';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import { HOME_FIELDS } from '../../common/fields';
@@ -16,9 +16,10 @@ export default function CreateHome() {
             description: '',
         })
     );
+    const [homePhotoData, setHomePhotoData] = useState(null);
 
     const postHomeAction = usePostHome();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const handleValidate = (e) => {
         const valError = validateField(e.target.type, e.target.value);
@@ -47,13 +48,14 @@ export default function CreateHome() {
     const handleOnSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        if (Object.keys(validationErrors).length > 0) {
+        if (Object.keys(validationErrors).length > 0 || !homePhotoData) {
             import('react-toastify').then((module) =>
                 module.toast.error('Please enter valid values!', {
                     autoClose: 3000,
                     pauseOnHover: false,
                 })
             );
+            setLoading(false);
             return;
         }
         if (checkObjForProfanity(homeInfo)) {
@@ -62,44 +64,48 @@ export default function CreateHome() {
                     autoClose: 3000,
                     pauseOnHover: false,
                 })
-            )
-            return
+            );
+            setLoading(false);
+            return;
         }
-        let addHomeData
+        let addHomeData;
         try {
-            addHomeData = await postHomeAction(homeInfo);
-            navigate(`/edit-home?homeId=${addHomeData.id}`)
+            const postHomeData = {
+                ...homeInfo,
+                photo_id: homePhotoData.id
+            }
+            addHomeData = await postHomeAction(postHomeData);
+            navigate(`/edit-home?homeId=${addHomeData.id}`);
         } catch (error) {
             import('react-toastify').then((module) =>
                 module.toast.error('Server error', {
                     autoClose: 3000,
                     pauseOnHover: false,
                 })
-            )
-            console.error(error)
+            );
+            console.error(error);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
     };
 
-    const handleOnPhotoUpload = (e) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setHomeInfo({
-                ...homeInfo,
-                [e.target.name]: reader.result,
-            });
-        };
-        if (e.target.files) {
-            reader.readAsDataURL(e.target.files[0]);
-        }
+    const handlePhotoData = (photoData) => {
+        console.log(photoData);
+        setHomePhotoData(photoData);
     };
 
     return (
-        <div className="center">
+        <div className="create-home">
+            <article>
+                {homePhotoData ? (
+                    <article style={{ margin: 'auto', width: '300px' }}>
+                        <img src={homePhotoData.photo_url} alt="" width="100%" />
+                    </article>
+                ) : (
+                    <UploadImage handlePhotoData={handlePhotoData} />
+                )}
+            </article>
             <form onSubmit={handleOnSubmit} data-testid="home-create-form">
-                <UploadImage />
-
                 {HOME_FIELDS.map((hk) => (
                     <InputFormRow
                         key={hk.labelName}

@@ -16,16 +16,6 @@ export const HOME_FIELDS = [
         name: 'address',
     },
     {
-        labelName: 'Longitude',
-        name: 'longitude',
-        type: 'number',
-    },
-    {
-        labelName: 'Latitude',
-        name: 'latitude',
-        type: 'number',
-    },
-    {
         labelName: 'Price',
         name: 'price',
         type: 'number',
@@ -122,7 +112,7 @@ export const MEETING_FIELDS = [
     {
         labelName: 'Date',
         name: 'date',
-        type: 'date'
+        type: 'date',
     },
     {
         labelName: 'Start time',

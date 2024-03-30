@@ -1,7 +1,6 @@
-import axios from "axios";
 import { hostUrl } from "../../utils/urls";
 
-const UploadImage = () => {
+const UploadImage = ({ handlePhotoData }) => {
     const handleOnPhotoUpload = async (e) => {
         console.log("changed")
         const reader = new FileReader();
@@ -17,7 +16,7 @@ const UploadImage = () => {
                 }
             })
             const json = await resp.json()
-            console.log(json)
+            handlePhotoData(json)
         };
         if (e.target.files) {
             reader.readAsDataURL(e.target.files[0]);
