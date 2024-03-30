@@ -26,7 +26,7 @@ function MapClickHandlerComponent({ setLocation }) {
     return null
   }
 
-export default function CreateHome() {
+export default function CreateHomeComponent() {
     const [homeInfo, setHomeInfo] = useState({});
     const [loading, setLoading] = useState(false);
     const [validationErrors, setValidationErrors] = useState(
