@@ -6,6 +6,7 @@ import { HOME_FIELDS } from '../../common/fields';
 import { validateField } from '../../common/validation';
 import { checkObjForProfanity } from '../../common/profanity';
 import usePostHome from './usePostHome';
+import UploadImage from '../common/UploadImage';
 
 export default function CreateHome() {
     const [homeInfo, setHomeInfo] = useState({});
@@ -97,14 +98,7 @@ export default function CreateHome() {
     return (
         <div className="center">
             <form onSubmit={handleOnSubmit} data-testid="home-create-form">
-                <article style={{ margin: 'auto', width: '300px' }}>
-                    <input
-                        data-testid="home-photo"
-                        type="file"
-                        name="photo"
-                        onChange={handleOnPhotoUpload}
-                    />
-                </article>
+                <UploadImage />
 
                 {HOME_FIELDS.map((hk) => (
                     <InputFormRow
