@@ -14,11 +14,13 @@ export default function HomeDetails() {
     const [homeDetails, setHomeDetails] = useState({});
     const [visitations, setVisitations] = useState([])
     const { user } = useContext(UserContext);
+ 
 
     const fetchHomeDetails = () => {
         fetch(`${hostUrl}/home-details/${homeId}`)
             .then((resp) => resp.json())
             .then((json) => {
+            
                 console.log(json)
                 setHomeDetails(json.home_details);
                 setVisitations(json.visitations);
@@ -48,6 +50,7 @@ export default function HomeDetails() {
                     <p>Price: {homeDetails.price}</p>
                     <p>Year: {homeDetails.year}</p>
                     <p>Information: {homeDetails.description}</p>
+                    <p className='views-counter'>Views: {homeDetails.home_views}</p>
                     <p>
                         Owner: {homeDetails.owner_names}{' '}
                         {user.id && user.id !== homeDetails.owner_id && (
