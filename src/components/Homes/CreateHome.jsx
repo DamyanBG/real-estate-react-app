@@ -72,7 +72,9 @@ export default function CreateHome() {
         try {
             const postHomeData = {
                 ...homeInfo,
-                photo_id: homePhotoData.id
+                photo_id: homePhotoData.id,
+                latitude: homePhotoData.latitude,
+                longitude: homePhotoData.longitude,
             }
             addHomeData = await postHomeAction(postHomeData);
             navigate(`/edit-home?homeId=${addHomeData.id}`);
