@@ -7,6 +7,24 @@ import { validateField } from '../../common/validation';
 import { checkObjForProfanity } from '../../common/profanity';
 import usePostHome from './usePostHome';
 import UploadImage from '../common/UploadImage';
+import MapView from '../../common/MapView';
+import { useMapEvents } from 'react-leaflet/hooks'
+
+
+function MapClickHandlerComponent({ setLocation }) {
+    const map = useMapEvents({
+      click: (e) => {
+        map.locate()
+        console.log(e.latlng)
+        setLocation((oldLocation) => ({
+            ...oldLocation,
+            latitude: e.latlng.lat,
+            longitude: e.latlng.lng,
+        }))
+      },
+    })
+    return null
+  }
 
 export default function CreateHome() {
     const [homeInfo, setHomeInfo] = useState({});
@@ -96,6 +114,8 @@ export default function CreateHome() {
         setHomePhotoData(photoData);
     };
 
+    const theComponentClick = <MapClickHandlerComponent setLocation={setHomePhotoData}/>
+
     return (
         <div className="create-home">
             <article>
@@ -134,6 +154,9 @@ export default function CreateHome() {
 
                 <FormSubmitButton disabled={loading} />
             </form>
+            {(homePhotoData && homePhotoData.latitude) && (
+                <MapView latitude={homePhotoData.latitude} longitude={homePhotoData.longitude} MapClickerHandlerComponent={theComponentClick} />
+            )}
         </div>
     );
 }

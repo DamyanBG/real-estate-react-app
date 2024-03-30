@@ -1,12 +1,12 @@
 import './Homes.scss';
 import exampleHomePhoto from '../../images/home-main-photo-example.jpg';
 import { useContext, useEffect, useState, lazy } from 'react';
-import { hostUrl } from '@/utils/urls';
+import { hostUrl } from '../../utils/urls';
 import { Link } from 'react-router-dom';
-import { UserContext } from '@/context/UserContext';
-import VisitationsTable from '@/common/VisitationsTable';
+import VisitationsTable from '../..//common/VisitationsTable';
+import { UserContext } from '../../context/UserContext';
 
-const MapView = lazy(() => import('@/common/MapView'))
+const MapView = lazy(() => import('../../common/MapView'))
 
 export default function HomeDetails() {
     const params = new URLSearchParams(window.location.search);
