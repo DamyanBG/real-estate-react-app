@@ -322,10 +322,10 @@ header .auth a:hover {
         background: #a09b6b;
     }
     @media only screen and (max-width: 480px) {
-        .menu-items{
+        .menu-items {
             margin: 0;
             max-width: 300px;
-        } 
+        }
     }
 
     @media only screen and (max-width: 380px) {
@@ -339,12 +339,12 @@ header .auth a:hover {
         .header-section .app-name {
             font-size: 18px;
         }
-        .auth a{
+        .auth a {
             font-size: 14px;
         }
-        .menu-items{
+        .menu-items {
             margin: 0;
             max-width: 240px;
-        } 
+        }
     }
 }

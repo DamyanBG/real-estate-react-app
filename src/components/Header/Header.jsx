@@ -50,10 +50,7 @@ export default function Header() {
     return (
         <header>
             <section className="header-section">
-                {/* <button id='hamburger-menu' onClick={toggle} className={`toggle-button ${isToggled ? 'toggled' : ''}`}>
-                    {isToggled ? 'ON' : 'OFF'}
-                </button> */}
-                <Link className='logo-desktop' style={{ textDecoration: 'none' }} to="/">
+                <Link className="logo-desktop" style={{ textDecoration: 'none' }} to="/">
                     <p className="app-name">Real Estate App</p>
                 </Link>
                 <input className="checkbox" type="checkbox" name="" id="" />
@@ -172,9 +169,7 @@ export default function Header() {
                     </li>
                 </ul>
             </section>
-            {/* <div className="mobile-right-side-header">
-                <nav></nav>
-            </div> */}
+
             <section className="auth">
                 {user.role === 'admin' ? (
                     <p>
