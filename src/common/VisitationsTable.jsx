@@ -2,8 +2,8 @@ export default function VisitationsTable({ visitations }) {
     return (
         <>
             <p>Visitations</p>
-            <table>
-                <thead>
+            <table className="visitation-table-wrapper">
+                <thead className="visitation-table-header">
                     <tr>
                         <th>Date</th>
                         <th>Start hour</th>
@@ -11,7 +11,7 @@ export default function VisitationsTable({ visitations }) {
                         <th>Address</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="visitation-table-body">
                     {visitations.map((v) => (
                         <tr key={v.id}>
                             <td>{v.date}</td>

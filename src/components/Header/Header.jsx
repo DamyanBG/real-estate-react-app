@@ -12,6 +12,12 @@ export default function Header() {
     const [sellClick, setSellClick] = useState(false);
     const { user, setUser } = useContext(UserContext);
 
+    // For mobile menu
+    const [isToggled, setIsToggled] = useState(false);
+
+    // Function to toggle the state
+    const toggle = () => setIsToggled(!isToggled);
+
     const SellHandler = () => {
         if (!user.id) {
             toast.error('You have to be signed in as a seller!', {
@@ -31,8 +37,8 @@ export default function Header() {
         if (!user) return;
         fetch(`${hostUrl}/logout`, {
             headers: {
-                'Authorization': `Bearer ${user.token}`
-            }
+                Authorization: `Bearer ${user.token}`,
+            },
         }).then((resp) => {
             if (resp.ok) {
                 setUser({});
@@ -43,13 +49,21 @@ export default function Header() {
 
     return (
         <header>
-            <section>
-                <Link style={{ textDecoration: 'none' }} to="/">
+            <section className="header-section">
+                {/* <button id='hamburger-menu' onClick={toggle} className={`toggle-button ${isToggled ? 'toggled' : ''}`}>
+                    {isToggled ? 'ON' : 'OFF'}
+                </button> */}
+                <Link className='logo-desktop' style={{ textDecoration: 'none' }} to="/">
                     <p className="app-name">Real Estate App</p>
                 </Link>
-            </section>
-            <nav>
-                <ul>
+                <input className="checkbox" type="checkbox" name="" id="" />
+                <div className="hamburger-lines">
+                    <span className="line line1"></span>
+                    <span className="line line2"></span>
+                    <span className="line line3"></span>
+                </div>
+
+                <ul className="header-ul-el menu-items">
                     <li
                         className="buy-list dropdown"
                         onMouseEnter={() => {
@@ -70,10 +84,19 @@ export default function Header() {
                                             setClick(false);
                                         }}
                                     >
-                                        <Link data-testid='buy-home-link' className="buy-patch" to="/all-homes" onClick={()=>setClick(false)}>
+                                        <Link
+                                            data-testid="buy-home-link"
+                                            className="buy-patch"
+                                            to="/all-homes"
+                                            onClick={() => setClick(false)}
+                                        >
                                             Homes for sale
                                         </Link>
-                                        <Link className="buy-patch" to="/all-lands" onClick={()=>setClick(false)}>
+                                        <Link
+                                            className="buy-patch"
+                                            to="/all-lands"
+                                            onClick={() => setClick(false)}
+                                        >
                                             Land for sale
                                         </Link>
                                     </div>
@@ -105,10 +128,10 @@ export default function Header() {
                                                     : '/'
                                             }
                                             onClick={() => {
-                                                setSellClick(false)
+                                                setSellClick(false);
                                                 SellHandler();
                                             }}
-                                            data-testid='sell-home-link'
+                                            data-testid="sell-home-link"
                                         >
                                             Sell Home
                                         </Link>
@@ -119,10 +142,10 @@ export default function Header() {
                                                     ? '/create-land'
                                                     : '/'
                                             }
-                                            onClick={()=>{
-                                                setSellClick(false)
-                                                SellHandler()
-                                                }}
+                                            onClick={() => {
+                                                setSellClick(false);
+                                                SellHandler();
+                                            }}
                                         >
                                             Sell Land
                                         </Link>
@@ -132,19 +155,26 @@ export default function Header() {
                         )}
                         Sell
                     </li>
-                    <Link style={{ textDecoration: 'none' }} to="/rent">
-                        <li>Rent</li>
-                    </Link>
-
-                    <Link style={{ textDecoration: 'none' }} to="/news">
-                        <li>News</li>
-                    </Link>
-
-                    <Link style={{ textDecoration: 'none' }} to="/about">
-                        <li>About</li>
-                    </Link>
+                    <li>
+                        <Link className="rent-span" style={{ textDecoration: 'none' }} to="/rent">
+                            Rent
+                        </Link>
+                    </li>
+                    <li>
+                        <Link className="news-span" style={{ textDecoration: 'none' }} to="/news">
+                            News
+                        </Link>
+                    </li>
+                    <li>
+                        <Link className="about-span" style={{ textDecoration: 'none' }} to="/about">
+                            About
+                        </Link>
+                    </li>
                 </ul>
-            </nav>
+            </section>
+            {/* <div className="mobile-right-side-header">
+                <nav></nav>
+            </div> */}
             <section className="auth">
                 {user.role === 'admin' ? (
                     <p>
@@ -161,19 +191,12 @@ export default function Header() {
                     </Link>
                 </p>
                 <p>
-                {user.id ? (
-                        <Link
-                            onClick={onLogOutHandler}
-                            style={{ textDecoration: 'none' }}
-                            to='/'
-                        >
+                    {user.id ? (
+                        <Link onClick={onLogOutHandler} style={{ textDecoration: 'none' }} to="/">
                             Sign out
                         </Link>
                     ) : (
-                        <Link
-                            style={{ textDecoration: 'none' }}
-                            to='/signin'
-                        >
+                        <Link style={{ textDecoration: 'none' }} to="/signin">
                             Sign in
                         </Link>
                     )}
