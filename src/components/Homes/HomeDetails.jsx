@@ -1,12 +1,38 @@
 import './Homes.scss';
 import exampleHomePhoto from '../../images/home-main-photo-example.jpg';
 import { useContext, useEffect, useState, lazy } from 'react';
-import { hostUrl } from '../../utils/urls';
+import './HomeDetails.scss';
+import { hostUrl } from '@/utils/urls';
 import { Link } from 'react-router-dom';
 import VisitationsTable from '../..//common/VisitationsTable';
 import { UserContext } from '../../context/UserContext';
 
-const MapView = lazy(() => import('../../common/MapView'))
+// Temporory mocking
+const fakeVisitations = [
+    {
+        id: '1',
+        date: '26.12.1988',
+        start_hour: '12:36',
+        end_hour: '20:00',
+        address: "Dobrich street test",
+    },
+    {
+        id: '2',
+        date: '26.12.1988',
+        start_hour: '12:36',
+        end_hour: '20:00',
+        address: "Dobrich street test",
+    },
+    {
+        id: '3',
+        date: '26.12.1988',
+        start_hour: '12:36',
+        end_hour: '20:00',
+        address: "Dobrich street test",
+    },
+];
+
+const MapView = lazy(() => import('@/common/MapView'))
 
 export default function HomeDetails() {
     const params = new URLSearchParams(window.location.search);
@@ -66,7 +92,7 @@ export default function HomeDetails() {
                             </Link>
                         )}
                     </p>
-                    {visitations.length > 0 && <VisitationsTable visitations={visitations} />}
+                    {fakeVisitations.length > 0 && <VisitationsTable visitations={fakeVisitations} />}
                     {user.id === homeDetails.owner_id && (
                         <>
                             <Link to={`/edit-home?homeId=${homeId}`}>

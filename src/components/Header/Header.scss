@@ -3,11 +3,11 @@ a {
 }
 
 header {
-    padding: 10px 0;
+    padding: 10px 20px;
     display: flex;
-    background-color: #def2f8;
+    background: #daad86;
     min-height: 48px;
-    height: 5vh;
+    min-height: 6px;
 }
 
 .app-name {
@@ -19,6 +19,7 @@ header {
     display: flex;
     margin-left: auto;
     margin-right: 48px;
+    align-items: center;
 }
 
 .auth p {
@@ -33,9 +34,10 @@ nav {
     margin-left: 128px;
 }
 
-ul {
+.header-ul-el {
     list-style: none;
     display: flex;
+    align-items: center;
 }
 
 li {
@@ -46,9 +48,38 @@ li {
     position: relative;
     cursor: pointer;
 }
-
-.dropdown{
-height: 10vh;
+.header-section {
+    display: flex;
+    align-items: center;
+    flex-grow: 20;
+}
+.header-section .app-name {
+    font-size: 22px;
+}
+header nav {
+    flex-grow: 0;
+}
+header .auth {
+    flex-grow: 2;
+}
+// .dropdown{
+// height: 10vh;
+// }
+header .buy-list {
+    background: #8d8741;
+    padding: 5px 20px;
+    border-radius: 20px;
+}
+header .buy-list:hover {
+    background: #a09b6b;
+}
+.header-ul-el a li:hover,
+header .auth a:hover {
+    color: #8d8741;
+}
+#menu-toggle,
+.menu-button-containere {
+    display: none;
 }
 
 .buy-element {
@@ -92,6 +123,7 @@ height: 10vh;
         transition: 0.5s;
         z-index: 1;
         font-weight: 500;
+        font-size: 18px;
     }
 
     .buy-patch:hover {
@@ -99,9 +131,220 @@ height: 10vh;
         background: rgba(186, 160, 160, 0.3);
     }
 }
+.mobile-right-side-header {
+    display: flex;
+}
+#hamburger-menu {
+    display: none;
+}
+.header-section .checkbox {
+    display: none;
+}
+.logo-desktop {
+    text-decoration: none;
+    display: flex;
+    flex-grow: 20;
+}
 
 @keyframes top-to-bottom {
     100% {
         transform: translateY(100%);
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .header-section {
+        width: 100%;
+        flex-grow: initial;
+        margin: 0;
+    }
+    .header-ul-el li {
+        margin: 0;
+    }
+    header nav {
+        flex-grow: initial;
+        width: auto;
+        margin: 0;
+    }
+    header .auth {
+        width: auto;
+        flex-grow: initial;
+        margin: 0;
+    }
+    header .auth p {
+        width: 70px;
+        padding: 0;
+    }
+    header .buy-list,
+    .rent-span li,
+    .news-span li,
+    .about-span li {
+        margin: 0;
+    }
+    .rent-span,
+    .news-span,
+    .about-span {
+        width: 55px;
+    }
+    header {
+        justify-content: space-between;
+    }
+    .header-ul-el {
+        gap: 10px;
+        margin-right: 20px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .menu-items {
+        display: flex;
+        background: #daad86d4;
+    }
+    .menu-items li {
+        list-style: none;
+    }
+
+    .menu-items a {
+        text-decoration: none;
+        color: #0e2431;
+        font-weight: 500;
+        font-size: 1.2rem;
+        padding: 0.7rem;
+    }
+    .menu-items a:hover {
+        font-weight: bolder;
+    }
+    .header-section .checkbox {
+        position: absolute;
+        display: block;
+        height: 32px;
+        width: 32px;
+        top: 0;
+        left: 0;
+        z-index: 5;
+        opacity: 0;
+        cursor: pointer;
+    }
+    .header-section {
+        position: relative;
+    }
+    .header-section .hamburger-lines {
+        display: block;
+        height: 25px;
+        width: 25px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .header-section .hamburger-lines .line {
+        display: block;
+        height: 4px;
+        width: 100%;
+        border-radius: 10px;
+        background: #0e2431;
+    }
+
+    .header-section .hamburger-lines .line1 {
+        transform-origin: 0% 0%;
+        transition: transform 0.4s ease-in-out;
+    }
+
+    .header-section .hamburger-lines .line2 {
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .header-section .hamburger-lines .line3 {
+        transform-origin: 0% 100%;
+        transition: transform 0.4s ease-in-out;
+    }
+    .menu-items {
+        box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5);
+        height: auto;
+        left: 35px;
+        width: 400px;
+        border-radius: 8px;
+        transform: translate(-150%);
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.5s ease-in-out;
+        text-align: center;
+        position: absolute;
+        top: 47px;
+    }
+
+    .menu-items li {
+        margin-bottom: 1.2rem;
+        font-size: 1.5rem;
+        font-weight: 500;
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        padding: 8px 15px;
+    }
+
+    .header-section input[type='checkbox']:checked ~ .menu-items {
+        transform: translateX(0);
+        z-index: 99;
+    }
+
+    .header-section input[type='checkbox']:checked ~ .hamburger-lines .line1 {
+        transform: rotate(45deg);
+    }
+
+    .header-section input[type='checkbox']:checked ~ .hamburger-lines .line2 {
+        transform: scaleY(0);
+    }
+
+    .header-section input[type='checkbox']:checked ~ .hamburger-lines .line3 {
+        transform: rotate(-45deg);
+    }
+    .header-section .checkbox {
+        display: block;
+    }
+    .logo-desktop {
+        margin-left: 40px;
+    }
+    header .buy-list {
+        background: transparent;
+        padding: 8px 15px;
+        border-radius: 0;
+    }
+    .menu-items a {
+        padding: 0;
+        font-size: 1.5rem;
+    }
+    .menu-items li:hover {
+        background: #a09b6b;
+    }
+    @media only screen and (max-width: 480px) {
+        .menu-items{
+            margin: 0;
+            max-width: 300px;
+        } 
+    }
+
+    @media only screen and (max-width: 380px) {
+        header {
+            padding: 10px 10px;
+        }
+        .auth p {
+            display: flex;
+            justify-content: center;
+        }
+        .header-section .app-name {
+            font-size: 18px;
+        }
+        .auth a{
+            font-size: 14px;
+        }
+        .menu-items{
+            margin: 0;
+            max-width: 240px;
+        } 
     }
 }

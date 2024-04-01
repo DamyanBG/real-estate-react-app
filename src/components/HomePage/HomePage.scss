@@ -47,3 +47,9 @@
         left: 70%;
     }
 }
+
+@media only screen and (max-width: 1024px) {
+    .landing-page-image-container article:nth-child(2) {
+        left: 30%;
+    }
+}
