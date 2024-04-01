@@ -4,7 +4,6 @@ import './App.scss';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import HomePage from './components/HomePage/HomePage';
-import CreateHome from './components/Homes/CreateHome';
 import SignUpPage from './components/User/SignUpPage';
 import AllHomes from './components/Homes/AllHomes';
 import HomeDetails from './components/Homes/HomeDetails';
@@ -29,6 +28,7 @@ import SignIn from './components/User/SignInPage';
 import CreateVisitation from './components/visitations/CreateVisitation';
 import { HomesContextProvider } from './context/HomesContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import CreateHome from './pages/home-pages/CreateHome';
 
 const queryClient = new QueryClient()
 

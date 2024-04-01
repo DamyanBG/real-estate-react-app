@@ -2,7 +2,8 @@ import { MapContainer, Marker, TileLayer, Tooltip } from 'react-leaflet';
 
 const MapView = ({
     latitude,
-    longitude
+    longitude,
+    MapClickerHandlerComponent
 }) => {
     return (
         <article className='map-container'>
@@ -12,6 +13,7 @@ const MapView = ({
                 scrollWheelZoom={false}
                 style={{ width: '100%', height: '50vh' }}
             >
+                {MapClickerHandlerComponent && MapClickerHandlerComponent}
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />

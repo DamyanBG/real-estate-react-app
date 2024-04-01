@@ -4,8 +4,8 @@ import { useContext, useEffect, useState, lazy } from 'react';
 import './HomeDetails.scss';
 import { hostUrl } from '@/utils/urls';
 import { Link } from 'react-router-dom';
-import { UserContext } from '@/context/UserContext';
-import VisitationsTable from '@/common/VisitationsTable';
+import VisitationsTable from '../..//common/VisitationsTable';
+import { UserContext } from '../../context/UserContext';
 
 // Temporory mocking
 const fakeVisitations = [
