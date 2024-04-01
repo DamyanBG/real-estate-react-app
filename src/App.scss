@@ -1,4 +1,13 @@
 
+// Define variables
+$blue-color: #659dbd;
+$green-color: #8d8741;
+$sand-color: #daad86;
+$coffee-color: #bc986a;
+$light-color: #fbeec1;
+$white-color: #fefefe;
+$black-color: black;
+
 * {
   padding: 0;
   margin: 0;
@@ -70,4 +79,108 @@ input {
 
 .validation-error {
   color: red;
+}
+
+.suggestions {
+  background-color: $blue-color;
+  width: 100%;
+  padding: 100px 5vw;
+}
+
+.suggestions .suggestions {
+  text-align: center;
+}
+
+.suggestions .suggestions-title h2 {
+  font-size: 30px;
+  font-weight: 900;
+  color: $white-color;
+  text-align: center;
+}
+
+.suggestions .suggestions-title h2::after {
+  display: block;
+  content: "";
+  height: 2px;
+  width: 50%;
+  min-width: 280px;
+  background: $white-color;
+  margin: 6px auto;
+}
+
+.properties-card-container {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.property-card {
+  border: 1px solid $black-color;
+  width: 30%;
+  background: $white-color;
+}
+
+.property-image-container {
+  width: 100%;
+}
+
+.property-image-container img {
+  aspect-ratio: 1/0.7;
+  object-fit: cover;
+  width: 100%;
+}
+
+.property-address {
+  padding: 12px 20px;
+  border-bottom: 1px solid $black-color;
+}
+
+.property-info {
+  padding: 10px;
+  border-bottom: 1px solid $black-color;
+}
+
+.property-info h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.property-info p {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.property-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+
+}
+
+.property-card-footer a {
+  padding: 5px 10px;
+  background: $green-color;
+  color: $black-color;
+  transition: 0.5s;
+}
+
+.property-card-footer a:hover {
+  background: rgb(84, 17, 84);
+  color: $white-color
+}
+
+@media screen and (max-width: 800px) {
+  .properties-card-container {
+      flex-direction: row;
+      flex-wrap: wrap;
+  }
+
+  .property-card {
+      width: 80%;
+      margin: 0 auto 40px auto;
+  }
 }
