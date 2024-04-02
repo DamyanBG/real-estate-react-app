@@ -38,6 +38,7 @@ const MapView = lazy(() => import('@/common/MapView'));
 export default function HomeDetails() {
     const params = new URLSearchParams(window.location.search);
     const homeId = params.get('homeId');
+
     const [homeDetails, setHomeDetails] = useState({});
     const [visitations, setVisitations] = useState([]);
     const { user } = useContext(UserContext);
@@ -46,7 +47,7 @@ export default function HomeDetails() {
         fetch(`${hostUrl}/home-details/${homeId}`)
             .then((resp) => resp.json())
             .then((json) => {
-                console.log(json);
+                // console.log(json);
                 setHomeDetails(json.home_details);
                 setVisitations(json.visitations);
             });
@@ -111,30 +112,7 @@ export default function HomeDetails() {
             )}
             <section className="suggestions">
                 <section className="properties-card-container ">
-                    <HomeCard
-                        imgLink={homeDetails.photo_url}
-                        city={homeDetails.city}
-                        neightborhood={homeDetails.neighborhood}
-                        title={homeDetails.title}
-                        description={homeDetails.description}
-                        price={homeDetails.price}
-                    />
-                    <HomeCard
-                        imgLink={homeDetails.photo_url}
-                        city={homeDetails.city}
-                        neightborhood={homeDetails.neighborhood}
-                        title={homeDetails.title}
-                        description={homeDetails.description}
-                        price={homeDetails.price}
-                    />
-                    <HomeCard
-                        imgLink={homeDetails.photo_url}
-                        city={homeDetails.city}
-                        neightborhood={homeDetails.neighborhood}
-                        title={homeDetails.title}
-                        description={homeDetails.description}
-                        price={homeDetails.price}
-                    />
+                    <HomeCard homeId={homeId}/>
                 </section>
             </section>
         </section>
