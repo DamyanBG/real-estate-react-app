@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import VisitationsTable from '../..//common/VisitationsTable';
 import { UserContext } from '../../context/UserContext';
 import HomeCard from '../common/HomeCard';
-import SuggestingProperties from './SuggestingProperties';
 
 // Temporory mocking
 const fakeVisitations = [
@@ -111,35 +110,9 @@ export default function HomeDetails() {
             {homeDetails.latitude && homeDetails.longitude && (
                 <MapView latitude={homeDetails.latitude} longitude={homeDetails.longitude} />
             )}
-            <section className='tester'>
-                <SuggestingProperties homeId={homeId}/>
-            </section>
             <section className="suggestions">
                 <section className="properties-card-container ">
-                    <HomeCard
-                        imgLink={homeDetails.photo_url}
-                        city={homeDetails.city}
-                        neightborhood={homeDetails.neighborhood}
-                        title={homeDetails.title}
-                        description={homeDetails.description}
-                        price={homeDetails.price}
-                    />
-                    <HomeCard
-                        imgLink={homeDetails.photo_url}
-                        city={homeDetails.city}
-                        neightborhood={homeDetails.neighborhood}
-                        title={homeDetails.title}
-                        description={homeDetails.description}
-                        price={homeDetails.price}
-                    />
-                    <HomeCard
-                        imgLink={homeDetails.photo_url}
-                        city={homeDetails.city}
-                        neightborhood={homeDetails.neighborhood}
-                        title={homeDetails.title}
-                        description={homeDetails.description}
-                        price={homeDetails.price}
-                    />
+                    <HomeCard homeId={homeId}/>
                 </section>
             </section>
         </section>
