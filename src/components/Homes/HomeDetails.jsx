@@ -6,32 +6,7 @@ import { hostUrl } from '@/utils/urls';
 import { Link } from 'react-router-dom';
 import VisitationsTable from '../..//common/VisitationsTable';
 import { UserContext } from '../../context/UserContext';
-import HomeCard from '../common/HomeCard';
-
-// Temporory mocking
-const fakeVisitations = [
-    {
-        id: '1',
-        date: '26.12.1988',
-        start_hour: '12:36',
-        end_hour: '20:00',
-        address: 'Dobrich street test',
-    },
-    {
-        id: '2',
-        date: '26.12.1988',
-        start_hour: '12:36',
-        end_hour: '20:00',
-        address: 'Dobrich street test',
-    },
-    {
-        id: '3',
-        date: '26.12.1988',
-        start_hour: '12:36',
-        end_hour: '20:00',
-        address: 'Dobrich street test',
-    },
-];
+import HomeSuggestions from './HomeSuggestions';
 
 const MapView = lazy(() => import('@/common/MapView'));
 
@@ -47,7 +22,6 @@ export default function HomeDetails() {
         fetch(`${hostUrl}/home-details/${homeId}`)
             .then((resp) => resp.json())
             .then((json) => {
-                // console.log(json);
                 setHomeDetails(json.home_details);
                 setVisitations(json.visitations);
             });
@@ -92,8 +66,8 @@ export default function HomeDetails() {
                             </Link>
                         )}
                     </p>
-                    {fakeVisitations.length > 0 && (
-                        <VisitationsTable visitations={fakeVisitations} />
+                    {visitations.length > 0 && (
+                        <VisitationsTable visitations={visitations} />
                     )}
                     {user.id === homeDetails.owner_id && (
                         <>
@@ -110,11 +84,7 @@ export default function HomeDetails() {
             {homeDetails.latitude && homeDetails.longitude && (
                 <MapView latitude={homeDetails.latitude} longitude={homeDetails.longitude} />
             )}
-            <section className="suggestions">
-                <section className="properties-card-container ">
-                    <HomeCard homeId={homeId}/>
-                </section>
-            </section>
+            <HomeSuggestions homeId={homeId} />
         </section>
     );
 }
