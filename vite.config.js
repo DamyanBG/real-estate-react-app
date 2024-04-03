@@ -8,9 +8,6 @@ export default defineConfig({
     envPrefix: 'REACT_APP_',
     build: {
         outDir: 'build',
-        rollupOptions: {
-            external: ['leaflet']
-          }
     },
     resolve: {
         alias: {
