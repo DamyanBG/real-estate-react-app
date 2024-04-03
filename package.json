@@ -32,7 +32,7 @@
         "cypress:open": "cypress open",
         "start": "env-cmd -f .env vite",
         "start:local": "env-cmd -f .env.local vite",
-        "build": "vite build",
+        "build": "env-cmd -f .env vite build",
         "serve": "vite preview",
         "test": "vite test --passWithNoTests",
         "lint": "eslint .",
