@@ -1,12 +1,13 @@
 import { useState, useContext } from 'react';
-import { SIGNIN_FIELDS } from '@/common/fields';
-import { validateField } from '@/common/validation';
+import { SIGNIN_FIELDS } from './../../common/fields';
+import { validateField } from './../../common/validation';
 import { toast } from 'react-toastify';
-import FormSubmitButton from '@/common/FormSubmitButton';
-import InputFormRow from '@/common/InputFormRow';
-import { hostUrl } from '@/utils/urls';
+import FormSubmitButton from './../../common/FormSubmitButton';
+import InputFormRow from './../../common/InputFormRow';
+import { hostUrl } from './../../utils/urls';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '@/context/UserContext';
+import { UserContext } from './../../context/UserContext';
+
 
 export default function SignIn() {
     const [loginInfo, setLoginInfo] = useState({});
@@ -34,9 +35,15 @@ export default function SignIn() {
                 localStorage.setItem('user', JSON.stringify(data));
                 setUser(data);
                 navigate('/');
+            }else{
+                toast.error('Incorrect email or password!', {
+                    autoClose: 3000,
+                    pauseOnHover: false,
+                });
             }
+
         } catch (error) {
-            toast.error('Incorrect email or password!', {
+            toast.error('Sotmething wrong with fetch', {
                 autoClose: 3000,
                 pauseOnHover: false,
             });
