@@ -5,7 +5,7 @@ application the user can register an account, search for a real estate listing b
 preference(s) and make an inquiry of the listing; and the admin can manage resources including
 property listings, realtors and contact inquiries in the admin area. Here we are creating the front
 end of the application that you can see live
-[here](https://deploy-real-estate-app.lm.r.appspot.com). You can find the backend repository
+[here](https://real-estate-react-app.onrender.com). You can find the backend repository
 [here.](https://github.com/DamyanBG/real-estate-flask-rest-api)
 
 ### Representation of the project in YouTube
