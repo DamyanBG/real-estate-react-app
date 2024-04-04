@@ -8,12 +8,10 @@ export default function InputFormRow({
     dataTestId,
 }) {
     return (
-        <article className="form-row">
-            <div className="input-wrapper">
-                <label>{labelName}</label>
-                <input type={type} name={name} value={value || ''} onChange={handleOnChange} data-testid={dataTestId} />
-                {validationError && <p className="validation-error" data-testid={`valerror-${dataTestId}`}>{validationError}</p>}
-            </div>
+        <article className="input-box">
+            <label>{labelName}</label>
+            <input type={type} name={name} value={value || ''} onChange={handleOnChange} data-testid={dataTestId} />
+            {validationError && <p className="validation-error" data-testid={`valerror-${dataTestId}`}>{validationError}</p>}
         </article>
     );
 }

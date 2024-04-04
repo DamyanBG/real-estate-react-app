@@ -77,23 +77,27 @@ export default function SignIn() {
     };
 
     return (
-        <div data-testid="sign-in-page-form" className="center">
-            <form onSubmit={handleOnSubmit} data-testid="sign-in-form">
-                <h3>Sign In</h3>
-                {SIGNIN_FIELDS.map((sf) => (
-                    <InputFormRow
-                        key={sf.labelName}
-                        labelName={sf.labelName}
-                        name={sf.name}
-                        value={loginInfo[sf.name]}
-                        type={sf.type}
-                        handleOnChange={handleOnChange}
-                        validationError={validationErrors[sf.name]}
-                        dataTestId={sf.name}
-                    />
-                ))}
-                <FormSubmitButton disabled={Object.keys(validationErrors).length} />
-            </form>
-        </div>
+        <section className="auth-form-container">
+            <div data-testid="sign-in-page-form" className="auth-form-section">
+                <form onSubmit={handleOnSubmit} data-testid="sign-in-form">
+                    <h2>Sign In Form</h2>
+                    <article className="content">
+                        {SIGNIN_FIELDS.map((sf) => (
+                            <InputFormRow
+                                key={sf.labelName}
+                                labelName={sf.labelName}
+                                name={sf.name}
+                                value={loginInfo[sf.name]}
+                                type={sf.type}
+                                handleOnChange={handleOnChange}
+                                validationError={validationErrors[sf.name]}
+                                dataTestId={sf.name}
+                            />
+                        ))}
+                    </article>
+                    <FormSubmitButton disabled={Object.keys(validationErrors).length} text="Sign In" />
+                </form>
+            </div>
+        </section>
     );
 }

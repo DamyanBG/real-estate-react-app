@@ -3,10 +3,10 @@ import MainSection from '../components/LangingPage/MainSection';
 
 const LandingPage = () => {
     return (
-        <main>
+        <>
             <MainSection />
             <LandingProperties />
-        </main>
+        </>
     );
 };
 
