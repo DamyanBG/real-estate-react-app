@@ -3,46 +3,44 @@ import { useContext, useState } from 'react';
 import { UserContext } from '../../context/UserContext';
 import { BiMessageDetail } from 'react-icons/bi';
 import { MdMeetingRoom } from 'react-icons/md';
-import { hostUrl } from '../../utils/urls';
 
 const UserNav = ({ handleLinkClick }) => {
     const { user, setUser } = useContext(UserContext);
-    const isAuthenticated = !!user.token
+    const isAuthenticated = !!user.token;
 
     const handleLogOut = () => {
-        if (!user) return;
-        fetch(`${hostUrl}/logout`, {
-            headers: {
-                Authorization: `Bearer ${user.token}`,
-            },
-        }).then((resp) => {
-            if (resp.ok) {
-                setUser({});
-                localStorage.removeItem('user');
-            }
-        });
+        setUser({});
+        localStorage.removeItem('user');
     };
 
     if (isAuthenticated) {
         return (
             <>
                 <li>
-                    <Link onClick={handleLinkClick} to="/profile">Profile</Link>
+                    <Link onClick={handleLinkClick} to="/profile">
+                        Profile
+                    </Link>
                 </li>
                 <li>
-                    <Link onClick={handleLogOut} to="/logout">Sign Out</Link>
+                    <Link onClick={handleLogOut} to="/">
+                        Sign Out
+                    </Link>
                 </li>
             </>
-        )
+        );
     }
 
     return (
         <>
             <li>
-                <Link onClick={handleLinkClick} to="/signin">Sign In</Link>
+                <Link onClick={handleLinkClick} to="/signin">
+                    Sign In
+                </Link>
             </li>
             <li>
-                <Link onClick={handleLinkClick} to="/signup">Sign Up</Link>
+                <Link onClick={handleLinkClick} to="/signup">
+                    Sign Up
+                </Link>
             </li>
         </>
         // {user.id && (
@@ -59,16 +57,13 @@ const UserNav = ({ handleLinkClick }) => {
         //         </Link>
         //     </p>
         // )
-    )
-}
+    );
+};
 
 export default function Header() {
-    
     const [isActive, setIsActive] = useState(false);
 
-    const navBarClassName = isActive
-        ? "nav-bar active"
-        : "nav-bar"
+    const navBarClassName = isActive ? 'nav-bar active' : 'nav-bar';
 
     const handleHamburgerClick = () => {
         setIsActive(!isActive);
@@ -91,20 +86,28 @@ export default function Header() {
             <nav className={navBarClassName}>
                 <ul>
                     <li>
-                        <Link onClick={handleLinkClick} className="active" to="/all-homes">Buy</Link>
+                        <Link onClick={handleLinkClick} className="active" to="/all-homes">
+                            Buy
+                        </Link>
                     </li>
                     <li>
-                        <Link onClick={handleLinkClick} to="/create-home">Sell</Link>
+                        <Link onClick={handleLinkClick} to="/create-home">
+                            Sell
+                        </Link>
                     </li>
                     <li>
-                        <Link onClick={handleLinkClick} to="/rent">Rent</Link>
+                        <Link onClick={handleLinkClick} to="/rent">
+                            Rent
+                        </Link>
                     </li>
                     <li>
-                        <Link onClick={handleLinkClick} to="/news">News</Link>
+                        <Link onClick={handleLinkClick} to="/news">
+                            News
+                        </Link>
                     </li>
                     <UserNav handleLinkClick={handleLinkClick} />
                 </ul>
             </nav>
         </header>
-    )
+    );
 }
