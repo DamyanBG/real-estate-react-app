@@ -3,7 +3,6 @@ import './App.scss';
 
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
-import HomePage from './components/HomePage/HomePage';
 import SignUpPage from './components/User/SignUpPage';
 import AllHomes from './components/Homes/AllHomes';
 import HomeDetails from './components/Homes/HomeDetails';
@@ -29,6 +28,7 @@ import CreateVisitation from './components/visitations/CreateVisitation';
 import { HomesContextProvider } from './context/HomesContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import CreateHome from './pages/home-pages/CreateHome';
+import LandingPage from './pages/LandingPage';
 
 const queryClient = new QueryClient()
 
@@ -42,7 +42,7 @@ function App() {
                             <Header />
                             <main className="main">
                                 <Routes>
-                                    <Route path="/" element={<HomePage />} />
+                                    <Route path="/" element={<LandingPage />} />
                                     <Route path="/create-home" element={<CreateHome />} />
                                     <Route path="/edit-home" element={<EditHome />} />
                                     <Route path="/create-land" element={<CreateLand />} />

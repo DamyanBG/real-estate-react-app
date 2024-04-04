@@ -1,14 +1,28 @@
 @import 'react-toastify/dist/ReactToastify.css';
 
-body {
+// Define variables
+$blue-color: #659dbd;
+$green-color: #8d8741;
+$sand-color: #daad86;
+$coffee-color: #bc986a;
+$light-color: #fbeec1;
+$white-color: #fefefe;
+$black-color: black;
+
+* {
+    box-sizing: border-box;
+    padding: 0;
     margin: 0;
-    background-color: #def2f8;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-        'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    list-style: none;
+    text-decoration: none;
 }
 
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+html,
+body {
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+body {
+    background: $blue-color;
 }

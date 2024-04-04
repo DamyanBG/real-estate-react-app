@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import './HomeCard.scss';
 
 const HomeCard = ({ homeId, photoUrl, city, neighborhood, title, description, price }) => {
     return (

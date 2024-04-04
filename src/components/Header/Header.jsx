@@ -1,4 +1,3 @@
-import './Header.scss';
 import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { UserContext } from '../../context/UserContext';
@@ -6,21 +5,11 @@ import { BiMessageDetail } from 'react-icons/bi';
 import { MdMeetingRoom } from 'react-icons/md';
 import { hostUrl } from '../../utils/urls';
 
-export default function Header() {
+const UserNav = ({ handleLinkClick }) => {
     const { user, setUser } = useContext(UserContext);
-    const [isActive, setIsActive] = useState(false);
+    const isAuthenticated = !!user.token
 
-    const navBarClassName = isActive ? 'nav-bar active' : 'nav-bar';
-
-    const handleHamburgerClick = () => {
-        setIsActive(!isActive);
-    };
-
-    const handleLinkClick = () => {
-        setIsActive(false);
-    };
-
-    const onLogOutHandler = () => {
+    const handleLogOut = () => {
         if (!user) return;
         fetch(`${hostUrl}/logout`, {
             headers: {
@@ -34,99 +23,88 @@ export default function Header() {
         });
     };
 
-    return (
-        <header className="nav-bar">
-            <section className="header-section">
-                <Link className="logo-desktop" style={{ textDecoration: 'none' }} to="/">
-                    <p className="app-name">Real Estate App</p>
-                </Link>
+    if (isAuthenticated) {
+        return (
+            <>
+                <li>
+                    <Link onClick={handleLinkClick} to="/profile">Profile</Link>
+                </li>
+                <li>
+                    <Link onClick={handleLogOut} to="/logout">Sign Out</Link>
+                </li>
+            </>
+        )
+    }
 
-                <div
-                    className={`hamburger-lines ${navBarClassName}`}
-                    onClick={handleHamburgerClick}
-                >
-                    <span className="line line1"></span>
-                    <span className="line line2"></span>
-                    <span className="line line3"></span>
-                </div>
-                <ul className={`header-ul-el menu-items ${navBarClassName}`}>
-                    <li className="buy-list dropdown">
-                        <Link data-testid="buy-home-link" onClick={handleLinkClick} to="/all-homes">
-                            Buy
-                        </Link>
-                    </li>
-                    <li className="buy-list dropdown" data-testid="sell-li">
-                        <Link
-                            onClick={handleLinkClick}
-                            to={user.id && user.role == 'seller' ? '/create-home' : '/'}
-                            data-testid="sell-home-link"
-                        >
-                            Sell
-                        </Link>
+    return (
+        <>
+            <li>
+                <Link onClick={handleLinkClick} to="/signin">Sign In</Link>
+            </li>
+            <li>
+                <Link onClick={handleLinkClick} to="/signup">Sign Up</Link>
+            </li>
+        </>
+        // {user.id && (
+        //     <p>
+        //         <Link style={{ textDecoration: 'none' }} to={'/list-meetings'}>
+        //             <MdMeetingRoom size={25} />
+        //         </Link>
+        //     </p>
+        // )}
+        // {user.id && (
+        //     <p>
+        //         <Link style={{ textDecoration: 'none' }} to={'/chat-history'}>
+        //             <BiMessageDetail size={25} />
+        //         </Link>
+        //     </p>
+        // )
+    )
+}
+
+export default function Header() {
+    
+    const [isActive, setIsActive] = useState(false);
+
+    const navBarClassName = isActive
+        ? "nav-bar active"
+        : "nav-bar"
+
+    const handleHamburgerClick = () => {
+        setIsActive(!isActive);
+    };
+
+    const handleLinkClick = () => {
+        setIsActive(false);
+    };
+
+    return (
+        <header>
+            <article className="site-name">
+                <Link to="/">REAL ESTATE</Link>
+            </article>
+            <article className="hamburger" onClick={handleHamburgerClick}>
+                <article className="line"></article>
+                <article className="line"></article>
+                <article className="line"></article>
+            </article>
+            <nav className={navBarClassName}>
+                <ul>
+                    <li>
+                        <Link onClick={handleLinkClick} className="active" to="/all-homes">Buy</Link>
                     </li>
                     <li>
-                        <Link className="rent-span" to="/rent">
-                            Rent
-                        </Link>
+                        <Link onClick={handleLinkClick} to="/create-home">Sell</Link>
                     </li>
                     <li>
-                        <Link className="news-span" to="/news">
-                            News
-                        </Link>
+                        <Link onClick={handleLinkClick} to="/rent">Rent</Link>
                     </li>
                     <li>
-                        <Link className="about-span" to="/about">
-                            About
-                        </Link>
+                        <Link onClick={handleLinkClick} to="/news">News</Link>
                     </li>
-                    {user.role === 'admin' ? (
-                        <p>
-                            <Link style={{ textDecoration: 'none' }} to={'/admin/users'}>
-                                Admin
-                            </Link>
-                        </p>
-                    ) : (
-                        ''
-                    )}
-                    <p className="sign-up">
-                        <Link
-                            style={{ textDecoration: 'none' }}
-                            to={user.id ? '/profile' : '/signup'}
-                        >
-                            {user.id ? 'Profile' : 'Sign up'}
-                        </Link>
-                    </p>
-                    <p>
-                        {user.id ? (
-                            <Link
-                                onClick={onLogOutHandler}
-                                style={{ textDecoration: 'none' }}
-                                to="/"
-                            >
-                                Sign out
-                            </Link>
-                        ) : (
-                            <Link style={{ textDecoration: 'none' }} to="/signin">
-                                Sign in
-                            </Link>
-                        )}
-                    </p>
-                    {user.id && (
-                        <p>
-                            <Link style={{ textDecoration: 'none' }} to={'/list-meetings'}>
-                                <MdMeetingRoom size={25} />
-                            </Link>
-                        </p>
-                    )}
-                    {user.id && (
-                        <p>
-                            <Link style={{ textDecoration: 'none' }} to={'/chat-history'}>
-                                <BiMessageDetail size={25} />
-                            </Link>
-                        </p>
-                    )}
+                    <UserNav handleLinkClick={handleLinkClick} />
                 </ul>
-            </section>
+            </nav>
         </header>
-    );
+    )
 }
