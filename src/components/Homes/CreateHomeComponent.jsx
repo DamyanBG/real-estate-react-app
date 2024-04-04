@@ -8,18 +8,17 @@ import { checkObjForProfanity } from '../../common/profanity';
 import usePostHome from './usePostHome';
 import UploadImage from '../common/UploadImage';
 import MapView from '../../common/MapView';
-import { useMapEvents } from 'react-leaflet/hooks'
-
+import { useMapEvents } from 'react-leaflet/hooks';
 
 function MapClickHandlerComponent({ onLocationChoose }) {
     const map = useMapEvents({
-      click: (e) => {
-        map.locate()
-        onLocationChoose(e.latlng)
-      },
-    })
-    return null
-  }
+        click: (e) => {
+            map.locate();
+            onLocationChoose(e.latlng);
+        },
+    });
+    return null;
+}
 
 export default function CreateHomeComponent() {
     const [homeInfo, setHomeInfo] = useState({});
@@ -30,8 +29,8 @@ export default function CreateHomeComponent() {
         })
     );
     const [homePhotoData, setHomePhotoData] = useState(null);
-    const [homeLocation, setHomeLocation] = useState({})
-    const [isChoosingLocation, setIsChoosingLocation] = useState(false)
+    const [homeLocation, setHomeLocation] = useState({});
+    const [isChoosingLocation, setIsChoosingLocation] = useState(false);
 
     const postHomeAction = usePostHome();
     const navigate = useNavigate();
@@ -90,7 +89,7 @@ export default function CreateHomeComponent() {
                 photo_id: homePhotoData.id,
                 latitude: homeLocation.latitude,
                 longitude: homeLocation.longitude,
-            }
+            };
             addHomeData = await postHomeAction(postHomeData);
             navigate(`/edit-home?homeId=${addHomeData.id}`);
         } catch (error) {
@@ -107,81 +106,92 @@ export default function CreateHomeComponent() {
     };
 
     const handlePhotoData = (photoData) => {
-        console.log("photoData");
+        console.log('photoData');
         console.log(photoData);
-        const { id, photo_url } = photoData
-        const { latitude, longitude } = photoData
+        const { id, photo_url } = photoData;
+        const { latitude, longitude } = photoData;
         setHomePhotoData({
             id,
-            photo_url
-        })
+            photo_url,
+        });
         setHomeLocation({
             latitude,
-            longitude
-        })
-        setIsChoosingLocation(true)
-    };  
+            longitude,
+        });
+        setIsChoosingLocation(true);
+    };
 
     const handleSetLocation = (location) => {
-        console.log(location)
+        console.log(location);
         const newLocation = {
             latitude: location.lat.toString(),
             longitude: location.lng.toString(),
-        }
-        setHomeLocation(newLocation)
-    }
+        };
+        setHomeLocation(newLocation);
+    };
 
-
-    const theComponentClick = <MapClickHandlerComponent onLocationChoose={handleSetLocation}/>
+    const theComponentClick = <MapClickHandlerComponent onLocationChoose={handleSetLocation} />;
 
     return (
-        <div className="create-home">
-            <article>
-                {homePhotoData ? (
-                    <article style={{ margin: 'auto', width: '300px' }}>
+        <section className="create-home-container">
+            <section className="home-image-form-row">
+                <article className="home-image">
+                    {homePhotoData ? (
                         <img src={homePhotoData.photo_url} alt="" width="100%" />
-                    </article>
-                ) : (
-                    <UploadImage handlePhotoData={handlePhotoData} />
-                )}
-            </article>
-            <form onSubmit={handleOnSubmit} data-testid="home-create-form">
-                {HOME_FIELDS.map((hk) => (
-                    <InputFormRow
-                        key={hk.labelName}
-                        labelName={hk.labelName}
-                        name={hk.name}
-                        value={homeInfo[hk.name]}
-                        type={hk.type}
-                        handleOnChange={handleOnChange}
-                        validationError={validationErrors[hk.name]}
-                        dataTestId={hk.name}
-                    />
-                ))}
-
-                <article className="form-row">
-                    <label>Description</label>
-                    <textarea
-                        type="text"
-                        name="description"
-                        data-testid="description"
-                        value={homeInfo.description || ''}
-                        onChange={handleOnChange}
-                    />
+                    ) : (
+                        <UploadImage handlePhotoData={handlePhotoData} />
+                    )}
                 </article>
+                <section className="home-form-container">
+                    <section className="home-form-section">
+                        <form onSubmit={handleOnSubmit} data-testid="home-create-form">
+                            <h2>Add Your Home Details</h2>
+                            <article className="content">
+                                {HOME_FIELDS.map((hk) => (
+                                    <InputFormRow
+                                        key={hk.labelName}
+                                        labelName={hk.labelName}
+                                        name={hk.name}
+                                        value={homeInfo[hk.name]}
+                                        type={hk.type}
+                                        handleOnChange={handleOnChange}
+                                        validationError={validationErrors[hk.name]}
+                                        dataTestId={hk.name}
+                                    />
+                                ))}
+                                <article className="form-row">
+                                    <label>Description</label>
+                                    <textarea
+                                        type="text"
+                                        name="description"
+                                        data-testid="description"
+                                        value={homeInfo.description || ''}
+                                        onChange={handleOnChange}
+                                    />
+                                </article>
+                            </article>
+                            <FormSubmitButton disabled={loading} text="Create Home" />
+                        </form>
+                    </section>
+                </section>
+            </section>
 
-                <FormSubmitButton disabled={loading} />
-            </form>
             {!isChoosingLocation && (
-                <section  style={{ textAlign: "center" }}>
-                    <button type='button' onClick={() => setIsChoosingLocation(true)}>Add location</button>
+                <section style={{ textAlign: 'center' }}>
+                    <button type="button" onClick={() => setIsChoosingLocation(true)}>
+                        Add location
+                    </button>
                 </section>
             )}
             {(homeLocation.latitude || isChoosingLocation) && (
-                <section style={{ textAlign: "center" }}>
-                    <MapView latitude={homeLocation.latitude} longitude={homeLocation.longitude} MapClickerHandlerComponent={theComponentClick} />
+                <section style={{ textAlign: 'center' }}>
+                    <MapView
+                        latitude={homeLocation.latitude}
+                        longitude={homeLocation.longitude}
+                        MapClickerHandlerComponent={theComponentClick}
+                    />
                 </section>
             )}
-        </div>
+        </section>
     );
 }
