@@ -1,38 +1,24 @@
-import { hostUrl } from "../../utils/urls";
+import { postImage } from '../../api/photoApi';
 
-const UploadImage = ({ handlePhotoData }) => {
-    const handleOnPhotoUpload = async (e) => {
-        console.log("changed")
+const UploadImage = ({ onPhotoUpload }) => {
+    const handleOnChange = async (e) => {
         const reader = new FileReader();
         reader.onloadend = async () => {
-            const photoData = {}
-            photoData.photo_base64 = reader.result
-            console.log(photoData)
-            const resp = await fetch(`${hostUrl}/temp-photo`, {
-                method: "POST",
-                body: JSON.stringify(photoData),
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-            const json = await resp.json()
-            handlePhotoData(json)
+            const photoData = {};
+            photoData.photo_base64 = reader.result;
+            const json = await postImage(photoData);
+            onPhotoUpload(json);
         };
         if (e.target.files) {
             reader.readAsDataURL(e.target.files[0]);
         }
-    }
+    };
 
     return (
         <article style={{ margin: 'auto', width: '300px' }}>
-            <input
-                data-testid="home-photo"
-                type="file"
-                name="photo"
-                onChange={handleOnPhotoUpload}
-            />
+            <input data-testid="home-photo" type="file" name="photo" onChange={handleOnChange} />
         </article>
-    )
-}
+    );
+};
 
-export default UploadImage
+export default UploadImage;

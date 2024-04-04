@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import InputFormRow from '../../common/InputFormRow';
-import FormSubmitButton from '../../common/FormSubmitButton';
 import { HOME_FIELDS } from '../../common/fields';
 import { validateField } from '../../common/validation';
 import { checkObjForProfanity } from '../../common/profanity';
 import usePostHome from './usePostHome';
-import UploadImage from '../common/UploadImage';
-import MapView from '../../common/MapView';
 import { useMapEvents } from 'react-leaflet/hooks';
+import ImageSection from './ImageSection';
+import HomeForm from './HomeForm';
+import CreateHomeMap from './CreateHomeMap';
 
 function MapClickHandlerComponent({ onLocationChoose }) {
     const map = useMapEvents({
@@ -105,24 +104,7 @@ export default function CreateHomeComponent() {
         }
     };
 
-    const handlePhotoData = (photoData) => {
-        console.log('photoData');
-        console.log(photoData);
-        const { id, photo_url } = photoData;
-        const { latitude, longitude } = photoData;
-        setHomePhotoData({
-            id,
-            photo_url,
-        });
-        setHomeLocation({
-            latitude,
-            longitude,
-        });
-        setIsChoosingLocation(true);
-    };
-
     const handleSetLocation = (location) => {
-        console.log(location);
         const newLocation = {
             latitude: location.lat.toString(),
             longitude: location.lng.toString(),
@@ -135,63 +117,27 @@ export default function CreateHomeComponent() {
     return (
         <section className="create-home-container">
             <section className="home-image-form-row">
-                <article className="home-image">
-                    {homePhotoData ? (
-                        <img src={homePhotoData.photo_url} alt="" width="100%" />
-                    ) : (
-                        <UploadImage handlePhotoData={handlePhotoData} />
-                    )}
-                </article>
-                <section className="home-form-container">
-                    <section className="home-form-section">
-                        <form onSubmit={handleOnSubmit} data-testid="home-create-form">
-                            <h2>Add Your Home Details</h2>
-                            <article className="content">
-                                {HOME_FIELDS.map((hk) => (
-                                    <InputFormRow
-                                        key={hk.labelName}
-                                        labelName={hk.labelName}
-                                        name={hk.name}
-                                        value={homeInfo[hk.name]}
-                                        type={hk.type}
-                                        handleOnChange={handleOnChange}
-                                        validationError={validationErrors[hk.name]}
-                                        dataTestId={hk.name}
-                                    />
-                                ))}
-                                <article className="form-row">
-                                    <label>Description</label>
-                                    <textarea
-                                        type="text"
-                                        name="description"
-                                        data-testid="description"
-                                        value={homeInfo.description || ''}
-                                        onChange={handleOnChange}
-                                    />
-                                </article>
-                            </article>
-                            <FormSubmitButton disabled={loading} text="Create Home" />
-                        </form>
-                    </section>
-                </section>
+                <ImageSection
+                    homePhotoData={homePhotoData}
+                    setHomePhotoData={setHomePhotoData}
+                    setHomeLocation={setHomeLocation}
+                    setIsChoosingLocation={setIsChoosingLocation}
+                />
+                <HomeForm
+                    homeInfo={homeInfo}
+                    handleOnChange={handleOnChange}
+                    handleOnSubmit={handleOnSubmit}
+                    validationErrors={validationErrors}
+                    loading={loading}
+                />
             </section>
 
-            {!isChoosingLocation && (
-                <section style={{ textAlign: 'center' }}>
-                    <button type="button" onClick={() => setIsChoosingLocation(true)}>
-                        Add location
-                    </button>
-                </section>
-            )}
-            {(homeLocation.latitude || isChoosingLocation) && (
-                <section style={{ textAlign: 'center' }}>
-                    <MapView
-                        latitude={homeLocation.latitude}
-                        longitude={homeLocation.longitude}
-                        MapClickerHandlerComponent={theComponentClick}
-                    />
-                </section>
-            )}
+            <CreateHomeMap
+                isChoosingLocation={isChoosingLocation}
+                setIsChoosingLocation={setIsChoosingLocation}
+                homeLocation={homeLocation}
+                theComponentClick={theComponentClick}
+            />
         </section>
     );
 }
