@@ -1,5 +1,5 @@
-import LandingProperties from '../components/LangingPage/LangingProperties';
-import MainSection from '../components/LangingPage/MainSection';
+import LandingProperties from '../components/langing-page/LangingProperties';
+import MainSection from '../components/langing-page/MainSection';
 
 const LandingPage = () => {
     return (
