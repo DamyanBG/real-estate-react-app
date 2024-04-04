@@ -1,4 +1,3 @@
-
 // Define variables
 $blue-color: #659dbd;
 $green-color: #8d8741;
@@ -8,179 +7,278 @@ $light-color: #fbeec1;
 $white-color: #fefefe;
 $black-color: black;
 
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+header {
+    width: 100%;
+    height: 80px;
+    background: $sand-color;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 100px;
 }
 
-main {
-  min-height: 85vh;
-  background-color: #def2f8;
+.site-name {
+    font-size: 28px;
+    font-weight: bold;
 }
 
-.center {
-  padding: 64px 20px;
-  margin: auto;
-  max-width: 800px;
+.site-name a {
+    color: $black-color;
 }
 
-form {
-  padding: 10px;
-  padding-bottom: 20px;
-  border: 2px solid #f4f4f4;
-  border-radius: 5px;
-  max-width: 400px;
-  margin: auto;
+
+.hamburger {
+    display: none;
 }
 
-.signin-form h3 {
-  text-align: center;
-  font-size: 1.2em;
-  margin: 5px 0;
+.nav-bar ul {
+    display: flex;
 }
 
-.input-wrapper {
-  margin: 8px 0;
+.nav-bar ul li a {
+    display: block;
+    color: $light-color;
+    font-size: 20px;
+    padding: 10px 25px;
+    border-radius: 50px;
+    transition: 0.2s;
+    margin: 0 5px;
 }
 
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-size: 1.1em;
+.nav-bar ul li a:hover {
+    color: $white-color;
+    background: $green-color;
 }
 
-input {
-  padding: 8px;
-  border: 1px solid #1e1e1e;
-  border-radius: 5px;
-  width: 100%;
+.nav-bar ul li a.active {
+    color: $white-color;
+    background: $green-color;
 }
 
-.submit_btn {
-  margin-top: 10px;
-  padding: 8px;
-  border: 1px solid #1e1e1e;
-  border-radius: 5px;
-  width: 60%;
-  cursor: pointer;
-  font-size: 1em;
+@media only screen and (max-width: 1320px) {
+    header {
+        padding: 0 50px;
+    }
 }
 
-.checkbox-row {
-  display: flex;
-  padding-top: 12px;
+@media only screen and (max-width: 1100px) {
+    header {
+        padding: 0 30px;
+    }
 }
 
-.checkbox-row input {
-  width: auto;
-  margin: 6px;
+@media only screen and (max-width: 900px) {
+    .hamburger {
+        display: block;
+        cursor: pointer;
+    }
+    .hamburger .line {
+        width: 30px;
+        height: 3px;
+        background: $white-color;
+        margin: 6px 0;
+    }
+
+    .nav-bar {
+        height: 0;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        right: 0;
+        width: 100vw;
+        background: $black-color;
+        transition: 0.2s;
+        overflow: hidden;
+        z-index: 99;
+    }
+
+    .nav-bar.active {
+        height: 450px;
+    }
+
+    .nav-bar ul {
+        display: block;
+        width: fit-content;
+        margin: 80px auto 0 auto;
+        text-align: center;
+        transition: 0.5s;
+        opacity: 0;
+    }
+
+    .nav-bar.active ul {
+        opacity: 1;
+    }
+
+    .nav-bar ul li a {
+        margin-bottom: 12px;
+    }
 }
 
-.validation-error {
-  color: red;
+.landing-section {
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    background: gray;
+    background-image: url("/images/house-image-mirror.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: stretch;
 }
 
-.suggestions {
-  background-color: $blue-color;
-  width: 100%;
-  padding: 100px 5vw;
+.landing-section > article {
+    width: 100%;
+    background: rgba($color: $black-color, $alpha: 0.6);
+    color: $white-color;
+    padding: 100px 50px;
+    text-align: center;
 }
 
-.suggestions .suggestions {
-  text-align: center;
+.landing-section > article > h1 {
+    font-size: 36px;
+    font-weight: 900;
+    margin-bottom: 36px;
 }
 
-.suggestions .suggestions-title h2 {
-  font-size: 30px;
-  font-weight: 900;
-  color: $white-color;
-  text-align: center;
+.landing-section > article > h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 36px;
 }
 
-.suggestions .suggestions-title h2::after {
-  display: block;
-  content: "";
-  height: 2px;
-  width: 50%;
-  min-width: 280px;
-  background: $white-color;
-  margin: 6px auto;
+.landing-section > article > p {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.8;
+    padding: 0 100px;
+    margin-bottom: 36px;
+}
+
+@media (max-width: 700px) {
+    .landing-section > article > p {
+        padding: 0 40px;
+    }
+}
+
+@media (max-width: 500px) {
+    .landing-section > article {
+        padding: 80px 20px;
+    }
+
+    .landing-section > article > p {
+        padding: 0 20px;
+    }
+}
+
+.landing-section > article > a {
+    padding: 5px 10px;
+    background: $green-color;
+    color: $white-color;
+    transition: 0.5s;
+}
+
+.landing-section > article > a:hover {
+    background: rgb(84, 17, 84);
+}
+
+.latest-properties {
+    width: 100%;
+    padding: 100px 5vw;
+}
+
+.latest-properties .latest-properties {
+    text-align: center;
+}
+
+.latest-properties .latest-properties-title h2 {
+    font-size: 30px;
+    font-weight: 900;
+    color: $white-color;
+    text-align: center;
+}
+
+.latest-properties .latest-properties-title h2::after {
+    display: block;
+    content: "";
+    height: 2px;
+    width: 50%;
+    min-width: 280px;
+    background: $white-color;
+    margin: 6px auto;
 }
 
 .properties-card-container {
-  margin-top: 60px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+    margin-top: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .property-card {
-  border: 1px solid $black-color;
-  width: 30%;
-  background: $white-color;
+    border: 1px solid $black-color;
+    width: 30%;
+    background: $white-color;
 }
 
 .property-image-container {
-  width: 100%;
+    width: 100%;
 }
 
 .property-image-container img {
-  aspect-ratio: 1/0.7;
-  object-fit: cover;
-  width: 100%;
+    aspect-ratio: 1/0.7;
+    object-fit: cover;
+    width: 100%;
 }
 
 .property-address {
-  padding: 12px 20px;
-  border-bottom: 1px solid $black-color;
+    padding: 12px 20px;
+    border-bottom: 1px solid $black-color;
 }
 
 .property-info {
-  padding: 10px;
-  border-bottom: 1px solid $black-color;
+    padding: 10px;
+    border-bottom: 1px solid $black-color;
 }
 
 .property-info h3 {
-  font-size: 20px;
-  margin-bottom: 10px;
-  font-weight: 500;
-  line-height: 1.1;
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    line-height: 1.1;
 }
 
 .property-info p {
-  font-size: 14px;
-  line-height: 1.4;
+    font-size: 14px;
+    line-height: 1.4;
 }
 
 .property-card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
 
 }
 
 .property-card-footer a {
-  padding: 5px 10px;
-  background: $green-color;
-  color: $black-color;
-  transition: 0.5s;
+    padding: 5px 10px;
+    background: $green-color;
+    color: $black-color;
+    transition: 0.5s;
 }
 
 .property-card-footer a:hover {
-  background: rgb(84, 17, 84);
-  color: $white-color
+    background: rgb(84, 17, 84);
+    color: $white-color
 }
 
 @media screen and (max-width: 800px) {
-  .properties-card-container {
-      flex-direction: row;
-      flex-wrap: wrap;
-  }
+    .properties-card-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
 
-  .property-card {
-      width: 80%;
-      margin: 0 auto 40px auto;
-  }
+    .property-card {
+        width: 80%;
+        margin: 0 auto 40px auto;
+    }
 }
