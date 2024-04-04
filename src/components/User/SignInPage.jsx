@@ -1,13 +1,13 @@
 import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { SIGNIN_FIELDS } from './../../common/fields';
-import { validateField } from './../../common/VisitationsTable';
+import { validateField } from './../../common/validation';
+import { toast } from 'react-toastify';
 import FormSubmitButton from './../../common/FormSubmitButton';
 import InputFormRow from './../../common/InputFormRow';
 import { hostUrl } from './../../utils/urls';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from './../../context/UserContext';
-import { toast } from 'react-toastify';
-import './SigninPage.scss';
+
 
 export default function SignIn() {
     const [loginInfo, setLoginInfo] = useState({});
@@ -35,12 +35,13 @@ export default function SignIn() {
                 localStorage.setItem('user', JSON.stringify(data));
                 setUser(data);
                 navigate('/');
-            } else {
+            }else{
                 toast.error('Incorrect email or password!', {
                     autoClose: 3000,
                     pauseOnHover: false,
                 });
             }
+
         } catch (error) {
             toast.error('Sotmething wrong with fetch', {
                 autoClose: 3000,
@@ -101,10 +102,7 @@ export default function SignIn() {
                             />
                         ))}
                     </article>
-                    <FormSubmitButton
-                        disabled={Object.keys(validationErrors).length}
-                        text="Sign In"
-                    />
+                    <FormSubmitButton disabled={Object.keys(validationErrors).length} text="Sign In" />
                 </form>
             </div>
         </section>
