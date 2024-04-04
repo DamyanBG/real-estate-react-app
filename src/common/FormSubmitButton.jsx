@@ -1,12 +1,9 @@
-export default function FormSubmitButton({ disabled }) {
+export default function FormSubmitButton({ disabled, text }) {
     return (
-        <button
-            disabled={disabled}
-            type="submit"
-            className="submit_btn"
-            data-testid="submit-button"
-        >
-            Submit
-        </button>
+        <article className="button-container">
+            <button type="submit" disabled={disabled} data-testid="submit-button">
+                {text}
+            </button>
+        </article>
     );
 }

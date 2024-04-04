@@ -98,28 +98,32 @@ export default function SignUpPage() {
     };
 
     return (
-        <div className="center">
-            <form onSubmit={handleOnSubmit} data-testid="register-form">
-                {USER_FIELDS.map((uf) => (
-                    <InputFormRow
-                        key={uf.labelName}
-                        labelName={uf.labelName}
-                        name={uf.name}
-                        value={userInfo[uf.name]}
-                        type={uf.type}
-                        handleOnChange={handleOnChange}
-                        validationError={validationErrors[uf.name]}
-                        dataTestId={uf.name}
-                    />
-                ))}
-
-                <article className="checkbox-row">
-                    <input data-testid="as-seller" type="checkbox" onChange={handleCheckboxChange} />
-                    <p>Sign Up as seller</p>
-                </article>
-
-                <FormSubmitButton />
-            </form>
-        </div>
+        <section className="auth-form-container">
+            <section className="auth-form-section">
+                <form onSubmit={handleOnSubmit} data-testid="auth-form">
+                    <h2>Registration Form</h2>
+                    <article className="content">
+                        {USER_FIELDS.map((uf) => (
+                            <InputFormRow
+                                key={uf.labelName}
+                                labelName={uf.labelName}
+                                name={uf.name}
+                                value={userInfo[uf.name]}
+                                type={uf.type}
+                                handleOnChange={handleOnChange}
+                                validationError={validationErrors[uf.name]}
+                                dataTestId={uf.name}
+                            />
+                        ))}
+                    </article>
+            
+                    <article className="alert">
+                        <input data-testid="as-seller" type="checkbox" onChange={handleCheckboxChange} />
+                        <p>Sign Up as seller</p>
+                    </article>
+                    <FormSubmitButton text="Register" />
+                </form>
+            </section>
+        </section>
     );
 }
