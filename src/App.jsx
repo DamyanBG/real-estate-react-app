@@ -43,27 +43,27 @@ function App() {
                             <main className="main">
                                 <Routes>
                                     <Route path="/" element={<LandingPage />} />
-                                    <Route path="/create-home" element={<CreateHome />} />
-                                    <Route path="/edit-home" element={<EditHome />} />
-                                    <Route path="/create-land" element={<CreateLand />} />
-                                    <Route path="/signup" element={<SignUpPage />} />
-                                    <Route path="/chat" element={<Chat />} />
-                                    <Route path="/signin" element={<SignIn />} />
+                                    <Route path="/about" element={<About />} />
                                     <Route path="/all-homes" element={<AllHomes />} />
                                     <Route path="/all-lands" element={<AllLands />} />
+                                    <Route path="/chat" element={<Chat />} />
+                                    <Route path="/chat-history" element={<ChatHistory />} />
+                                    <Route path="/create-home" element={<CreateHome />} />
+                                    <Route path="/create-meeting" element={<CreateMeeting />} />
+                                    <Route path="/create-land" element={<CreateLand />} />
+                                    <Route path="/create-visitation" element={<CreateVisitation />} />
+                                    <Route path="/edit-home" element={<EditHome />} />
+                                    <Route path="/edit-meeting" element={<EditMeeting />} />
+                                    <Route path="/edit-land" element={<EditLand />} />
                                     <Route path="/home-details" element={<HomeDetails />} />
                                     <Route path="/land-details" element={<LandDetails />} />
-                                    <Route path="/edit-land" element={<EditLand />} />
-                                    <Route path="/rent" element={<Rent />} />
-                                    <Route path="/profile" element={<Profile />} />
-                                    <Route path="/news" element={<NewsList />} />
-                                    <Route path="/about" element={<About />} />
-                                    {AdminRoutes}
-                                    <Route path="/chat-history" element={<ChatHistory />} />
-                                    <Route path="/create-meeting" element={<CreateMeeting />} />
-                                    <Route path="/edit-meeting" element={<EditMeeting />} />
                                     <Route path="/list-meetings" element={<ListMeetings />} />
-                                    <Route path="/create-visitation" element={<CreateVisitation />} />
+                                    <Route path="/news" element={<NewsList />} />
+                                    <Route path="/profile" element={<Profile />} />
+                                    <Route path="/rent" element={<Rent />} />
+                                    <Route path="/signin" element={<SignIn />} />
+                                    <Route path="/signup" element={<SignUpPage />} />
+                                    {AdminRoutes}
                                 </Routes>
                             </main>
                             <Footer />
