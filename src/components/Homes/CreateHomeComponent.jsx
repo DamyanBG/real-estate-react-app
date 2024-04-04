@@ -11,16 +11,11 @@ import MapView from '../../common/MapView';
 import { useMapEvents } from 'react-leaflet/hooks'
 
 
-function MapClickHandlerComponent({ setLocation }) {
+function MapClickHandlerComponent({ onLocationChoose }) {
     const map = useMapEvents({
       click: (e) => {
         map.locate()
-        console.log(e.latlng)
-        setLocation((oldLocation) => ({
-            ...oldLocation,
-            latitude: e.latlng.lat,
-            longitude: e.latlng.lng,
-        }))
+        onLocationChoose(e.latlng)
       },
     })
     return null
@@ -35,6 +30,8 @@ export default function CreateHomeComponent() {
         })
     );
     const [homePhotoData, setHomePhotoData] = useState(null);
+    const [homeLocation, setHomeLocation] = useState({})
+    const [isChoosingLocation, setIsChoosingLocation] = useState(false)
 
     const postHomeAction = usePostHome();
     const navigate = useNavigate();
@@ -91,8 +88,8 @@ export default function CreateHomeComponent() {
             const postHomeData = {
                 ...homeInfo,
                 photo_id: homePhotoData.id,
-                latitude: homePhotoData.latitude,
-                longitude: homePhotoData.longitude,
+                latitude: homeLocation.latitude,
+                longitude: homeLocation.longitude,
             }
             addHomeData = await postHomeAction(postHomeData);
             navigate(`/edit-home?homeId=${addHomeData.id}`);
@@ -110,11 +107,32 @@ export default function CreateHomeComponent() {
     };
 
     const handlePhotoData = (photoData) => {
+        console.log("photoData");
         console.log(photoData);
-        setHomePhotoData(photoData);
-    };
+        const { id, photo_url } = photoData
+        const { latitude, longitude } = photoData
+        setHomePhotoData({
+            id,
+            photo_url
+        })
+        setHomeLocation({
+            latitude,
+            longitude
+        })
+        setIsChoosingLocation(true)
+    };  
 
-    const theComponentClick = <MapClickHandlerComponent setLocation={setHomePhotoData}/>
+    const handleSetLocation = (location) => {
+        console.log(location)
+        const newLocation = {
+            latitude: location.lat.toString(),
+            longitude: location.lng.toString(),
+        }
+        setHomeLocation(newLocation)
+    }
+
+
+    const theComponentClick = <MapClickHandlerComponent onLocationChoose={handleSetLocation}/>
 
     return (
         <div className="create-home">
@@ -154,8 +172,15 @@ export default function CreateHomeComponent() {
 
                 <FormSubmitButton disabled={loading} />
             </form>
-            {(homePhotoData && homePhotoData.latitude) && (
-                <MapView latitude={homePhotoData.latitude} longitude={homePhotoData.longitude} MapClickerHandlerComponent={theComponentClick} />
+            {!isChoosingLocation && (
+                <section  style={{ textAlign: "center" }}>
+                    <button type='button' onClick={() => setIsChoosingLocation(true)}>Add location</button>
+                </section>
+            )}
+            {(homeLocation.latitude || isChoosingLocation) && (
+                <section style={{ textAlign: "center" }}>
+                    <MapView latitude={homeLocation.latitude} longitude={homeLocation.longitude} MapClickerHandlerComponent={theComponentClick} />
+                </section>
             )}
         </div>
     );

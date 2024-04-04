@@ -5,21 +5,28 @@ const MapView = ({
     longitude,
     MapClickerHandlerComponent
 }) => {
+    const centerPoint = latitude && longitude
+        ? [latitude, longitude]
+        : [43, 27]
+
     return (
         <article className='map-container'>
             <MapContainer
-                center={[latitude, longitude]}
+                center={centerPoint}
                 zoom={13}
                 scrollWheelZoom={false}
                 style={{ width: '100%', height: '50vh' }}
             >
-                {MapClickerHandlerComponent && MapClickerHandlerComponent}
+                {MapClickerHandlerComponent}
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Marker position={[latitude, longitude]}>
+                {latitude && longitude && (
+                    <Marker position={[latitude, longitude]}>
                     <Tooltip direction="bottom">Some text</Tooltip>
                 </Marker>
+                )}
+                
             </MapContainer>
         </article>
     )

@@ -8,8 +8,10 @@ const HomeSuggestions = ({ homeId }) => {
         fetch(`${hostUrl}/homes-suggestion/${homeId}`)
             .then((res) => res.json())
             .then((data) => {
+                if (data === "No results.") return
                 setSuggestions(data);
-            });
+            })
+            .catch(() => console.error("Error on suggestions!"))
     };
 
     useEffect(() => {
@@ -17,10 +19,10 @@ const HomeSuggestions = ({ homeId }) => {
     }, []);
 
     return (
-        suggestions.length && (
+        suggestions.length > 0 && (
             <section className="suggestions">
                 <section className="properties-card-container">
-                    {suggestions.map((homeSug) => (
+                    {suggestions.slice(0, 3).map((homeSug) => (
                         <HomeCard
                             key={homeSug.id}
                             homeId={homeSug.id}
