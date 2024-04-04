@@ -1,0 +1,10 @@
+.input-box{
+    position: relative;
+
+    .validation-error{
+        position: absolute;
+        max-width: 229px;
+        top: 74px;
+        color: #580c0c;
+    }
+}
