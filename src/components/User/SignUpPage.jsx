@@ -22,10 +22,13 @@ export default function SignUpPage() {
     const postUser = async () => {
         const urlPath =
             userInfo.role === ROLES_ENUM.user ? 'user/register-user' : 'user/register-seller';
+
+        const { RePassword: _, ...postBody } = userInfo;
+
         try {
             const response = await fetch(`${hostUrl}/${urlPath}`, {
                 method: 'POST',
-                body: JSON.stringify(userInfo),
+                body: JSON.stringify(postBody),
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -55,8 +58,10 @@ export default function SignUpPage() {
                 return;
             }
             if (checkObjForProfanity(userInfo)) return;
-            delete userInfo.RePassword;
+            
+
             postUser();
+
         }else{
             toast.error('Password don`t match. Try again!', { autoClose: 3000, pauseOnHover: false });
             return
