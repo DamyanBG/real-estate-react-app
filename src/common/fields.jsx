@@ -57,6 +57,11 @@ export const USER_FIELDS = [
         name: 'password',
         type: 'password',
     },
+    {
+        labelName: 'Confirm Password',
+        name: 'RePassword',
+        type: 'password'
+    }
 ];
 
 export const USER_PROFILE = [

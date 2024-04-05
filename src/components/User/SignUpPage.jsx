@@ -6,8 +6,8 @@ import { hostUrl } from '../../utils/urls';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { validateField } from '@/common/validation';
-import { checkObjForProfanity } from '@/common/profanity';
+import { validateField } from '../../common/validation';
+import { checkObjForProfanity } from '../../common/profanity';
 
 export default function SignUpPage() {
     const [userInfo, setUserInfo] = useState({
@@ -16,6 +16,8 @@ export default function SignUpPage() {
     const [validationErrors, setValidationErrors] = useState(
         USER_FIELDS.map((uf) => uf.name).reduce((acc, curr) => ((acc[curr] = ''), acc), {})
     );
+
+    const [passwordMatch, setPasswordMatch] = useState(false);
 
     const navigate = useNavigate();
 
@@ -41,7 +43,6 @@ export default function SignUpPage() {
             }
 
             navigate('/');
-            console.log(response);
             toast.success('Successful Sign up!', { autoClose: 3000, pauseOnHover: false });
 
         } catch (err) {
@@ -51,12 +52,18 @@ export default function SignUpPage() {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        if (Object.keys(validationErrors).length > 0) {
-            toast.error('Please enter valid values!', { autoClose: 3000, pauseOnHover: false });
+        if(passwordMatch){
+            if (Object.keys(validationErrors).length > 0) {
+                toast.error('Please enter valid values!', { autoClose: 3000, pauseOnHover: false });
+                return;
+            }
+            if (checkObjForProfanity(userInfo)) return;
+            postUser();
+        }else{
+            toast.error('Password not match. Try again!', { autoClose: 3000, pauseOnHover: false });
             return;
         }
-        if (checkObjForProfanity(userInfo)) return
-        postUser();
+       
     };
 
     const handleValidate = (e) => {
@@ -75,12 +82,21 @@ export default function SignUpPage() {
         }
     };
 
+    const handlePassword = (e) => {
+        if((e.target.name === 'password') === (e.target.name === 'RePassword')){
+          setPasswordMatch(true);
+        }else{
+          setPasswordMatch(false);
+        }
+    };
+
     const handleOnChange = (e) => {
         setUserInfo({
             ...userInfo,
             [e.target.name]: e.target.value,
         });
         handleValidate(e);
+        handlePassword(e);
     };
 
     const handleCheckboxChange = (e) => {
