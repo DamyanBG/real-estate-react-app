@@ -17,14 +17,11 @@ export default function SignUpPage() {
         USER_FIELDS.map((uf) => uf.name).reduce((acc, curr) => ((acc[curr] = ''), acc), {})
     );
 
-    const [passwordMatch, setPasswordMatch] = useState(false);
-
     const navigate = useNavigate();
 
     const postUser = async () => {
-        const urlPath = userInfo.role === ROLES_ENUM.user
-            ? "user/register-user"
-            : "user/register-seller"
+        const urlPath =
+            userInfo.role === ROLES_ENUM.user ? 'user/register-user' : 'user/register-seller';
         try {
             const response = await fetch(`${hostUrl}/${urlPath}`, {
                 method: 'POST',
@@ -34,17 +31,16 @@ export default function SignUpPage() {
                 },
             });
 
-            const json = await response.json()
+            const json = await response.json();
 
-            console.log(json)
+            console.log(json);
 
             if (!response.ok) {
-                throw new Error("Request failed!")
+                throw new Error('Request failed!');
             }
 
             navigate('/');
             toast.success('Successful Sign up!', { autoClose: 3000, pauseOnHover: false });
-
         } catch (err) {
             toast.error(`Something went wrong! ${err}`, { autoClose: 3000, pauseOnHover: false });
         }
@@ -52,17 +48,18 @@ export default function SignUpPage() {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        if(passwordMatch){
-            if (Object.keys(validationErrors).length > 0) {
-                toast.error('Please enter valid values!', { autoClose: 3000, pauseOnHover: false });
-                return;
-            }
-            if (checkObjForProfanity(userInfo)) return;
-            postUser();
-        }else{
-            toast.error('Password not match. Try again!', { autoClose: 3000, pauseOnHover: false });
+        if (Object.keys(validationErrors).length > 0) {
+            toast.error('Please enter valid values!', { autoClose: 3000, pauseOnHover: false });
             return;
         }
+        if (checkObjForProfanity(userInfo)) return;
+        postUser();
+        // if (userInfo.password === userInfo.RePassword) {
+           
+        // }else{
+        //     toast.error('Password don`t match. Try again!', { autoClose: 3000, pauseOnHover: false });
+        //     return
+        // }
        
     };
 
@@ -82,21 +79,12 @@ export default function SignUpPage() {
         }
     };
 
-    const handlePassword = (e) => {
-        if((e.target.name === 'password') === (e.target.name === 'RePassword')){
-          setPasswordMatch(true);
-        }else{
-          setPasswordMatch(false);
-        }
-    };
-
     const handleOnChange = (e) => {
         setUserInfo({
             ...userInfo,
             [e.target.name]: e.target.value,
         });
         handleValidate(e);
-        handlePassword(e);
     };
 
     const handleCheckboxChange = (e) => {
@@ -132,9 +120,13 @@ export default function SignUpPage() {
                             />
                         ))}
                     </article>
-            
+
                     <article className="alert">
-                        <input data-testid="as-seller" type="checkbox" onChange={handleCheckboxChange} />
+                        <input
+                            data-testid="as-seller"
+                            type="checkbox"
+                            onChange={handleCheckboxChange}
+                        />
                         <p>Sign Up as seller</p>
                     </article>
                     <FormSubmitButton text="Register" />
