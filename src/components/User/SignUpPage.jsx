@@ -6,8 +6,8 @@ import { hostUrl } from '../../utils/urls';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { validateField } from '@/common/validation';
-import { checkObjForProfanity } from '@/common/profanity';
+import { validateField } from '../../common/validation';
+import { checkObjForProfanity } from '../../common/profanity';
 
 export default function SignUpPage() {
     const [userInfo, setUserInfo] = useState({
@@ -20,30 +20,30 @@ export default function SignUpPage() {
     const navigate = useNavigate();
 
     const postUser = async () => {
-        const urlPath = userInfo.role === ROLES_ENUM.user
-            ? "user/register-user"
-            : "user/register-seller"
+        const urlPath =
+            userInfo.role === ROLES_ENUM.user ? 'user/register-user' : 'user/register-seller';
+
+        const { RePassword: _, ...postBody } = userInfo;
+
         try {
             const response = await fetch(`${hostUrl}/${urlPath}`, {
                 method: 'POST',
-                body: JSON.stringify(userInfo),
+                body: JSON.stringify(postBody),
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
 
-            const json = await response.json()
+            const json = await response.json();
 
-            console.log(json)
+            console.log(json);
 
             if (!response.ok) {
-                throw new Error("Request failed!")
+                throw new Error('Request failed!');
             }
 
             navigate('/');
-            console.log(response);
             toast.success('Successful Sign up!', { autoClose: 3000, pauseOnHover: false });
-
         } catch (err) {
             toast.error(`Something went wrong! ${err}`, { autoClose: 3000, pauseOnHover: false });
         }
@@ -51,12 +51,22 @@ export default function SignUpPage() {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        if (Object.keys(validationErrors).length > 0) {
-            toast.error('Please enter valid values!', { autoClose: 3000, pauseOnHover: false });
-            return;
+      
+        if (userInfo.password === userInfo.RePassword) {
+            if (Object.keys(validationErrors).length > 0) {
+                toast.error('Please enter valid values!', { autoClose: 3000, pauseOnHover: false });
+                return;
+            }
+            if (checkObjForProfanity(userInfo)) return;
+            
+
+            postUser();
+
+        }else{
+            toast.error('Password don`t match. Try again!', { autoClose: 3000, pauseOnHover: false });
+            return
         }
-        if (checkObjForProfanity(userInfo)) return
-        postUser();
+       
     };
 
     const handleValidate = (e) => {
@@ -116,9 +126,13 @@ export default function SignUpPage() {
                             />
                         ))}
                     </article>
-            
+
                     <article className="alert">
-                        <input data-testid="as-seller" type="checkbox" onChange={handleCheckboxChange} />
+                        <input
+                            data-testid="as-seller"
+                            type="checkbox"
+                            onChange={handleCheckboxChange}
+                        />
                         <p>Sign Up as seller</p>
                     </article>
                     <FormSubmitButton text="Register" />
