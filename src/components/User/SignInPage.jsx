@@ -29,7 +29,7 @@ export default function SignIn() {
                 },
             });
 
-            if (response && response.ok) {
+            if (response.ok) {
                 const data = await response.json();
 
                 localStorage.setItem('user', JSON.stringify(data));
