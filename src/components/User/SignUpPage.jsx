@@ -48,18 +48,19 @@ export default function SignUpPage() {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        if (Object.keys(validationErrors).length > 0) {
-            toast.error('Please enter valid values!', { autoClose: 3000, pauseOnHover: false });
-            return;
+      
+        if (userInfo.password === userInfo.RePassword) {
+            if (Object.keys(validationErrors).length > 0) {
+                toast.error('Please enter valid values!', { autoClose: 3000, pauseOnHover: false });
+                return;
+            }
+            if (checkObjForProfanity(userInfo)) return;
+            delete userInfo.RePassword;
+            postUser();
+        }else{
+            toast.error('Password don`t match. Try again!', { autoClose: 3000, pauseOnHover: false });
+            return
         }
-        if (checkObjForProfanity(userInfo)) return;
-        postUser();
-        // if (userInfo.password === userInfo.RePassword) {
-           
-        // }else{
-        //     toast.error('Password don`t match. Try again!', { autoClose: 3000, pauseOnHover: false });
-        //     return
-        // }
        
     };
 
