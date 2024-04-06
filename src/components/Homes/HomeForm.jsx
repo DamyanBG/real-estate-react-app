@@ -2,7 +2,7 @@ import { HOME_FIELDS } from '../../common/fields';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import InputFormRow from '../../common/InputFormRow';
 
-const HomeForm = ({ homeInfo, handleOnChange, handleOnSubmit, validationErrors, loading }) => {
+const HomeForm = ({ homeInfo, handleOnChange, handleOnSubmit, validationErrors, loading, isFetching }) => {
     return (
         <section className="home-form-container">
             <section className="home-form-section">
