@@ -1,0 +1,20 @@
+.create-land-form {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 15px 0;
+
+    .create-form-image-input {
+        display: flex;
+        flex-wrap: wrap;
+        width: 50%;
+        padding-bottom: 15px;
+        justify-content: end;
+
+        input{
+            width: 95%;
+            display: flex;
+        }
+    }
+}

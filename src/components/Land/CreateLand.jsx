@@ -4,9 +4,11 @@ import InputFormRow from '../../common/InputFormRow';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import { hostUrl } from '../../utils/urls';
 import { UserContext } from '../../context/UserContext';
-import { validateField } from '@/common/validation';
+import { validateField } from '../../common/validation';
 import { toast } from 'react-toastify';
-import { checkObjForProfanity } from '@/common/profanity';
+import { checkObjForProfanity } from '../../common/profanity';
+import './CreateLand.scss';
+
 
 export default function CreateLand() {
     const [landInfo, setLandInfo] = useState({});
@@ -15,12 +17,14 @@ export default function CreateLand() {
     );
 
     const { user } = useContext(UserContext);
+    const [isLoading, setIsLoading] = useState(false);
 
     const postLand = () => {
         const postBody = {
             owner_id: user.id,
             ...landInfo,
         };
+        setIsLoading(true);
         fetch(`${hostUrl}/land`, {
             method: 'POST',
             body: JSON.stringify(postBody),
@@ -36,6 +40,7 @@ export default function CreateLand() {
             .then((json) => {
                 console.log(json);
                 setLandInfo({});
+                setIsLoading(false);
             })
             .catch(() => toast.error('Creation failed!', { autoClose: 3000, pauseOnHover: false }))
     };
@@ -89,11 +94,7 @@ export default function CreateLand() {
 
     return (
         <div className="center">
-            <form onSubmit={handleOnSubmit}>
-                <article style={{ margin: 'auto', width: '300px' }}>
-                    <input type="file" name="photo" onChange={handleOnPhotoUpload} />
-                </article>
-
+            <form className='create-land-form' onSubmit={handleOnSubmit}>
                 {LAND_FIELDS.map((lf) => (
                     <InputFormRow
                         key={lf.labelName}
@@ -106,7 +107,10 @@ export default function CreateLand() {
                         dataTestId={lf.name}
                     />
                 ))}
-                <FormSubmitButton />
+                  <article className='create-form-image-input'>
+                    <input type="file" name="photo" onChange={handleOnPhotoUpload} />
+                </article>
+                <FormSubmitButton isLoading={isLoading}/>
             </form>
         </div>
     );
