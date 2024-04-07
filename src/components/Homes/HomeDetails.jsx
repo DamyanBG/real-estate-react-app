@@ -7,11 +7,14 @@ import { Link } from 'react-router-dom';
 import VisitationsTable from '../..//common/VisitationsTable';
 import { UserContext } from '../../context/UserContext';
 import HomeSuggestions from './HomeSuggestions';
+import { useLocation  } from 'react-router-dom';
 
 const MapView = lazy(() => import('@/common/MapView'));
 
 export default function HomeDetails() {
-    const params = new URLSearchParams(window.location.search);
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    // const params = new URLSearchParams(window.location.search);
     const homeId = params.get('homeId');
 
     const [homeDetails, setHomeDetails] = useState({});

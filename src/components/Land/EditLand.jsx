@@ -5,9 +5,11 @@ import { UserContext } from '../../context/UserContext';
 import InputFormRow from '../../common/InputFormRow';
 import './EditLand.scss';
 import { checkTextForProfanity } from '@/common/profanity';
+import { useLocation  } from 'react-router-dom';
 
 const EditLand = () => {
-    const params = new URLSearchParams(window.location.search);
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
     const landId = params.get('landId');
     const [landInfo, setLandInfo] = useState({});
     const { user } = useContext(UserContext);

@@ -7,9 +7,11 @@ import { useContext } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { checkObjForProfanity } from "@/common/profanity";
+import { useLocation  } from 'react-router-dom';
 
 export default function CreateVisitation() {
-    const params = new URLSearchParams(window.location.search)
+    const location = useLocation();
+    const params = new URLSearchParams(location.search)
     const landId = params.get('landId');
     const homeId = params.get('homeId');
     const [visitationInfo, setVisitationInfo] = useState({})

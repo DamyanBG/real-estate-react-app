@@ -8,9 +8,11 @@ import { Link } from 'react-router-dom';
 import './LandDetails.scss';
 import { MapContainer, Marker, TileLayer, Tooltip } from 'react-leaflet';
 import VisitationsTable from '@/common/VisitationsTable';
+import { useLocation  } from 'react-router-dom';
 
 export default function LandDetails() {
-    const params = new URLSearchParams(window.location.search);
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
     const landId = params.get('landId');
     const { user } = useContext(UserContext);
     const [landDetails, setLandDetails] = useState({});

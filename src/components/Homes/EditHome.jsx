@@ -4,13 +4,15 @@ import InputFormRow from '../../common/InputFormRow';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import { HOME_FIELDS } from '../../common/fields';
 import { checkObjForProfanity } from '@/common/profanity';
+import { useLocation  } from 'react-router-dom';
 import './EditHome.scss';
 
 // import { UserContext } from '../../context/UserContext';
 // import { toast } from 'react-toastify';
 
 export default function EditHome() {
-    const params = new URLSearchParams(window.location.search);
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
     const homeId = params.get('homeId');
     const [homeInfo, setHomeInfo] = useState({});
     const [loading, setLoading] = useState(false);

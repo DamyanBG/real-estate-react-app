@@ -7,9 +7,11 @@ import { UserContext } from '../../context/UserContext';
 import { MEETING_STATUSES } from '../../utils/enums';
 import { useNavigate } from 'react-router-dom';
 import { checkTextForProfanity } from '@/common/profanity';
+import { useLocation  } from 'react-router-dom';
 
 export default function CreateMeeting() {
-    const params = new URLSearchParams(window.location.search);
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
     const invitedId = params.get('createWithId');
     const [meetingInfo, setMeetingInfo] = useState({});
     const { user } = useContext(UserContext);
