@@ -48,6 +48,11 @@ export default function EditHome() {
             .then((json) => {
                 console.log(json);
                 setHomeInfo(json);
+            })
+            .catch((err)=>{
+            console.log(err);
+            })
+            .finally(()=>{
                 setLoading(false);
             });
     };
@@ -125,7 +130,7 @@ export default function EditHome() {
                         onChange={handleOnChange}
                     />
                 </article>
-                <FormSubmitButton loading={loading} />
+                <FormSubmitButton disabled={loading} text={'Edit Home'}/>
             </form>
             <article className="edit-form-file-upload" style={{ margin: 'auto', width: '300px' }}>
                 <img src={homeInfo.photo_url} alt="" style={{ width: '100%' }} />

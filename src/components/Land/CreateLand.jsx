@@ -24,7 +24,10 @@ export default function CreateLand() {
             owner_id: user.id,
             ...landInfo,
         };
+       
+
         setIsLoading(true);
+
         fetch(`${hostUrl}/land`, {
             method: 'POST',
             body: JSON.stringify(postBody),
@@ -34,15 +37,17 @@ export default function CreateLand() {
             },
         })
             .then((resp) => {
-                console.log(resp);
                 return resp.json();
             })
             .then((json) => {
-                console.log(json);
+                console.log(json, 'from create land');
                 setLandInfo({});
-                setIsLoading(false);
+               
             })
             .catch(() => toast.error('Creation failed!', { autoClose: 3000, pauseOnHover: false }))
+            .finally(()=>{
+                setIsLoading(false);
+            });
     };
 
     const handleValidate = (e) => {
@@ -110,7 +115,7 @@ export default function CreateLand() {
                   <article className='create-form-image-input'>
                     <input type="file" name="photo" onChange={handleOnPhotoUpload} />
                 </article>
-                <FormSubmitButton isLoading={isLoading}/>
+                <FormSubmitButton disabled={isLoading} text={'Create land'}/>
             </form>
         </div>
     );
