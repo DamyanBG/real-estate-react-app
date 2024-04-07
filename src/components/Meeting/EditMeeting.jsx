@@ -6,9 +6,12 @@ import FormSubmitButton from '../../common/FormSubmitButton';
 import { UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { checkTextForProfanity } from '@/common/profanity';
+import { useLocation  } from 'react-router-dom';
 
 export default function EditMeeting() {
-    const params = new URLSearchParams(window.location.search);
+    const location = useLocation();
+
+    const params = new URLSearchParams(location.search);
     const meetingId = params.get('meetingId');
     const [meetingInfo, setMeetingInfo] = useState({});
     const { user } = useContext(UserContext);
