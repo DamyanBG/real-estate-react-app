@@ -61,6 +61,7 @@ export default function CreateHomeComponent() {
     const handleOnSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
+
         if (Object.keys(validationErrors).length > 0 || !homePhotoData) {
             import('react-toastify').then((module) =>
                 module.toast.error('Please enter valid values!', {
@@ -129,6 +130,7 @@ export default function CreateHomeComponent() {
                     handleOnSubmit={handleOnSubmit}
                     validationErrors={validationErrors}
                     loading={loading}
+
                 />
             </section>
 

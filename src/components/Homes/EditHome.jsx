@@ -4,6 +4,8 @@ import InputFormRow from '../../common/InputFormRow';
 import FormSubmitButton from '../../common/FormSubmitButton';
 import { HOME_FIELDS } from '../../common/fields';
 import { checkObjForProfanity } from '@/common/profanity';
+import './EditHome.scss';
+
 // import { UserContext } from '../../context/UserContext';
 // import { toast } from 'react-toastify';
 
@@ -11,6 +13,8 @@ export default function EditHome() {
     const params = new URLSearchParams(window.location.search);
     const homeId = params.get('homeId');
     const [homeInfo, setHomeInfo] = useState({});
+    const [loading, setLoading] = useState(false);
+
     // const { user } = useContext(UserContext);
     // const [photo, setPhoto] = useState(null);
 
@@ -26,8 +30,10 @@ export default function EditHome() {
     }, [homeId]);
 
     const putHome = () => {
-        const putBody = { ...homeInfo }
-        delete putBody.photo_url
+        const putBody = { ...homeInfo };
+        delete putBody.photo_url;
+        setLoading(true);
+
         fetch(`${hostUrl}/home`, {
             method: 'PUT',
             body: JSON.stringify(putBody),
@@ -42,6 +48,12 @@ export default function EditHome() {
             .then((json) => {
                 console.log(json);
                 setHomeInfo(json);
+            })
+            .catch((err)=>{
+            console.log(err);
+            })
+            .finally(()=>{
+                setLoading(false);
             });
     };
 
@@ -54,24 +66,24 @@ export default function EditHome() {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        if (checkObjForProfanity(homeInfo)) return
+        if (checkObjForProfanity(homeInfo)) return;
         putHome();
     };
 
     const handleOnPhotoUpload = (e) => {
         const reader = new FileReader();
         reader.onloadend = () => {
-          setHomeInfo({
-            ...homeInfo,
-            [e.target.name]: reader.result,
-          });
+            setHomeInfo({
+                ...homeInfo,
+                [e.target.name]: reader.result,
+            });
         };
         if (e.target.files) {
-          reader.readAsDataURL(e.target.files[0]);
+            reader.readAsDataURL(e.target.files[0]);
         }
     };
 
-    console.log(homeInfo)
+    console.log(homeInfo);
 
     // const uploadPhoto = () => {
     //     const formData = new FormData();
@@ -96,12 +108,8 @@ export default function EditHome() {
     // };
 
     return (
-        <div className="center">
-            <article style={{ margin: 'auto', width: '300px' }}>
-                <img src={homeInfo.photo_url} alt="" style={{ width: '100%' }} />
-                <input type="file" name="photo" onChange={handleOnPhotoUpload} />
-            </article>
-            <form onSubmit={handleOnSubmit}>
+        <div className="center edit-form-wrapper">
+            <form className="edit-form" onSubmit={handleOnSubmit}>
                 {HOME_FIELDS.map((hk) => (
                     <InputFormRow
                         key={hk.labelName}
@@ -111,17 +119,23 @@ export default function EditHome() {
                         handleOnChange={handleOnChange}
                     />
                 ))}
-                <article className="form-row">
+                <article className="form-row-description">
                     <label>Description</label>
                     <textarea
+                        rows="7"
+                        cols="33"
                         type="text"
                         name="description"
                         value={homeInfo.description || ''}
                         onChange={handleOnChange}
                     />
                 </article>
-                <FormSubmitButton />
+                <FormSubmitButton disabled={loading} text={'Edit Home'}/>
             </form>
+            <article className="edit-form-file-upload" style={{ margin: 'auto', width: '300px' }}>
+                <img src={homeInfo.photo_url} alt="" style={{ width: '100%' }} />
+                <input type="file" name="photo" onChange={handleOnPhotoUpload} />
+            </article>
         </div>
     );
 }
