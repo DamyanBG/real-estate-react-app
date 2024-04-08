@@ -454,15 +454,15 @@ header {
     padding: 10px;
     display: block;
     font-size: 20px;
-    color: #fff;
+    color: #000;
     border: none;
     border-radius: 5px;
-    background: linear-gradient(to right, #aa076b, #61045f);
+    background: linear-gradient(to right, #daad86, #e48430);
     cursor: pointer;
 }
 
 .button-container button:hover {
-    background: linear-gradient(to right, #a9387e, #8a3a89);
+    background: linear-gradient(to right, #daad86, #dc9e67);
 }
 
 .button-container button:disabled {
