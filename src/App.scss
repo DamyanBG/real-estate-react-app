@@ -66,6 +66,7 @@ header {
         display: block;
         cursor: pointer;
     }
+
     .hamburger .line {
         width: 30px;
         height: 3px;
@@ -119,7 +120,7 @@ header {
     align-items: stretch;
 }
 
-.landing-section > article {
+.landing-section>article {
     width: 100%;
     background: rgba($color: $black-color, $alpha: 0.6);
     color: $white-color;
@@ -127,19 +128,19 @@ header {
     text-align: center;
 }
 
-.landing-section > article > h1 {
+.landing-section>article>h1 {
     font-size: 36px;
     font-weight: 900;
     margin-bottom: 36px;
 }
 
-.landing-section > article > h2 {
+.landing-section>article>h2 {
     font-size: 24px;
     font-weight: 700;
     margin-bottom: 36px;
 }
 
-.landing-section > article > p {
+.landing-section>article>p {
     font-size: 18px;
     font-weight: 500;
     line-height: 1.8;
@@ -148,29 +149,29 @@ header {
 }
 
 @media (max-width: 700px) {
-    .landing-section > article > p {
+    .landing-section>article>p {
         padding: 0 40px;
     }
 }
 
 @media (max-width: 500px) {
-    .landing-section > article {
+    .landing-section>article {
         padding: 80px 20px;
     }
 
-    .landing-section > article > p {
+    .landing-section>article>p {
         padding: 0 20px;
     }
 }
 
-.landing-section > article > a {
+.landing-section>article>a {
     padding: 5px 10px;
     background: $green-color;
     color: $white-color;
     transition: 0.5s;
 }
 
-.landing-section > article > a:hover {
+.landing-section>article>a:hover {
     background: rgb(84, 17, 84);
 }
 
@@ -301,6 +302,7 @@ header {
     min-height: 80vh;
     width: 60%;
 }
+
 @media (max-width: 1100px) {
     .home-image-form-row {
         display: block;
@@ -372,25 +374,29 @@ header {
 
 }
 
-.input-box {
+.input-box,
+.form-row {
     display: flex;
     flex-wrap: wrap;
     width: 50%;
     padding-bottom: 15px;
 }
 
-.input-box:nth-child(2n) {
+.input-box:nth-child(2n),
+.form-row {
     justify-content: end;
 }
 
-.input-box label {
+.input-box label,
+.form-row label {
     width: 95%;
     color: #fff;
     font-weight: bold;
     margin: 5px 0;
 }
 
-.input-box input {
+.input-box input,
+.form-row textarea {
     height: 40px;
     width: 95%;
     padding: 0 10px;
