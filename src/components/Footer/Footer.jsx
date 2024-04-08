@@ -1,12 +1,31 @@
-import './Footer.scss';
+import { Link } from "react-router-dom"
 
-export default function Footer() {
+import "./Footer.scss"
+
+const Footer = () => {
     return (
         <footer>
             <section>
-                <p>Real Estate Application for everybody&#169;</p>
-                <p className="unfinished-message">Unfinished open source project!</p>
+                <h3>About us</h3>
+                <hr />
+                <p>Project Information</p>
+                <p>Concact</p>
+                <p>Developers</p>
+            </section>
+            <section>
+                <h3>Information</h3>
+                <hr />
+                <p>How to add home</p>
+                <p>How to edit home</p>
+            </section>
+            <section>
+                <h3>Social media</h3>
+                <hr />
+                <p><i className="bx bxl-facebook-square" /> Facebook</p>
+                <p><i className="bx bxl-instagram-alt" /> Instagram</p>
             </section>
         </footer>
-    );
+    )
 }
+
+export default Footer

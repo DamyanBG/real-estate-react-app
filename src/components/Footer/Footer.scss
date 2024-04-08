@@ -1,9 +1,40 @@
+@import "../../assets/colors";
+
 footer {
-  text-align: center;
-  background-color: #def2f8;
-  min-height: 64px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background: $green-color;
+  color: $light-color;
+  padding: 16px 48px;
 }
 
-.unfinished-message {
-  font-weight: lighter;
+footer h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+footer hr {
+  margin-bottom: 12px;
+  color: $light-color;
+}
+
+footer p {
+  margin-bottom: 8px;
+}
+
+footer p a {
+  color: inherit;
+}
+
+@media (max-width: 700px)  {
+  footer {
+      flex-direction: column;
+      justify-content: center;
+  }
+
+  footer h3 {
+      margin-top: 12px;
+  }
 }

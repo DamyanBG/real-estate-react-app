@@ -1,11 +1,5 @@
-// Define variables
-$blue-color: #659dbd;
-$green-color: #8d8741;
-$sand-color: #daad86;
-$coffee-color: #bc986a;
-$light-color: #fbeec1;
-$white-color: #fefefe;
-$black-color: black;
+@import "./assets/colors";
+
 
 header {
     width: 100%;
@@ -75,7 +69,7 @@ header {
     .hamburger .line {
         width: 30px;
         height: 3px;
-        background: $white-color;
+        background: $black-color;
         margin: 6px 0;
     }
 
