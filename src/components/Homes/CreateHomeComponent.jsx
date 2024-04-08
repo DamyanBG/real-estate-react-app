@@ -8,6 +8,7 @@ import { useMapEvents } from 'react-leaflet/hooks';
 import ImageSection from './ImageSection';
 import HomeForm from './HomeForm';
 import CreateHomeMap from './CreateHomeMap';
+import Spinner from '../../common/Spinner';
 
 function MapClickHandlerComponent({ onLocationChoose }) {
     const map = useMapEvents({
@@ -115,6 +116,10 @@ export default function CreateHomeComponent() {
 
     const theComponentClick = <MapClickHandlerComponent onLocationChoose={handleSetLocation} />;
 
+    if (loading) {
+        return <Spinner />;
+    }
+
     return (
         <section className="create-home-container">
             <section className="home-image-form-row">
@@ -130,7 +135,6 @@ export default function CreateHomeComponent() {
                     handleOnSubmit={handleOnSubmit}
                     validationErrors={validationErrors}
                     loading={loading}
-
                 />
             </section>
 

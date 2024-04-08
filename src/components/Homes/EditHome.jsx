@@ -44,11 +44,9 @@ export default function EditHome() {
             },
         })
             .then((resp) => {
-                console.log(resp);
                 return resp.json();
             })
             .then((json) => {
-                console.log(json);
                 setHomeInfo(json);
             })
             .catch((err)=>{
@@ -84,8 +82,6 @@ export default function EditHome() {
             reader.readAsDataURL(e.target.files[0]);
         }
     };
-
-    console.log(homeInfo);
 
     // const uploadPhoto = () => {
     //     const formData = new FormData();

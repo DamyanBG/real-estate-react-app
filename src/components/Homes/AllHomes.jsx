@@ -12,10 +12,11 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 export default function AllHomes() {
     const [pageNumber, setPageNumber] = useState(0);
+    const [loading, setLoading] = useState(false);
     const queryClient = useQueryClient()
     const { data, isPlaceholderData } = useQuery({
         queryKey: ["homes", pageNumber],
-        queryFn: () => fetchPaginatedHomes(pageNumber, homesPerPage),
+        queryFn: () => fetchPaginatedHomes(pageNumber, homesPerPage, setLoading),
         placeholderData: keepPreviousData,
         staleTime: 5000
     })
@@ -39,8 +40,6 @@ export default function AllHomes() {
     // }, [loading]);
 
     useEffect(() => {
-        console.log(data?.hasMore)
-        console.log(data)
         if (!isPlaceholderData) {
             queryClient.prefetchQuery({
                 queryKey: ['homes', pageNumber + 1],
