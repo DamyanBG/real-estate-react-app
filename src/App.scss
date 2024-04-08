@@ -120,7 +120,7 @@ header {
     align-items: stretch;
 }
 
-.landing-section>article {
+.landing-section > article {
     width: 100%;
     background: rgba($color: $black-color, $alpha: 0.6);
     color: $white-color;
@@ -128,19 +128,19 @@ header {
     text-align: center;
 }
 
-.landing-section>article>h1 {
+.landing-section > article > h1 {
     font-size: 36px;
     font-weight: 900;
     margin-bottom: 36px;
 }
 
-.landing-section>article>h2 {
+.landing-section > article > h2 {
     font-size: 24px;
     font-weight: 700;
     margin-bottom: 36px;
 }
 
-.landing-section>article>p {
+.landing-section > article > p {
     font-size: 18px;
     font-weight: 500;
     line-height: 1.8;
@@ -149,13 +149,13 @@ header {
 }
 
 @media (max-width: 700px) {
-    .landing-section>article>p {
+    .landing-section > article > p {
         padding: 0 40px;
     }
 }
 
 @media (max-width: 500px) {
-    .landing-section>article {
+    .landing-section > article {
         padding: 80px 20px;
     }
 
@@ -164,14 +164,14 @@ header {
     }
 }
 
-.landing-section>article>a {
+.landing-section > article > a {
     padding: 5px 10px;
     background: $green-color;
     color: $white-color;
     transition: 0.5s;
 }
 
-.landing-section>article>a:hover {
+.landing-section > article > a:hover {
     background: rgb(84, 17, 84);
 }
 
