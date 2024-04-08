@@ -66,6 +66,7 @@ header {
         display: block;
         cursor: pointer;
     }
+
     .hamburger .line {
         width: 30px;
         height: 3px;
@@ -158,7 +159,7 @@ header {
         padding: 80px 20px;
     }
 
-    .landing-section > article > p {
+    .landing-section>article>p {
         padding: 0 20px;
     }
 }
@@ -301,6 +302,7 @@ header {
     min-height: 80vh;
     width: 60%;
 }
+
 @media (max-width: 1100px) {
     .home-image-form-row {
         display: block;
@@ -372,25 +374,29 @@ header {
 
 }
 
-.input-box {
+.input-box,
+.form-row {
     display: flex;
     flex-wrap: wrap;
     width: 50%;
     padding-bottom: 15px;
 }
 
-.input-box:nth-child(2n) {
+.input-box:nth-child(2n),
+.form-row {
     justify-content: end;
 }
 
-.input-box label {
+.input-box label,
+.form-row label {
     width: 95%;
     color: #fff;
     font-weight: bold;
     margin: 5px 0;
 }
 
-.input-box input {
+.input-box input,
+.form-row textarea {
     height: 40px;
     width: 95%;
     padding: 0 10px;
