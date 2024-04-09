@@ -1,6 +1,6 @@
 import { USER_FIELDS } from '../../common/fields';
 import { ROLES_ENUM } from '../../utils/enums';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import InputFormRow from '../../common/InputFormRow';
 import { hostUrl } from '../../utils/urls';
 import FormSubmitButton from '../../common/FormSubmitButton';
@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { validateField } from '../../common/validation';
 import { checkObjForProfanity } from '../../common/profanity';
+import { UserContext } from '../../context/UserContext';
 
 export default function SignUpPage() {
     const [userInfo, setUserInfo] = useState({
@@ -16,6 +17,9 @@ export default function SignUpPage() {
     const [validationErrors, setValidationErrors] = useState(
         USER_FIELDS.map((uf) => uf.name).reduce((acc, curr) => ((acc[curr] = ''), acc), {})
     );
+
+    const { setUser } = useContext(UserContext);
+    
 
     const navigate = useNavigate();
 
@@ -41,6 +45,13 @@ export default function SignUpPage() {
             if (!response.ok) {
                 throw new Error('Request failed!');
             }
+            
+            const newUserInfo = {
+                ...json,
+                'role': userInfo.role
+            }
+            localStorage.setItem('user', JSON.stringify(newUserInfo));
+            setUser(newUserInfo);
 
             navigate('/');
             toast.success('Successful Sign up!', { autoClose: 3000, pauseOnHover: false });
@@ -51,22 +62,22 @@ export default function SignUpPage() {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-      
+
         if (userInfo.password === userInfo.RePassword) {
             if (Object.keys(validationErrors).length > 0) {
                 toast.error('Please enter valid values!', { autoClose: 3000, pauseOnHover: false });
                 return;
             }
             if (checkObjForProfanity(userInfo)) return;
-            
 
             postUser();
-
-        }else{
-            toast.error('Password don`t match. Try again!', { autoClose: 3000, pauseOnHover: false });
-            return
+        } else {
+            toast.error('Password don`t match. Try again!', {
+                autoClose: 3000,
+                pauseOnHover: false,
+            });
+            return;
         }
-       
     };
 
     const handleValidate = (e) => {
