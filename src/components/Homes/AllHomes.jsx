@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import exampleHomePhoto from '../../images/home-main-photo-example.jpg';
 import './Homes.scss';
 import './AllHomes.scss';
+import Spinner from '../../common/Spinner';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import { HomesContext } from '@/context/HomesContext';
@@ -12,11 +13,10 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 export default function AllHomes() {
     const [pageNumber, setPageNumber] = useState(0);
-    const [loading, setLoading] = useState(false);
     const queryClient = useQueryClient()
-    const { data, isPlaceholderData } = useQuery({
+    const { data, isPlaceholderData, isLoading } = useQuery({
         queryKey: ["homes", pageNumber],
-        queryFn: () => fetchPaginatedHomes(pageNumber, homesPerPage, setLoading),
+        queryFn: () => fetchPaginatedHomes(pageNumber, homesPerPage),
         placeholderData: keepPreviousData,
         staleTime: 5000
     })
@@ -48,8 +48,13 @@ export default function AllHomes() {
         }
     }, [data, isPlaceholderData, pageNumber, queryClient])
 
+    if (isLoading) {
+        return <Spinner/>;
+    }
+    
 
     return (
+      
         <div className="main-container">
             {homes?.map((h) => (
                 <article className="home-container" key={`home-${h.id}`}>
