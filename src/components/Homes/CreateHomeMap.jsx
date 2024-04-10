@@ -10,9 +10,9 @@ const CreateHomeMap = ({
         <section className="map-section">
             {!isChoosingLocation && (
                 <section style={{ textAlign: 'center' }}>
-                    <button type="button" onClick={() => setIsChoosingLocation(true)}>
+                    {/* <button type="button" onClick={() => setIsChoosingLocation(true)}>
                         Add location
-                    </button>
+                    </button> */}
                 </section>
             )}
             {(homeLocation.latitude || isChoosingLocation) && (
