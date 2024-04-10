@@ -1,0 +1,40 @@
+
+
+.validation-error {
+    position: relative;
+    width: 100%;
+}
+
+.validation-error::before,
+.validation-error::after {
+    --arrow-size: 10px;
+    
+    position: absolute;
+    top: -55px;
+    left: 50%;
+    transform: translateX(-50%) translateY(var(--translate-y, 0));
+    transition: 50ms transform;
+    transform-origin: bottom center;
+}
+.validation-error::before {
+    --translate-y: calc(-100% - var(--arrow-size));
+
+    content: attr(data-tooltip);
+    padding: 10px;
+    width: max-content;
+    max-width: 100%;
+    border: 1px solid #333;
+    background: white;
+    color: #333;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.validation-error::after{
+    --translate-y: calc(-1 * var(--arrow-size));
+
+  content: '';
+  border: var(--arrow-size) solid transparent;
+  border-top-color: #e48430;
+  transform-origin: top center;
+}

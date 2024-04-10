@@ -1,4 +1,4 @@
-import { useState, useRef  } from 'react';
+import { useState, useRef } from 'react';
 import { postImage } from '../../api/photoApi';
 import Spinner from '../../common/Spinner';
 import './UploadImage.scss';
@@ -10,7 +10,7 @@ const UploadImage = ({ onPhotoUpload }) => {
     const realFile = useRef();
 
     const handleOnChange = async (e) => {
-        const file = event.target.files[0];
+        const file = e.target.files[0];
         // Update the state with the file name, or a default string if no file is selected
         setFileName(file ? file.name : 'No file chosen, yet.');
 
@@ -43,9 +43,9 @@ const UploadImage = ({ onPhotoUpload }) => {
     }
 
     return (
-        <section className='input-image-wrapper home-form-section'>
-           <article className='image-container'>
-            <input
+        <section className="input-image-wrapper home-form-section">
+            <article className="image-container">
+                <input
                     data-testid="home-photo"
                     type="file"
                     id="real-file"
@@ -54,11 +54,11 @@ const UploadImage = ({ onPhotoUpload }) => {
                     name="photo"
                     onChange={handleOnChange}
                 />
-                <button className='button-file' type="button" onClick={handleClick}>
+                <button className="button-file" type="button" onClick={handleClick}>
                     Upload a File
                 </button>
-                <span className='real-file-span'>{fileName}</span>
-           </article>
+                <span className="real-file-span">{fileName}</span>
+            </article>
         </section>
     );
 };

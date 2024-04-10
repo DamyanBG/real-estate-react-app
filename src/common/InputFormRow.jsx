@@ -1,3 +1,5 @@
+import './inputFormRow.scss';
+
 export default function InputFormRow({
     labelName,
     name,
@@ -10,8 +12,8 @@ export default function InputFormRow({
     return (
         <article className="input-box">
             <label>{labelName}</label>
-            <input type={type} name={name} value={value || ''} onChange={handleOnChange} data-testid={dataTestId} />
-            {validationError && <p className="validation-error" data-testid={`valerror-${dataTestId}`}>{validationError}</p>}
+            <input className='input-container' type={type} name={name} value={value || ''} onChange={handleOnChange} data-testid={dataTestId} />
+            {validationError && <p className="validation-error" data-testid={`valerror-${dataTestId}`} data-tooltip={validationError}></p>}
         </article>
     );
 }

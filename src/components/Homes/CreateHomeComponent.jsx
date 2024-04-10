@@ -84,7 +84,7 @@ export default function CreateHomeComponent() {
             return;
         }
         let addHomeData;
-       
+
         try {
             const postHomeData = {
                 ...homeInfo,
@@ -93,7 +93,7 @@ export default function CreateHomeComponent() {
                 longitude: homeLocation.longitude,
             };
             addHomeData = await postHomeAction(postHomeData);
-           
+
             navigate(`/edit-home?homeId=${addHomeData.id}`);
         } catch (error) {
             import('react-toastify').then((module) =>
@@ -142,7 +142,6 @@ export default function CreateHomeComponent() {
 
             <CreateHomeMap
                 isChoosingLocation={isChoosingLocation}
-                setIsChoosingLocation={setIsChoosingLocation}
                 homeLocation={homeLocation}
                 theComponentClick={theComponentClick}
             />
