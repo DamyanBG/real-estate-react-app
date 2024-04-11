@@ -1,3 +1,4 @@
+
 import UploadImage from '../common/UploadImage';
 
 const ImageSection = ({
@@ -5,6 +6,7 @@ const ImageSection = ({
     setHomePhotoData,
     setHomeLocation,
     setIsChoosingLocation,
+ 
 }) => {
     const handleUploadImage = (imageData) => {
         console.log('handleUploadImage');
@@ -21,14 +23,16 @@ const ImageSection = ({
         setIsChoosingLocation(true);
     };
 
+  
+
     return (
-        <article className="home-image">
+        <section className="home-image">
             {homePhotoData ? (
                 <img src={homePhotoData.photo_url} alt="" width="100%" />
             ) : (
                 <UploadImage onPhotoUpload={handleUploadImage} />
             )}
-        </article>
+        </section>
     );
 };
 
