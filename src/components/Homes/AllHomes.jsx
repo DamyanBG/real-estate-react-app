@@ -18,10 +18,14 @@ export default function AllHomes() {
         queryKey: ["homes", pageNumber],
         queryFn: () => fetchPaginatedHomes(pageNumber, homesPerPage),
         placeholderData: keepPreviousData,
-        staleTime: 5000
+        staleTime: 5000,
+        onSuccess: () => {
+            console.log("yes")
+        }
     })
     const homes = data?.map((home) => home)
     const updatedHomes = useUpdateHomes()
+    const [isLongLoading, setIsLongLoading] = useState(false)
 
     // Pagination Configuration
     const homesPerPage = 10;
@@ -48,8 +52,28 @@ export default function AllHomes() {
         }
     }, [data, isPlaceholderData, pageNumber, queryClient])
 
+    useEffect(() => {
+        if (!isLoading) {
+            setIsLongLoading(false)
+            return
+        }
+        const timeOutId =  setTimeout(() => {
+            console.log("Loading")
+            setIsLongLoading(true)
+        }, 3000)
+
+        return () => {
+            clearTimeout(timeOutId)
+        }
+    }, [isLoading])
+
     if (isLoading) {
-        return <Spinner/>;
+        return (
+            <>
+                {isLongLoading && <h2 style={{ textAlign: "center", marginTop: "36px" }}>The loading time can be long, because the back end is deployed on free service!</h2>}
+                <Spinner />
+            </>
+        );
     }
     
 
