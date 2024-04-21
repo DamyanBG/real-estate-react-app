@@ -3,34 +3,38 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useQuery, keepPreviousData, useQueryClient } from '@tanstack/react-query';
 
 import Spinner from '../../common/Spinner';
-import { fetchPaginatedHomes } from '../../common/homesApi';
+import { fetchPaginatedHomes, fetchAllHomes } from '../../common/homesApi';
 import HomeCard from '../common/HomeCard';
 
 import './AllHomes.scss';
 import './Homes.scss';
+import SearchComponent from '../../common/SearchComponent';
 
-const searchValuesInitialState = {
-    city: '',
-    neighborhood: '',
-    minPrice: '',
-    maxPrice: '',
-};
+
+// const searchValuesInitialState = {
+//     city: '',
+//     neighborhood: '',
+//     minPrice: '',
+//     maxPrice: '',
+// };
 
 export default function AllHomes() {
+
+
     const [pageNumber, setPageNumber] = useState(0);
     const queryClient = useQueryClient();
     const homesPerPage = 10;
     const [isLongLoading, setIsLongLoading] = useState(false);
-    const [searchValues, setSearchValues] = useState(searchValuesInitialState);
+    // const [searchValues, setSearchValues] = useState(searchValuesInitialState);
     const { data, isPlaceholderData, isLoading } = useQuery({
         queryKey: ['homes', pageNumber],
-        queryFn: () => fetchPaginatedHomes(pageNumber, homesPerPage),
+        queryFn: () => fetchAllHomes(),
         placeholderData: keepPreviousData,
         staleTime: 5000,
     });
+
     const homes = data || [];
-    console.log(homes);
-    console.log('homes');
+    const [filteredHomes, setFitleredHomes] = useState(homes);
 
     useEffect(() => {
         if (!isPlaceholderData) {
@@ -39,6 +43,8 @@ export default function AllHomes() {
                 queryFn: () => fetchPaginatedHomes(pageNumber + 1, homesPerPage),
             });
         }
+
+        setFitleredHomes(data);
     }, [data, isPlaceholderData, pageNumber, queryClient]);
 
     useEffect(() => {
@@ -56,12 +62,40 @@ export default function AllHomes() {
         };
     }, [isLoading]);
 
-    const handleSearchChange = (e) => {
-        setSearchValues({
-            ...searchValues,
-            [e.target.name]: e.target.value,
-        });
-    };
+    // const handleSearchChange = (e) => {
+    //     setSearchValues({
+    //         ...searchValues,
+    //         [e.target.name]: e.target.value,
+    //     });
+    // };
+
+    // function handleSubmitResult(e) {
+    //     e.preventDefault();
+
+    //     if (searchValues.city !== '') {
+
+    //         const filtered = filteredHomes.filter((home) =>
+    //             home.city.toLowerCase().includes(searchValues.city.toLowerCase())
+    //         );
+    //         setFitleredHomes(filtered);
+    //     } else if (searchValues.neighborhood !== '') {
+
+    //         const filtered = filteredHomes.filter((home) =>
+    //             home.neighborhood.toLowerCase().includes(searchValues.neighborhood.toLowerCase())
+    //         );
+    //         setFitleredHomes(filtered);
+    //     } else if (searchValues.minPrice !== '') {
+
+    //         const filtered = filteredHomes.filter((home) => home.price >= searchValues.minPrice);
+    //         setFitleredHomes(filtered);
+    //     } else if (searchValues.maxPrice !== '') {
+
+    //         const filtered = filteredHomes.filter((home) => home.price < searchValues.maxPrice);
+    //         setFitleredHomes(filtered);
+    //     } else {
+    //         setFitleredHomes(homes);
+    //     }
+    // }
 
     if (isLoading) {
         return (
@@ -79,44 +113,48 @@ export default function AllHomes() {
 
     return (
         <section className="main-container">
-            <section className="home-search">
-                <input
-                    name="city"
-                    placeholder="City"
-                    value={searchValues.city}
-                    type="text"
-                    onChange={handleSearchChange}
-                />
-                <input
-                    name="neighborhood"
-                    placeholder="Neighborhood"
-                    value={searchValues.neighborhood}
-                    type="text"
-                    onChange={handleSearchChange}
-                />
-                <input
-                    name="minPrice"
-                    placeholder="Min. Price"
-                    value={searchValues.minPrice}
-                    type="text"
-                    onChange={handleSearchChange}
-                />
-                <input
-                    name="maxPrice"
-                    placeholder="Max. Price"
-                    value={searchValues.maxPrice}
-                    type="text"
-                    onChange={handleSearchChange}
-                />
-                <select name="sortBy">
-                    <option value="">Sort by</option>
-                </select>
-                <button>
-                    Search
-                </button>
+            {/* <section className="home-search">
+                <form onSubmit={handleSubmitResult}>
+                    <input
+                        name="city"
+                        placeholder="City"
+                        value={searchValues.city}
+                        type="text"
+                        onChange={handleSearchChange}
+                    />
+                    <input
+                        name="neighborhood"
+                        placeholder="Neighborhood"
+                        value={searchValues.neighborhood}
+                        type="text"
+                        onChange={handleSearchChange}
+                    />
+                    <input
+                        name="minPrice"
+                        placeholder="Min. Price"
+                        value={searchValues.minPrice}
+                        type="text"
+                        onChange={handleSearchChange}
+                    />
+                    <input
+                        name="maxPrice"
+                        placeholder="Max. Price"
+                        value={searchValues.maxPrice}
+                        type="text"
+                        onChange={handleSearchChange}
+                    />
+                    <select name="sortBy">
+                        <option value="">Sort by</option>
+                    </select>
+                    <button>Search</button>
+                </form>
+            </section> */}
+            <section>
+                <SearchComponent data={homes}/>
             </section>
+
             <section className="homes-list-container">
-                {homes?.map((home) => (
+                {filteredHomes?.map((home) => (
                     <HomeCard
                         key={home.id}
                         homeId={home.id}
