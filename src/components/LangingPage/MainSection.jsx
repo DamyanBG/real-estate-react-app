@@ -1,8 +1,13 @@
 import { Link } from 'react-router-dom';
+import Carousel from '../common/Carousel';
+import {slides} from '../../components/common/slides';
 
 const MainSection = () => {
     return (
         <section className="landing-section">
+            <article>
+                <Carousel slides={slides}/>
+            </article>
             <article>
                 <h1>Welcome To Real Estate App</h1>
                 <h2>Platform opened for everybody to publish real estate!</h2>
