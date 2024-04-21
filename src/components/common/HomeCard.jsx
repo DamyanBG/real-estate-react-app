@@ -4,7 +4,10 @@ const HomeCard = ({ homeId, photoUrl, city, neighborhood, title, description, pr
     return (
         <article className="property-card">
             <article className="property-image-container">
-                <img src={photoUrl} alt="Property Image" />
+                <img src={photoUrl || `../../../public/images/house-image-mirror.png`} alt="Property Image" onError={(e) => {
+                    e.target.onerror = null; // prevents looping
+                    e.target.src = '../../../public/images/house-image-mirror.png';
+                }} />
             </article>
 
             <article className="property-address">
