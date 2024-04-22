@@ -16,7 +16,7 @@ const HomeCard = ({ homeId, photoUrl, city, neighborhood, title, description, pr
             </article>
 
             <article className="property-info">
-                <h3>{title}</h3>sdfsdf
+                <h3>{title}</h3>
                 <p>{description}</p>
             </article>
 
