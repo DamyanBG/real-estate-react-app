@@ -6,7 +6,7 @@ describe('My first Test', () => {
   it('Visits the page', () => {
     cy.visit('/')
 
-    cy.contains('Sign in').click()
+    cy.contains('Sign In').click()
 
     cy.url().should('include', '/signin')
 
@@ -21,10 +21,10 @@ describe('My first Test', () => {
     cy.url().should('include', '/signin')
   })
 
-  it('Contains Sign in', () => {
+  it('Contains Sign In', () => {
     cy.visit('/')
 
-    cy.contains('Sign in')
+    cy.contains('Sign In')
   })
 
   it('Url check', () => {
