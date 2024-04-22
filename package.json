@@ -34,6 +34,7 @@
         "start": "env-cmd -f .env vite",
         "start:local": "env-cmd -f .env.local vite",
         "build": "env-cmd -f .env vite build",
+        "build:container": "env-cmd -f .env.container vite build",
         "serve": "vite preview",
         "test": "vite test --passWithNoTests",
         "lint": "eslint .",
