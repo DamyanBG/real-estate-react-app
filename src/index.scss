@@ -1,5 +1,7 @@
 @import 'react-toastify/dist/ReactToastify.css';
 
+
+
 // Define variables
 $blue-color: #659dbd;
 $green-color: #8d8741;
@@ -24,5 +26,6 @@ body {
 }
 
 body {
-    background: $blue-color;
+    background: rgb(101,157,189);
+    background: linear-gradient(150deg, rgba(101,157,189,1) 0%, rgba(191,223,233,1) 100%);
 }
