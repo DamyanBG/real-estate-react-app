@@ -1,106 +1,141 @@
-import { useContext, useEffect, useState } from 'react';
-import exampleHomePhoto from '../../images/home-main-photo-example.jpg';
-import './Homes.scss';
-import './AllHomes.scss';
-import Spinner from '../../common/Spinner';
-import { Link } from 'react-router-dom';
-import ReactPaginate from 'react-paginate';
-import { HomesContext } from '@/context/HomesContext';
-import useUpdateHomes from '@/hooks/useUpdateHomes';
+import { useEffect, useState } from 'react';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useQuery, keepPreviousData, useQueryClient } from '@tanstack/react-query';
-import { fetchAllHomes, fetchPaginatedHomes } from '../../common/homesApi';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+import Spinner from '../../common/Spinner';
+import { fetchPaginatedHomes } from '../../common/homesApi';
+import HomeCard from '../common/HomeCard';
+
+import './AllHomes.scss';
+import './Homes.scss';
+
+const searchValuesInitialState = {
+    city: '',
+    neighborhood: '',
+    minPrice: '',
+    maxPrice: '',
+};
 
 export default function AllHomes() {
     const [pageNumber, setPageNumber] = useState(0);
-    const queryClient = useQueryClient()
+    const queryClient = useQueryClient();
+    const homesPerPage = 10;
+    const [isLongLoading, setIsLongLoading] = useState(false);
+    const [searchValues, setSearchValues] = useState(searchValuesInitialState);
     const { data, isPlaceholderData, isLoading } = useQuery({
-        queryKey: ["homes", pageNumber],
+        queryKey: ['homes', pageNumber],
         queryFn: () => fetchPaginatedHomes(pageNumber, homesPerPage),
         placeholderData: keepPreviousData,
-        staleTime: 5000
-    })
-    const homes = data?.map((home) => home)
-    const updatedHomes = useUpdateHomes()
-
-    // Pagination Configuration
-    const homesPerPage = 10;
-    const pagesVisited = pageNumber * homesPerPage;
-    const pageCount = Math.ceil(homes?.length / homesPerPage);
-
-    // useEffect(() => {
-    //     if (!loading) {
-    //         const now = new Date()
-    //         const toReloadTime = new Date(updated.getTime() + 1 * 60000)
-    //         if (now > toReloadTime) {
-    //             console.log("old info")
-    //             updatedHomes()
-    //         }
-    //     }
-    // }, [loading]);
+        staleTime: 5000,
+    });
+    const homes = data || [];
+    console.log(homes);
+    console.log('homes');
 
     useEffect(() => {
         if (!isPlaceholderData) {
             queryClient.prefetchQuery({
                 queryKey: ['homes', pageNumber + 1],
                 queryFn: () => fetchPaginatedHomes(pageNumber + 1, homesPerPage),
-            })
+            });
         }
-    }, [data, isPlaceholderData, pageNumber, queryClient])
+    }, [data, isPlaceholderData, pageNumber, queryClient]);
+
+    useEffect(() => {
+        if (!isLoading) {
+            setIsLongLoading(false);
+            return;
+        }
+        const timeOutId = setTimeout(() => {
+            console.log('Loading');
+            setIsLongLoading(true);
+        }, 3000);
+
+        return () => {
+            clearTimeout(timeOutId);
+        };
+    }, [isLoading]);
+
+    const handleSearchChange = (e) => {
+        setSearchValues({
+            ...searchValues,
+            [e.target.name]: e.target.value,
+        });
+    };
 
     if (isLoading) {
-        return <Spinner/>;
+        return (
+            <>
+                {isLongLoading && (
+                    <h2 style={{ textAlign: 'center', marginTop: '36px' }}>
+                        The loading time can be long, because the back end is deployed on free
+                        service!
+                    </h2>
+                )}
+                <Spinner />
+            </>
+        );
     }
-    
 
     return (
-      
-        <div className="main-container">
-            {homes?.map((h) => (
-                <article className="home-container" key={`home-${h.id}`}>
-                    <div className="image-container">
-                        <img
-                            className="all-homes-image"
-                            src={h.photo_url}
-                            onError={(e) => {
-                                e.target.onError = null;
-                                e.target.src = exampleHomePhoto;
-                            }}
-                            alt="Home"
-                        />
-                    </div>
-                    <div className="main-text">
-                        <Link to={`/home-details?homeId=${h.id}`} className="no-underline">
-                            <h3>{h.title}</h3>
-                        </Link>
-                        <p className="main-text-par">Location: {h.city}</p>
-                        <p>Price: {h.price}</p>
-                    </div>
-                    <div className="description-text">
-                        <p className="description-text-par">{h.description}</p>
-                    </div>
-                </article>
-            ))}
+        <section className="main-container">
+            <section className="home-search">
+                <input
+                    name="city"
+                    placeholder="City"
+                    value={searchValues.city}
+                    type="text"
+                    onChange={handleSearchChange}
+                />
+                <input
+                    name="neighborhood"
+                    placeholder="Neighborhood"
+                    value={searchValues.neighborhood}
+                    type="text"
+                    onChange={handleSearchChange}
+                />
+                <input
+                    name="minPrice"
+                    placeholder="Min. Price"
+                    value={searchValues.minPrice}
+                    type="text"
+                    onChange={handleSearchChange}
+                />
+                <input
+                    name="maxPrice"
+                    placeholder="Max. Price"
+                    value={searchValues.maxPrice}
+                    type="text"
+                    onChange={handleSearchChange}
+                />
+                <select name="sortBy">
+                    <option value="">Sort by</option>
+                </select>
+                <button>
+                    Search
+                </button>
+            </section>
+            <section className="homes-list-container">
+                {homes?.map((home) => (
+                    <HomeCard
+                        key={home.id}
+                        homeId={home.id}
+                        photoUrl={home.photo_url}
+                        city={home.city}
+                        neighborhood={home.neighborhood}
+                        title={home.title}
+                        description={home.description}
+                        price={home.price}
+                    />
+                ))}
+            </section>
 
-
-            {/* <ReactPaginate
-                previousLabel="Previous"
-                nextLabel="Next"
-                pageCount={pageCount}
-                onPageChange={pageChangeHandler}
-                containerClassName="paginationBtns"
-                previousLinkClassName="previousBtn"
-                nextLinkClassName="nextBtn"
-                disabledClassName="paginationDisabled"
-                activeClassName="paginationActive"
-            /> */}
-
-            <section style={{ display: "flex", alignItems: "center" }}>
+            <section style={{ display: 'flex', alignItems: 'center' }}>
                 <button
-                    type='button'
+                    type="button"
                     onClick={() => {
-                        setPageNumber((old) => Math.max(old - 1, 0))
-                        scrollTo(0, 0)
+                        setPageNumber((old) => Math.max(old - 1, 0));
+                        scrollTo(0, 0);
                     }}
                     disabled={pageNumber === 0}
                 >
@@ -109,14 +144,14 @@ export default function AllHomes() {
                 <article>Current page: {pageNumber + 1}</article>
                 <button
                     onClick={() => {
-                        setPageNumber((old) => old + 1)
-                        scrollTo(0, 0)
+                        setPageNumber((old) => old + 1);
+                        scrollTo(0, 0);
                     }}
                 >
                     Next
                 </button>
             </section>
             <ReactQueryDevtools initialIsOpen />
-        </div>
+        </section>
     );
 }

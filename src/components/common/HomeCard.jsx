@@ -1,12 +1,17 @@
 import { Link } from 'react-router-dom';
-import './HomeCard.scss';
 import { HiMiniMapPin } from "react-icons/hi2";
+import defaultImage from '../../../public/images/house-image-mirror.png';
+
+import './HomeCard.scss';
 
 const HomeCard = ({ homeId, photoUrl, city, neighborhood, title, description, price }) => {
     return (
         <article className="property-card">
             <article className="property-image-container">
-                <img src={photoUrl} alt="Property Image" />
+                <img src={photoUrl} alt="Property Image" onError={(e) => {
+                    e.target.onerror = null; // prevents looping
+                    e.target.src = defaultImage;
+                }} />
             </article>
 
             <section className='grid-card-container'>
@@ -33,6 +38,10 @@ const HomeCard = ({ homeId, photoUrl, city, neighborhood, title, description, pr
                     <Link to={`/details?homeId=${homeId}`}>View Details</Link>
                 </article>
             </section>
+            <article className="property-card-footer">
+                <span className="property-price">{price}</span>
+                <Link to={`/home-details?homeId=${homeId}`}>View Details</Link>
+            </article>
         </article>
     );
 };

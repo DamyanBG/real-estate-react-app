@@ -1,6 +1,9 @@
+@import '../../assets/_colors.scss';
+
 .main-container {
     box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.4);
     border-radius: 30px;
+    padding: 48px 36px;
 
     .home-container {
         padding: 24px 36px;
@@ -110,5 +113,40 @@
     .paginationDisabled a {
         color: lightblue;
         background-color: grey;
+    }
+}
+
+.home-search {
+    margin-bottom: 24px;
+
+    input {
+        padding: 12px 12px;
+    }
+
+    input, select {
+        border: 1px solid black;
+    }
+
+    input, select, button {
+        height: 36px;
+        margin-right: 12px;
+        width: 200px;
+        border-radius: 6px;
+    }
+
+    button {
+        // TO DO: Finish this button
+        color: $coffee-color;
+    }
+}
+
+.homes-list-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between; 
+
+    > * {
+       margin-bottom: 36px;
     }
 }
