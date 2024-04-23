@@ -59,7 +59,7 @@ export const USER_FIELDS = [
     },
     {
         labelName: 'Confirm Password',
-        name: 'RePassword',
+        name: 'confirmPassword',
         type: 'password'
     }
 ];

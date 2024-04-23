@@ -90,7 +90,7 @@ export default function Header() {
                         </Link>
                     </li>
                     <li>
-                        <Link onClick={handleLinkClick} to="/create-home">
+                        <Link onClick={handleLinkClick} to="/create-home" data-testid="sell-home-link">
                             Sell
                         </Link>
                     </li>
