@@ -27,7 +27,7 @@ export default function SignUpPage() {
         const urlPath =
             userInfo.role === ROLES_ENUM.user ? 'user/register-user' : 'user/register-seller';
 
-        const { RePassword: _, ...postBody } = userInfo;
+        const { confirmPassword: _, ...postBody } = userInfo;
 
         try {
             const response = await fetch(`${hostUrl}/${urlPath}`, {
@@ -63,7 +63,7 @@ export default function SignUpPage() {
     const handleOnSubmit = (e) => {
         e.preventDefault();
 
-        if (userInfo.password === userInfo.RePassword) {
+        if (userInfo.password === userInfo.confirmPassword) {
             if (Object.keys(validationErrors).length > 0) {
                 toast.error('Please enter valid values!', { autoClose: 3000, pauseOnHover: false });
                 return;
