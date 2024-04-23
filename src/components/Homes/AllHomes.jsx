@@ -8,6 +8,7 @@ import HomeCard from '../common/HomeCard';
 
 import './AllHomes.scss';
 import './Homes.scss';
+import { useSearchParams } from 'react-router-dom';
 
 const searchValuesInitialState = {
     city: '',
@@ -76,6 +77,21 @@ export default function AllHomes() {
             </>
         );
     }
+
+
+    // SORTING
+    const [searchParams] = useSearchParams();
+    const sortValue = searchParams.get('sortBy') || 'startDate-asc';
+    // Spliting sorting value by -
+    const [field, direction] = sortValue.split('-');
+    // This is for desc logic 
+    const modifier = direction === 'asc' ? 1 : -1; 
+    // TODO filteredCabins must be come from allready filtering data that why i create temporary varaiblle 
+    let filteredCabins;
+    const sortedCabins = filteredCabins.sort((a,b)=> (a[field] - b[field]) * modifier);
+    console.log(sortedCabins);
+
+    // TODO then use sortedCabins instead data filtered data
 
     return (
         <section className="main-container">
