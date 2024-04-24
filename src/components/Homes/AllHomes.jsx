@@ -3,7 +3,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useQuery, keepPreviousData, useQueryClient } from '@tanstack/react-query';
 
 import Spinner from '../../common/Spinner';
-import { fetchPaginatedHomes } from '../../common/homesApi';
+import { fetchAllHomes, fetchPaginatedHomes } from '../../common/homesApi';
 import HomeCard from '../common/HomeCard';
 
 import './AllHomes.scss';
@@ -22,15 +22,18 @@ export default function AllHomes() {
     const homesPerPage = 10;
     const [isLongLoading, setIsLongLoading] = useState(false);
     const [searchValues, setSearchValues] = useState(searchValuesInitialState);
+
     const { data, isPlaceholderData, isLoading } = useQuery({
         queryKey: ['homes', pageNumber],
-        queryFn: () => fetchPaginatedHomes(pageNumber, homesPerPage),
+        queryFn: () => fetchAllHomes(),
         placeholderData: keepPreviousData,
         staleTime: 5000,
     });
     const homes = data || [];
-    console.log(homes);
-    console.log('homes');
+    const [searchResult, setSearchResult] = useState([]);
+    const homesToDisplay = searchResult.length > 0
+        ? searchResult
+        : homes
 
     useEffect(() => {
         if (!isPlaceholderData) {
@@ -77,46 +80,68 @@ export default function AllHomes() {
         );
     }
 
+    function handleSubmitResult(e) {
+        e.preventDefault();
+        const holeData = homes;
+        const filteredByCity = searchValues.city 
+            ? holeData.filter((home) => home.city.toLowerCase().includes(searchValues.city.toLowerCase()))
+            : holeData
+        const filteredByNeighborhood = searchValues.neighborhood
+            ? filteredByCity.filter((home) => home.neighborhood.toLowerCase().includes(searchValues.neighborhood.toLowerCase()))
+            : filteredByCity;
+        const filteredLowerPrice = searchValues.minPrice
+            ? filteredByNeighborhood.filter((home) => home.price >= searchValues.minPrice)
+            : filteredByNeighborhood;
+        const filteredBymaxPrice =  searchValues.maxPrice
+            ? filteredLowerPrice.filter((home) => home.price < Number(searchValues.maxPrice))
+            : filteredLowerPrice;
+
+        const finalFiltered = filteredBymaxPrice;
+        console.log(finalFiltered);
+      
+        setSearchResult(finalFiltered);
+    }
+
     return (
         <section className="main-container">
             <section className="home-search">
-                <input
-                    name="city"
-                    placeholder="City"
-                    value={searchValues.city}
-                    type="text"
-                    onChange={handleSearchChange}
-                />
-                <input
-                    name="neighborhood"
-                    placeholder="Neighborhood"
-                    value={searchValues.neighborhood}
-                    type="text"
-                    onChange={handleSearchChange}
-                />
-                <input
-                    name="minPrice"
-                    placeholder="Min. Price"
-                    value={searchValues.minPrice}
-                    type="text"
-                    onChange={handleSearchChange}
-                />
-                <input
-                    name="maxPrice"
-                    placeholder="Max. Price"
-                    value={searchValues.maxPrice}
-                    type="text"
-                    onChange={handleSearchChange}
-                />
-                <select name="sortBy">
-                    <option value="">Sort by</option>
-                </select>
-                <button>
-                    Search
-                </button>
+                <form onSubmit={handleSubmitResult}>
+                    <input
+                        name="city"
+                        placeholder="City"
+                        value={searchValues.city}
+                        type="text"
+                        onChange={handleSearchChange}
+                    />
+                    <input
+                        name="neighborhood"
+                        placeholder="Neighborhood"
+                        value={searchValues.neighborhood}
+                        type="text"
+                        onChange={handleSearchChange}
+                    />
+                    <input
+                        name="minPrice"
+                        placeholder="Min. Price"
+                        value={searchValues.minPrice}
+                        type="text"
+                        onChange={handleSearchChange}
+                    />
+                    <input
+                        name="maxPrice"
+                        placeholder="Max. Price"
+                        value={searchValues.maxPrice}
+                        type="text"
+                        onChange={handleSearchChange}
+                    />
+                    <select name="sortBy">
+                        <option value="">Sort by</option>
+                    </select>
+                    <button>Search</button>
+                </form>
             </section>
             <section className="homes-list-container">
-                {homes?.map((home) => (
+                {homesToDisplay.map((home) => (
                     <HomeCard
                         key={home.id}
                         homeId={home.id}

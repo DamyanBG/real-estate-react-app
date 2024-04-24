@@ -12,8 +12,6 @@ export const fetchPaginatedHomes = (page, rowsPerPage) => {
     return fetch(`${hostUrl}/homes/${page}/${rowsPerPage}`)
         .then((resp) => resp.json())
         .then((json) => {
-            console.log("json")
-            console.log(json)
             return json
         });
 };
