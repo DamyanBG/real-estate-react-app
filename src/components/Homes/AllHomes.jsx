@@ -82,6 +82,7 @@ export default function AllHomes() {
     // SORTING
     const [searchParams] = useSearchParams();
     const sortValue = searchParams.get('sortBy') || 'startDate-asc';
+
     // Spliting sorting value by -
     const [field, direction] = sortValue.split('-');
     // This is for desc logic 
