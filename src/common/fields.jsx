@@ -21,8 +21,23 @@ export const HOME_FIELDS = [
         type: 'number',
     },
     {
-        labelName: 'Size',
-        name: 'size',
+        labelName: 'Area',
+        name: 'area',
+        type: 'number',
+    },
+    {
+        labelName: 'Bedrooms',
+        name: 'bedrooms',
+        type: 'number',
+    },
+    {
+        labelName: 'Bathrooms',
+        name: 'bathrooms',
+        type: 'number',
+    },
+    {
+        labelName: 'Garages',
+        name: 'garages',
         type: 'number',
     },
     {
