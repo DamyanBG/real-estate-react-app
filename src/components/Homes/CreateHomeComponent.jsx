@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useMapEvents } from 'react-leaflet/hooks';
+
 import { HOME_FIELDS } from '../../common/fields';
 import { validateField } from '../../common/validation';
 import { checkObjForProfanity } from '../../common/profanity';
 import usePostHome from './usePostHome';
-import { useMapEvents } from 'react-leaflet/hooks';
 import ImageSection from './ImageSection';
 import HomeForm from './HomeForm';
 import CreateHomeMap from './CreateHomeMap';

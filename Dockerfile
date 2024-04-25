@@ -28,8 +28,10 @@ COPY . .
 # Install project dependencies
 RUN npm install
 
+ARG BUILD_COMMAND=build
+
 # Build the React app
-RUN npm run build:container
+RUN npm run ${BUILD_COMMAND}
 
 # Expose a port (e.g., 3000) for your React app to run
 EXPOSE 3000
