@@ -1,0 +1,72 @@
+@import "../../assets/_colors.scss";
+
+@mixin flex-section {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-bottom: 36px;
+}
+
+.homeDetails {
+    padding: 48px 36px;
+}
+
+.topSection {
+   @include flex-section;
+}
+
+.imagesContainer {
+    width: 60%;
+
+    // img {
+    //     width: 100%;
+    // }
+}
+
+.mapAndButtons {
+    width: 40%;
+
+    article {
+        margin-left: 10%;
+        margin-right: 10%;
+
+        button {
+            width: 100%;
+            margin-bottom: 24px;
+            height: 48px;
+            border: none;
+            border-radius: 6px;
+        }
+
+        .contact {
+            background-color: $green-color;
+        }
+
+        .favorites {
+            background-color: $sand-color;
+        }
+    }
+}
+
+.middleSection {
+    @include flex-section;
+}
+
+.homeInfo {
+    width: 60%;
+
+    h2 {
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+
+    hr {
+        border: 1px solid $black-color;
+    }
+}
+
+.share {
+    width: 40%2;
+}
+

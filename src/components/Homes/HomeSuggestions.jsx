@@ -21,6 +21,9 @@ const HomeSuggestions = ({ homeId }) => {
     return (
         suggestions.length > 0 && (
             <section className="suggestions">
+                <article className="latest-properties-title">
+                    <h2>Closest Properties</h2>
+                </article>
                 <section className="properties-card-container">
                     {suggestions.slice(0, 3).map((homeSug) => (
                         <HomeCard
