@@ -35,13 +35,9 @@ const HomeCard = ({ homeId, photoUrl, city, neighborhood, title, description, pr
                 </article>
 
                 <article className="property-card-footer">
-                    <Link to={`/details?homeId=${homeId}`}>View Details</Link>
+                    <Link to={`/home-details?homeId=${homeId}`}>View Details</Link>
                 </article>
             </section>
-            <article className="property-card-footer">
-                <span className="property-price">{price}</span>
-                <Link to={`/home-details?homeId=${homeId}`}>View Details</Link>
-            </article>
         </article>
     );
 };

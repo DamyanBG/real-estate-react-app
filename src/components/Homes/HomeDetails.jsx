@@ -3,6 +3,9 @@ import { useContext, useEffect, useState, lazy } from 'react';
 
 import { hostUrl } from '@/utils/urls';
 import exampleHomePhoto from '../../images/home-main-photo-example.jpg';
+import facebookLogo from '../../assets/images/facebook_logo.png';
+import xLogo from '../../assets/images/x_logo.webp';
+
 import VisitationsTable from '../..//common/VisitationsTable';
 import { UserContext } from '../../context/UserContext';
 import HomeSuggestions from './HomeSuggestions';
@@ -116,7 +119,7 @@ export default function HomeDetails() {
                     <article>
                         <h2>Overview</h2>
                         <hr />
-                        <table>
+                        <table className={styles.overviewTable}>
                             <tbody>
                                 <tr>
                                     <td>City</td>
@@ -169,7 +172,14 @@ export default function HomeDetails() {
                     </article>
                 </article>
                 <article className={styles.share}>
-
+                    <h2>Share</h2>
+                    <hr />
+                    <button>
+                        <img src={facebookLogo} alt="" />
+                    </button>
+                    <button>
+                        <img src={xLogo} alt="" />
+                    </button>
                 </article>
             </section>
             
