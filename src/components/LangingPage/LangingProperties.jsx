@@ -1,4 +1,4 @@
-import HomeCard from '../common/HomeCard';
+import HomeCard from '../common/home-cards/HomeCard';
 
 
 const LandingProperties = () => {

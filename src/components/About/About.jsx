@@ -1,5 +1,4 @@
 import React from "react";
-import './About.scss';
 
 function About() {
     return (
