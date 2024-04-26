@@ -51,10 +51,6 @@
 
 .middleSection {
     @include flex-section;
-}
-
-.homeInfo {
-    width: 60%;
 
     h2 {
         margin-top: 8px;
@@ -62,11 +58,43 @@
     }
 
     hr {
-        border: 1px solid $black-color;
+        height: 1px;
+        background-color: $black-color;
+        color: $black-color;
+        margin-bottom: 32px;
+    }
+}
+
+.homeInfo {
+    width: 60%;
+}
+
+.share {
+    width: 40%;
+}
+
+.overviewTable {
+    width: 100%;
+    border-collapse: collapse;
+
+    tr {
+        height: 36px;
+    }
+
+    tr:nth-child(odd) {
+        background-color: $light-color;
+    }
+
+    td {
+        padding-left: 24px;
     }
 }
 
 .share {
-    width: 40%2;
-}
+    padding-left: 36px;
+    padding-right: 36px;
 
+    img {
+        width: 50px;
+    }
+}
