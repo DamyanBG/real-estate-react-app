@@ -1,5 +1,4 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import './Chat.scss';
 import { hostUrl } from '../../utils/urls';
 import { UserContext } from '../../context/UserContext';
 import { io } from 'socket.io-client';

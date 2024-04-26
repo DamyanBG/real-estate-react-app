@@ -1,4 +1,4 @@
-@import "../../assets/_colors.scss";
+@import "../../assets/styles/_colors.scss";
 
 @mixin flex-section {
     width: 100%;
@@ -40,11 +40,11 @@
         }
 
         .contact {
-            background-color: $green-color;
+            background-color: $second-color;
         }
 
         .favorites {
-            background-color: $sand-color;
+            background-color: $fourth-color;
         }
     }
 }
@@ -59,8 +59,8 @@
 
     hr {
         height: 1px;
-        background-color: $black-color;
-        color: $black-color;
+        background-color: black;
+        color: black;
         margin-bottom: 32px;
     }
 }
@@ -82,7 +82,7 @@
     }
 
     tr:nth-child(odd) {
-        background-color: $light-color;
+        background-color: $fifth-color;
     }
 
     td {

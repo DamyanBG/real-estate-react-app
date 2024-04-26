@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { hostUrl } from '../../utils/urls';
-import HomeCard from '../common/HomeCard';
+import HomeCard from '../common/home-cards/HomeCard';
 
 const HomeSuggestions = ({ homeId }) => {
     const [suggestions, setSuggestions] = useState([]);

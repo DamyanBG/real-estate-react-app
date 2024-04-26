@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { HiMiniMapPin } from "react-icons/hi2";
-import defaultImage from '../../../public/images/house-image-mirror.png';
+import defaultImage from '../../../../public/images/house-image-mirror.png';
 
 import './HomeCard.scss';
 

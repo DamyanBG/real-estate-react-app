@@ -1,40 +1,40 @@
-@import "../../assets/colors";
+@import "../../assets/styles/colors";
 
-footer {
+.footer {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  background: $green-color;
-  color: $light-color;
+  background: $second-color;
+  color: $fifth-color;
   padding: 16px 48px;
 }
 
-footer h3 {
+.footer h3 {
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 12px;
 }
 
-footer hr {
+.footer hr {
   margin-bottom: 12px;
-  color: $light-color;
+  color: $fifth-color;
 }
 
-footer p {
+.footer p {
   margin-bottom: 8px;
 }
 
-footer p a {
+.footer p a {
   color: inherit;
 }
 
 @media (max-width: 700px)  {
-  footer {
+  .footer {
       flex-direction: column;
       justify-content: center;
   }
 
-  footer h3 {
+  .footer h3 {
       margin-top: 12px;
   }
 }
