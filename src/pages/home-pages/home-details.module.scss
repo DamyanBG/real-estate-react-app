@@ -1,0 +1,100 @@
+@import "../../assets/styles/colors.scss";
+
+@mixin flex-section {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-bottom: 36px;
+}
+
+.homeDetails {
+    padding: 48px 36px;
+}
+
+.topSection {
+   @include flex-section;
+}
+
+.imagesContainer {
+    width: 60%;
+
+    // img {
+    //     width: 100%;
+    // }
+}
+
+.mapAndButtons {
+    width: 40%;
+
+    article {
+        margin-left: 10%;
+        margin-right: 10%;
+
+        button {
+            width: 100%;
+            margin-bottom: 24px;
+            height: 48px;
+            border: none;
+            border-radius: 6px;
+        }
+
+        .contact {
+            background-color: $second-color;
+        }
+
+        .favorites {
+            background-color: $fourth-color;
+        }
+    }
+}
+
+.middleSection {
+    @include flex-section;
+
+    h2 {
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+
+    hr {
+        height: 1px;
+        background-color: black;
+        color: black;
+        margin-bottom: 32px;
+    }
+}
+
+.homeInfo {
+    width: 60%;
+}
+
+.share {
+    width: 40%;
+}
+
+.overviewTable {
+    width: 100%;
+    border-collapse: collapse;
+
+    tr {
+        height: 36px;
+    }
+
+    tr:nth-child(odd) {
+        background-color: $fifth-color;
+    }
+
+    td {
+        padding-left: 24px;
+    }
+}
+
+.share {
+    padding-left: 36px;
+    padding-right: 36px;
+
+    img {
+        width: 50px;
+    }
+}

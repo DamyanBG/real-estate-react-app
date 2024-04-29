@@ -4,6 +4,7 @@ import { useQuery, keepPreviousData, useQueryClient } from '@tanstack/react-quer
 
 import Spinner from '../../components/Spinner';
 import { fetchAllHomes, fetchPaginatedHomes } from '../../api/homeApi';
+import HomeCard from '../../components/cards/home-cards/HomeCard';
 
 import './AllHomes.scss';
 import './Homes.scss';

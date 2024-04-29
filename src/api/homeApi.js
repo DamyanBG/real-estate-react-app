@@ -1,4 +1,10 @@
+import axios from "axios";
+
 import { hostUrl } from "../utils/urls";
+
+export const HOME_API = axios.create({
+    baseURL: `${hostUrl}`
+})
 
 export const fetchAllHomes = () => {
 
@@ -18,3 +24,13 @@ export const fetchPaginatedHomes = (page, rowsPerPage) => {
             return json
         });
 };
+
+export const postHome = async (homeInfo, userId) => {
+    const postBody = { ...homeInfo, owner_id: userId };
+    try {
+        const res = await HOME_API.post(`/home`, postBody)
+        return { error: null, ...res }
+    } catch (error) {
+        return { error }
+    }
+}
