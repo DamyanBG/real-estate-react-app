@@ -1,0 +1,20 @@
+@import 'react-toastify/dist/ReactToastify.css';
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+html,
+body {
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+body {
+    background: rgb(101,157,189);
+    background: linear-gradient(150deg, rgba(101,157,189,1) 0%, rgba(191,223,233,1) 100%);
+}
