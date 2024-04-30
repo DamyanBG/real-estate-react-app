@@ -29,8 +29,10 @@ export const postHome = async (homeInfo, userId) => {
     const postBody = { ...homeInfo, owner_id: userId };
     try {
         const res = await HOME_API.post(`/home`, postBody)
+        console.log(res)
         return { error: null, ...res }
     } catch (error) {
+        console.log(error)
         return { error }
     }
 }
