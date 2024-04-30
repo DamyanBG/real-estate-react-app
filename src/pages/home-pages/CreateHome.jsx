@@ -1,4 +1,4 @@
-import CreateHomeComponent from "../../components/Homes/CreateHomeComponent"
+import CreateHomeComponent from "../../components/home/CreateHomeComponent"
 
 const CreateHome = () => {
     return <CreateHomeComponent />

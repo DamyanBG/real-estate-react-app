@@ -1,0 +1,152 @@
+@import '../../assets/styles/colors.scss';
+
+.main-container {
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.4);
+    border-radius: 30px;
+    padding: 48px 36px;
+
+    .home-container {
+        padding: 24px 36px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .image-container {
+            display: inline-block;
+            border-radius: 10px;
+            box-shadow: 0 1.5rem 4rem rgba(255, 0, 0, 17%);
+            width: 200px;
+            height: 150px;
+
+            .all-homes-image {
+                width: 200px;
+                border-radius: 10px;
+                height: 150px;
+                z-index: 10;
+                transition: all 0.5s;
+                cursor: pointer;
+            }
+
+            .all-homes-image:hover {
+                transform: scale(1.05) translateY(-0.5rem);
+                box-shadow: 0 2.5rem 4rem rgba(0, 0, 0, 0.5);
+                z-index: 20;
+            }
+        }
+
+        .main-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 25%;
+            height: auto;
+            margin-left: 10%;
+
+            h3 {
+                background-image: linear-gradient(to right, #050872, #070335);
+                -webkit-background-clip: text;
+                transition: all 0.5s;
+            }
+
+            h3:hover {
+                transform: skewY(2deg) skewX(15deg) scale(1.1);
+                text-shadow: 0.5rem 1rem 2rem rgba(0, 0, 0, 0.2);
+            }
+
+            .main-text-par {
+                color: darkslategray;
+                font-weight: 400;
+                font-style: italic;
+            }
+        }
+
+        .description-text {
+            display: inline-block;
+            margin-left: 10%;
+            box-shadow: 0 1.5rem 4rem rgba(255, 0, 0, 17%);
+            border: none;
+            border-radius: 7px;
+
+            .description-text-par {
+                color: darkolivegreen;
+                border-radius: 7px;
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+                    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                background-image: linear-gradient(to right, #050872, #070335);
+                -webkit-background-clip: text;
+                transition: all 0.5s;
+            }
+
+            .description-text-par:hover {
+                transform: skewY(2deg) skewX(15deg) scale(1.1);
+                text-shadow: 0.5rem 1rem 2rem rgba(0, 0, 0, 0.2);
+            }
+        }
+    }
+
+    .paginationBtns {
+        width: 100%;
+        height: 4rem;
+        display: flex;
+        justify-content: center;
+    }
+
+    .paginationBtns a {
+        border-radius: 0.2rem;
+        padding: 0.5rem;
+        border: 1px solid #2b2eff;
+        color: #2b2eff;
+        cursor: pointer;
+    }
+
+    .paginationBtns a:hover {
+        color: white;
+        background-color: #2b2eff;
+    }
+
+    .paginationActive a {
+        color: white;
+        background-color: #2b2eff;
+    }
+
+    .paginationDisabled a {
+        color: lightblue;
+        background-color: grey;
+    }
+}
+
+.home-search {
+    margin-bottom: 24px;
+
+    input {
+        padding: 12px 12px;
+    }
+
+    input, select {
+        border: 1px solid black;
+    }
+
+    input, select, button {
+        height: 36px;
+        margin-right: 12px;
+        width: 200px;
+        border-radius: 6px;
+    }
+
+    button {
+        // TO DO: Finish this button
+        color: $fifth-color;
+    }
+}
+
+.homes-list-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between; 
+
+    > * {
+       margin-bottom: 36px;
+    }
+}
