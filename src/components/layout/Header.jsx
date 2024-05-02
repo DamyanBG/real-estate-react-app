@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
+
 import { UserContext } from '../../context/UserProvider';
+
+import styles from "./header.module.scss"
 
 const UserNav = ({ handleLinkClick }) => {
     const { user, setUser } = useContext(UserContext);
@@ -61,7 +64,7 @@ const UserNav = ({ handleLinkClick }) => {
 export default function Header() {
     const [isActive, setIsActive] = useState(false);
 
-    const navBarClassName = isActive ? 'nav-bar active' : 'nav-bar';
+    const navBarClassName = isActive ? `${styles.navBar} ${styles.active}` : styles.navBar;
 
     const handleHamburgerClick = () => {
         setIsActive(!isActive);
@@ -72,19 +75,19 @@ export default function Header() {
     };
 
     return (
-        <header>
-            <article className="site-name">
+        <header className={styles.header}>
+            <article className={styles.siteName}>
                 <Link to="/">REAL ESTATE</Link>
             </article>
-            <article className="hamburger" onClick={handleHamburgerClick}>
-                <article className="line"></article>
-                <article className="line"></article>
-                <article className="line"></article>
+            <article className={styles.hamburger} onClick={handleHamburgerClick}>
+                <article className={styles.line}></article>
+                <article className={styles.line}></article>
+                <article className={styles.line}></article>
             </article>
             <nav className={navBarClassName}>
                 <ul>
                     <li>
-                        <Link onClick={handleLinkClick} className="active" to="/all-homes">
+                        <Link onClick={handleLinkClick} className={styles.active} to="/all-homes">
                             Buy
                         </Link>
                     </li>
