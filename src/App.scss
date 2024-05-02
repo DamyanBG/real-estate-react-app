@@ -1,52 +1,5 @@
 @import './assets/styles/colors';
 
-header {
-    width: 100%;
-    height: 80px;
-    background: $fourth-color;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 100px;
-}
-
-.site-name {
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.site-name a {
-    color: black;
-}
-
-.hamburger {
-    display: none;
-}
-
-.nav-bar ul {
-    display: flex;
-}
-
-.nav-bar ul li a {
-    display: block;
-    color: $fifth-color;
-    font-size: 20px;
-    padding: 10px 25px;
-    border-radius: 50px;
-    transition: 0.2s;
-    margin: 0 5px;
-}
-
-.nav-bar ul li a:hover {
-    color: $fifth-color;
-    background: $second-color;
-}
-
-.nav-bar ul li a.active {
-    color: $fifth-color;
-    background: $second-color;
-}
-
 .landing-section {
     width: 100%;
     min-height: calc(100vh - 80px);
@@ -370,18 +323,6 @@ header {
     border: 1px solid red !important;
 }
 
-@media only screen and (max-width: 1320px) {
-    header {
-        padding: 0 50px;
-    }
-}
-
-@media only screen and (max-width: 1100px) {
-    header {
-        padding: 0 30px;
-    }
-}
-
 @media (max-width: 1100px) {
     .home-image-form-row {
         display: block;
@@ -394,54 +335,6 @@ header {
     .home-image {
         width: auto;
         min-height: auto;
-    }
-}
-
-@media only screen and (max-width: 900px) {
-    .hamburger {
-        display: block;
-        cursor: pointer;
-    }
-
-    .hamburger .line {
-        width: 30px;
-        height: 3px;
-        background: black;
-        margin: 6px 0;
-    }
-
-    .nav-bar {
-        height: 0;
-        position: absolute;
-        top: 80px;
-        left: 0;
-        right: 0;
-        width: 100vw;
-        background: black;
-        transition: 0.2s;
-        overflow: hidden;
-        z-index: 99;
-    }
-
-    .nav-bar.active {
-        height: 450px;
-    }
-
-    .nav-bar ul {
-        display: block;
-        width: fit-content;
-        margin: 80px auto 0 auto;
-        text-align: center;
-        transition: 0.5s;
-        opacity: 0;
-    }
-
-    .nav-bar.active ul {
-        opacity: 1;
-    }
-
-    .nav-bar ul li a {
-        margin-bottom: 12px;
     }
 }
 

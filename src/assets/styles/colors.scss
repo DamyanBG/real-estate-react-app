@@ -1,7 +1,7 @@
 // Colors and theme names are taken from color-schemes folder
 // === THEME ===
-// Allowed values: LandOfClean, Dark
-$theme: LandOfClean;
+// Allowed values: LandOfClean, Dark, CoolAndCollected
+$theme: CoolAndCollected;
 
 // Define variables
 $first-color: #659dbd;
@@ -19,11 +19,18 @@ $sixth-color: #fefefe;
     $fourth-color: #bc986a;
     $fifth-color: #fbeec1;
     $sixth-color: #fefefe;
-} @else if $theme == LandOfClean {
+} @else if $theme == LanfOfClean {
     $first-color: #659dbd;
     $second-color: #8d8741;
     $third-color: #daad86;
     $fourth-color: #bc986a;
     $fifth-color: #fbeec1;
+    $sixth-color: #fefefe;
+} @else if $theme == CoolAndCollected {
+    $first-color: #003135;
+    $second-color: #024950;
+    $third-color: #964734;
+    $fourth-color: #0FA4AF;
+    $fifth-color: #AFDDE5;
     $sixth-color: #fefefe;
 }
