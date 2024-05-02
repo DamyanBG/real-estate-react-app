@@ -1,22 +1,8 @@
 import { Link } from 'react-router-dom';
 
-import HomeCarousel from './HomeCarousel';
-
-import MyImage1 from '../../assets/images/carousel-1.jpg';
-import MyImage2 from '../../assets/images/carousel-2.jpg';
-
-const slides = [
-    { image: MyImage1 },
-    { image: MyImage2 },
-];
-
-
 const MainSection = () => {
     return (
         <section className="landing-section">
-            <article>
-                <HomeCarousel slides={slides}/>
-            </article>
             <article>
                 <h1>Welcome To Real Estate App</h1>
                 <h2>Platform opened for everybody to publish real estate!</h2>
