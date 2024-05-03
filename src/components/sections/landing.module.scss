@@ -1,0 +1,106 @@
+@import "../../assets/styles/colors.scss";
+
+$text-color: $sixth-color;
+$button-background: $first-color;
+$hover-background: $third-color;
+
+.landingSection {
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    background-image: url('../../assets/images/nice-home-1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+}
+
+.landingSection > article {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.landingSection > article > article {
+    width: 80%;
+    height: 80%;
+    background: rgba($color: black, $alpha: 0.6);
+    border-radius: 16px;
+    color: $text-color;
+    padding: 80px 50px;
+    text-align: center;
+}
+
+.landingSection > article > article > h1 {
+    font-size: 36px;
+    font-weight: 900;
+    margin-bottom: 36px;
+}
+
+.landingSection > article > article > h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 36px;
+}
+
+.landingSection > article > article > p {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.8;
+    padding: 0 100px;
+    margin-bottom: 36px;
+}
+
+.landingSection > article > article > a {
+    font-size: 18px;
+    padding: 6px 60px;
+    background: $button-background;
+    border-radius: 16px;
+    color: $text-color;
+    transition: 0.5s;
+}
+
+.landingSection > article > article > a:hover {
+    background: $hover-background;
+}
+
+@media (max-width: 1400px) {
+    .landingSection > article {
+        width: 70%;
+    }
+}
+
+@media (max-width: 1200px) {
+    .landingSection > article {
+        width: 75%;
+    }
+}
+
+@media (max-width: 1000px) {
+    .landingSection > article {
+        width: 100%;
+        min-height: inherit;
+        display: block;
+    }
+
+    .landingSection > article > article {
+        width: 100%;
+        min-height: 100%;
+        border-radius: 0;
+    }
+}
+
+@media (max-width: 700px) {
+    .landingSection > article > article > p {
+        padding: 0 40px;
+    }
+}
+
+@media (max-width: 500px) {
+    .landingSection > article > article {
+        padding: 80px 20px;
+    }
+
+    .landing-section > article > article > p {
+        padding: 0 20px;
+    }
+}

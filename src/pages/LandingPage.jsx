@@ -1,11 +1,11 @@
 import ChoosePerfectProperty from '../components/sections/ChoosePerfectProperty';
 import LandingProperties from '../components/sections/LandingProperties';
-import MainSection from '../components/sections/MainSection';
+import LandingSection from '../components/sections/LandingSection';
 
 const LandingPage = () => {
     return (
         <>
-            <MainSection />
+            <LandingSection />
             <div className='middle-main-container'>
                 <ChoosePerfectProperty/>
                 <LandingProperties />
