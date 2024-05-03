@@ -4,13 +4,14 @@ import { toast } from "react-toastify";
 
 import { USER_FIELDS } from "../../utils/fields";
 import { UserContext } from "../../context/UserProvider";
-import { hostUrl } from "../../utils/urls";
 import { validateField } from "../../utils/validation";
 import InputFormRow from "../../components/form/InputFormRow";
 import FormSubmitButton from "../../components/form/FormSubmitButton";
 import { ROLES_ENUM } from "../../utils/enums";
 import FormComponent from "../../components/form/FormComponent";
 import FormCheckbox from "../../components/form/FormCheckbox";
+import { createUser } from "../../api/userApi";
+import { createUserPostBody } from "../../utils/utils";
 
 export default function SignUp() {
     const [userInfo, setUserInfo] = useState({
@@ -22,39 +23,18 @@ export default function SignUp() {
             {}
         )
     );
-
     const { setUser } = useContext(UserContext);
-
     const navigate = useNavigate();
 
     const postUser = async () => {
-        const urlPath =
-            userInfo.role === ROLES_ENUM.user
-                ? "user/register-user"
-                : "user/register-seller";
-
-        const { confirmPassword: _, ...postBody } = userInfo;
+        const postBody = createUserPostBody(userInfo)
 
         try {
-            const response = await fetch(`${hostUrl}/${urlPath}`, {
-                method: "POST",
-                body: JSON.stringify(postBody),
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-
-            const json = await response.json();
-
-            if (!response.ok) {
-                throw new Error("Request failed!");
-            }
-
+            const json = await createUser(postBody,  userInfo.role === ROLES_ENUM.seller)
             const newUserInfo = {
                 ...json,
                 role: userInfo.role,
             };
-
             localStorage.setItem("user", JSON.stringify(newUserInfo));
             setUser(newUserInfo);
             navigate("/");
