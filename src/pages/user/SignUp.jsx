@@ -20,7 +20,6 @@ export default function SignUp() {
 
     const { setUser } = useContext(UserContext);
     
-
     const navigate = useNavigate();
 
     const postUser = async () => {
@@ -50,9 +49,9 @@ export default function SignUp() {
                 ...json,
                 'role': userInfo.role
             }
+
             localStorage.setItem('user', JSON.stringify(newUserInfo));
             setUser(newUserInfo);
-
             navigate('/');
             toast.success('Successful Sign up!', { autoClose: 3000, pauseOnHover: false });
         } catch (err) {

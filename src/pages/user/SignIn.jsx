@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { SIGNIN_FIELDS } from '../../utils/fields';
 import { UserContext } from '../../context/UserProvider';
-import { hostUrl } from '../../utils/urls';
 import { validateField } from '../../utils/validation';
 import InputFormRow from '../../components/form/InputFormRow';
 import FormSubmitButton from '../../components/form/FormSubmitButton';
+import { fetchUserLogIn } from '../../api/userApi';
 
 export default function SignIn() {
     const [loginInfo, setLoginInfo] = useState({});
@@ -19,24 +19,16 @@ export default function SignIn() {
 
     const navigate = useNavigate();
 
-    const signIn = async () => {
+    const logIn = async () => {
         try {
-            const response = await fetch(`${hostUrl}/user/login`, {
-                method: 'POST',
-                body: JSON.stringify(loginInfo),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
+            const response = await fetchUserLogIn(loginInfo)
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(data, 'from sing in');
-
                 localStorage.setItem('user', JSON.stringify(data));
                 setUser(data);
                 navigate('/');
-            }else{
+            } else {
                 toast.error('Incorrect email or password!', {
                     autoClose: 3000,
                     pauseOnHover: false,
@@ -81,7 +73,7 @@ export default function SignIn() {
             toast.error('Please enter valid values!', { autoClose: 3000, pauseOnHover: false });
             return;
         }
-        signIn();
+        logIn();
     };
 
     return (
