@@ -9,6 +9,7 @@ import { validateField } from '../../utils/validation';
 import InputFormRow from '../../components/form/InputFormRow';
 import FormSubmitButton from '../../components/form/FormSubmitButton';
 import { ROLES_ENUM } from '../../utils/enums';
+import FormComponent from '../../components/form/FormComponent';
 
 export default function SignUp() {
     const [userInfo, setUserInfo] = useState({
@@ -119,10 +120,11 @@ export default function SignUp() {
     return (
         <section className="auth-form-container">
             <section className="auth-form-section">
-                <form onSubmit={handleOnSubmit} data-testid="auth-form">
-                    <h2>Registration Form</h2>
-                    <article className="content">
-                        {USER_FIELDS.map((uf) => (
+                <FormComponent
+                    handleOnSubmit={handleOnSubmit}
+                    dataTestId="auth-form"
+                    formFields={(
+                        USER_FIELDS.map((uf) => (
                             <InputFormRow
                                 key={uf.labelName}
                                 labelName={uf.labelName}
@@ -133,19 +135,23 @@ export default function SignUp() {
                                 validationError={validationErrors[uf.name]}
                                 dataTestId={uf.name}
                             />
-                        ))}
-                    </article>
-
-                    <article className="alert">
-                        <input
-                            data-testid="as-seller"
-                            type="checkbox"
-                            onChange={handleCheckboxChange}
-                        />
-                        <p>Sign Up as seller</p>
-                    </article>
-                    <FormSubmitButton text="Register" />
-                </form>
+                        ))
+                    )}
+                    submitButton={(
+                        <FormSubmitButton text="Register" />
+                    )}
+                    formHeaderText="Registration Form"
+                    checkboxComponent={(
+                        <article className="alert">
+                            <input
+                                data-testid="as-seller"
+                                type="checkbox"
+                                onChange={handleCheckboxChange}
+                            />
+                            <p>Sign Up as seller</p>
+                        </article>
+                    )}
+                />
             </section>
         </section>
     );

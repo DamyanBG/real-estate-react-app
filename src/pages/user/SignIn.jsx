@@ -8,15 +8,14 @@ import { validateField } from '../../utils/validation';
 import InputFormRow from '../../components/form/InputFormRow';
 import FormSubmitButton from '../../components/form/FormSubmitButton';
 import { fetchUserLogIn } from '../../api/userApi';
+import FormComponent from '../../components/form/FormComponent';
 
 export default function SignIn() {
     const [loginInfo, setLoginInfo] = useState({});
     const [validationErrors, setValidationErrors] = useState(
         SIGNIN_FIELDS.map((uf) => uf.name).reduce((acc, curr) => ((acc[curr] = ''), acc), {})
     );
-
     const { setUser } = useContext(UserContext);
-
     const navigate = useNavigate();
 
     const logIn = async () => {
@@ -78,11 +77,12 @@ export default function SignIn() {
 
     return (
         <section className="auth-form-container">
-            <div data-testid="sign-in-page-form" className="auth-form-section">
-                <form onSubmit={handleOnSubmit} data-testid="sign-in-form">
-                    <h2>Sign In Form</h2>
-                    <article className="content">
-                        {SIGNIN_FIELDS.map((sf) => (
+            <section data-testid="sign-in-page-form" className="auth-form-section">
+                <FormComponent
+                    handleOnSubmit={handleOnSubmit}
+                    dataTestId="sign-in-form"
+                    formFields={(
+                        SIGNIN_FIELDS.map((sf) => (
                             <InputFormRow
                                 key={sf.labelName}
                                 labelName={sf.labelName}
@@ -93,11 +93,14 @@ export default function SignIn() {
                                 validationError={validationErrors[sf.name]}
                                 dataTestId={sf.name}
                             />
-                        ))}
-                    </article>
-                    <FormSubmitButton disabled={Object.keys(validationErrors).length} text="Sign In" />
-                </form>
-            </div>
+                        ))
+                    )}
+                    submitButton={(
+                        <FormSubmitButton disabled={Object.keys(validationErrors).length} text="Sign In" />
+                    )}
+                    formHeaderText="Sign In Form"
+                />
+            </section>
         </section>
     );
 }

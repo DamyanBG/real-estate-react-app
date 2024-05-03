@@ -211,13 +211,6 @@
     border-bottom: 1px solid silver;
 }
 
-.content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 20px 0;
-}
-
 @media (max-width: 1100px) {
     .home-image-form-row {
         display: block;
@@ -258,15 +251,6 @@
 
     .auth-form-section {
         min-width: 380px;
-    }
-
-    .content {
-        max-height: 380px;
-        overflow: auto;
-    }
-
-    .content::-webkit-scrollbar {
-        width: 0;
     }
 }
 
