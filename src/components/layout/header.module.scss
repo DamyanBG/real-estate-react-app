@@ -1,12 +1,15 @@
 @import "../../assets/styles/colors.scss";
 
-$background-color: $fifth-color;
-$link-text-color: $first-color;
-$site-name-text-color: $third-color;
+$left-background: $second-color;
+$right-background: $third-color;
+$background-color: linear-gradient(to right, $left-background, $right-background);
+$link-text-color: black;
+$link-text-color-mobile: $second-color;
+$site-name-text-color: black;
 
 @mixin hover-effect {
     color: $sixth-color;
-    background: $second-color;
+    background: $first-color;
 }
 
 .header {
@@ -44,6 +47,7 @@ $site-name-text-color: $third-color;
     border-radius: 50px;
     transition: 0.2s;
     margin: 0 5px;
+    transition: 0.5s;
 }
 
 .navBar ul li a:hover {
@@ -110,6 +114,7 @@ $site-name-text-color: $third-color;
     }
 
     .navBar ul li a {
+        color: $link-text-color-mobile;
         margin-bottom: 12px;
     }
 }

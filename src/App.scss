@@ -1,55 +1,5 @@
 @import './assets/styles/colors';
 
-.landing-section {
-    width: 100%;
-    min-height: calc(100vh - 80px);
-    background: gray;
-    background-image: url('./assets/images/house-image-mirror.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: flex;
-    align-items: stretch;
-}
-
-.landing-section > article {
-    width: 100%;
-    background: rgba($color: black, $alpha: 0.6);
-    color: $fifth-color;
-    padding: 100px 50px;
-    text-align: center;
-}
-
-.landing-section > article > h1 {
-    font-size: 36px;
-    font-weight: 900;
-    margin-bottom: 36px;
-}
-
-.landing-section > article > h2 {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 36px;
-}
-
-.landing-section > article > p {
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 1.8;
-    padding: 0 100px;
-    margin-bottom: 36px;
-}
-
-.landing-section > article > a {
-    padding: 5px 10px;
-    background: $second-color;
-    color: $fifth-color;
-    transition: 0.5s;
-}
-
-.landing-section > article > a:hover {
-    background: rgb(84, 17, 84);
-}
-
 .latest-properties {
     width: 100%;
     max-width: 1580px;
@@ -238,12 +188,6 @@
     }
 }
 
-@media (max-width: 700px) {
-    .landing-section > article > p {
-        padding: 0 40px;
-    }
-}
-
 @media (max-width: 600px) {
     .home-form-section {
         min-width: 380px;
@@ -251,15 +195,5 @@
 
     .auth-form-section {
         min-width: 380px;
-    }
-}
-
-@media (max-width: 500px) {
-    .landing-section > article {
-        padding: 80px 20px;
-    }
-
-    .landing-section > article > p {
-        padding: 0 20px;
     }
 }
