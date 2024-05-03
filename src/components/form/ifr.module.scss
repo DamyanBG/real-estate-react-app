@@ -1,0 +1,102 @@
+.inputBox,
+.formRow {
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    padding-bottom: 15px;
+}
+
+.inputBox:nth-child(2n),
+.formRow {
+    justify-content: end;
+}
+
+.inputBox label,
+.formRow label {
+    width: 95%;
+    color: #fff;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.inputBox input,
+.formRow textarea {
+    height: 40px;
+    width: 95%;
+    padding: 0 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.inputBox input:focus {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.inputBox input[type='file'] {
+    border: none;
+    padding: 0;
+    color: #fff;
+}
+
+.inputBox input[type='file']::file-selector-button {
+    background: #330c43;
+    color: #fff;
+    width: 50%;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(to right, #aa076b, #61045f);
+    cursor: pointer;
+}
+
+.validationError {
+    position: relative;
+    width: 100%;
+}
+
+.validationError::before,
+.validationError::after {
+    --arrow-size: 10px;
+    
+    position: absolute;
+    top: -55px;
+    left: 50%;
+    transform: translateX(-50%) translateY(var(--translate-y, 0));
+    transition: 50ms transform;
+    transform-origin: bottom center;
+}
+
+.validationError::before {
+    --translate-y: calc(-100% - var(--arrow-size));
+
+    content: attr(data-tooltip);
+    padding: 10px;
+    width: max-content;
+    max-width: 100%;
+    border: 1px solid #333;
+    background: white;
+    color: #333;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.validationError::after {
+    --translate-y: calc(-1 * var(--arrow-size));
+
+  content: '';
+  border: var(--arrow-size) solid transparent;
+  border-top-color: #e48430;
+  transform-origin: top center;
+}
+
+@media (max-width: 600px) {
+    .inputBox {
+        margin-bottom: 12px;
+        width: 100%;
+    }
+
+    .inputBox:nth-child(2n) {
+        justify-content: space-between;
+    }
+}

@@ -1,0 +1,17 @@
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+@media (max-width: 600px) {
+    .content {
+        max-height: 380px;
+        overflow: auto;
+    }
+
+    .content::-webkit-scrollbar {
+        width: 0;
+    }
+}

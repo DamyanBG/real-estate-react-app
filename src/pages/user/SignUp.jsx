@@ -1,62 +1,56 @@
-import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-import { USER_FIELDS } from '../../utils/fields';
-import { UserContext } from '../../context/UserProvider';
-import { hostUrl } from '../../utils/urls';
-import { validateField } from '../../utils/validation';
-import InputFormRow from '../../components/form/InputFormRow';
-import FormSubmitButton from '../../components/form/FormSubmitButton';
-import { ROLES_ENUM } from '../../utils/enums';
+import { USER_FIELDS } from "../../utils/fields";
+import { UserContext } from "../../context/UserProvider";
+import { validateField } from "../../utils/validation";
+import InputFormRow from "../../components/form/InputFormRow";
+import FormSubmitButton from "../../components/form/FormSubmitButton";
+import { ROLES_ENUM } from "../../utils/enums";
+import FormComponent from "../../components/form/FormComponent";
+import FormCheckbox from "../../components/form/FormCheckbox";
+import { createUser } from "../../api/userApi";
+import { createUserPostBody } from "../../utils/utils";
+import AuthSection from "../../components/sections/AuthSection";
 
 export default function SignUp() {
     const [userInfo, setUserInfo] = useState({
         role: ROLES_ENUM.user,
     });
     const [validationErrors, setValidationErrors] = useState(
-        USER_FIELDS.map((uf) => uf.name).reduce((acc, curr) => ((acc[curr] = ''), acc), {})
+        USER_FIELDS.map((uf) => uf.name).reduce(
+            (acc, curr) => ((acc[curr] = ""), acc),
+            {}
+        )
     );
-
     const { setUser } = useContext(UserContext);
-    
-
     const navigate = useNavigate();
 
     const postUser = async () => {
-        const urlPath =
-            userInfo.role === ROLES_ENUM.user ? 'user/register-user' : 'user/register-seller';
-
-        const { confirmPassword: _, ...postBody } = userInfo;
+        const postBody = createUserPostBody(userInfo);
 
         try {
-            const response = await fetch(`${hostUrl}/${urlPath}`, {
-                method: 'POST',
-                body: JSON.stringify(postBody),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            const json = await response.json();
-
-            console.log(json);
-
-            if (!response.ok) {
-                throw new Error('Request failed!');
-            }
-            
+            const json = await createUser(
+                postBody,
+                userInfo.role === ROLES_ENUM.seller
+            );
             const newUserInfo = {
                 ...json,
-                'role': userInfo.role
-            }
-            localStorage.setItem('user', JSON.stringify(newUserInfo));
+                role: userInfo.role,
+            };
+            localStorage.setItem("user", JSON.stringify(newUserInfo));
             setUser(newUserInfo);
-
-            navigate('/');
-            toast.success('Successful Sign up!', { autoClose: 3000, pauseOnHover: false });
+            navigate("/");
+            toast.success("Successful Sign up!", {
+                autoClose: 3000,
+                pauseOnHover: false,
+            });
         } catch (err) {
-            toast.error(`Something went wrong! ${err}`, { autoClose: 3000, pauseOnHover: false });
+            toast.error(`Something went wrong! ${err}`, {
+                autoClose: 3000,
+                pauseOnHover: false,
+            });
         }
     };
 
@@ -65,13 +59,16 @@ export default function SignUp() {
 
         if (userInfo.password === userInfo.confirmPassword) {
             if (Object.keys(validationErrors).length > 0) {
-                toast.error('Please enter valid values!', { autoClose: 3000, pauseOnHover: false });
+                toast.error("Please enter valid values!", {
+                    autoClose: 3000,
+                    pauseOnHover: false,
+                });
                 return;
             }
 
             postUser();
         } else {
-            toast.error('Password don`t match. Try again!', {
+            toast.error("Password don`t match. Try again!", {
                 autoClose: 3000,
                 pauseOnHover: false,
             });
@@ -118,36 +115,32 @@ export default function SignUp() {
     };
 
     return (
-        <section className="auth-form-container">
-            <section className="auth-form-section">
-                <form onSubmit={handleOnSubmit} data-testid="auth-form">
-                    <h2>Registration Form</h2>
-                    <article className="content">
-                        {USER_FIELDS.map((uf) => (
-                            <InputFormRow
-                                key={uf.labelName}
-                                labelName={uf.labelName}
-                                name={uf.name}
-                                value={userInfo[uf.name]}
-                                type={uf.type}
-                                handleOnChange={handleOnChange}
-                                validationError={validationErrors[uf.name]}
-                                dataTestId={uf.name}
-                            />
-                        ))}
-                    </article>
-
-                    <article className="alert">
-                        <input
-                            data-testid="as-seller"
-                            type="checkbox"
-                            onChange={handleCheckboxChange}
-                        />
-                        <p>Sign Up as seller</p>
-                    </article>
-                    <FormSubmitButton text="Register" />
-                </form>
-            </section>
-        </section>
+        <AuthSection>
+            <FormComponent
+                handleOnSubmit={handleOnSubmit}
+                dataTestId="auth-form"
+                formFields={USER_FIELDS.map((uf) => (
+                    <InputFormRow
+                        key={uf.labelName}
+                        labelName={uf.labelName}
+                        name={uf.name}
+                        value={userInfo[uf.name]}
+                        type={uf.type}
+                        handleOnChange={handleOnChange}
+                        validationError={validationErrors[uf.name]}
+                        dataTestId={uf.name}
+                    />
+                ))}
+                submitButton={<FormSubmitButton text="Register" />}
+                formHeaderText="Registration Form"
+                checkboxComponent={
+                    <FormCheckbox
+                        onCheckboxChange={handleCheckboxChange}
+                        dataTestId="as-seller"
+                        text="Sign Up as seller"
+                    />
+                }
+            />
+        </AuthSection>
     );
 }

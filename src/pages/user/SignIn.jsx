@@ -1,50 +1,44 @@
-import { useState, useContext } from 'react';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useState, useContext } from "react";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-import { SIGNIN_FIELDS } from '../../utils/fields';
-import { UserContext } from '../../context/UserProvider';
-import { hostUrl } from '../../utils/urls';
-import { validateField } from '../../utils/validation';
-import InputFormRow from '../../components/form/InputFormRow';
-import FormSubmitButton from '../../components/form/FormSubmitButton';
+import { SIGNIN_FIELDS } from "../../utils/fields";
+import { UserContext } from "../../context/UserProvider";
+import { validateField } from "../../utils/validation";
+import InputFormRow from "../../components/form/InputFormRow";
+import FormSubmitButton from "../../components/form/FormSubmitButton";
+import { fetchUserLogIn } from "../../api/userApi";
+import FormComponent from "../../components/form/FormComponent";
+import AuthSection from "../../components/sections/AuthSection";
 
 export default function SignIn() {
     const [loginInfo, setLoginInfo] = useState({});
     const [validationErrors, setValidationErrors] = useState(
-        SIGNIN_FIELDS.map((uf) => uf.name).reduce((acc, curr) => ((acc[curr] = ''), acc), {})
+        SIGNIN_FIELDS.map((uf) => uf.name).reduce(
+            (acc, curr) => ((acc[curr] = ""), acc),
+            {}
+        )
     );
-
     const { setUser } = useContext(UserContext);
-
     const navigate = useNavigate();
 
-    const signIn = async () => {
+    const logIn = async () => {
         try {
-            const response = await fetch(`${hostUrl}/user/login`, {
-                method: 'POST',
-                body: JSON.stringify(loginInfo),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
+            const response = await fetchUserLogIn(loginInfo);
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(data, 'from sing in');
-
-                localStorage.setItem('user', JSON.stringify(data));
+                localStorage.setItem("user", JSON.stringify(data));
                 setUser(data);
-                navigate('/');
-            }else{
-                toast.error('Incorrect email or password!', {
+                navigate("/");
+            } else {
+                toast.error("Incorrect email or password!", {
                     autoClose: 3000,
                     pauseOnHover: false,
                 });
             }
-
         } catch (error) {
-            toast.error('Sotmething wrong with fetch', {
+            toast.error("Sotmething wrong with fetch", {
                 autoClose: 3000,
                 pauseOnHover: false,
             });
@@ -78,34 +72,40 @@ export default function SignIn() {
     const handleOnSubmit = (e) => {
         e.preventDefault();
         if (Object.keys(validationErrors).length > 0) {
-            toast.error('Please enter valid values!', { autoClose: 3000, pauseOnHover: false });
+            toast.error("Please enter valid values!", {
+                autoClose: 3000,
+                pauseOnHover: false,
+            });
             return;
         }
-        signIn();
+        logIn();
     };
 
     return (
-        <section className="auth-form-container">
-            <div data-testid="sign-in-page-form" className="auth-form-section">
-                <form onSubmit={handleOnSubmit} data-testid="sign-in-form">
-                    <h2>Sign In Form</h2>
-                    <article className="content">
-                        {SIGNIN_FIELDS.map((sf) => (
-                            <InputFormRow
-                                key={sf.labelName}
-                                labelName={sf.labelName}
-                                name={sf.name}
-                                value={loginInfo[sf.name]}
-                                type={sf.type}
-                                handleOnChange={handleOnChange}
-                                validationError={validationErrors[sf.name]}
-                                dataTestId={sf.name}
-                            />
-                        ))}
-                    </article>
-                    <FormSubmitButton disabled={Object.keys(validationErrors).length} text="Sign In" />
-                </form>
-            </div>
-        </section>
+        <AuthSection>
+            <FormComponent
+                handleOnSubmit={handleOnSubmit}
+                dataTestId="sign-in-form"
+                formFields={SIGNIN_FIELDS.map((sf) => (
+                    <InputFormRow
+                        key={sf.labelName}
+                        labelName={sf.labelName}
+                        name={sf.name}
+                        value={loginInfo[sf.name]}
+                        type={sf.type}
+                        handleOnChange={handleOnChange}
+                        validationError={validationErrors[sf.name]}
+                        dataTestId={sf.name}
+                    />
+                ))}
+                submitButton={
+                    <FormSubmitButton
+                        disabled={Object.keys(validationErrors).length}
+                        text="Sign In"
+                    />
+                }
+                formHeaderText="Sign In Form"
+            />
+        </AuthSection>
     );
 }
