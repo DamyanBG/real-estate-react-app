@@ -12,6 +12,7 @@ import FormComponent from "../../components/form/FormComponent";
 import FormCheckbox from "../../components/form/FormCheckbox";
 import { createUser } from "../../api/userApi";
 import { createUserPostBody } from "../../utils/utils";
+import AuthSection from "../../components/sections/AuthSection";
 
 export default function SignUp() {
     const [userInfo, setUserInfo] = useState({
@@ -27,10 +28,13 @@ export default function SignUp() {
     const navigate = useNavigate();
 
     const postUser = async () => {
-        const postBody = createUserPostBody(userInfo)
+        const postBody = createUserPostBody(userInfo);
 
         try {
-            const json = await createUser(postBody,  userInfo.role === ROLES_ENUM.seller)
+            const json = await createUser(
+                postBody,
+                userInfo.role === ROLES_ENUM.seller
+            );
             const newUserInfo = {
                 ...json,
                 role: userInfo.role,
@@ -111,34 +115,32 @@ export default function SignUp() {
     };
 
     return (
-        <section className="auth-form-container">
-            <section className="auth-form-section">
-                <FormComponent
-                    handleOnSubmit={handleOnSubmit}
-                    dataTestId="auth-form"
-                    formFields={USER_FIELDS.map((uf) => (
-                        <InputFormRow
-                            key={uf.labelName}
-                            labelName={uf.labelName}
-                            name={uf.name}
-                            value={userInfo[uf.name]}
-                            type={uf.type}
-                            handleOnChange={handleOnChange}
-                            validationError={validationErrors[uf.name]}
-                            dataTestId={uf.name}
-                        />
-                    ))}
-                    submitButton={<FormSubmitButton text="Register" />}
-                    formHeaderText="Registration Form"
-                    checkboxComponent={
-                        <FormCheckbox
-                            onCheckboxChange={handleCheckboxChange}
-                            dataTestId="as-seller"
-                            text="Sign Up as seller"
-                        />
-                    }
-                />
-            </section>
-        </section>
+        <AuthSection>
+            <FormComponent
+                handleOnSubmit={handleOnSubmit}
+                dataTestId="auth-form"
+                formFields={USER_FIELDS.map((uf) => (
+                    <InputFormRow
+                        key={uf.labelName}
+                        labelName={uf.labelName}
+                        name={uf.name}
+                        value={userInfo[uf.name]}
+                        type={uf.type}
+                        handleOnChange={handleOnChange}
+                        validationError={validationErrors[uf.name]}
+                        dataTestId={uf.name}
+                    />
+                ))}
+                submitButton={<FormSubmitButton text="Register" />}
+                formHeaderText="Registration Form"
+                checkboxComponent={
+                    <FormCheckbox
+                        onCheckboxChange={handleCheckboxChange}
+                        dataTestId="as-seller"
+                        text="Sign Up as seller"
+                    />
+                }
+            />
+        </AuthSection>
     );
 }
