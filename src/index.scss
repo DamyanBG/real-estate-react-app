@@ -1,4 +1,8 @@
 @import 'react-toastify/dist/ReactToastify.css';
+@import './assets/styles/colors.scss';
+
+$left-background-color: $first-color;
+$right-background-color: lighten($first-color, 10%);
 
 * {
     box-sizing: border-box;
@@ -15,6 +19,5 @@ body {
 }
 
 body {
-    background: rgb(101,157,189);
-    background: linear-gradient(150deg, rgba(101,157,189,1) 0%, rgba(191,223,233,1) 100%);
+    background: linear-gradient(to right, $left-background-color, $right-background-color);
 }
