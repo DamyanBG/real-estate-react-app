@@ -1,5 +1,5 @@
 import HomeCard from "../cards/home-cards/HomeCard";
-import ExtraHomeCard from '../cards/home-cards/ExtraHomeCard';
+import ExtraHomeCard from '../cards/home-cards/RoundedHomeCard';
 
 
 const LandingProperties = () => {
