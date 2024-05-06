@@ -1,4 +1,6 @@
 import HomeCard from "../cards/home-cards/HomeCard";
+import ExtraHomeCard from '../cards/home-cards/RoundedHomeCard';
+
 
 const LandingProperties = () => {
     return (
@@ -7,7 +9,7 @@ const LandingProperties = () => {
                 <h2>Latest Properties</h2>
             </article>
             <article className="properties-card-container">
-                <HomeCard
+                <ExtraHomeCard
                     photoUrl="https://images.unsplash.com/photo-1591474200742-8e512e6f98f8?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGx1eHVyeSUyMGhvdXNlfGVufDB8fDB8fHww"
                     city="Los Angeles"
                     neightborhood="Orange County"
