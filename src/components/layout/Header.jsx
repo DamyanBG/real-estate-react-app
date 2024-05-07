@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
+import { toast } from "react-toastify";
 
 import { UserContext } from '../../context/UserProvider';
+import { ROLES_ENUM } from '../../utils/enums';
 
 import styles from "./header.module.scss"
 
@@ -61,6 +63,32 @@ const UserNav = ({ handleLinkClick }) => {
     );
 };
 
+const SellLink = ({
+    onLinkClick
+}) => {
+    const { user } = useContext(UserContext);
+    const role = user.role
+    const isSeller = role === ROLES_ENUM.seller
+
+    const handleLinkClick = () => {
+        console.log("Click")
+        console.log(isSeller)
+        if (!isSeller) {
+            toast.error("You have to be registered as seller to Sell!", {
+                autoClose: 3000,
+                pauseOnHover: false,
+            });
+        }
+        onLinkClick()
+    }
+
+    return (
+        <Link onClick={handleLinkClick} data-testid="sell-home-link">
+            Sell
+        </Link>
+    )
+}
+
 export default function Header() {
     const [isActive, setIsActive] = useState(false);
 
@@ -92,9 +120,7 @@ export default function Header() {
                         </Link>
                     </li>
                     <li>
-                        <Link onClick={handleLinkClick} to="/create-home" data-testid="sell-home-link">
-                            Sell
-                        </Link>
+                        <SellLink onLinkClick={handleLinkClick} />
                     </li>
                     <li>
                         <Link onClick={handleLinkClick} to="/rent">
