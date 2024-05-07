@@ -7,6 +7,7 @@ import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { formatDateTime } from "../../utils/date";
 
 const AvatarImageComponent = ({ alt, src, fallbackText }) => (
     <Avatar className="h-8 w-8">
@@ -77,7 +78,7 @@ export default function ChatView({
                     key={m.id}
                     currUserAvatarEl={currUserAvatarEl}
                     text={m.text}
-                    time={m.created_on}
+                    time={formatDateTime(m.created_on)}
                 />
             );
         }
@@ -86,7 +87,7 @@ export default function ChatView({
                 key={m.id}
                 partnerAvatarEl={partnerAvatarEl}
                 text={m.text}
-                time={m.created_on}
+                time={formatDateTime(m.created_on)}
             />
         );
     });

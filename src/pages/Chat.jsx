@@ -5,21 +5,10 @@ import { UserContext } from "../context/UserProvider";
 import ChatView from "../components/chat/ChatView";
 import { getChatInfo, postChatMessage } from "../api/chatApi";
 import ChatLoadingUI from "../components/chat/ChatLoadingUI";
+import { sortByDateTime } from "../utils/date";
+import { combineMessages } from "../utils/utils";
 
 import styles from "./chat.module.scss"
-
-const combineMessages = (currentUserMessages, partnerMessages) => {
-    const modifiedParterMessages = partnerMessages.map((m) => ({
-        ...m,
-        isCurrent: false
-    }))
-    const modifiedCurrUserMessages = currentUserMessages.map((m) => ({
-        ...m,
-        isCurrent: true
-    }))
-    const combinedMessages = modifiedCurrUserMessages.concat(modifiedParterMessages)
-    return combinedMessages
-}
 
 const Chat = () => {
     const { chatPartnerId } = useParams()
@@ -29,7 +18,7 @@ const Chat = () => {
     const [isLoading, setIsLoading] = useState(true)
     const { user } = useContext(UserContext)
 
-    const messages = combineMessages(currentUserMessages, partnerMessages)
+    const messages = combineMessages(currentUserMessages, partnerMessages).sort(sortByDateTime)
 
     useEffect(() => {
         if (!user.token) return

@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 
 export default function ChatLoadingUI() {
   return (
-    <div className="flex h-[100dvh] w-full flex-col">
+    <div className="flex h-[80dvh] w-full flex-col">
       <header className="flex items-center justify-between bg-gray-100 px-4 py-3 shadow-sm dark:bg-gray-800">
         <div className="flex items-center space-x-3">
           <Skeleton className="h-8 w-8 rounded-full" />

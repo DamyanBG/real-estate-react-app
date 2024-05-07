@@ -7,3 +7,18 @@ export const createUserPostBody = (userInfo) => {
         password: userInfo.password,
     };
 };
+
+export const combineMessages = (currentUserMessages, partnerMessages) => {
+    const modifiedParterMessages = partnerMessages.map((m) => ({
+        ...m,
+        isCurrent: false,
+    }));
+    const modifiedCurrUserMessages = currentUserMessages.map((m) => ({
+        ...m,
+        isCurrent: true,
+    }));
+    const combinedMessages = modifiedCurrUserMessages.concat(
+        modifiedParterMessages
+    );
+    return combinedMessages;
+};
