@@ -15,12 +15,13 @@ const Chat = () => {
     const { user } = useContext(UserContext)
 
     useEffect(() => {
-        getChatInfo(chatPartnerId)
+        if (!user.token) return
+        getChatInfo(chatPartnerId, user.token)
             .then((resp) => resp.json())
             .then((json) => {
                 console.log(json)
             })
-    }, [])
+    }, [user.token, chatPartnerId])
 
     return (
         <section className={styles.chatSection}>
