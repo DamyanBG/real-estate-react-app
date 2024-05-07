@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 
+import HomeImage from "../../image/HomeImage";
+
 import styles from "./RoundedHomeCard.module.scss";
-import defaultImage from "../../../assets/images/house-image-mirror.png";
 
 export default function RoundedHomeCard({
     homeId,
@@ -15,14 +16,7 @@ export default function RoundedHomeCard({
     return (
         <section className={styles.wrapContainer}>
             <article className={styles.extraCardImageContainer}>
-                <img
-                    src={photoUrl}
-                    alt="Property Image"
-                    onError={(e) => {
-                        e.target.onerror = null; // prevents looping
-                        e.target.src = defaultImage;
-                    }}
-                />
+                <HomeImage src={photoUrl} />
             </article>
 
             <article className={styles.extraDescriptionContainer}>
