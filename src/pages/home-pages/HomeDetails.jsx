@@ -1,7 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { useContext, useEffect, useState, lazy } from 'react';
 
-import exampleHomePhoto from '../../assets/images/home-main-photo-example.jpg';
 import facebookLogo from '../../assets/images/facebook_logo.png';
 import xLogo from '../../assets/images/x_logo.webp';
 
@@ -12,6 +11,7 @@ import MapView from '../../components/map/MapView';
 import { fetchHomeDetails } from '../../api/homeApi';
 
 import styles from "./home-details.module.scss"
+import HomeImage from '../../components/image/HomeImage';
 
 export default function HomeDetails() {
     const { homeId } = useParams()
@@ -36,14 +36,7 @@ export default function HomeDetails() {
             <section className={styles.topSection}>
                 <article className={styles.imagesContainer}>
                     <article className='property-image-container'>
-                        <img
-                            src={homeDetails.photo_url}
-                            alt="Home"
-                            onError={(e) => {
-                                e.target.onError = null;
-                                e.target.src = exampleHomePhoto;
-                            }}
-                        />
+                        <HomeImage src={homeDetails.photo_url} />
                     </article>
                 </article>
 
