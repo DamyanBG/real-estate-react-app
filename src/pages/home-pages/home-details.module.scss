@@ -76,10 +76,13 @@ $page-background: $fifth-color;
     h2 {
         margin-top: 8px;
         margin-bottom: 8px;
+        font-size: 1.5em;
+        font-weight: bold;
     }
 
     hr {
         height: 1px;
+        border: 1px;
         background-color: black;
         color: black;
         margin-bottom: 32px;

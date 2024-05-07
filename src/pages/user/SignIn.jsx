@@ -25,20 +25,22 @@ export default function SignIn() {
     const logIn = async () => {
         try {
             const response = await fetchUserLogIn(loginInfo);
-
+            console.log(response.ok)
             if (response.ok) {
                 const data = await response.json();
                 localStorage.setItem("user", JSON.stringify(data));
                 setUser(data);
                 navigate("/");
             } else {
+                const data = await response.json()
+                console.log(data)
                 toast.error("Incorrect email or password!", {
                     autoClose: 3000,
                     pauseOnHover: false,
                 });
             }
         } catch (error) {
-            toast.error("Sotmething wrong with fetch", {
+            toast.error("Somethig wrong with fetch", {
                 autoClose: 3000,
                 pauseOnHover: false,
             });

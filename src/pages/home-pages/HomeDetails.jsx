@@ -1,24 +1,26 @@
-import { Link, useParams } from 'react-router-dom';
-import { useContext, useEffect, useState, lazy } from 'react';
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useContext, useEffect, useState, lazy } from "react";
+import { toast } from "react-toastify";
 
-import facebookLogo from '../../assets/images/facebook_logo.png';
-import xLogo from '../../assets/images/x_logo.webp';
+import facebookLogo from "../../assets/images/facebook_logo.png";
+import xLogo from "../../assets/images/x_logo.webp";
 
 // import VisitationsTable from '../..//common/VisitationsTable';
-import { UserContext } from '../../context/UserProvider';
-import HomeSuggestions from '../../components/sections/HomeSuggestions';
-import MapView from '../../components/map/MapView';
-import { fetchHomeDetails } from '../../api/homeApi';
+import { UserContext } from "../../context/UserProvider";
+import HomeSuggestions from "../../components/sections/HomeSuggestions";
+import MapView from "../../components/map/MapView";
+import { fetchHomeDetails } from "../../api/homeApi";
 
-import styles from "./home-details.module.scss"
-import HomeImage from '../../components/image/HomeImage';
+import styles from "./home-details.module.scss";
+import HomeImage from "../../components/image/HomeImage";
 
 export default function HomeDetails() {
-    const { homeId } = useParams()
+    const { homeId } = useParams();
 
     const [homeDetails, setHomeDetails] = useState({});
     const [visitations, setVisitations] = useState([]);
     const { user } = useContext(UserContext);
+    const navigate = useNavigate()
 
     const getHomeDetails = () => {
         fetchHomeDetails(homeId)
@@ -31,27 +33,57 @@ export default function HomeDetails() {
 
     useEffect(getHomeDetails, [homeId]);
 
+    const handleChatClick = () => {
+        if (!user.token) {
+            toast.error("You must be logged in to use chat!", {
+                autoClose: 3000,
+                pauseOnHover: false,
+            });
+            return;
+        }
+        if (user.id === homeDetails.owner_id) {
+            toast.error("This home is added from you!", {
+                autoClose: 3000,
+                pauseOnHover: false,
+            });
+            return;
+        }
+        navigate(`/chat/${homeDetails.owner_id}`)
+    };
+
     return (
         <section className={styles.homeDetails}>
             <section className={styles.topSection}>
                 <article className={styles.imagesContainer}>
-                    <article className='property-image-container'>
+                    <article className="property-image-container">
                         <HomeImage src={homeDetails.photo_url} />
                     </article>
                 </article>
 
                 <article className={styles.mapAndButtons}>
                     {homeDetails.latitude && homeDetails.longitude && (
-                        <MapView latitude={homeDetails.latitude} longitude={homeDetails.longitude} />
+                        <MapView
+                            latitude={homeDetails.latitude}
+                            longitude={homeDetails.longitude}
+                        />
                     )}
                     <article>
-                        <button className={styles.contact}>CONTACT SELLER</button>
+                        <button className={styles.contact}>
+                            CONTACT SELLER
+                        </button>
                     </article>
                     <article>
-                        <button className={styles.contact}>CHAT WITH SELLER</button>
+                        <button
+                            className={styles.contact}
+                            onClick={handleChatClick}
+                        >
+                            CHAT WITH SELLER
+                        </button>
                     </article>
                     <article>
-                        <button className={styles.favorites}>ADD TO FAVORITES</button>
+                        <button className={styles.favorites}>
+                            ADD TO FAVORITES
+                        </button>
                     </article>
                 </article>
 
@@ -155,7 +187,7 @@ export default function HomeDetails() {
                             </tbody>
                         </table>
                     </article>
-                    
+
                     <article>
                         <h2>Description</h2>
                         <hr />
@@ -173,7 +205,7 @@ export default function HomeDetails() {
                     </button>
                 </article>
             </section>
-            
+
             <HomeSuggestions homeId={homeId} />
         </section>
     );

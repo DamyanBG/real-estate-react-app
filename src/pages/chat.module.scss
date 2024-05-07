@@ -1,0 +1,8 @@
+@import "../assets/styles/colors.scss";
+
+$page-background: $fourth-color;
+
+.chatSection {
+    min-height: 60vh;
+    background: $page-background;
+}

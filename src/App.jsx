@@ -13,6 +13,7 @@ import EditHome from "./pages/home-pages/EditHome";
 import SignIn from "./pages/user/SignIn";
 import SignUp from "./pages/user/SignUp";
 import Rent from "./pages/Rent";
+import Chat from "./pages/Chat";
 
 import "./App.scss";
 import "leaflet/dist/leaflet.css";
@@ -36,6 +37,9 @@ function App() {
                             <Route path="/edit-home" element={<EditHome />} />
                             <Route path="/home-details">
                                 <Route path=":homeId" element={<HomeDetails />} />
+                            </Route>
+                            <Route path="/chat">
+                                <Route path=":chatPartnerId" element={<Chat />} />
                             </Route>
                             <Route path="/signin" element={<SignIn />} />
                             <Route path="/signup" element={<SignUp />} />
