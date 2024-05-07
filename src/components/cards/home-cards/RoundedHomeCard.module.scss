@@ -10,6 +10,21 @@
     rgba(255, 255, 255, 1) 100%
   );
   border-top-left-radius: 100px;
+
+  img {
+    transition: 0.5s;
+    max-width: 100%;
+    border-top-left-radius: 85px;
+    border-bottom-right-radius: 85px;
+  }
+
+  span {
+    color: white;
+    background: #26c862;
+    font-size: 18px;
+    padding: 5px 10px;
+    border-radius: 20px;
+  }
 }
 
 .extraCardImageContainer {
@@ -22,13 +37,6 @@
   margin: 0 auto;
 }
 
-img {
-  transition: 0.5s;
-  max-width: 100%;
-  border-top-left-radius: 85px;
-  border-bottom-right-radius: 85px;
-}
-
 .extraDescriptionContainer {
   display: flex;
   flex-wrap: wrap;
@@ -39,14 +47,6 @@ img {
   width: 100%;
   display: flex;
   justify-content: center;
-}
-
-span {
-  color: white;
-  background: #26c862;
-  font-size: 18px;
-  padding: 5px 10px;
-  border-radius: 20px;
 }
 
 .extraDescriptionTitle {
