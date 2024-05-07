@@ -35,7 +35,7 @@ const HomeCard = ({ homeId, photoUrl, city, neighborhood, title, description, pr
                 </article>
 
                 <article className="property-card-footer">
-                    <Link to={`/home-details?homeId=${homeId}`}>View Details</Link>
+                    <Link to={`/home-details/${homeId}`}>View Details</Link>
                 </article>
             </section>
         </article>

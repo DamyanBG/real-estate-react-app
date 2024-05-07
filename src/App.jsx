@@ -34,10 +34,9 @@ function App() {
                                 element={<CreateHome />}
                             />
                             <Route path="/edit-home" element={<EditHome />} />
-                            <Route
-                                path="/home-details"
-                                element={<HomeDetails />}
-                            />
+                            <Route path="/home-details">
+                                <Route path=":homeId" element={<HomeDetails />} />
+                            </Route>
                             <Route path="/signin" element={<SignIn />} />
                             <Route path="/signup" element={<SignUp />} />
                             <Route path="/rent" element={<Rent />} />

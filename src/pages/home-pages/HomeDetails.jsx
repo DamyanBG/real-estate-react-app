@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useContext, useEffect, useState, lazy } from 'react';
 
 import exampleHomePhoto from '../../assets/images/home-main-photo-example.jpg';
@@ -7,23 +7,21 @@ import xLogo from '../../assets/images/x_logo.webp';
 
 // import VisitationsTable from '../..//common/VisitationsTable';
 import { UserContext } from '../../context/UserProvider';
-import { hostUrl } from '../../utils/urls';
-
-import styles from "./home-details.module.scss"
 import HomeSuggestions from '../../components/sections/HomeSuggestions';
 import MapView from '../../components/map/MapView';
+import { fetchHomeDetails } from '../../api/homeApi';
 
+import styles from "./home-details.module.scss"
 
 export default function HomeDetails() {
-    const searchParams = useSearchParams()[0]
-    const homeId = searchParams.get('homeId');
+    const { homeId } = useParams()
 
     const [homeDetails, setHomeDetails] = useState({});
     const [visitations, setVisitations] = useState([]);
     const { user } = useContext(UserContext);
 
-    const fetchHomeDetails = () => {
-        fetch(`${hostUrl}/home-details/${homeId}`)
+    const getHomeDetails = () => {
+        fetchHomeDetails(homeId)
             .then((resp) => resp.json())
             .then((json) => {
                 setHomeDetails(json.home_details);
@@ -31,7 +29,7 @@ export default function HomeDetails() {
             });
     };
 
-    useEffect(fetchHomeDetails, [homeId]);
+    useEffect(getHomeDetails, [homeId]);
 
     return (
         <section className={styles.homeDetails}>
@@ -163,8 +161,8 @@ export default function HomeDetails() {
                                 </tr>
                             </tbody>
                         </table>
-                        
                     </article>
+                    
                     <article>
                         <h2>Description</h2>
                         <hr />
