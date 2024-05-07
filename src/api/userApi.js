@@ -14,8 +14,8 @@ export const fetchUserLogIn = async (loginInfo) => {
 
 export const createUser = async (postBody, isSeller) => {
     const urlPath = isSeller
-        ? "user/register-user"
-        : "user/register-seller";
+        ? "user/register-seller"
+        : "user/register-user";
 
     const response = await fetch(`${hostUrl}/${urlPath}`, {
         method: "POST",

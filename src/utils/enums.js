@@ -9,3 +9,7 @@ export const MEETING_STATUSES = {
     accepted: 'accepted',
     rejected: 'rejected',
 };
+
+export const REQ_METHODS = {
+    post: "POST",
+}

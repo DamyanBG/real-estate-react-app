@@ -3,7 +3,7 @@ export const createUserPostBody = (userInfo) => {
         first_name: userInfo.first_name,
         last_name: userInfo.last_name,
         email: userInfo.email,
-        phone: userInfo.phone,
+        phone_number: userInfo.phone_number,
         password: userInfo.password,
     };
 };
