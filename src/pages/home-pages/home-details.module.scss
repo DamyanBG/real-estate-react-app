@@ -1,5 +1,7 @@
 @import "../../assets/styles/colors.scss";
 
+$page-background: $fifth-color;
+
 @mixin flex-section {
     width: 100%;
     display: flex;
@@ -10,6 +12,7 @@
 
 .homeDetails {
     padding: 48px 36px;
+    background: $page-background;
 }
 
 .topSection {
@@ -37,14 +40,32 @@
             height: 48px;
             border: none;
             border-radius: 6px;
+            transition: 0.5s;
+            cursor: pointer;
         }
 
         .contact {
             background-color: $second-color;
         }
 
+        .contact:hover {
+            background-color: $third-color;
+        }
+
+        .contact:active {
+            background-color: $first-color;
+        }
+
         .favorites {
             background-color: $fourth-color;
+        }
+
+        .favorites:hover {
+            background-color: $third-color;
+        }
+
+        .favorites:active {
+            background-color: $first-color;
         }
     }
 }
@@ -67,6 +88,10 @@
 
 .homeInfo {
     width: 60%;
+
+    > article {
+        padding-bottom: 48px;
+    }
 }
 
 .share {
@@ -82,7 +107,11 @@
     }
 
     tr:nth-child(odd) {
-        background-color: $fifth-color;
+        background-color: $fourth-color;
+    }
+
+    tr:hover {
+        background: $sixth-color;
     }
 
     td {

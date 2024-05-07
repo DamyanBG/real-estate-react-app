@@ -7,9 +7,6 @@ export const HOME_API = axios.create({
 })
 
 export const fetchAllHomes = () => {
-
-    console.log("hostUrl")
-    console.log(hostUrl)
     return fetch(`${hostUrl}/homes`)
         .then((resp) => resp.json())
         .then((json) => {
@@ -35,4 +32,9 @@ export const postHome = async (homeInfo, userId) => {
         console.log(error)
         return { error }
     }
+}
+
+export const fetchHomeDetails = async (homeId) => {
+    const resp = await  fetch(`${hostUrl}/home-details/${homeId}`)
+    return resp
 }
