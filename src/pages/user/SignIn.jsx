@@ -38,7 +38,7 @@ export default function SignIn() {
                 });
             }
         } catch (error) {
-            toast.error("Sotmething wrong with fetch", {
+            toast.error("Somethig wrong with fetch", {
                 autoClose: 3000,
                 pauseOnHover: false,
             });
