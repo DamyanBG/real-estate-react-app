@@ -3,12 +3,8 @@
   flex-direction: column;
   border: 1px solid black;
   width: 30%;
-  background: rgb(200, 200, 200);
-  background: radial-gradient(
-    circle,
-    rgba(200, 200, 200, 1) 0%,
-    rgba(255, 255, 255, 1) 100%
-  );
+  background: rgb(200,200,200);
+  background: linear-gradient(0deg, rgba(200,200,200,1) 38%, rgba(207,207,207,1) 44%, rgba(255,255,255,1) 100%);
   border-top-left-radius: 100px;
 }
 
@@ -104,7 +100,7 @@ span {
   border: 1px solid #8b5bfb;
 }
 
-.extra-card-image-container:hover img {
+.extraCardImageContainer:hover img {
   transform: scale(1.1);
   transition: 0.5s;
 }
