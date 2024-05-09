@@ -1,3 +1,4 @@
+import { io } from 'socket.io-client';
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -7,6 +8,7 @@ import { getChatInfo, postChatMessage } from "../api/chatApi";
 import ChatLoadingUI from "../components/chat/ChatLoadingUI";
 import { sortByDateTime } from "../utils/date";
 import { combineMessages } from "../utils/utils";
+import { hostUrl } from '../utils/urls';
 
 import styles from "./chat.module.scss"
 
@@ -19,6 +21,53 @@ const Chat = () => {
     const { user } = useContext(UserContext)
 
     const messages = combineMessages(currentUserMessages, partnerMessages).sort(sortByDateTime)
+
+    const [socket, setSocket] = useState(null);
+
+    // useEffect(() => {
+    //     setSocket(io(hostUrl, {
+    //         reconnectionAttempts: 3
+    //     }));
+    // }, []);
+
+    useEffect(() => {
+        setSocket(io(hostUrl, {
+            // rejectUnauthorized: false,
+            transports: ['websocket'],
+        }));
+    }, []);
+
+    useEffect(() => {
+        if (!socket) return;
+        socket.on('sync_message', (data) => {
+            console.log(data)
+            if (data.sender_id == chatPartnerId) {
+                setPartnerMessages([
+                    ...partnerMessages,
+                    data
+                ]);
+            }
+        });
+    }, [socket, partnerMessages, chatPartnerId]);
+
+    useEffect(() => {
+        if (!socket) return;
+        socket.on("connect_error", (err) => {
+            console.log(`connect_error due to ${err.message}`);
+          });
+    }, [socket])
+
+    useEffect(() => {
+        if (!socket) return;
+        return () => {
+            socket.disconnect();
+        };
+    }, [socket]);
+
+    useEffect(() => {
+        if (!socket || !user.id) return;
+        socket.emit('user_id', user.id);
+    }, [user.id, socket]);
 
     useEffect(() => {
         if (!user.token) return
@@ -47,6 +96,7 @@ const Chat = () => {
                 ...currentUserMessages,
                 newMessage
             ])
+            socket.emit('sync_message', newMessage);
         }
     }
 
