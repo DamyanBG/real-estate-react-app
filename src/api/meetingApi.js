@@ -12,3 +12,13 @@ export const postMeeting = async (postBody, token) => {
     });
     return resp;
 };
+
+export const getUserMeetings = async (token) => {
+    const resp = await fetch(`${hostUrl}/meeting`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+    const json = await resp.json()
+    return json
+}
