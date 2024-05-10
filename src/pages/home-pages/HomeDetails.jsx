@@ -20,7 +20,7 @@ export default function HomeDetails() {
     const [homeDetails, setHomeDetails] = useState({});
     const [visitations, setVisitations] = useState([]);
     const { user } = useContext(UserContext);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const getHomeDetails = () => {
         fetchHomeDetails(homeId)
@@ -48,7 +48,11 @@ export default function HomeDetails() {
             });
             return;
         }
-        navigate(`/chat/${homeDetails.owner_id}`)
+        navigate(`/chat/${homeDetails.owner_id}`);
+    };
+
+    const handleRequestView = () => {
+        navigate(`/meeting/${homeDetails.owner_id}`);
     };
 
     return (
@@ -68,12 +72,17 @@ export default function HomeDetails() {
                         />
                     )}
                     <article>
-                        <button className={styles.contact}>
-                            CONTACT SELLER
+                        <button
+                            type="button"
+                            className={styles.contact}
+                            onClick={handleRequestView}
+                        >
+                            REQUEST VIEW
                         </button>
                     </article>
                     <article>
                         <button
+                            type="button"
                             className={styles.contact}
                             onClick={handleChatClick}
                         >
@@ -81,7 +90,7 @@ export default function HomeDetails() {
                         </button>
                     </article>
                     <article>
-                        <button className={styles.favorites}>
+                        <button type="button" className={styles.favorites}>
                             ADD TO FAVORITES
                         </button>
                     </article>

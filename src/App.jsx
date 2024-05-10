@@ -14,6 +14,7 @@ import SignIn from "./pages/user/SignIn";
 import SignUp from "./pages/user/SignUp";
 import Rent from "./pages/Rent";
 import Chat from "./pages/Chat";
+import Meeting from "./pages/Meeting";
 
 import "./App.scss";
 import "leaflet/dist/leaflet.css";
@@ -40,6 +41,9 @@ function App() {
                             </Route>
                             <Route path="/chat">
                                 <Route path=":chatPartnerId" element={<Chat />} />
+                            </Route>
+                            <Route path="/meeting">
+                                <Route path=":meetingPartnerId" element={<Meeting />} />
                             </Route>
                             <Route path="/signin" element={<SignIn />} />
                             <Route path="/signup" element={<SignUp />} />
