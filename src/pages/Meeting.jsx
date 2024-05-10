@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import FormComponent from "../components/form/FormComponent";
 import { MEETING_FIELDS } from "../utils/fields";
 import InputFormRow from "../components/form/InputFormRow";
-
-import styles from "./meeting.module.scss";
 import FormSubmitButton from "../components/form/FormSubmitButton";
 import { validateField } from "../utils/validation";
+import { postMeeting } from "../api/meetingApi";
+import { UserContext } from "../context/UserProvider";
+
+import styles from "./meeting.module.scss";
 
 const Meeting = () => {
     const [meetingInfo, setMeetingInfo] = useState({});
@@ -16,6 +19,9 @@ const Meeting = () => {
             {}
         )
     );
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const { homeId, meetingPartnerId } = useParams()
+    const { user } = useContext(UserContext)
 
     const handleValidate = (e) => {
         const valError = validateField(e.target.type, e.target.value);
@@ -33,9 +39,27 @@ const Meeting = () => {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("handle");
+        setIsSubmitting(true)
+        const postBody = {
+            ...meetingInfo,
+            invitor_id: user.id,
+            invited_id: meetingPartnerId,
+        }
+        try {
+            const resp = await postMeeting(postBody, user.token)
+            if (resp.status === 400) {
+                const errors = await resp.json()
+                console.log(errors)
+            }
+            const json = await resp.json()
+            console.log(json)
+        } catch {
+            console.log("Internal error!")
+        } finally {
+            setIsSubmitting(false)
+        }
     };
 
     const handleOnChange = (e) => {
@@ -45,6 +69,8 @@ const Meeting = () => {
         });
         handleValidate(e);
     };
+
+    const isButtonDisabled = Object.keys(validationErrors).length || isSubmitting
 
     return (
         <section className={styles.mainSection}>
@@ -66,7 +92,7 @@ const Meeting = () => {
                     ))}
                     submitButton={
                         <FormSubmitButton
-                            disabled={Object.keys(validationErrors).length}
+                            disabled={isButtonDisabled}
                         />
                     }
                     formHeaderText="Request Meeting With Seller"

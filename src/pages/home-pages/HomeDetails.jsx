@@ -52,7 +52,7 @@ export default function HomeDetails() {
     };
 
     const handleRequestView = () => {
-        navigate(`/meeting/${homeDetails.owner_id}`);
+        navigate(`/meeting/${homeDetails.owner_id}/${homeDetails.id}`);
     };
 
     return (

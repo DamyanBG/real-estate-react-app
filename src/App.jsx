@@ -43,7 +43,7 @@ function App() {
                                 <Route path=":chatPartnerId" element={<Chat />} />
                             </Route>
                             <Route path="/meeting">
-                                <Route path=":meetingPartnerId" element={<Meeting />} />
+                                <Route path=":meetingPartnerId/:homeId" element={<Meeting />} />
                             </Route>
                             <Route path="/signin" element={<SignIn />} />
                             <Route path="/signup" element={<SignUp />} />
