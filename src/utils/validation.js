@@ -32,7 +32,17 @@ const validations = {
         if (!value) {
             return 'Number field can not be empty!';
         }
-    }
+    },
+    date: (value) => {
+        if (!value) {
+            return 'Number field can not be empty!';
+        }
+    },
+    time: (value) => {
+        if (!value) {
+            return 'Number field can not be empty!';
+        }
+    },
 };
 
 export const validateField = (fieldType, value) => {
