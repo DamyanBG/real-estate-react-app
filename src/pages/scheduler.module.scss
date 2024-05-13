@@ -35,7 +35,7 @@
 
 .schedulerWrapper {
     display: grid;
-    grid-template-columns: repeat(25, 1fr);
+    grid-template-columns: 2fr repeat(24, 1fr);
     gap: 2px;
     background: lightgray;
 

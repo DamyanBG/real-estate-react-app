@@ -15,6 +15,7 @@ const mockMeetings = [
         start_time: "00:00:00",
         end_time: "02:00:00",
         meeting_partner_names: "Hristofor Konstantinov",
+        home_title: "Selska kushta",
     },
     {
         id: "27",
@@ -23,6 +24,7 @@ const mockMeetings = [
         start_time: "14:00:00",
         end_time: "16:00:00",
         meeting_partner_names: "Daniel Petkov",
+        home_title: "Apartament",
     },
 ];
 
@@ -143,9 +145,9 @@ const MeetingsScheduler = () => {
                             
                             // onDragLeave={}
                         >
-                            <article>Homes</article>
+                            <article style={{ textAlign: "center" }}>Homes</article>
                             {HOURS.map((hour) => (
-                                <article key={`id-${hour.text}`}>
+                                <article key={`id-${hour.text}`}  style={{ textAlign: "center" }}>
                                     {hour.text}
                                 </article>
                             ))}
@@ -175,7 +177,7 @@ const MeetingsScheduler = () => {
                                                 textAlign: "center",
                                             }}
                                         >
-                                            {meeting.home_id}
+                                            {meeting.home_title}
                                         </article>
                                         <article
                                             draggable
