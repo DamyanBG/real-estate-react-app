@@ -33,24 +33,21 @@
     justify-content: space-between;
 }
 
-.schHeader {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    font-size: 12px;
+.schedulerWrapper {
+    display: grid;
+    grid-template-columns: repeat(25, 1fr);
+    gap: 2px;
+    background: lightgray;
 
-    > * {
-        flex: 1;
+    * {
+        background: white;
     }
 }
 
-.resourceRow {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    font-size: 12px;
 
-    > * {
-        flex: 1;
-    }
+
+.timeFrame {
+    border-radius: 12px;
+    padding-left: 12px;
+    overflow: hidden;
 }

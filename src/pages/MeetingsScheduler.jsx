@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, Fragment } from "react";
 
 import { getUserMeetings } from "../api/meetingApi";
 import { UserContext } from "../context/UserProvider";
@@ -6,6 +6,25 @@ import { UserContext } from "../context/UserProvider";
 import styles from "./scheduler.module.scss";
 
 const today = new Date().toDateString();
+
+const mockMeetings = [
+    {
+        id: "25",
+        invitor_id: "1",
+        home_id: "25",
+        start_time: '00:10:00',
+        end_time: '02:10:00',
+        meeting_partner_names: "Hristofor Konstantinov"
+    },
+    {
+        id: "27",
+        invitor_id: "1",
+        home_id: "30",
+        start_time: '03:10:00',
+        end_time: '06:10:00',
+        meeting_partner_names: "Daniel Petkov"
+    },
+]
 
 const HOURS = [
     { text: "12AM", hour: 0 },
@@ -35,7 +54,7 @@ const HOURS = [
 ];
 
 const MeetingsScheduler = () => {
-    const [meetings, setMeetings] = useState([]);
+    const [meetings, setMeetings] = useState(mockMeetings);
     const { user } = useContext(UserContext);
     const [currentPeriod, setCurrentPeriod] = useState(today);
 
@@ -43,10 +62,11 @@ const MeetingsScheduler = () => {
         if (!user.token) return;
         const loadMeetings = async () => {
             const loadedMeetings = await getUserMeetings(user.token);
-            setMeetings(loadedMeetings);
+            setMeetings([...mockMeetings, ...loadedMeetings]);
         };
 
         loadMeetings();
+
     }, [user.token]);
 
     console.table(meetings);
@@ -65,17 +85,14 @@ const MeetingsScheduler = () => {
                                 <button type="button">Month</button>
                             </article>
                         </article>
-                        <section className={styles.tableContainer}>
-                            <article className={styles.schHeader}>
+                        <section className={styles.schedulerWrapper}>
                                 <article>Homes</article>
                                 {HOURS.map((hour) => (
                                     <article key={`id-${hour.text}`}>
                                         {hour.text}
                                     </article>
                                 ))}
-                            </article>
-                            <article className={styles.schBody}>
-                                {meetings.map((meeting) => {
+                                {meetings.map((meeting, index) => {
                                     console.log(meeting.start_time);
                                     console.log(typeof meeting.start_time);
                                     const startDateTime = new Date(
@@ -92,31 +109,16 @@ const MeetingsScheduler = () => {
                                     console.log(endTime);
 
                                     return (
-                                        <article
-                                            key={meeting.id}
-                                            className={styles.resourceRow}
-                                        >
-                                            <article>{meeting.home_id}</article>
-                                            {HOURS.map((hour) => {
-                                                
-                                                return (
-                                                    <article
-                                                        key={`id-${hour.text}`}
-                                                    >
-                                                        {
-                                                            startTime === hour.hour 
-                                                                ? "start" 
-                                                                : endTime === hour.hour 
-                                                                    ? "end"
-                                                                    : "-"
-                                                        }
-                                                    </article>
-                                                )
-                                            })}
-                                        </article>
+                                            <Fragment key={meeting.id}>
+                                                <article style={{ gridColumn: "1", gridRowStart: `${2 + index}`, background: "lightgreen", textAlign: "center" }}>
+                                                    {meeting.home_id}
+                                                </article>
+                                                <article style={{ gridColumn: `${startTime + 2} / ${endTime + 3}`, gridRowStart: `${2 + index}`, background: "lightblue" }} className={styles.timeFrame}>
+                                                    {meeting.meeting_partner_names}
+                                                </article>
+                                            </Fragment>
                                     );
                                 })}
-                            </article>
                         </section>
                     </section>
                 </section>

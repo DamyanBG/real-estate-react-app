@@ -16,6 +16,7 @@ import Rent from "./pages/Rent";
 import Chat from "./pages/Chat";
 import Meeting from "./pages/Meeting";
 import MeetingsScheduler from "./pages/MeetingsScheduler";
+import GridLearn from "./pages/GridLearn";
 
 import "./App.scss";
 import "leaflet/dist/leaflet.css";
@@ -50,6 +51,7 @@ function App() {
                             <Route path="/signin" element={<SignIn />} />
                             <Route path="/signup" element={<SignUp />} />
                             <Route path="/rent" element={<Rent />} />
+                            <Route path="/grid" element={<GridLearn />} />
                         </Routes>
                         <ToastContainer />
                     </main>
