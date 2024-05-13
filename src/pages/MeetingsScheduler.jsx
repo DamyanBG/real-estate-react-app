@@ -116,7 +116,7 @@ const MeetingsScheduler = () => {
         // console.log(e)
     }
 
-    const handleDragEnd = (e) => {
+    const handleDragEnd = () => {
         console.log("dragEnd")
         draggedMeetingIdRef.current = null
         // console.log(e)
@@ -126,6 +126,20 @@ const MeetingsScheduler = () => {
         console.log(e)
     }
 
+    const handleNextPeriodClick = () => {
+        const currentPeriodDate = new Date(currentPeriod)
+        currentPeriodDate.setDate(currentPeriodDate.getDate() + 1)
+        const newPeriod = currentPeriodDate.toDateString()
+        setCurrentPeriod(newPeriod)
+    }
+
+    const handlePrevioustPeriodClick = () => {
+        const currentPeriodDate = new Date(currentPeriod)
+        currentPeriodDate.setDate(currentPeriodDate.getDate() - 1)
+        const newPeriod = currentPeriodDate.toDateString()
+        setCurrentPeriod(newPeriod)
+    }
+
     return (
         <section className={styles.schedulerContainer}>
             <section className={styles.schedulerRow}>
@@ -133,7 +147,11 @@ const MeetingsScheduler = () => {
                     <h2>Scheduler</h2>
                     <section>
                         <article className={styles.periodRow}>
-                            <article>{currentPeriod}</article>
+                            <article>
+                                <button type="button" onClick={handlePrevioustPeriodClick}>&larr;</button>
+                                <span className={styles.periodText}>{currentPeriod}</span>
+                                <button type="button" onClick={handleNextPeriodClick}>&rarr;</button>
+                            </article>
                             <article>
                                 <button type="button">Day</button>
                                 <button type="button">Week</button>
