@@ -75,3 +75,7 @@
     padding-left: 12px;
     overflow: hidden;
 }
+
+.hiddenFrame {
+    z-index: -10 !important;
+}

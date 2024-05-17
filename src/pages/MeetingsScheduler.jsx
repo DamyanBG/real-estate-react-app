@@ -16,10 +16,12 @@ const FullFrame = ({
     index,
     frameText
 }) => {
+    const frames = endTime - startTime
+
     return (
         <article
             draggable
-            onDragStart={handleDragStart(id, startTime, endTime)}
+            onDragStart={handleDragStart(id, frames)}
             onDragEnd={handleDragEnd}
             style={{
                 gridColumn: `${
@@ -45,10 +47,13 @@ const StartFrame = ({
     index,
     frameText
 }) => {
+    const frames = endTime
+    console.log(frames)
+
     return (
         <article
             draggable
-            onDragStart={handleDragStart(id)}
+            onDragStart={handleDragStart(id, frames)}
             onDragEnd={handleDragEnd}
             style={{
                 gridColumn: `${2} / ${endTime + 2}`,
@@ -72,12 +77,12 @@ const EndFrame = ({
     index,
     frameText
 }) => {
-    console.log("endFrame")
+    const frames = 24 - startTime
 
     return (
         <article
             draggable
-            onDragStart={handleDragStart(id)}
+            onDragStart={handleDragStart(id, frames)}
             onDragEnd={handleDragEnd}
             style={{
                 gridColumn: `${
@@ -155,8 +160,8 @@ const mockMeetings = [
         id: "27",
         invitor_id: "1",
         home_id: "30",
-        start_time: "14:00:00",
-        end_time: "16:00:00",
+        start_time: "02:00:00",
+        end_time: "04:00:00",
         meeting_partner_names: "Daniel Petkov",
         home_title: "Apartament",
         date: "2024-05-17",
@@ -214,17 +219,36 @@ const MeetingsScheduler = () => {
     }
 
     const handleDrop = (i) => (e) => {
-        const draggedMeetingId = draggedMeetingInfoRef.current.meetingId
+        const { meetingId, draggedFrame } = draggedMeetingInfoRef.current
+        console.log(draggedFrame)
+        
         console.log(draggedMeetingInfoRef.current)
-        console.log(i)
         const newMeetingsState = meetings.map((meeting) => {
-            if (meeting.id === draggedMeetingId) {
-                const newStartHour = i
+            if (meeting.id === meetingId) {
+                console.log(selectedPeriod)
+                const droppedOnHour = i
+                console.log(droppedOnHour)
                 const startHour = meeting.startDateTime.hour
                 const endHour = meeting.endDateTime.hour
-                const hourDifference = endHour - startHour
-                const newStartDateTime = meeting.startDateTime.set({ hour: newStartHour })
-                const newEndDateTime = meeting.endDateTime.set({ hour: newStartHour + hourDifference })
+                const frameHours = endHour - startHour
+
+                // const isAdding = droppedOnHour > startHour
+                // console.log(isAdding)
+                // const daysDifferent = selectedPeriod.diff()
+                const draggedFromHour = startHour + draggedFrame
+                console.log("draggedFromHour")
+                console.log(draggedFromHour)
+                const difference = droppedOnHour - draggedFromHour
+                console.log(startHour)
+                console.log("difference")
+                console.log(difference)
+
+                const newStartDateTime = meeting.startDateTime.plus({ hour: difference })
+                const newEndDateTime = meeting.endDateTime.plus({ hour: difference })
+
+                console.log(newStartDateTime.hour)
+                console.log(newEndDateTime.hour)
+                console.log(newEndDateTime.day)
                 return {
                     ...meeting,
                     startDateTime: newStartDateTime,
@@ -237,38 +261,27 @@ const MeetingsScheduler = () => {
         console.log(e)
     }
 
-    const handleDragStart = (meetingId, startTime, endDateTime) => (e) => {
-
-        
-        e.dataTransfer.effectAllowed = "move"
-        console.log("dragStart")
+    const handleDragStart = (meetingId, frames) => (e) => {
         console.log(e)
-        console.log(e.nativeEvent.offsetX)
-        console.log(e.target.clientWidth)
+        // e.target.classList.add(styles.hiddenFrame)
+        e.dataTransfer.effectAllowed = "move"
         const relativeX = e.nativeEvent.offsetX
         const elWidth = e.target.clientWidth
         
-        console.log(startTime)
-        console.log(endDateTime)
-        const frames = endDateTime - startTime
-        console.log(frames)
         const frameWidth = elWidth / frames
-        console.log("frameWidth")
-        console.log(frameWidth)
-        const clickedFrame = Math.ceil(relativeX / frameWidth)
-        console.log("clickedFrame")
-        console.log(clickedFrame)
+        const draggedFrame = Math.floor(relativeX / frameWidth)
         const draggedInfo = {
             meetingId,
-            clickedFrame
+            draggedFrame
         }
         draggedMeetingInfoRef.current = draggedInfo
         // console.log(e)
     }
 
-    const handleDragEnd = () => {
+    const handleDragEnd = (e) => {
         console.log("dragEnd")
         draggedMeetingInfoRef.current = null
+        // e.target.classList.remove(styles.hiddenFrame)
         // console.log(e)
     }
 
