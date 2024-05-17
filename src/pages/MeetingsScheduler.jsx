@@ -220,35 +220,19 @@ const MeetingsScheduler = () => {
 
     const handleDrop = (i) => (e) => {
         const { meetingId, draggedFrame } = draggedMeetingInfoRef.current
-        console.log(draggedFrame)
-        
-        console.log(draggedMeetingInfoRef.current)
         const newMeetingsState = meetings.map((meeting) => {
             if (meeting.id === meetingId) {
-                console.log(selectedPeriod)
                 const droppedOnHour = i
-                console.log(droppedOnHour)
-                const startHour = meeting.startDateTime.hour
-                const endHour = meeting.endDateTime.hour
-                const frameHours = endHour - startHour
-
-                // const isAdding = droppedOnHour > startHour
-                // console.log(isAdding)
-                // const daysDifferent = selectedPeriod.diff()
+                const isStartTimeInPeriod = meeting.startDateTime.hasSame(selectedPeriod, 'day')
+                const startHour = isStartTimeInPeriod
+                    ? meeting.startDateTime.hour
+                    : 0
                 const draggedFromHour = startHour + draggedFrame
-                console.log("draggedFromHour")
-                console.log(draggedFromHour)
                 const difference = droppedOnHour - draggedFromHour
-                console.log(startHour)
-                console.log("difference")
-                console.log(difference)
 
                 const newStartDateTime = meeting.startDateTime.plus({ hour: difference })
                 const newEndDateTime = meeting.endDateTime.plus({ hour: difference })
 
-                console.log(newStartDateTime.hour)
-                console.log(newEndDateTime.hour)
-                console.log(newEndDateTime.day)
                 return {
                     ...meeting,
                     startDateTime: newStartDateTime,
