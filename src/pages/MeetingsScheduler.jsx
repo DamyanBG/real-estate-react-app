@@ -200,6 +200,8 @@ const MeetingsScheduler = () => {
     const { user } = useContext(UserContext);
     const [selectedPeriod, setSelectedPeriod] = useState(today);
     const draggedMeetingInfoRef = useRef(null)
+    const [draggedNode, setDraggedNode] = useState(null)
+    const [isDragging, setIsDragging] = useState(false)
 
     useEffect(() => {
         if (!user.token) return;
@@ -247,7 +249,9 @@ const MeetingsScheduler = () => {
 
     const handleDragStart = (meetingId, frames) => (e) => {
         console.log(e)
-        // e.target.classList.add(styles.hiddenFrame)
+        setTimeout(() => {
+            e.target.classList.add(styles.hiddenFrame)
+        }, 0)
         e.dataTransfer.effectAllowed = "move"
         const relativeX = e.nativeEvent.offsetX
         const elWidth = e.target.clientWidth
@@ -263,9 +267,11 @@ const MeetingsScheduler = () => {
     }
 
     const handleDragEnd = (e) => {
+        e.preventDefault()
         console.log("dragEnd")
         draggedMeetingInfoRef.current = null
-        // e.target.classList.remove(styles.hiddenFrame)
+        e.target.classList.remove(styles.hiddenFrame)
+        e.target.dra
         // console.log(e)
     }
 
@@ -356,7 +362,7 @@ const MeetingsScheduler = () => {
                                                         i + 2
                                                     } / ${i + 3}`,
                                                     gridRowStart: `${2 + index}`,
-                                                    zIndex: 0,
+                                                    zIndex: isDragging ? 10 : 0,
                                                 }}
                                                 onDragOver={handleDragOver}
                                                 onDrop={handleDrop(i)}
