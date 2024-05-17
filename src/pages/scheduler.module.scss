@@ -39,6 +39,12 @@
     padding-right: 6px;
 }
 
+.periodButtonsWrapper {
+    min-width: 350px;
+    display: flex;
+    justify-content: space-between;
+}
+
 .schedulerWrapper {
     display: grid;
     grid-template-columns: 2fr repeat(24, 1fr);
@@ -54,6 +60,18 @@
 
 .timeFrame {
     border-radius: 12px;
+    padding-left: 12px;
+    overflow: hidden;
+}
+
+.startTimeFrame {
+    border-radius: 0 12px 12px 0;
+    padding-left: 12px;
+    overflow: hidden;
+}
+
+.endTimeFrame {
+    border-radius: 12px 0 0 12px;
     padding-left: 12px;
     overflow: hidden;
 }
