@@ -132,11 +132,9 @@ const TimeFrame = ({
 
 const formatMeeting = (meeting) => {
     const formattedMeeting = {
-        id: meeting.id,
-        home_title: meeting.home_title,
+        ...meeting,
         startDateTime: DateTime.fromISO(`${meeting.date}T${meeting.start_time}`),
         endDateTime: DateTime.fromISO(`${meeting.date}T${meeting.end_time}`),
-        meeting_partner_names: meeting.meeting_partner_names,
     }
     return formattedMeeting
 }
@@ -144,29 +142,6 @@ const formatMeeting = (meeting) => {
 const today = DateTime.local();
 
 const customOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-
-const mockMeetings = [
-    {
-        id: "25",
-        invitor_id: "1",
-        home_id: "25",
-        start_time: "01:00:00",
-        end_time: "07:00:00",
-        meeting_partner_names: "Hristofor Konstantinov",
-        home_title: "Selska kushta",
-        date: "2024-05-17",
-    },
-    {
-        id: "27",
-        invitor_id: "1",
-        home_id: "30",
-        start_time: "02:00:00",
-        end_time: "04:00:00",
-        meeting_partner_names: "Daniel Petkov",
-        home_title: "Apartament",
-        date: "2024-05-17",
-    },
-].map(formatMeeting);
 
 const HOURS = [
     { text: "12AM", hour: 0 },
@@ -196,24 +171,26 @@ const HOURS = [
 ];
 
 const MeetingsScheduler = () => {
-    const [meetings, setMeetings] = useState(mockMeetings);
+    const [homesWithMeetings, setHomesWithMeetings] = useState([]);
     const { user } = useContext(UserContext);
     const [selectedPeriod, setSelectedPeriod] = useState(today);
     const draggedMeetingInfoRef = useRef(null)
-    const [draggedNode, setDraggedNode] = useState(null)
-    const [isDragging, setIsDragging] = useState(false)
 
     useEffect(() => {
         if (!user.token) return;
         const loadMeetings = async () => {
             const loadedMeetings = await getUserMeetings(user.token);
-            setMeetings([...mockMeetings, ...loadedMeetings.map(formatMeeting)]);
+            console.table(loadedMeetings)
+            setHomesWithMeetings(loadedMeetings.map((home) => ({
+                ...home,
+                home_meetings: home.home_meetings.map(formatMeeting)
+            })));
         };
 
         loadMeetings();
     }, [user.token]);
 
-    // console.table(meetings);
+    console.table(homesWithMeetings)
 
     const handleDragOver = (e) => {
         e.preventDefault()
@@ -222,29 +199,31 @@ const MeetingsScheduler = () => {
 
     const handleDrop = (i) => (e) => {
         const { meetingId, draggedFrame } = draggedMeetingInfoRef.current
-        const newMeetingsState = meetings.map((meeting) => {
-            if (meeting.id === meetingId) {
-                const droppedOnHour = i
-                const isStartTimeInPeriod = meeting.startDateTime.hasSame(selectedPeriod, 'day')
-                const startHour = isStartTimeInPeriod
-                    ? meeting.startDateTime.hour
-                    : 0
-                const draggedFromHour = startHour + draggedFrame
-                const difference = droppedOnHour - draggedFromHour
-
-                const newStartDateTime = meeting.startDateTime.plus({ hour: difference })
-                const newEndDateTime = meeting.endDateTime.plus({ hour: difference })
-
-                return {
-                    ...meeting,
-                    startDateTime: newStartDateTime,
-                    endDateTime: newEndDateTime,
+        const newHomeWithMeetingsState = homesWithMeetings.map((hm) => ({
+            ...hm,
+            home_meetings: hm.home_meetings.map((meeting) => {
+                if (meeting.id === meetingId) {
+                    const droppedOnHour = i
+                    const isStartTimeInPeriod = meeting.startDateTime.hasSame(selectedPeriod, 'day')
+                    const startHour = isStartTimeInPeriod
+                        ? meeting.startDateTime.hour
+                        : 0
+                    const draggedFromHour = startHour + draggedFrame
+                    const difference = droppedOnHour - draggedFromHour
+    
+                    const newStartDateTime = meeting.startDateTime.plus({ hour: difference })
+                    const newEndDateTime = meeting.endDateTime.plus({ hour: difference })
+    
+                    return {
+                        ...meeting,
+                        startDateTime: newStartDateTime,
+                        endDateTime: newEndDateTime,
+                    }
                 }
-            }
-            return meeting
-        })
-        setMeetings(newMeetingsState)
-        console.log(e)
+                return meeting
+            })
+        }))
+        setHomesWithMeetings(newHomeWithMeetingsState)
     }
 
     const handleDragStart = (meetingId, frames) => (e) => {
@@ -268,11 +247,8 @@ const MeetingsScheduler = () => {
 
     const handleDragEnd = (e) => {
         e.preventDefault()
-        console.log("dragEnd")
         draggedMeetingInfoRef.current = null
         e.target.classList.remove(styles.hiddenFrame)
-        e.target.dra
-        // console.log(e)
     }
 
     const handleCellClick = (e) => {
@@ -316,7 +292,68 @@ const MeetingsScheduler = () => {
                                     {hour.text}
                                 </article>
                             ))}
-                            {meetings.map((meeting, index) => {
+                            {homesWithMeetings.map((homeWithMeetings, hIndex) => {
+                                return (
+                                    <Fragment key={homeWithMeetings.id}>
+                                        <article
+                                            style={{
+                                                gridColumn: "1",
+                                                gridRowStart: `${2 + hIndex}`,
+                                                background: "lightgreen",
+                                                textAlign: "center",
+                                            }}
+                                        >
+                                            {homeWithMeetings.title}
+                                        </article>
+                                        {homeWithMeetings.home_meetings.map((meeting, mIndex) => {
+                                            const startTime = meeting.startDateTime.hour
+
+                                            const endTime = meeting.endDateTime.hour
+            
+                                            const isStartTimeInPeriod = meeting.startDateTime.hasSame(selectedPeriod, 'day')
+                                            const isEndTimeInPeriod = meeting.endDateTime.hasSame(selectedPeriod, 'day')
+            
+                                            if (!isStartTimeInPeriod && !isEndTimeInPeriod) return
+            
+                                            const frameType = isStartTimeInPeriod && isEndTimeInPeriod
+                                                ? "full"
+                                                : isStartTimeInPeriod
+                                                    ? "end"
+                                                    : "start"
+                                            return (
+                                                <TimeFrame
+                                                    key={meeting.id}
+                                                    id={meeting.id}
+                                                    handleDragEnd={handleDragEnd}
+                                                    handleDragStart={handleDragStart}
+                                                    startTime={startTime}
+                                                    endTime={endTime}
+                                                    index={mIndex}
+                                                    frameText={meeting.meeting_partner_names}
+                                                    frameType={frameType}
+                                                />
+                                            )
+                                        })}
+                                        
+                                        {Array.from({length: 24}, (_, i) => (
+                                            <article 
+                                                key={`cell-${hIndex}-${i}`}
+                                                style={{
+                                                    gridColumn: `${
+                                                        i + 2
+                                                    } / ${i + 3}`,
+                                                    gridRowStart: `${2 + hIndex}`,
+                                                    zIndex: 0,
+                                                }}
+                                                onDragOver={handleDragOver}
+                                                onDrop={handleDrop(i)}
+                                                onClick={handleCellClick}
+                                            />
+                                        ))}
+                                    </Fragment>
+                                )
+                            })}
+                            {/* {homesWithMeetings.map((meeting, index) => {
                                 const startTime = meeting.startDateTime.hour
 
                                 const endTime = meeting.endDateTime.hour
@@ -371,7 +408,7 @@ const MeetingsScheduler = () => {
                                         ))}
                                     </Fragment>
                                 );
-                            })}
+                            })} */}
                         </section>
                     </section>
                 </section>
