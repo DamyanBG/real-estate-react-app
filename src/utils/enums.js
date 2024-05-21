@@ -13,3 +13,9 @@ export const MEETING_STATUSES = {
 export const REQ_METHODS = {
     post: "POST",
 }
+
+export const PERIOD_TYPES = {
+    day: "day",
+    week: "week",
+    month: "month",
+}
