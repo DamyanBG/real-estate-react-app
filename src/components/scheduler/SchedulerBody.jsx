@@ -3,8 +3,8 @@ import { Fragment } from "react";
 import TimeFrame from "./TimeFrame";
 import { PERIOD_TYPES } from "../../utils/enums";
 
-const FullFrame = ({ styles, id, handleDragEnd, handleDragStart, startTime, endTime, index, frameText }) => {
-    const frames = endTime - startTime;
+const WeekDaysFrame = ({ styles, id, handleDragEnd, handleDragStart, startDateWeekdayNum, endDateWeekdayNum, index, frameText }) => {
+    const frames = endDateWeekdayNum - startDateWeekdayNum;
 
     return (
         <article
@@ -12,7 +12,7 @@ const FullFrame = ({ styles, id, handleDragEnd, handleDragStart, startTime, endT
             onDragStart={handleDragStart(id, frames)}
             onDragEnd={handleDragEnd}
             style={{
-                gridColumn: `${startTime + 2} / ${endTime + 2}`,
+                gridColumn: `${endDateWeekdayNum + 2} / ${startDateWeekdayNum + 2}`,
                 gridRowStart: `${2 + index}`,
                 background: "lightblue",
                 zIndex: 1,
@@ -48,7 +48,7 @@ const HoursBody = ({
                     >
                         {resourceWithFrames.title}
                     </article>
-                    {resourceWithFrames.home_meetings.map((meeting, mIndex) => {
+                    {resourceWithFrames.home_meetings.map((meeting) => {
                         const startTime = meeting.startDateTime.hour;
 
                         const endTime = meeting.endDateTime.hour;
@@ -56,7 +56,11 @@ const HoursBody = ({
                         const isStartTimeInPeriod = meeting.startDateTime.hasSame(selectedPeriod, "day");
                         const isEndTimeInPeriod = meeting.endDateTime.hasSame(selectedPeriod, "day");
 
+                        console.log(resourceWithFrames.title)
+
                         if (!isStartTimeInPeriod && !isEndTimeInPeriod) return;
+                        console.log("passed")
+                        console.log(resourceWithFrames.title)
 
                         const frameType =
                             isStartTimeInPeriod && isEndTimeInPeriod ? "full" : isStartTimeInPeriod ? "end" : "start";
@@ -69,7 +73,7 @@ const HoursBody = ({
                                 handleDragStart={handleDragStart}
                                 startTime={startTime}
                                 endTime={endTime}
-                                index={mIndex}
+                                index={rIndex}
                                 frameText={meeting.meeting_partner_names}
                                 frameType={frameType}
                             />
@@ -93,6 +97,13 @@ const HoursBody = ({
             );
         })
     )
+}
+
+const checkisInSameWeek = (dateToCheck, referenceDate) => {
+    const startOfWeek = referenceDate.startOf('week')
+    const endOfWeek = referenceDate.endOf('week')
+
+    return dateToCheck >= startOfWeek && dateToCheck <= endOfWeek
 }
 
 const WeekDaysBody = ({
@@ -119,30 +130,27 @@ const WeekDaysBody = ({
                     >
                         {resourceWithFrames.title}
                     </article>
-                    {resourceWithFrames.home_meetings.map((meeting, mIndex) => {
-                        const startTime = meeting.startDateTime.hour;
+                    {resourceWithFrames.home_meetings.map((meeting) => {
+                        const startDateTime = meeting.startDateTime
+                        const endDateTime = meeting.endDateTime
 
-                        const endTime = meeting.endDateTime.hour;
+                        const isInSameWeek = checkisInSameWeek(startDateTime, selectedPeriod)
+                        if (!isInSameWeek) return;
 
-                        const isStartTimeInPeriod = meeting.startDateTime.hasSame(selectedPeriod, "day");
-                        const isEndTimeInPeriod = meeting.endDateTime.hasSame(selectedPeriod, "day");
+                        const startDateWeekdayNum = startDateTime.weekday
+                        const endDateWeekdayNum = endDateTime.weekday
 
-                        if (!isStartTimeInPeriod && !isEndTimeInPeriod) return;
-
-                        const frameType =
-                            isStartTimeInPeriod && isEndTimeInPeriod ? "full" : isStartTimeInPeriod ? "end" : "start";
                         return (
-                            <FullFrame
+                            <WeekDaysFrame
                                 key={meeting.id}
                                 styles={styles}
                                 id={meeting.id}
                                 handleDragEnd={handleDragEnd}
                                 handleDragStart={handleDragStart}
-                                startTime={startTime}
-                                endTime={endTime}
-                                index={mIndex}
+                                startDateWeekdayNum={startDateWeekdayNum}
+                                endDateWeekdayNum={endDateWeekdayNum}
+                                index={rIndex}
                                 frameText={meeting.meeting_partner_names}
-                                frameType={frameType}
                             />
                         );
                     })}

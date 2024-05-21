@@ -39,7 +39,6 @@ const MeetingsScheduler = () => {
         if (!user.token) return;
         const loadMeetings = async () => {
             const loadedMeetings = await getUserMeetings(user.token);
-            console.table(loadedMeetings);
             setHomesWithMeetings(
                 loadedMeetings.map((home) => ({
                     ...home,
@@ -51,7 +50,7 @@ const MeetingsScheduler = () => {
         loadMeetings();
     }, [user.token]);
 
-    console.table(homesWithMeetings);
+    // console.table(homesWithMeetings);
 
     const handleDragOver = (e) => {
         e.preventDefault();
@@ -59,30 +58,58 @@ const MeetingsScheduler = () => {
     };
 
     const handleDrop = (i) => (e) => {
-        const { meetingId, draggedFrame } = draggedMeetingInfoRef.current;
-        const newHomeWithMeetingsState = homesWithMeetings.map((hm) => ({
-            ...hm,
-            home_meetings: hm.home_meetings.map((meeting) => {
-                if (meeting.id === meetingId) {
-                    const droppedOnHour = i;
-                    const isStartTimeInPeriod = meeting.startDateTime.hasSame(selectedPeriod, "day");
-                    const startHour = isStartTimeInPeriod ? meeting.startDateTime.hour : 0;
-                    const draggedFromHour = startHour + draggedFrame;
-                    const difference = droppedOnHour - draggedFromHour;
+        console.log(i)
+        if (periodType === PERIOD_TYPES.day) {
+            const { meetingId, draggedFrame } = draggedMeetingInfoRef.current;
+            const newHomeWithMeetingsState = homesWithMeetings.map((hm) => ({
+                ...hm,
+                home_meetings: hm.home_meetings.map((meeting) => {
+                    if (meeting.id === meetingId) {
+                        const droppedOnHour = i;
+                        const isStartTimeInPeriod = meeting.startDateTime.hasSame(selectedPeriod, "day");
+                        const startHour = isStartTimeInPeriod ? meeting.startDateTime.hour : 0;
+                        const draggedFromHour = startHour + draggedFrame;
+                        const difference = droppedOnHour - draggedFromHour;
 
-                    const newStartDateTime = meeting.startDateTime.plus({ hour: difference });
-                    const newEndDateTime = meeting.endDateTime.plus({ hour: difference });
+                        const newStartDateTime = meeting.startDateTime.plus({ hour: difference });
+                        const newEndDateTime = meeting.endDateTime.plus({ hour: difference });
 
-                    return {
-                        ...meeting,
-                        startDateTime: newStartDateTime,
-                        endDateTime: newEndDateTime,
-                    };
-                }
-                return meeting;
-            }),
-        }));
-        setHomesWithMeetings(newHomeWithMeetingsState);
+                        return {
+                            ...meeting,
+                            startDateTime: newStartDateTime,
+                            endDateTime: newEndDateTime,
+                        };
+                    }
+                    return meeting;
+                }),
+            }));
+            setHomesWithMeetings(newHomeWithMeetingsState);
+        }
+        if (periodType === PERIOD_TYPES.week) {
+            const { meetingId, draggedFrame } = draggedMeetingInfoRef.current;
+            const newHomeWithMeetingsState = homesWithMeetings.map((hm) => ({
+                ...hm,
+                home_meetings: hm.home_meetings.map((meeting) => {
+                    if (meeting.id === meetingId) {
+                        const droppedOnWeekday = i;
+                        const startWeekday = meeting.startDateTime.weekday
+                        const draggedFromWeekday = startWeekday + draggedFrame;
+                        const difference = droppedOnWeekday - draggedFromWeekday;
+
+                        const newStartDateTime = meeting.startDateTime.plus({ day: difference });
+                        const newEndDateTime = meeting.endDateTime.plus({ day: difference });
+
+                        return {
+                            ...meeting,
+                            startDateTime: newStartDateTime,
+                            endDateTime: newEndDateTime,
+                        };
+                    }
+                    return meeting;
+                })
+            }))
+            setHomesWithMeetings(newHomeWithMeetingsState);
+        }
     };
 
     const handleDragStart = (meetingId, frames) => (e) => {
@@ -115,14 +142,44 @@ const MeetingsScheduler = () => {
     };
 
     const handleNextPeriodClick = () => {
-        const newPeriod = selectedPeriod.plus({ days: 1 });
+        if (periodType === PERIOD_TYPES.day) {
+            const newPeriod = selectedPeriod.plus({ days: 1 });
+            setSelectedPeriod(newPeriod);
+            return
+        }
+        if (periodType === PERIOD_TYPES.week) {
+            const newPeriod = selectedPeriod.plus({ days: 7 });
+            setSelectedPeriod(newPeriod);
+            return
+        }
+        const newPeriod = selectedPeriod.plus({ months: 1 });
         setSelectedPeriod(newPeriod);
     };
 
     const handlePrevioustPeriodClick = () => {
-        const newPeriod = selectedPeriod.minus({ days: 1 });
+        if (periodType === PERIOD_TYPES.day) {
+            const newPeriod = selectedPeriod.minus({ days: 1 });
+            setSelectedPeriod(newPeriod);
+            return
+        }
+        if (periodType === PERIOD_TYPES.week) {
+            const newPeriod = selectedPeriod.minus({ days: 7 });
+            setSelectedPeriod(newPeriod);
+            return
+        }
+        const newPeriod = selectedPeriod.minus({ months: 1 });
         setSelectedPeriod(newPeriod);
     };
+
+    const handlePeriodTypeChange = (newPeriodType) => {
+        setPeriodType(newPeriodType)
+        if (newPeriodType) {
+            const startOfWeek = selectedPeriod.startOf('week')
+            const endOfWeek = selectedPeriod.endOf('week')
+            console.log(startOfWeek.day)
+            console.log(endOfWeek.day)
+        }
+    }
 
     return (
         <section className={styles.schedulerContainer}>
@@ -134,28 +191,29 @@ const MeetingsScheduler = () => {
                             <PeriodSelect
                                 styles={styles}
                                 selectedPeriod={selectedPeriod}
+                                periodType={periodType}
                                 handlePrevioustPeriodClick={handlePrevioustPeriodClick}
                                 handleNextPeriodClick={handleNextPeriodClick}
                             />
                             <article className={styles.periodButtonsWrapper}>
                                 <button
                                     type="button"
-                                    className={periodType === PERIOD_TYPES.day && styles.activePerBtn}
-                                    onClick={() => setPeriodType(PERIOD_TYPES.day)}
+                                    className={periodType === PERIOD_TYPES.day ? styles.activePerBtn : ""}
+                                    onClick={() => handlePeriodTypeChange(PERIOD_TYPES.day)}
                                 >
                                     Day
                                 </button>
                                 <button
                                     type="button"
-                                    className={periodType === PERIOD_TYPES.week && styles.activePerBtn}
-                                    onClick={() => setPeriodType(PERIOD_TYPES.week)}
+                                    className={periodType === PERIOD_TYPES.week ? styles.activePerBtn : ""}
+                                    onClick={() => handlePeriodTypeChange(PERIOD_TYPES.week)}
                                 >
                                     Week
                                 </button>
                                 <button
                                     type="button"
-                                    className={periodType === PERIOD_TYPES.month && styles.activePerBtn}
-                                    onClick={() => setPeriodType(PERIOD_TYPES.month)}
+                                    className={periodType === PERIOD_TYPES.month ? styles.activePerBtn : ""}
+                                    onClick={() => handlePeriodTypeChange(PERIOD_TYPES.month)}
                                 >
                                     Month
                                 </button>
