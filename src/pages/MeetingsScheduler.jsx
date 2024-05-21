@@ -8,87 +8,8 @@ import styles from "./scheduler.module.scss";
 import { PERIOD_TYPES } from "../utils/enums";
 import { HOURS, WEEK_DAYS } from "../utils/utils";
 import SchedulerHeader from "../components/scheduler/SchedulerHeader";
-
-const FullFrame = ({ id, handleDragEnd, handleDragStart, startTime, endTime, index, frameText }) => {
-    const frames = endTime - startTime;
-
-    return (
-        <article
-            draggable
-            onDragStart={handleDragStart(id, frames)}
-            onDragEnd={handleDragEnd}
-            style={{
-                gridColumn: `${startTime + 2} / ${endTime + 2}`,
-                gridRowStart: `${2 + index}`,
-                background: "lightblue",
-                zIndex: 1,
-            }}
-            className={styles.timeFrame}
-        >
-            {frameText}
-        </article>
-    );
-};
-
-const StartFrame = ({ id, handleDragEnd, handleDragStart, startTime, endTime, index, frameText }) => {
-    const frames = endTime;
-    console.log(frames);
-
-    return (
-        <article
-            draggable
-            onDragStart={handleDragStart(id, frames)}
-            onDragEnd={handleDragEnd}
-            style={{
-                gridColumn: `${2} / ${endTime + 2}`,
-                gridRowStart: `${2 + index}`,
-                background: "lightblue",
-                zIndex: 1,
-            }}
-            className={styles.startTimeFrame}
-        >
-            {frameText}
-        </article>
-    );
-};
-
-const EndFrame = ({ id, handleDragEnd, handleDragStart, startTime, endTime, index, frameText }) => {
-    const frames = 24 - startTime;
-
-    return (
-        <article
-            draggable
-            onDragStart={handleDragStart(id, frames)}
-            onDragEnd={handleDragEnd}
-            style={{
-                gridColumn: `${startTime + 2} / ${26}`,
-                gridRowStart: `${2 + index}`,
-                background: "lightblue",
-                zIndex: 1,
-            }}
-            className={styles.endTimeFrame}
-        >
-            {frameText}
-        </article>
-    );
-};
-
-const TimeFrame = ({ id, handleDragEnd, handleDragStart, startTime, endTime, index, frameText, frameType }) => {
-    const TimeFrameComponent = frameType === "full" ? FullFrame : frameType === "start" ? StartFrame : EndFrame;
-
-    return (
-        <TimeFrameComponent
-            id={id}
-            handleDragEnd={handleDragEnd}
-            handleDragStart={handleDragStart}
-            startTime={startTime}
-            endTime={endTime}
-            index={index}
-            frameText={frameText}
-            frameType={frameType}
-        />
-    );
-};
+import SchedulerBody from "../components/scheduler/SchedulerBody";
+import PeriodSelect from "../components/scheduler/PeriodSelect";
 
 const formatMeeting = (meeting) => {
     const formattedMeeting = {
@@ -101,14 +22,18 @@ const formatMeeting = (meeting) => {
 
 const today = DateTime.local();
 
-const customOptions = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
-
 const MeetingsScheduler = () => {
     const [homesWithMeetings, setHomesWithMeetings] = useState([]);
     const { user } = useContext(UserContext);
     const [selectedPeriod, setSelectedPeriod] = useState(today);
     const [periodType, setPeriodType] = useState(PERIOD_TYPES.day);
     const draggedMeetingInfoRef = useRef(null);
+
+    const gridTemplateColumnsValue = periodType === PERIOD_TYPES.day
+        ? "2fr repeat(24, 1fr)"
+        : periodType === PERIOD_TYPES.week
+            ? "2fr repeat(7, 1fr)"
+            : "2fr repeat(30, 1fr)"
 
     useEffect(() => {
         if (!user.token) return;
@@ -206,15 +131,12 @@ const MeetingsScheduler = () => {
                     <h2>Scheduler</h2>
                     <section>
                         <article className={styles.periodRow}>
-                            <article>
-                                <button type="button" onClick={handlePrevioustPeriodClick}>
-                                    &larr;
-                                </button>
-                                <span className={styles.periodText}>{selectedPeriod.toLocaleString(customOptions)}</span>
-                                <button type="button" onClick={handleNextPeriodClick}>
-                                    &rarr;
-                                </button>
-                            </article>
+                            <PeriodSelect
+                                styles={styles}
+                                selectedPeriod={selectedPeriod}
+                                handlePrevioustPeriodClick={handlePrevioustPeriodClick}
+                                handleNextPeriodClick={handleNextPeriodClick}
+                            />
                             <article className={styles.periodButtonsWrapper}>
                                 <button
                                     type="button"
@@ -239,65 +161,26 @@ const MeetingsScheduler = () => {
                                 </button>
                             </article>
                         </article>
-                        <section className={styles.schedulerWrapper}>
+                        <section 
+                            className={styles.schedulerWrapper}
+                            style={{
+                                display: "grid",
+                                gridTemplateColumns: gridTemplateColumnsValue
+                            }}
+                        >
                             <article style={{ textAlign: "center" }}>Homes</article>
                             <SchedulerHeader periodType={periodType} />
-                            {homesWithMeetings.map((homeWithMeetings, hIndex) => {
-                                return (
-                                    <Fragment key={homeWithMeetings.id}>
-                                        <article
-                                            style={{
-                                                gridColumn: "1",
-                                                gridRowStart: `${2 + hIndex}`,
-                                                background: "lightgreen",
-                                                textAlign: "center",
-                                            }}
-                                        >
-                                            {homeWithMeetings.title}
-                                        </article>
-                                        {homeWithMeetings.home_meetings.map((meeting, mIndex) => {
-                                            const startTime = meeting.startDateTime.hour;
-
-                                            const endTime = meeting.endDateTime.hour;
-
-                                            const isStartTimeInPeriod = meeting.startDateTime.hasSame(selectedPeriod, "day");
-                                            const isEndTimeInPeriod = meeting.endDateTime.hasSame(selectedPeriod, "day");
-
-                                            if (!isStartTimeInPeriod && !isEndTimeInPeriod) return;
-
-                                            const frameType =
-                                                isStartTimeInPeriod && isEndTimeInPeriod ? "full" : isStartTimeInPeriod ? "end" : "start";
-                                            return (
-                                                <TimeFrame
-                                                    key={meeting.id}
-                                                    id={meeting.id}
-                                                    handleDragEnd={handleDragEnd}
-                                                    handleDragStart={handleDragStart}
-                                                    startTime={startTime}
-                                                    endTime={endTime}
-                                                    index={mIndex}
-                                                    frameText={meeting.meeting_partner_names}
-                                                    frameType={frameType}
-                                                />
-                                            );
-                                        })}
-
-                                        {Array.from({ length: 24 }, (_, i) => (
-                                            <article
-                                                key={`cell-${hIndex}-${i}`}
-                                                style={{
-                                                    gridColumn: `${i + 2} / ${i + 3}`,
-                                                    gridRowStart: `${2 + hIndex}`,
-                                                    zIndex: 0,
-                                                }}
-                                                onDragOver={handleDragOver}
-                                                onDrop={handleDrop(i)}
-                                                onClick={handleCellClick}
-                                            />
-                                        ))}
-                                    </Fragment>
-                                );
-                            })}
+                            <SchedulerBody
+                                styles={styles}
+                                periodType={periodType}
+                                resourcesWithFrames={homesWithMeetings}
+                                selectedPeriod={selectedPeriod}
+                                handleDragEnd={handleDragEnd}
+                                handleDragStart={handleDragStart}
+                                handleDragOver={handleDragOver}
+                                handleDrop={handleDrop}
+                                handleCellClick={handleCellClick}
+                            />
                         </section>
                     </section>
                 </section>

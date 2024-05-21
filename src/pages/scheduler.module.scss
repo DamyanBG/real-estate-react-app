@@ -75,8 +75,8 @@
 }
 
 .schedulerWrapper {
-    display: grid;
-    grid-template-columns: 2fr repeat(24, 1fr);
+    // display: grid;
+    // grid-template-columns: 2fr repeat(24, 1fr);
     gap: 2px;
     background: lightgray;
 
@@ -84,8 +84,6 @@
         background: white;
     }
 }
-
-
 
 .timeFrame {
     border-radius: 12px;
