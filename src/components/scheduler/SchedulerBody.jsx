@@ -137,8 +137,10 @@ const WeekDaysBody = ({
                         const isInSameWeek = checkisInSameWeek(startDateTime, selectedPeriod)
                         if (!isInSameWeek) return;
 
-                        const startDateWeekdayNum = startDateTime.weekday
-                        const endDateWeekdayNum = endDateTime.weekday
+                        const startDateWeekdayNum = startDateTime.weekday - 1
+                        const endDateWeekdayNum = endDateTime.weekday - 1
+
+                        console.log(startDateWeekdayNum)
 
                         return (
                             <WeekDaysFrame
@@ -164,7 +166,7 @@ const WeekDaysBody = ({
                                 zIndex: 0,
                             }}
                             onDragOver={handleDragOver}
-                            onDrop={handleDrop(i)}
+                            onDrop={handleDrop(i + 1)}
                             onClick={handleCellClick}
                         />
                     ))}
