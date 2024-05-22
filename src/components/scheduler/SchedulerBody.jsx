@@ -5,6 +5,7 @@ import { PERIOD_TYPES } from "../../utils/enums";
 
 const WeekDaysFrame = ({ styles, id, handleDragEnd, handleDragStart, startDateWeekdayNum, endDateWeekdayNum, index, frameText }) => {
     const frames = endDateWeekdayNum - startDateWeekdayNum;
+    const gridColumnValue = `${startDateWeekdayNum + 2} / ${endDateWeekdayNum + 2}`
 
     return (
         <article
@@ -12,7 +13,7 @@ const WeekDaysFrame = ({ styles, id, handleDragEnd, handleDragStart, startDateWe
             onDragStart={handleDragStart(id, frames)}
             onDragEnd={handleDragEnd}
             style={{
-                gridColumn: `${endDateWeekdayNum + 2} / ${startDateWeekdayNum + 2}`,
+                gridColumn: gridColumnValue,
                 gridRowStart: `${2 + index}`,
                 background: "lightblue",
                 zIndex: 1,
@@ -138,9 +139,8 @@ const WeekDaysBody = ({
                         if (!isInSameWeek) return;
 
                         const startDateWeekdayNum = startDateTime.weekday - 1
-                        const endDateWeekdayNum = endDateTime.weekday - 1
-
-                        console.log(startDateWeekdayNum)
+                        const endDateWeekdayNum = endDateTime.weekday
+                       
 
                         return (
                             <WeekDaysFrame
