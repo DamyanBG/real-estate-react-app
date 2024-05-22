@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import TimeFrame from "./TimeFrame";
 import { PERIOD_TYPES } from "../../utils/enums";
 
-const WeekDaysFrame = ({ styles, id, handleDragEnd, handleDragStart, startDateWeekdayNum, endDateWeekdayNum, index, frameText }) => {
+const WeekDaysFrame = ({ id, handleDragEnd, handleDragStart, startDateWeekdayNum, endDateWeekdayNum, index, frameText }) => {
     const frames = endDateWeekdayNum - startDateWeekdayNum;
     const gridColumnValue = `${startDateWeekdayNum + 2} / ${endDateWeekdayNum + 2}`
 
@@ -18,14 +18,14 @@ const WeekDaysFrame = ({ styles, id, handleDragEnd, handleDragStart, startDateWe
                 background: "lightblue",
                 zIndex: 1,
             }}
-            className={styles.timeFrame}
+            className="timeFrame"
         >
             {frameText}
         </article>
     );
 };
 
-const MonthDaysFrame = ({ styles, id, handleDragEnd, handleDragStart, startDate, endDate, index, frameText }) => {
+const MonthDaysFrame = ({ id, handleDragEnd, handleDragStart, startDate, endDate, index, frameText }) => {
     const frames = endDate - startDate;
     const gridColumnValue = `${startDate + 2} / ${endDate + 2}`
 
@@ -40,7 +40,7 @@ const MonthDaysFrame = ({ styles, id, handleDragEnd, handleDragStart, startDate,
                 background: "lightblue",
                 zIndex: 1,
             }}
-            className={styles.timeFrame}
+            className="timeFrame"
         >
             {frameText}
         </article>
@@ -48,7 +48,6 @@ const MonthDaysFrame = ({ styles, id, handleDragEnd, handleDragStart, startDate,
 };
 
 const HoursBody = ({
-    styles,
     resourcesWithFrames,
     selectedPeriod,
     handleDragEnd,
@@ -87,7 +86,6 @@ const HoursBody = ({
                         return (
                             <TimeFrame
                                 key={meeting.id}
-                                styles={styles}
                                 id={meeting.id}
                                 handleDragEnd={handleDragEnd}
                                 handleDragStart={handleDragStart}
@@ -127,7 +125,6 @@ const checkisInSameWeek = (dateToCheck, referenceDate) => {
 }
 
 const WeekDaysBody = ({
-    styles,
     resourcesWithFrames,
     selectedPeriod,
     handleDragEnd,
@@ -164,7 +161,6 @@ const WeekDaysBody = ({
                         return (
                             <WeekDaysFrame
                                 key={meeting.id}
-                                styles={styles}
                                 id={meeting.id}
                                 handleDragEnd={handleDragEnd}
                                 handleDragStart={handleDragStart}
@@ -200,7 +196,6 @@ const checkIsInSameMonthAndYear = (date1, date2) => {
 }
 
 const MonthBody = ({
-    styles,
     resourcesWithFrames,
     selectedPeriod,
     handleDragEnd,
@@ -239,7 +234,6 @@ const MonthBody = ({
                         return (
                             <MonthDaysFrame
                                 key={meeting.id}
-                                styles={styles}
                                 id={meeting.id}
                                 handleDragEnd={handleDragEnd}
                                 handleDragStart={handleDragStart}
@@ -271,7 +265,6 @@ const MonthBody = ({
 }
 
 const SchedulerBody = ({
-    styles,
     periodType,
     resourcesWithFrames,
     selectedPeriod,
@@ -284,7 +277,6 @@ const SchedulerBody = ({
     if (periodType === PERIOD_TYPES.day) {
         return (
             <HoursBody
-                styles={styles}
                 resourcesWithFrames={resourcesWithFrames}
                 selectedPeriod={selectedPeriod}
                 handleDragEnd={handleDragEnd}
@@ -298,7 +290,6 @@ const SchedulerBody = ({
     if (periodType === PERIOD_TYPES.week) {
         return (
             <WeekDaysBody
-                styles={styles}
                 resourcesWithFrames={resourcesWithFrames}
                 selectedPeriod={selectedPeriod}
                 handleDragEnd={handleDragEnd}
@@ -312,7 +303,6 @@ const SchedulerBody = ({
     if (periodType === PERIOD_TYPES.month) {
         return (
             <MonthBody
-                styles={styles}
                 resourcesWithFrames={resourcesWithFrames}
                 selectedPeriod={selectedPeriod}
                 handleDragEnd={handleDragEnd}

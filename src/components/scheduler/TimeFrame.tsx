@@ -1,4 +1,4 @@
-const FullFrame = ({ styles, id, handleDragEnd, handleDragStart, startTime, endTime, index, frameText }) => {
+const FullFrame = ({ id, handleDragEnd, handleDragStart, startTime, endTime, index, frameText }) => {
     const frames = endTime - startTime;
 
     return (
@@ -12,14 +12,14 @@ const FullFrame = ({ styles, id, handleDragEnd, handleDragStart, startTime, endT
                 background: "lightblue",
                 zIndex: 1,
             }}
-            className={styles.timeFrame}
+            className="timeFrame"
         >
             {frameText}
         </article>
     );
 };
 
-const StartFrame = ({ styles,id, handleDragEnd, handleDragStart, startTime, endTime, index, frameText }) => {
+const StartFrame = ({ id, handleDragEnd, handleDragStart, startTime, endTime, index, frameText }) => {
     const frames = endTime;
     console.log(frames);
 
@@ -34,14 +34,14 @@ const StartFrame = ({ styles,id, handleDragEnd, handleDragStart, startTime, endT
                 background: "lightblue",
                 zIndex: 1,
             }}
-            className={styles.startTimeFrame}
+            className="startTimeFrame"
         >
             {frameText}
         </article>
     );
 };
 
-const EndFrame = ({ styles,id, handleDragEnd, handleDragStart, startTime, endTime, index, frameText }) => {
+const EndFrame = ({ id, handleDragEnd, handleDragStart, startTime, endTime, index, frameText }) => {
     const frames = 24 - startTime;
 
     return (
@@ -55,19 +55,18 @@ const EndFrame = ({ styles,id, handleDragEnd, handleDragStart, startTime, endTim
                 background: "lightblue",
                 zIndex: 1,
             }}
-            className={styles.endTimeFrame}
+            className="endTimeFrame"
         >
             {frameText}
         </article>
     );
 };
 
-const TimeFrame = ({ styles, id, handleDragEnd, handleDragStart, startTime, endTime, index, frameText, frameType }) => {
+const TimeFrame = ({ id, handleDragEnd, handleDragStart, startTime, endTime, index, frameText, frameType }) => {
     const TimeFrameComponent = frameType === "full" ? FullFrame : frameType === "start" ? StartFrame : EndFrame;
 
     return (
         <TimeFrameComponent
-            styles={styles}
             id={id}
             handleDragEnd={handleDragEnd}
             handleDragStart={handleDragStart}

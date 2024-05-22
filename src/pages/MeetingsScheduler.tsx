@@ -5,11 +5,13 @@ import { getUserMeetings } from "../api/meetingApi";
 import { UserContext } from "../context/UserProvider";
 
 import styles from "./scheduler.module.scss";
-import { PERIOD_TYPES } from "../utils/enums";
 import { HOURS, WEEK_DAYS } from "../utils/utils";
 import SchedulerHeader from "../components/scheduler/SchedulerHeader";
 import SchedulerBody from "../components/scheduler/SchedulerBody";
 import PeriodSelect from "../components/scheduler/PeriodSelect";
+import Scheduler from "@/components/scheduler/Scheduler";
+import { PERIOD_TYPES } from "@/utils/enums";
+
 
 const formatMeeting = (meeting) => {
     const formattedMeeting = {
@@ -211,65 +213,20 @@ const MeetingsScheduler = () => {
     return (
         <section className={styles.schedulerContainer}>
             <section className={styles.schedulerRow}>
-                <section className={styles.scheduler}>
-                    <h2>Scheduler</h2>
-                    <section>
-                        <article className={styles.periodRow}>
-                            <PeriodSelect
-                                styles={styles}
-                                selectedPeriod={selectedPeriod}
-                                periodType={periodType}
-                                handlePrevioustPeriodClick={handlePrevioustPeriodClick}
-                                handleNextPeriodClick={handleNextPeriodClick}
-                            />
-                            <article className={styles.periodButtonsWrapper}>
-                                <button
-                                    type="button"
-                                    className={periodType === PERIOD_TYPES.day ? styles.activePerBtn : ""}
-                                    onClick={() => handlePeriodTypeChange(PERIOD_TYPES.day)}
-                                >
-                                    Day
-                                </button>
-                                <button
-                                    type="button"
-                                    className={periodType === PERIOD_TYPES.week ? styles.activePerBtn : ""}
-                                    onClick={() => handlePeriodTypeChange(PERIOD_TYPES.week)}
-                                >
-                                    Week
-                                </button>
-                                <button
-                                    type="button"
-                                    className={periodType === PERIOD_TYPES.month ? styles.activePerBtn : ""}
-                                    onClick={() => handlePeriodTypeChange(PERIOD_TYPES.month)}
-                                >
-                                    Month
-                                </button>
-                            </article>
-                        </article>
-                        <section 
-                            className={styles.schedulerWrapper}
-                            style={{
-                                display: "grid",
-                                gridTemplateColumns: gridTemplateColumnsValue,
-                                overflowX: periodType === PERIOD_TYPES.month ? "scroll" : "auto"
-                            }}
-                        >
-                            <article style={{ textAlign: "center" }}>Homes</article>
-                            <SchedulerHeader periodType={periodType} selectedPeriod={selectedPeriod} />
-                            <SchedulerBody
-                                styles={styles}
-                                periodType={periodType}
-                                resourcesWithFrames={homesWithMeetings}
-                                selectedPeriod={selectedPeriod}
-                                handleDragEnd={handleDragEnd}
-                                handleDragStart={handleDragStart}
-                                handleDragOver={handleDragOver}
-                                handleDrop={handleDrop}
-                                handleCellClick={handleCellClick}
-                            />
-                        </section>
-                    </section>
-                </section>
+                <Scheduler
+                    selectedPeriod={selectedPeriod}
+                    periodType={periodType}
+                    handlePrevioustPeriodClick={handlePrevioustPeriodClick}
+                    handleNextPeriodClick={handleNextPeriodClick}
+                    handlePeriodTypeChange={handlePeriodTypeChange}
+                    gridTemplateColumnsValue={gridTemplateColumnsValue}
+                    homesWithMeetings={homesWithMeetings}
+                    handleDragEnd={handleDragEnd}
+                    handleDragStart={handleDragStart}
+                    handleDragOver={handleDragOver}
+                    handleDrop={handleDrop}
+                    handleCellClick={handleCellClick}
+                />
                 {/* <section className={styles.meetingsTable}>
                     <h2>Meetings List</h2>
                 </section> */}
