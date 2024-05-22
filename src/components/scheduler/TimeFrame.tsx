@@ -11,6 +11,11 @@ const FullFrame = ({ id, handleDragEnd, handleDragStart, startTime, endTime, ind
                 gridRowStart: `${2 + index}`,
                 background: "lightblue",
                 zIndex: 1,
+                whiteSpace: "nowrap",
+                overflowX: "hidden",
+                textOverflow: "ellipsis",
+                fontSize: "12px",
+                lineHeight: "22px"
             }}
             className="timeFrame"
         >
@@ -33,6 +38,11 @@ const StartFrame = ({ id, handleDragEnd, handleDragStart, startTime, endTime, in
                 gridRowStart: `${2 + index}`,
                 background: "lightblue",
                 zIndex: 1,
+                whiteSpace: "nowrap",
+                overflowX: "hidden",
+                textOverflow: "ellipsis",
+                fontSize: "12px",
+                lineHeight: "22px"
             }}
             className="startTimeFrame"
         >
@@ -54,6 +64,11 @@ const EndFrame = ({ id, handleDragEnd, handleDragStart, startTime, endTime, inde
                 gridRowStart: `${2 + index}`,
                 background: "lightblue",
                 zIndex: 1,
+                whiteSpace: "nowrap",
+                overflowX: "hidden",
+                textOverflow: "ellipsis",
+                fontSize: "12px",
+                lineHeight: "22px"
             }}
             className="endTimeFrame"
         >

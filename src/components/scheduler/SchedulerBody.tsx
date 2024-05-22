@@ -39,6 +39,11 @@ const MonthDaysFrame = ({ id, handleDragEnd, handleDragStart, startDate, endDate
                 gridRowStart: `${2 + index}`,
                 background: "lightblue",
                 zIndex: 1,
+                whiteSpace: "nowrap",
+                overflowX: "hidden",
+                textOverflow: "ellipsis",
+                fontSize: "14px",
+                lineHeight: "24px"
             }}
             className="timeFrame"
         >
@@ -64,7 +69,7 @@ const HoursBody = ({
                         style={{
                             gridColumn: "1",
                             gridRowStart: `${2 + rIndex}`,
-                            background: "lightgreen",
+                            background: "#7ac9d7",
                             textAlign: "center",
                         }}
                     >
