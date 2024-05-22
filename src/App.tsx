@@ -15,8 +15,8 @@ import SignUp from "./pages/user/SignUp";
 import Rent from "./pages/Rent";
 import Chat from "./pages/Chat";
 import Meeting from "./pages/Meeting";
-import MeetingsScheduler from "./pages/MeetingsScheduler";
 import GridLearn from "./pages/GridLearn";
+import MeetingsScheduler from "./pages/MeetingsScheduler";
 
 import "./App.scss";
 import "leaflet/dist/leaflet.css";

@@ -25,6 +25,28 @@ const WeekDaysFrame = ({ styles, id, handleDragEnd, handleDragStart, startDateWe
     );
 };
 
+const MonthDaysFrame = ({ styles, id, handleDragEnd, handleDragStart, startDate, endDate, index, frameText }) => {
+    const frames = endDate - startDate;
+    const gridColumnValue = `${startDate + 2} / ${endDate + 2}`
+
+    return (
+        <article
+            draggable
+            onDragStart={handleDragStart(id, frames)}
+            onDragEnd={handleDragEnd}
+            style={{
+                gridColumn: gridColumnValue,
+                gridRowStart: `${2 + index}`,
+                background: "lightblue",
+                zIndex: 1,
+            }}
+            className={styles.timeFrame}
+        >
+            {frameText}
+        </article>
+    );
+};
+
 const HoursBody = ({
     styles,
     resourcesWithFrames,
@@ -57,11 +79,8 @@ const HoursBody = ({
                         const isStartTimeInPeriod = meeting.startDateTime.hasSame(selectedPeriod, "day");
                         const isEndTimeInPeriod = meeting.endDateTime.hasSame(selectedPeriod, "day");
 
-                        console.log(resourceWithFrames.title)
 
                         if (!isStartTimeInPeriod && !isEndTimeInPeriod) return;
-                        console.log("passed")
-                        console.log(resourceWithFrames.title)
 
                         const frameType =
                             isStartTimeInPeriod && isEndTimeInPeriod ? "full" : isStartTimeInPeriod ? "end" : "start";
@@ -176,6 +195,81 @@ const WeekDaysBody = ({
     )
 }
 
+const checkIsInSameMonthAndYear = (date1, date2) => {
+    return date1.year === date2.year && date1.month === date2.month;
+}
+
+const MonthBody = ({
+    styles,
+    resourcesWithFrames,
+    selectedPeriod,
+    handleDragEnd,
+    handleDragStart,
+    handleDragOver,
+    handleDrop,
+    handleCellClick
+}) => {
+    const monthDays = selectedPeriod.daysInMonth
+
+    return (
+        resourcesWithFrames.map((resourceWithFrames, rIndex) => {
+            return (
+                <Fragment key={resourceWithFrames.id}>
+                    <article
+                        style={{
+                            gridColumn: "1",
+                            gridRowStart: `${2 + rIndex}`,
+                            background: "lightgreen",
+                            textAlign: "center",
+                        }}
+                    >
+                        {resourceWithFrames.title}
+                    </article>
+                    {resourceWithFrames.home_meetings.map((meeting) => {
+                        const startDateTime = meeting.startDateTime
+                        const endDateTime = meeting.endDateTime
+
+                        const isInSameMonth = checkIsInSameMonthAndYear(startDateTime, selectedPeriod)
+                        if (!isInSameMonth) return;
+
+                        const startDate = startDateTime.day - 1
+                        const endDate = endDateTime.day
+                       
+
+                        return (
+                            <MonthDaysFrame
+                                key={meeting.id}
+                                styles={styles}
+                                id={meeting.id}
+                                handleDragEnd={handleDragEnd}
+                                handleDragStart={handleDragStart}
+                                startDate={startDate}
+                                endDate={endDate}
+                                index={rIndex}
+                                frameText={meeting.meeting_partner_names}
+                            />
+                        );
+                    })}
+
+                    {Array.from({ length: monthDays }, (_, i) => (
+                        <article
+                            key={`cell-${rIndex}-${i}`}
+                            style={{
+                                gridColumn: `${i + 2} / ${i + 3}`,
+                                gridRowStart: `${2 + rIndex}`,
+                                zIndex: 0,
+                            }}
+                            onDragOver={handleDragOver}
+                            onDrop={handleDrop(i + 1)}
+                            onClick={handleCellClick}
+                        />
+                    ))}
+                </Fragment>
+            );
+        })
+    )
+}
+
 const SchedulerBody = ({
     styles,
     periodType,
@@ -204,6 +298,20 @@ const SchedulerBody = ({
     if (periodType === PERIOD_TYPES.week) {
         return (
             <WeekDaysBody
+                styles={styles}
+                resourcesWithFrames={resourcesWithFrames}
+                selectedPeriod={selectedPeriod}
+                handleDragEnd={handleDragEnd}
+                handleDragStart={handleDragStart}
+                handleDragOver={handleDragOver}
+                handleDrop={handleDrop}
+                handleCellClick={handleCellClick}
+            />
+        )
+    }
+    if (periodType === PERIOD_TYPES.month) {
+        return (
+            <MonthBody
                 styles={styles}
                 resourcesWithFrames={resourcesWithFrames}
                 selectedPeriod={selectedPeriod}

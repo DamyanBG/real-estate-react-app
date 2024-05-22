@@ -22,6 +22,12 @@ const formatMeeting = (meeting) => {
 
 const today = DateTime.local();
 
+const defineMonthGridColumnsValue = (currentDate) => {
+    const monthDays = currentDate.daysInMonth
+    const gridColumnsValue = `200px repeat(${monthDays}, 100px)`
+    return gridColumnsValue
+}
+
 const MeetingsScheduler = () => {
     const [homesWithMeetings, setHomesWithMeetings] = useState([]);
     const { user } = useContext(UserContext);
@@ -33,7 +39,7 @@ const MeetingsScheduler = () => {
         ? "2fr repeat(24, 1fr)"
         : periodType === PERIOD_TYPES.week
             ? "2fr repeat(7, 1fr)"
-            : "2fr repeat(30, 1fr)"
+            : defineMonthGridColumnsValue(selectedPeriod)
 
     useEffect(() => {
         if (!user.token) return;
@@ -110,10 +116,38 @@ const MeetingsScheduler = () => {
             }))
             setHomesWithMeetings(newHomeWithMeetingsState);
         }
+        if (periodType === PERIOD_TYPES.month) {
+            const { meetingId, draggedFrame } = draggedMeetingInfoRef.current;
+            const newHomeWithMeetingsState = homesWithMeetings.map((hm) => ({
+                ...hm,
+                home_meetings: hm.home_meetings.map((meeting) => {
+                    if (meeting.id === meetingId) {
+                        const droppedOnMonthDay = i;
+                        console.log(droppedOnMonthDay)
+                        const startMonthDay = meeting.startDateTime.day
+                        console.log(startMonthDay)
+                        const draggedFromWeekday = startMonthDay + draggedFrame;
+                        const difference = droppedOnMonthDay - draggedFromWeekday;
+                        console.log(difference)
+
+                        const newStartDateTime = meeting.startDateTime.plus({ day: difference });
+                        const newEndDateTime = meeting.endDateTime.plus({ day: difference });
+
+                        console.log(newStartDateTime.day)
+                        return {
+                            ...meeting,
+                            startDateTime: newStartDateTime,
+                            endDateTime: newEndDateTime,
+                        };
+                    }
+                    return meeting;
+                })
+            }))
+            setHomesWithMeetings(newHomeWithMeetingsState);
+        }
     };
 
     const handleDragStart = (meetingId, frames) => (e) => {
-        console.log(e);
         setTimeout(() => {
             e.target.classList.add(styles.hiddenFrame);
         }, 0);
@@ -128,7 +162,6 @@ const MeetingsScheduler = () => {
             draggedFrame,
         };
         draggedMeetingInfoRef.current = draggedInfo;
-        // console.log(e)
     };
 
     const handleDragEnd = (e) => {
@@ -173,12 +206,6 @@ const MeetingsScheduler = () => {
 
     const handlePeriodTypeChange = (newPeriodType) => {
         setPeriodType(newPeriodType)
-        if (newPeriodType) {
-            const startOfWeek = selectedPeriod.startOf('week')
-            const endOfWeek = selectedPeriod.endOf('week')
-            console.log(startOfWeek.day)
-            console.log(endOfWeek.day)
-        }
     }
 
     return (
@@ -223,11 +250,12 @@ const MeetingsScheduler = () => {
                             className={styles.schedulerWrapper}
                             style={{
                                 display: "grid",
-                                gridTemplateColumns: gridTemplateColumnsValue
+                                gridTemplateColumns: gridTemplateColumnsValue,
+                                overflowX: periodType === PERIOD_TYPES.month ? "scroll" : "auto"
                             }}
                         >
                             <article style={{ textAlign: "center" }}>Homes</article>
-                            <SchedulerHeader periodType={periodType} />
+                            <SchedulerHeader periodType={periodType} selectedPeriod={selectedPeriod} />
                             <SchedulerBody
                                 styles={styles}
                                 periodType={periodType}
