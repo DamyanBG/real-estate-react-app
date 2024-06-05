@@ -1,25 +1,23 @@
+
 import { PERIOD_TYPES } from "@/utils/enums";
-import PeriodSelect from "./PeriodSelect"
 import SchedulerBody from "./SchedulerBody";
 import SchedulerHeader from "./SchedulerHeader";
 import { PeriodTypeEnum } from "@/types/types";
-import { PeriodToggleBtn } from "@evolved/react-simple-scheduler"
+import { SchedulerProps } from "@/types/components";
+
 import "./scheduler.css"
 
-const Scheduler: React.FC = ({
-    selectedPeriod,
+const Scheduler = ({
+    currentDate,
     periodType,
-    handlePrevioustPeriodClick,
-    handleNextPeriodClick,
+    handleDateChange,
     handlePeriodTypeChange,
     gridTemplateColumnsValue,
-    homesWithMeetings,
+    resourcesWithFrames,
     handleDragEnd,
     handleDragStart,
-    handleDragOver,
     handleDrop,
-    handleCellClick,
-}) => {
+}: SchedulerProps) => {
     
     return (
         <section
@@ -31,7 +29,7 @@ const Scheduler: React.FC = ({
         >
             <h2>Scheduler</h2>
             <section>
-                <article
+                {/* <article
                     style={{
                         display: "flex",
                         flexDirection: "row",
@@ -39,11 +37,10 @@ const Scheduler: React.FC = ({
                         padding: "12px 24px",
                     }}
                 >
-                    <PeriodSelect
-                        selectedPeriod={selectedPeriod}
+                    <DateSelect
+                        currentDate={currentDate}
                         periodType={periodType}
-                        handlePrevioustPeriodClick={handlePrevioustPeriodClick}
-                        handleNextPeriodClick={handleNextPeriodClick}
+                        onDateChange={handleDateChange}
                     />
                     <article
                         style={{
@@ -52,13 +49,6 @@ const Scheduler: React.FC = ({
                             justifyContent: "space-between",
                         }}  
                     >
-                        {/* <button
-                            type="button"
-                            className={periodType === PERIOD_TYPES.day ? "activePerBtn" : "periodButton"}
-                            onClick={() => handlePeriodTypeChange(PERIOD_TYPES.day)}
-                        >
-                            Day
-                        </button> */}
                         <PeriodToggleBtn
                             periodType={periodType}
                             btnPeriodType={PeriodTypeEnum.day}
@@ -75,7 +65,7 @@ const Scheduler: React.FC = ({
                             onPeriodChange={handlePeriodTypeChange}
                         />
                     </article>
-                </article>
+                </article> */}
                 <section 
                     className="schedulerWrapper"
                     style={{
@@ -86,16 +76,14 @@ const Scheduler: React.FC = ({
                     }}
                 >
                     <article style={{ textAlign: "center" }}>Homes</article>
-                    <SchedulerHeader periodType={periodType} selectedPeriod={selectedPeriod} />
+                    <SchedulerHeader periodType={periodType} selectedPeriod={currentDate} />
                     <SchedulerBody
                         periodType={periodType}
-                        resourcesWithFrames={homesWithMeetings}
-                        selectedPeriod={selectedPeriod}
+                        resourcesWithFrames={resourcesWithFrames}
+                        currentDate={currentDate}
                         handleDragEnd={handleDragEnd}
                         handleDragStart={handleDragStart}
-                        handleDragOver={handleDragOver}
                         handleDrop={handleDrop}
-                        handleCellClick={handleCellClick}
                     />
                 </section>
             </section>

@@ -1,4 +1,6 @@
-const FullFrame = ({ id, handleDragEnd, handleDragStart, startTime, endTime, index, frameText }) => {
+import { TimeFrameFactoryProps, TimeFrameProps } from "@/types/components";
+
+const FullFrame = ({ id, handleDragEnd, handleDragStart, startTime, endTime, index, frameText }: TimeFrameProps) => {
     const frames = endTime - startTime;
 
     return (
@@ -24,7 +26,7 @@ const FullFrame = ({ id, handleDragEnd, handleDragStart, startTime, endTime, ind
     );
 };
 
-const StartFrame = ({ id, handleDragEnd, handleDragStart, startTime, endTime, index, frameText }) => {
+const StartFrame = ({ id, handleDragEnd, handleDragStart, startTime, endTime, index, frameText }: TimeFrameProps) => {
     const frames = endTime;
     console.log(frames);
 
@@ -51,7 +53,7 @@ const StartFrame = ({ id, handleDragEnd, handleDragStart, startTime, endTime, in
     );
 };
 
-const EndFrame = ({ id, handleDragEnd, handleDragStart, startTime, endTime, index, frameText }) => {
+const EndFrame = ({ id, handleDragEnd, handleDragStart, startTime, endTime, index, frameText }: TimeFrameProps) => {
     const frames = 24 - startTime;
 
     return (
@@ -77,7 +79,7 @@ const EndFrame = ({ id, handleDragEnd, handleDragStart, startTime, endTime, inde
     );
 };
 
-const TimeFrame = ({ id, handleDragEnd, handleDragStart, startTime, endTime, index, frameText, frameType }) => {
+const TimeFrame = ({ id, handleDragEnd, handleDragStart, startTime, endTime, index, frameText, frameType }: TimeFrameFactoryProps) => {
     const TimeFrameComponent = frameType === "full" ? FullFrame : frameType === "start" ? StartFrame : EndFrame;
 
     return (
@@ -89,7 +91,6 @@ const TimeFrame = ({ id, handleDragEnd, handleDragStart, startTime, endTime, ind
             endTime={endTime}
             index={index}
             frameText={frameText}
-            frameType={frameType}
         />
     );
 };

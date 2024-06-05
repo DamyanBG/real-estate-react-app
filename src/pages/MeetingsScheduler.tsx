@@ -1,16 +1,17 @@
-import { useContext, useEffect, useState, Fragment, useRef } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { DateTime } from "luxon";
 
 import { getUserMeetings } from "../api/meetingApi";
 import { UserContext } from "../context/UserProvider";
 
 import styles from "./scheduler.module.scss";
-import { HOURS, WEEK_DAYS } from "../utils/utils";
-import SchedulerHeader from "../components/scheduler/SchedulerHeader";
-import SchedulerBody from "../components/scheduler/SchedulerBody";
-import PeriodSelect from "../components/scheduler/PeriodSelect";
-import Scheduler from "@/components/scheduler/Scheduler";
 import { PERIOD_TYPES } from "@/utils/enums";
+import { DraggedInfoRef, Period, PeriodTypeEnum, ResourcesWithFrames } from "@/types/types";
+// import Scheduler from "@/components/scheduler/Scheduler";
+
+import { Scheduler } from "react-simple-resources-scheduler";
+import "react-simple-resources-scheduler/dist/scheduler.css"
+// import "./scheduler.css"
 
 
 const formatMeeting = (meeting) => {
@@ -33,15 +34,28 @@ const defineMonthGridColumnsValue = (currentDate) => {
 const MeetingsScheduler = () => {
     const [homesWithMeetings, setHomesWithMeetings] = useState([]);
     const { user } = useContext(UserContext);
-    const [selectedPeriod, setSelectedPeriod] = useState(today);
-    const [periodType, setPeriodType] = useState(PERIOD_TYPES.day);
-    const draggedMeetingInfoRef = useRef(null);
+    const [currentDate, setCurrentDate] = useState<DateTime>(today);
+    const [periodType, setPeriodType] = useState<Period>(PeriodTypeEnum.day);
+    const draggedMeetingInfoRef = useRef<DraggedInfoRef>(null);
+
+    const resourcesWithFrames: ResourcesWithFrames = homesWithMeetings.map((homeWithMeeting => ({
+        id: homeWithMeeting.id,
+        title: homeWithMeeting.title,
+        timeFrames: homeWithMeeting.home_meetings.map((homeMeeting) => ({
+            id: homeMeeting.id,
+            startDateTime: homeMeeting.startDateTime,
+            endDateTime: homeMeeting.endDateTime,
+            text: homeMeeting.meeting_partner_names
+        }))
+    })))
+
+    console.log(homesWithMeetings)
 
     const gridTemplateColumnsValue = periodType === PERIOD_TYPES.day
         ? "2fr repeat(24, 1fr)"
         : periodType === PERIOD_TYPES.week
             ? "2fr repeat(7, 1fr)"
-            : defineMonthGridColumnsValue(selectedPeriod)
+            : defineMonthGridColumnsValue(currentDate)
 
     useEffect(() => {
         if (!user.token) return;
@@ -58,14 +72,7 @@ const MeetingsScheduler = () => {
         loadMeetings();
     }, [user.token]);
 
-    // console.table(homesWithMeetings);
-
-    const handleDragOver = (e) => {
-        e.preventDefault();
-        e.dataTransfer.dropEffect = "move";
-    };
-
-    const handleDrop = (i) => (e) => {
+    const handleDrop = (i: number) => (e: React.DragEvent<HTMLDivElement>) => {
         console.log(i)
         if (periodType === PERIOD_TYPES.day) {
             const { meetingId, draggedFrame } = draggedMeetingInfoRef.current;
@@ -74,7 +81,7 @@ const MeetingsScheduler = () => {
                 home_meetings: hm.home_meetings.map((meeting) => {
                     if (meeting.id === meetingId) {
                         const droppedOnHour = i;
-                        const isStartTimeInPeriod = meeting.startDateTime.hasSame(selectedPeriod, "day");
+                        const isStartTimeInPeriod = meeting.startDateTime.hasSame(currentDate, "day");
                         const startHour = isStartTimeInPeriod ? meeting.startDateTime.hour : 0;
                         const draggedFromHour = startHour + draggedFrame;
                         const difference = droppedOnHour - draggedFromHour;
@@ -149,13 +156,13 @@ const MeetingsScheduler = () => {
         }
     };
 
-    const handleDragStart = (meetingId, frames) => (e) => {
+    const handleDragStart = (meetingId: string | number, frames: number) => (e: React.DragEvent<HTMLDivElement>) => {
         setTimeout(() => {
-            e.target.classList.add(styles.hiddenFrame);
+            (e.target as Element).classList.add(styles.hiddenFrame);
         }, 0);
         e.dataTransfer.effectAllowed = "move";
         const relativeX = e.nativeEvent.offsetX;
-        const elWidth = e.target.clientWidth;
+        const elWidth = (e.target as Element).clientWidth;
 
         const frameWidth = elWidth / frames;
         const draggedFrame = Math.floor(relativeX / frameWidth);
@@ -166,45 +173,15 @@ const MeetingsScheduler = () => {
         draggedMeetingInfoRef.current = draggedInfo;
     };
 
-    const handleDragEnd = (e) => {
+    const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         draggedMeetingInfoRef.current = null;
-        e.target.classList.remove(styles.hiddenFrame);
+        (e.target as Element).classList.remove(styles.hiddenFrame);
     };
-
-    const handleCellClick = (e) => {
-        console.log(e);
-    };
-
-    const handleNextPeriodClick = () => {
-        if (periodType === PERIOD_TYPES.day) {
-            const newPeriod = selectedPeriod.plus({ days: 1 });
-            setSelectedPeriod(newPeriod);
-            return
-        }
-        if (periodType === PERIOD_TYPES.week) {
-            const newPeriod = selectedPeriod.plus({ days: 7 });
-            setSelectedPeriod(newPeriod);
-            return
-        }
-        const newPeriod = selectedPeriod.plus({ months: 1 });
-        setSelectedPeriod(newPeriod);
-    };
-
-    const handlePrevioustPeriodClick = () => {
-        if (periodType === PERIOD_TYPES.day) {
-            const newPeriod = selectedPeriod.minus({ days: 1 });
-            setSelectedPeriod(newPeriod);
-            return
-        }
-        if (periodType === PERIOD_TYPES.week) {
-            const newPeriod = selectedPeriod.minus({ days: 7 });
-            setSelectedPeriod(newPeriod);
-            return
-        }
-        const newPeriod = selectedPeriod.minus({ months: 1 });
-        setSelectedPeriod(newPeriod);
-    };
+ 
+    const handleDateChange = (newDate: DateTime) => {
+        setCurrentDate(newDate);
+    }
 
     const handlePeriodTypeChange = (newPeriodType) => {
         setPeriodType(newPeriodType)
@@ -214,18 +191,15 @@ const MeetingsScheduler = () => {
         <section className={styles.schedulerContainer}>
             <section className={styles.schedulerRow}>
                 <Scheduler
-                    selectedPeriod={selectedPeriod}
+                    currentDate={currentDate}
                     periodType={periodType}
-                    handlePrevioustPeriodClick={handlePrevioustPeriodClick}
-                    handleNextPeriodClick={handleNextPeriodClick}
+                    handleDateChange={handleDateChange}
                     handlePeriodTypeChange={handlePeriodTypeChange}
                     gridTemplateColumnsValue={gridTemplateColumnsValue}
-                    homesWithMeetings={homesWithMeetings}
+                    resourcesWithFrames={resourcesWithFrames}
                     handleDragEnd={handleDragEnd}
                     handleDragStart={handleDragStart}
-                    handleDragOver={handleDragOver}
                     handleDrop={handleDrop}
-                    handleCellClick={handleCellClick}
                 />
                 {/* <section className={styles.meetingsTable}>
                     <h2>Meetings List</h2>

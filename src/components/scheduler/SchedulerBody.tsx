@@ -1,9 +1,11 @@
 import { Fragment } from "react";
+import { DateTime } from "luxon"
 
 import TimeFrame from "./TimeFrame";
 import { PERIOD_TYPES } from "../../utils/enums";
+import { BodyFactoryProps, BodyProps, MonthDaysFrameProps, WeekDaysFrameProps } from "@/types/components";
 
-const WeekDaysFrame = ({ id, handleDragEnd, handleDragStart, startDateWeekdayNum, endDateWeekdayNum, index, frameText }) => {
+const WeekDaysFrame = ({ id, handleDragEnd, handleDragStart, startDateWeekdayNum, endDateWeekdayNum, index, frameText }: WeekDaysFrameProps) => {
     const frames = endDateWeekdayNum - startDateWeekdayNum;
     const gridColumnValue = `${startDateWeekdayNum + 2} / ${endDateWeekdayNum + 2}`
 
@@ -25,7 +27,7 @@ const WeekDaysFrame = ({ id, handleDragEnd, handleDragStart, startDateWeekdayNum
     );
 };
 
-const MonthDaysFrame = ({ id, handleDragEnd, handleDragStart, startDate, endDate, index, frameText }) => {
+const MonthDaysFrame = ({ id, handleDragEnd, handleDragStart, startDate, endDate, index, frameText }: MonthDaysFrameProps) => {
     const frames = endDate - startDate;
     const gridColumnValue = `${startDate + 2} / ${endDate + 2}`
 
@@ -54,13 +56,16 @@ const MonthDaysFrame = ({ id, handleDragEnd, handleDragStart, startDate, endDate
 
 const HoursBody = ({
     resourcesWithFrames,
-    selectedPeriod,
+    currentDate,
     handleDragEnd,
     handleDragStart,
-    handleDragOver,
     handleDrop,
-    handleCellClick
-}) => {
+}: BodyProps) => {
+    const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = "move";
+    };
+
     return (
         resourcesWithFrames.map((resourceWithFrames, rIndex) => {
             return (
@@ -75,13 +80,13 @@ const HoursBody = ({
                     >
                         {resourceWithFrames.title}
                     </article>
-                    {resourceWithFrames.home_meetings.map((meeting) => {
-                        const startTime = meeting.startDateTime.hour;
+                    {resourceWithFrames.timeFrames.map((timeFrame) => {
+                        const startTime = timeFrame.startDateTime.hour;
 
-                        const endTime = meeting.endDateTime.hour;
+                        const endTime = timeFrame.endDateTime.hour;
 
-                        const isStartTimeInPeriod = meeting.startDateTime.hasSame(selectedPeriod, "day");
-                        const isEndTimeInPeriod = meeting.endDateTime.hasSame(selectedPeriod, "day");
+                        const isStartTimeInPeriod = timeFrame.startDateTime.hasSame(currentDate, "day");
+                        const isEndTimeInPeriod = timeFrame.endDateTime.hasSame(currentDate, "day");
 
 
                         if (!isStartTimeInPeriod && !isEndTimeInPeriod) return;
@@ -90,14 +95,14 @@ const HoursBody = ({
                             isStartTimeInPeriod && isEndTimeInPeriod ? "full" : isStartTimeInPeriod ? "end" : "start";
                         return (
                             <TimeFrame
-                                key={meeting.id}
-                                id={meeting.id}
+                                key={timeFrame.id}
+                                id={timeFrame.id}
                                 handleDragEnd={handleDragEnd}
                                 handleDragStart={handleDragStart}
                                 startTime={startTime}
                                 endTime={endTime}
                                 index={rIndex}
-                                frameText={meeting.meeting_partner_names}
+                                frameText={timeFrame.text}
                                 frameType={frameType}
                             />
                         );
@@ -113,7 +118,6 @@ const HoursBody = ({
                             }}
                             onDragOver={handleDragOver}
                             onDrop={handleDrop(i)}
-                            onClick={handleCellClick}
                         />
                     ))}
                 </Fragment>
@@ -122,7 +126,7 @@ const HoursBody = ({
     )
 }
 
-const checkisInSameWeek = (dateToCheck, referenceDate) => {
+const checkisInSameWeek = (dateToCheck: DateTime, referenceDate: DateTime) => {
     const startOfWeek = referenceDate.startOf('week')
     const endOfWeek = referenceDate.endOf('week')
 
@@ -131,13 +135,16 @@ const checkisInSameWeek = (dateToCheck, referenceDate) => {
 
 const WeekDaysBody = ({
     resourcesWithFrames,
-    selectedPeriod,
+    currentDate,
     handleDragEnd,
     handleDragStart,
-    handleDragOver,
     handleDrop,
-    handleCellClick
-}) => {
+}: BodyProps) => {
+    const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = "move";
+    };
+
     return (
         resourcesWithFrames.map((resourceWithFrames, rIndex) => {
             return (
@@ -152,11 +159,11 @@ const WeekDaysBody = ({
                     >
                         {resourceWithFrames.title}
                     </article>
-                    {resourceWithFrames.home_meetings.map((meeting) => {
-                        const startDateTime = meeting.startDateTime
-                        const endDateTime = meeting.endDateTime
+                    {resourceWithFrames.timeFrames.map((timeFrame) => {
+                        const startDateTime = timeFrame.startDateTime
+                        const endDateTime = timeFrame.endDateTime
 
-                        const isInSameWeek = checkisInSameWeek(startDateTime, selectedPeriod)
+                        const isInSameWeek = checkisInSameWeek(startDateTime, currentDate)
                         if (!isInSameWeek) return;
 
                         const startDateWeekdayNum = startDateTime.weekday - 1
@@ -165,14 +172,14 @@ const WeekDaysBody = ({
 
                         return (
                             <WeekDaysFrame
-                                key={meeting.id}
-                                id={meeting.id}
+                                key={timeFrame.id}
+                                id={timeFrame.id}
                                 handleDragEnd={handleDragEnd}
                                 handleDragStart={handleDragStart}
                                 startDateWeekdayNum={startDateWeekdayNum}
                                 endDateWeekdayNum={endDateWeekdayNum}
                                 index={rIndex}
-                                frameText={meeting.meeting_partner_names}
+                                frameText={timeFrame.text}
                             />
                         );
                     })}
@@ -187,7 +194,6 @@ const WeekDaysBody = ({
                             }}
                             onDragOver={handleDragOver}
                             onDrop={handleDrop(i + 1)}
-                            onClick={handleCellClick}
                         />
                     ))}
                 </Fragment>
@@ -196,20 +202,23 @@ const WeekDaysBody = ({
     )
 }
 
-const checkIsInSameMonthAndYear = (date1, date2) => {
+const checkIsInSameMonthAndYear = (date1: DateTime, date2: DateTime) => {
     return date1.year === date2.year && date1.month === date2.month;
 }
 
 const MonthBody = ({
     resourcesWithFrames,
-    selectedPeriod,
+    currentDate,
     handleDragEnd,
     handleDragStart,
-    handleDragOver,
     handleDrop,
-    handleCellClick
-}) => {
-    const monthDays = selectedPeriod.daysInMonth
+}: BodyProps) => {
+    const monthDays = currentDate.daysInMonth
+
+    const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = "move";
+    };
 
     return (
         resourcesWithFrames.map((resourceWithFrames, rIndex) => {
@@ -225,11 +234,11 @@ const MonthBody = ({
                     >
                         {resourceWithFrames.title}
                     </article>
-                    {resourceWithFrames.home_meetings.map((meeting) => {
-                        const startDateTime = meeting.startDateTime
-                        const endDateTime = meeting.endDateTime
+                    {resourceWithFrames.timeFrames.map((timeFrame) => {
+                        const startDateTime = timeFrame.startDateTime
+                        const endDateTime = timeFrame.endDateTime
 
-                        const isInSameMonth = checkIsInSameMonthAndYear(startDateTime, selectedPeriod)
+                        const isInSameMonth = checkIsInSameMonthAndYear(startDateTime, currentDate)
                         if (!isInSameMonth) return;
 
                         const startDate = startDateTime.day - 1
@@ -238,14 +247,14 @@ const MonthBody = ({
 
                         return (
                             <MonthDaysFrame
-                                key={meeting.id}
-                                id={meeting.id}
+                                key={timeFrame.id}
+                                id={timeFrame.id}
                                 handleDragEnd={handleDragEnd}
                                 handleDragStart={handleDragStart}
                                 startDate={startDate}
                                 endDate={endDate}
                                 index={rIndex}
-                                frameText={meeting.meeting_partner_names}
+                                frameText={timeFrame.text}
                             />
                         );
                     })}
@@ -260,7 +269,6 @@ const MonthBody = ({
                             }}
                             onDragOver={handleDragOver}
                             onDrop={handleDrop(i + 1)}
-                            onClick={handleCellClick}
                         />
                     ))}
                 </Fragment>
@@ -272,23 +280,19 @@ const MonthBody = ({
 const SchedulerBody = ({
     periodType,
     resourcesWithFrames,
-    selectedPeriod,
+    currentDate,
     handleDragEnd,
     handleDragStart,
-    handleDragOver,
     handleDrop,
-    handleCellClick
-}) => {
+}: BodyFactoryProps) => {
     if (periodType === PERIOD_TYPES.day) {
         return (
             <HoursBody
                 resourcesWithFrames={resourcesWithFrames}
-                selectedPeriod={selectedPeriod}
+                currentDate={currentDate}
                 handleDragEnd={handleDragEnd}
                 handleDragStart={handleDragStart}
-                handleDragOver={handleDragOver}
                 handleDrop={handleDrop}
-                handleCellClick={handleCellClick}
             />
         )
     }
@@ -296,12 +300,10 @@ const SchedulerBody = ({
         return (
             <WeekDaysBody
                 resourcesWithFrames={resourcesWithFrames}
-                selectedPeriod={selectedPeriod}
+                currentDate={currentDate}
                 handleDragEnd={handleDragEnd}
                 handleDragStart={handleDragStart}
-                handleDragOver={handleDragOver}
                 handleDrop={handleDrop}
-                handleCellClick={handleCellClick}
             />
         )
     }
@@ -309,12 +311,10 @@ const SchedulerBody = ({
         return (
             <MonthBody
                 resourcesWithFrames={resourcesWithFrames}
-                selectedPeriod={selectedPeriod}
+                currentDate={currentDate}
                 handleDragEnd={handleDragEnd}
                 handleDragStart={handleDragStart}
-                handleDragOver={handleDragOver}
                 handleDrop={handleDrop}
-                handleCellClick={handleCellClick}
             />
         )
     }
