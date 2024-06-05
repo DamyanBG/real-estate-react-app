@@ -15,6 +15,8 @@ import SignUp from "./pages/user/SignUp";
 import Rent from "./pages/Rent";
 import Chat from "./pages/Chat";
 import Meeting from "./pages/Meeting";
+import GridLearn from "./pages/GridLearn";
+import MeetingsScheduler from "./pages/MeetingsScheduler";
 
 import "./App.scss";
 import "leaflet/dist/leaflet.css";
@@ -45,9 +47,11 @@ function App() {
                             <Route path="/meeting">
                                 <Route path=":meetingPartnerId/:homeId" element={<Meeting />} />
                             </Route>
+                            <Route path="/meetings-scheduler" element={<MeetingsScheduler />} />
                             <Route path="/signin" element={<SignIn />} />
                             <Route path="/signup" element={<SignUp />} />
                             <Route path="/rent" element={<Rent />} />
+                            <Route path="/grid" element={<GridLearn />} />
                         </Routes>
                         <ToastContainer />
                     </main>

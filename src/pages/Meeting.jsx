@@ -19,9 +19,9 @@ const Meeting = () => {
             {}
         )
     );
-    const [isSubmitting, setIsSubmitting] = useState(false)
-    const { homeId, meetingPartnerId } = useParams()
-    const { user } = useContext(UserContext)
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const { homeId, meetingPartnerId } = useParams();
+    const { user } = useContext(UserContext);
 
     const handleValidate = (e) => {
         const valError = validateField(e.target.type, e.target.value);
@@ -41,24 +41,25 @@ const Meeting = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsSubmitting(true)
+        setIsSubmitting(true);
         const postBody = {
             ...meetingInfo,
             invitor_id: user.id,
             invited_id: meetingPartnerId,
-        }
+            home_id: homeId,
+        };
         try {
-            const resp = await postMeeting(postBody, user.token)
+            const resp = await postMeeting(postBody, user.token);
             if (resp.status === 400) {
-                const errors = await resp.json()
-                console.log(errors)
+                const errors = await resp.json();
+                console.log(errors);
             }
-            const json = await resp.json()
-            console.log(json)
+            const json = await resp.json();
+            console.log(json);
         } catch {
-            console.log("Internal error!")
+            console.log("Internal error!");
         } finally {
-            setIsSubmitting(false)
+            setIsSubmitting(false);
         }
     };
 
@@ -70,7 +71,8 @@ const Meeting = () => {
         handleValidate(e);
     };
 
-    const isButtonDisabled = Object.keys(validationErrors).length || isSubmitting
+    const isButtonDisabled =
+        Object.keys(validationErrors).length || isSubmitting;
 
     return (
         <section className={styles.mainSection}>
@@ -91,9 +93,7 @@ const Meeting = () => {
                         />
                     ))}
                     submitButton={
-                        <FormSubmitButton
-                            disabled={isButtonDisabled}
-                        />
+                        <FormSubmitButton disabled={isButtonDisabled} />
                     }
                     formHeaderText="Request Meeting With Seller"
                 />

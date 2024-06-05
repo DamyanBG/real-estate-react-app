@@ -1,0 +1,60 @@
+.periodButton {
+    width: 30%;
+    background: rgb(58, 195, 241);
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.periodButton:hover {
+    background: rgba(58, 195, 241, 0.481);
+}
+
+.periodButton:active {
+    scale: 0.9;
+}
+
+.activePerBtn {
+    width: 30%;
+    border-radius: 12px;
+    transition: 0.3s;
+    background: rgb(248, 95, 107) !important;
+}
+
+.activePerBtn:hover {
+    background: rgba(248, 95, 108, 0.627) !important;
+}
+
+.activePerBtn:active {
+    scale: 0.9;
+}
+
+.schedulerWrapper {
+    gap: 2px;
+    background: lightgray;
+
+    * {
+        background: white;
+    }
+}
+
+.timeFrame {
+    border-radius: 12px;
+    padding-left: 12px;
+    overflow: hidden;
+}
+
+.startTimeFrame {
+    border-radius: 0 12px 12px 0;
+    padding-left: 12px;
+    overflow: hidden;
+}
+
+.endTimeFrame {
+    border-radius: 12px 0 0 12px;
+    padding-left: 12px;
+    overflow: hidden;
+}
+
+.hiddenFrame {
+    z-index: -99 !important;
+}
